@@ -1,0 +1,17 @@
+
+div#divButtons{
+    display: flex;
+}
+
+fieldset#f1{
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+form{
+    margin: 10px;
+}
+
+form input{
+    padding: 10px;
+}

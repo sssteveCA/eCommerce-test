@@ -1,0 +1,8 @@
+
+form#fRecupera>div{
+    margin: 10px;
+}
+
+form#fRecupera>div *{
+    margin-right: 5px;
+}

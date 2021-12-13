@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title>Menu</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="utente.css" type="text/css">
+    </head>
+    <body>
+        <div id="container">
+            <div id="menu">
+                    <div id="welcome">Benvenuto <!--<?php echo $_SESSION['welcome']; ?> --></div>
+                    <div id="profilo">
+                        Profilo
+                        <div>
+                            <a href="info.php">Informazioni</a>
+                            <a href="edit.php">Modifica</a>
+                        </div>
+                    </div>
+                    <div id="ordini"><a href="ordini.php">I miei ordini</a></div>
+                    <div id="prodotto">
+                        Prodotto
+                        <div>
+                            <a href="benvenuto.php">Cerca</a>
+                            <a href="#">Crea inserzione</a>
+                        </div>
+                    </div>
+                    <div id="contatti"><a href="contatti.php">Contatti</a></div>
+                    <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
+            </ul>
+        </div>
+    </body>
+</html>

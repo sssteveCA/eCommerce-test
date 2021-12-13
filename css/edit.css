@@ -1,0 +1,25 @@
+
+div#container2{
+    margin-top: 70px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+form div{
+    margin: 5px;
+}
+
+h1{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+input[type=submit],input[type=reset]{
+    padding: 10px;
+}
+
+input[type=text],input[type=password]{
+    width: 300px;
+}

@@ -1,0 +1,32 @@
+div{
+    margin-bottom: 10px;
+}
+
+div#f1d2 *{
+    display: block;
+}
+
+form#fAvanzata{
+    position: absolute;
+}
+
+form#fAvanzata{
+    top: 70px;
+    left: 100px;
+}
+
+input#pChiave{
+    width: 600px;
+    padding: 5px;
+}
+
+div#divButtons{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div#divButtons input{
+    margin: 10px;
+    padding: 5px;
+}

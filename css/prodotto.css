@@ -1,0 +1,64 @@
+
+
+div#immagine, div#dInfo1{
+    width: 49%;
+    min-width: 400px;
+}
+
+div#immagine{
+    height: 300px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+div#container1{
+    margin-top: 70px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.info, div.container{
+    margin: 5px;
+}
+
+div#descrizione{
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset div{
+    margin: 10px;
+}
+
+form#formMail,form#formMail>div{
+    width: 100%;
+}
+
+form#formMail>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form#formMail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+input[type=text]{
+    width: 70%;
+    min-width: 300px;
+}
+
+textarea#messaggio{
+    height: 200px;
+    width: 70%;
+    min-width: 300px;
+    resize: none;
+}

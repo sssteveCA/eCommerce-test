@@ -1,0 +1,34 @@
+
+form#formReg{
+    padding-top: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+form#formReg>div{
+    margin: 15px;
+}
+
+form#formReg input{
+    margin: 5px;
+}
+
+form#formReg label{
+    margin: 5px;
+}
+
+div#indietro{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+}
+
+img{
+    width: 60px;
+    height: 60px;
+}

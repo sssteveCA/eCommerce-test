@@ -1,0 +1,45 @@
+
+table{
+    border-collapse: collapse;
+}
+
+td, th{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+div#ordiniT{
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    overflow: auto;
+    width: 100%;
+    min-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+td.tQuantita *{
+    display: block;
+}
+
+input.iQuantita{
+    width: 75px;
+    position: relative;
+    top: -5px;
+}
+
+input.bQuantita{
+    position: relative;
+    top: 5px;
+    width: 83px;
+}
+
+/*th#ultima{
+    display: none;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}*/
