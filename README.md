@@ -1,2 +1,2 @@
 # eCommerce-simulator
-Questo progetto è una prova di e-commerce in server locale, che permette agli utenti registrati di scegliere uno o più prodotti disponibili, caricati da altri utenti e  tramite Paypal sandbox di effettuare pagamenti fittizi tra i vari account
+This project is a test of e-commerce on a local server, which allows registered users to choose one or more available products, uploaded by other users and via Paypal sandbox to make fictitious payments between the various accounts.
