@@ -1,7 +1,9 @@
 <?php
 
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\Messages as Msg;
 
+require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
@@ -102,24 +104,24 @@ HTML;
                         }
                     }//if(!$paypalOk){
                     else{
-                        $risposta['msg'] = 'La mail business non è valida';
+                        $risposta['msg'] = Msg::ERR_EMAILBUSINESSINVALID;
                     }
                 }// if(preg_match($regex,$dati['email'])){
                 else{
-                    $risposta['msg'] = 'La mail che hai inserito non è valida';
+                    $risposta['msg'] = Msg::ERR_EMAILINVALID;
                 }
             }//if((strcasecmp($dati['sesso'],'M') == 0)||(strcasecmp($dati['sesso'],'F') == 0)){
             else{
-                $risposta['msg'] = 'Il genere inserito non è valido';
+                $risposta['msg'] = Msg::ERR_GENDERINVALID;
             }
             
         }//if($dataCorretta){
         else{
-            $risposta['msg'] = 'La data inserita non è valida';
+            $risposta['msg'] = Msg::ERR_DATEINVALID;
         }
         //redirect alla pagina per loggarsi se la registrazione ha avuto successo
         if($regOk){
-            $risposta['msg'] = 'Registrazione completata con successo,<br>attiva l\' account accedendo alla tua casella di posta';
+            $risposta['msg'] = Msg::SUBSCRIBECOMPLETED;
             if(!$ajax)
                 header('refresh:10;url=../accedi.php');
             
@@ -130,7 +132,7 @@ HTML;
         }
 }//if(isset($_POST['nome'],$_POST['cognome'],$_POST['nascita'],$_POST['sesso'],$_POST['indirizzo'],$_POST['numero'],$_POST['citta'],$_POST['cap'],$_POST['email'],$_POST['user'],$_POST['password'])){
 else{
-    if($ajax)$risposta['msg'] = 'Uno o più campi obbligatori non sono stati compilati';
+    if($ajax)$risposta['msg'] = Msg::ERR_REQUIREDFIELDSNOTFILLED;
     $risposta['msg'] = 'Compila correttamente il form alla pagina <a href="../registrati.php">form</a> per eseguire questo script';
 }
 if($ajax)echo json_encode($risposta);

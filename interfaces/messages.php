@@ -14,15 +14,20 @@ interface Messages{
     const PERSONALDATAUPDATED = 'Dati personali aggiornati con successo';
     const PRODDELETED = 'Prodotto cancellato';
     const PWDUPDATED = 'Password aggiornata';
+    const SUBSCRIBECOMPLETED = 'Registrazione completata con successo, attiva l\' account accedendo alla tua casella di posta';
     const USERUPDATED = 'Username aggiornato';
    
     //error messages
     const ERR_ACTIVEACCOUNT = 'Attiva l\'account per poter accedere';
     const ERR_ALREALDYCART = 'Il prodotto selezionato è già presente nel carrello';
+    const ERR_DATEINVALID = 'La data inserita non è valida';
+    const ERR_EMAILBUSINESSINVALID = 'La mail business non è valida';
+    const ERR_EMAILINVALID = 'La mail che hai inserito non è valida';
+    const ERR_EMAILINSERT = 'Inserisci un indirizzo mail';
     const ERR_EMAILSENDING1 = 'Errore durante l\' invio della mail';
     const ERR_EMAILSENDING2 = 'C\'è stato un errore durante l\'invio della mail. Riprova più tardi';
     const ERR_FORMINVALIDVALUE = 'Nessun valore valido inserito nel form';
-    const ERR_EMAILINSERT = 'Inserisci un indirizzo mail';
+    const ERR_GENDERINVALID = 'Il genere inserito non è valido';
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
     const ERR_INVALIDOPERATION = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
@@ -35,6 +40,7 @@ interface Messages{
     const ERR_PWDCONFDIFFERENT = 'La password da sostituire non coincide con quella attuale';
     const ERR_PWDCURRENTWRONG = 'password attuale non corretta';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
+    const ERR_REQUIREDFIELDSNOTFILLED = 'Uno o più campi obbligatori non sono stati compilati';
     const ERR_UNKNOWN = 'Errore sconosciuto';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';
     const ERR_USERPWDWRONG = 'Email o password non corretti';
