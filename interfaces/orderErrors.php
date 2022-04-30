@@ -14,6 +14,10 @@ interface OrderErrors{
     const IDNOTEXISTS = 6;
     const NOTDELETEDCART = 7;
 
+    //exceptions string constants
+    const EXC_TABLECREATION = "Errore nella creazione dela tabella";
+    const EXC_INVALIDDATA = "I dati forniti non sono validi";
+
     //string constants
     const MSG_INFONOTGETTED = "Impossibile ottenere le informazioni sull'ordine dal database MySql";
     const MSG_QUERYERROR = "Query errata";

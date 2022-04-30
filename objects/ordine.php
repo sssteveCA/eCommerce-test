@@ -1,5 +1,9 @@
 <?php
 
+namespace EcommerceTest\Objects;
+
+use EcommerceTest\interfaces\OrderErrors as Oe;
+
 define("ORDINEERR_INFONOTGETTED","1");
 define("ORDINEERR_QUERYERROR","2");
 define("ORDINEERR_DATANOTINSERTED","3");
@@ -18,7 +22,7 @@ if (! function_exists("array_key_last")) {
     }
 }
 
-class Ordine{
+class Ordine implements Oe{
     private $mysqlTable;
     private $h;
     private $connesso;
@@ -45,15 +49,15 @@ class Ordine{
         $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:MYSQLPASS;
         $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:MYSQLDB;
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:MYSQLTABORD;
-        $this->h = new mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
+        $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
-            throw new Exception("Connessione a MySql fallita: ".$this->h->connect_error);
+            throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);
         }
         $this->h->set_charset("utf8mb4");
         $this->connesso = true;
         $this->createDb();
         if($this->createTab() === false){
-            throw new Exception("Errore nella creazione dela tabella");
+            throw new \Exception("Errore nella creazione dela tabella");
         }
         $this->querySql = '';
         $this->queries = array();
@@ -77,7 +81,7 @@ class Ordine{
                 $this->carrello = '0'; //non aggiunto al carrello
                 $this->insertOrdine();
             }
-            else throw new Exception("I dati forniti non sono validi");
+            else throw new \Exception("I dati forniti non sono validi");
         }
 
     }//public function __construct($ingresso){
@@ -282,7 +286,7 @@ SQL;
     $tabClienti = tabella con la lista delle persone registrate */
     public static function getIdList($host,$username,$password,$database,$tabOrdini,$tabClienti,$user){
         Ordine::$idList = array();
-        $handle = new mysqli($host,$username,$password,$database);
+        $handle = new \mysqli($host,$username,$password,$database);
         if($handle->connect_errno === 0){
             $handle->set_charset("utf8mb4");
             //$queryE = $handle->real_escape_string($query);
