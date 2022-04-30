@@ -14,6 +14,7 @@ interface Messages{
     const USERUPDATED = 'Username aggiornato';
    
     //error messages
+    const ERR_ACTIVEACCOUNT = 'Attiva l\'account per poter accedere';
     const ERR_ALREALDYCART = 'Il prodotto selezionato è già presente nel carrello';
     const ERR_FORMINVALIDVALUE = 'Nessun valore valido inserito nel form';
     const ERR_INVALIDOPERATION = 'Operazione specificata non valida';
@@ -26,6 +27,8 @@ interface Messages{
     const ERR_PWDCONFDIFFERENT = 'La password da sostituire non coincide con quella attuale';
     const ERR_PWDCURRENTWRONG = 'password attuale non corretta';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
+    const ERR_UNKNOWN = 'Errore sconosciuto';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';
+    const ERR_USERPWDWRONG = 'Email o password non corretti';
 }
 ?>

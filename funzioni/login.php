@@ -1,9 +1,11 @@
 <?php
 
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\Messages as Msg;
 
 ob_start();
 session_start();
+require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
@@ -32,15 +34,15 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
             header('location: ../benvenuto.php');
         }
         else if($err == 1){
-            echo 'Email o password non corretti<br>';
+            echo Msg::ERR_USERPWDWRONG.'<br>';
             header('refresh:7;url=../accedi.php');
         }
         else if($err == 2){
-            echo 'Attiva l\'account per poter accedere<br>';
+            echo Msg::ERR_ACTIVEACCOUNT.'<br>';
             header('refresh:10;url=../accedi.php');
         }
         else{
-            echo 'Errore sconosciuto<br>';
+            echo Msg::ERR_UNKNOWN.'<br>';
         }
     }
     catch(Exception $e){
