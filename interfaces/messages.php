@@ -36,6 +36,8 @@ interface Messages{
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
     const ERR_INVALIDOPERATION1 = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
+    const ERR_MYSQLCONN = 'Errore durante la connessione a MySql';
+    const ERR_MYSQLQUERY = 'Query errata';
     const ERR_NOTLOGGED = 'Non sei collegato';
     const ERR_NOOPERATION = 'Nessuna operazione selezionata';
     const ERR_ORDERALREALDYCART = 'Ordine già presente nel carrello';
@@ -52,6 +54,7 @@ interface Messages{
     const ERR_PWDNOTEQUAL = 'Le due password non coincidono';
     const ERR_PWDNOTSETTED = 'Nessuna password impostata';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
+    const ERR_PWDWRONG = 'Password errata';
     const ERR_REQUIREDFIELDSNOTFILLED = 'Uno o più campi obbligatori non sono stati compilati';
     const ERR_UNKNOWN = 'Errore sconosciuto';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';

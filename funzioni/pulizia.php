@@ -1,15 +1,23 @@
 <?php
+
+use EcommerceTest\Interfaces\MySqlVals as Mv;
+use EcommerceTest\Interfaces\Messages as Msg;
+
 ob_start();
+
 require_once('config.php');
+require_once('../interfaces/messages.php');
+require_once('../interfaces/mysqlVals.php');
+
 $regex = '/^[a-z0-9]{1,64}$/i';
 $time = time();
 if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
     if($_REQUEST['password'] == $passwordPulizia){
         //apro la connessione al server MySQL
-        $h = new mysqli('localhost','root','','stefano');
+        $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
         //errore
         if($h->connect_errno){
-            $mess = 'Errore durante la connessione a MySql';
+            $mess = Msg::ERR_MYSQLCONN;
         }
         else{
             $h->set_charset("utf8mb4");
@@ -22,17 +30,17 @@ SQL;
                 $mess = $h->affected_rows.' righe pulite';
             }
             else{
-                $mess = 'Query errata';
+                $mess = Msg::ERR_MYSQLQUERY;
             }
             $h->close();
-        }
-    }
+        }//else di if($h->connect_errno){
+    }//if($_REQUEST['password'] == $passwordPulizia){
     else{
-        $mess = 'Password errata';
+        $mess = Msg::ERR_PWDWRONG;
     }
-}
+}//if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
 else{
-    $mess = 'Codice non valido';
+    $mess = Msg::ERR_CODEINVALD;
 }
 $f=fopen('log.txt', 'a');
 fwrite($f, date('r', $time).': '.$mess."\r\n");
