@@ -1,7 +1,14 @@
 <?php
+
+use EcommerceTest\Objects\Utente;
+
 session_start();
+
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('../objects/utente.php');
 require_once('const.php');
+
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $risposta = array();

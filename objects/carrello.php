@@ -1,6 +1,8 @@
 <?php
 //require_once('../funzioni/config.php');
 
+namespace EcommerceTest\Objects;
+
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 
 class Carrello implements Mv{

@@ -1,8 +1,16 @@
 <?php
+
+use EcommerceTest\Objects\Prodotto;
+
 session_start();
+require_once('../interfaces/productErrors.php');
+require_once('../interfaces/productsVals.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
 require_once('../objects/prodotto.php');
-require_once('../objects/utente.php');
+//require_once('../objects/utente.php');
+
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

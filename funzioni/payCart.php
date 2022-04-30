@@ -1,4 +1,10 @@
 <?php
+
+use EcommerceTest\Objects\Ordine;
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Objects\Carrello;
+
 ob_start();
 session_start();
 require_once('../objects/carrello.php');

@@ -1,6 +1,10 @@
 <?php
 
+use EcommerceTest\Objects\Utente;
+
 session_start();
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
 require_once('../objects/utente.php');
 require('const.php');

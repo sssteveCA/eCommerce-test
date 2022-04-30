@@ -1,4 +1,9 @@
 <?php
+
+use EcommerceTest\Objects\Utente;
+
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
 require_once('../objects/utente.php');
 ob_start();

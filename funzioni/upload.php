@@ -1,4 +1,9 @@
 <?php
+
+use EcommerceTest\Objects\Prodotto;
+
+require_once('../interfaces/productErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
 require_once('../objects/prodotto.php');
 require_once('const.php');
