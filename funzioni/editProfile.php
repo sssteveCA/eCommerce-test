@@ -1,6 +1,7 @@
 <?php
 
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\UserErrors as Ue;
 
 session_start();
 
