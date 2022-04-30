@@ -123,7 +123,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         if(!$presente){
                             $okAdd = $ordine->addToCart($utente->getUsername());
                             if($okAdd){
-                                $risposta['msg'] = Msg::ORDERADDED;
+                                $risposta['msg'] = Msg::ORDERADDEDCART;
                             }
                             else{
                                 $risposta['msg'] = $ordine->getStrError().'<br>';
@@ -155,7 +155,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     if($ordine->getNumError() == 0){
                         $okDel = $ordine->delFromCart($utente->getUsername());
                         if($okDel){
-                            $risposta['msg'] = Msg::ORDERDELETED;
+                            $risposta['msg'] = Msg::ORDERDELETEDCART;
                             $risposta['del'] = '1';
                         }
                         else{

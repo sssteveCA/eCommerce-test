@@ -6,8 +6,8 @@ namespace EcommerceTest\Interfaces;
 interface Messages{
 
     //success messages
-    const ORDERADDED = 'Ordine aggiunto al carrello';
-    const ORDERDELETED = 'Ordine eliminato dal carrello';
+    const ORDERADDEDCART = 'Ordine aggiunto al carrello';
+    const ORDERDELETEDCART = 'Ordine eliminato dal carrello';
     const PERSONALDATAUPDATED = 'Dati personali aggiornati con successo';
     const PRODDELETED = 'Prodotto cancellato';
     const PWDUPDATED = 'Password aggiornata';
