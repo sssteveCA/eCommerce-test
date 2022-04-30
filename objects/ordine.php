@@ -4,14 +4,6 @@ namespace EcommerceTest\Objects;
 
 use EcommerceTest\interfaces\OrderErrors as Oe;
 
-define("ORDINEERR_INFONOTGETTED","1");
-define("ORDINEERR_QUERYERROR","2");
-define("ORDINEERR_DATANOTINSERTED","3");
-define("ORDINEERR_DATANOTDELETED","4");
-define("ORDINEERR_NOTADDEDCART","5");
-define("ORDINEERR_IDNOTEXISTS","6");
-define("ORDINEERR_NOTDELETEDCART","7");
-
 if (! function_exists("array_key_last")) {
     function array_key_last($array) {
         if (!is_array($array) || empty($array)) {
@@ -57,7 +49,7 @@ class Ordine implements Oe{
         $this->connesso = true;
         $this->createDb();
         if($this->createTab() === false){
-            throw new \Exception("Errore nella creazione dela tabella");
+            throw new \Exception(Oe::EXC_TABLECREATION);
         }
         $this->querySql = '';
         $this->queries = array();
@@ -81,7 +73,7 @@ class Ordine implements Oe{
                 $this->carrello = '0'; //non aggiunto al carrello
                 $this->insertOrdine();
             }
-            else throw new \Exception("I dati forniti non sono validi");
+            else throw new \Exception(Oe::EXC_INVALIDDATA);
         }
 
     }//public function __construct($ingresso){
@@ -122,26 +114,26 @@ class Ordine implements Oe{
     public function getNumError(){return $this->numError;}
     public function getStrError(){
         switch($this->numError){
-            case 0:
-                $this->strError = null;
+            case Oe::INFONOTGETTED:
+                $this->strError = Oe::MSG_INFONOTGETTED;
                 break;
-            case ORDINEERR_INFONOTGETTED:
-                $this->strError = "Impossibile ottenere le informazioni sull'ordine dal database MySql";
+            case Oe::QUERYERROR:
+                $this->strError = Oe::MSG_QUERYERROR;
                 break;
-            case ORDINEERR_QUERYERROR:
-                $this->strError = "Query errata";
+            case Oe::DATANOTINSERTED:
+                $this->strError = Oe::MSG_DATANOTINSERTED;
                 break;
-            case ORDINEERR_DATANOTINSERTED:
-                $this->strError = "Errore durante l'inserimento dei dati nella tabella MySql";
+            case Oe::DATANOTDELETED:
+                $this->strError = Oe::MSG_DATANOTDELETED;
                 break;
-            case ORDINEERR_DATANOTDELETED:
-                $this->strError = "Nessun ordine cancellato";
+            case Oe::NOTADDEDCART:
+                $this->strError = Oe::MSG_NOTADDEDCART;
                 break;
-            case ORDINEERR_NOTADDEDCART:
-                $this->strError = "Nessun ordine aggiunto al carrello";
+            case Oe::IDNOTEXISTS:
+                $this->strError = Oe::MSG_IDNOTEXISTS;
                 break;
-            case ORDINEERR_IDNOTEXISTS:
-                $this->strError = "Id nell'oggetto Ordine non presente";
+            case Oe::NOTDELETEDCART:
+                $this->strError = Oe::MSG_NOTDELETEDCART;
                 break;
             default:
                 $this->strError = null;
@@ -198,7 +190,7 @@ SQL;
             }//if($show->num_rows == 1){
         }//if($show){  
         else{
-            $this->numError = ORDINEERR_QUERYERROR;
+            $this->numError = Oe::QUERYERROR;
             $ok = false;
         }  
         return $ok;
@@ -217,11 +209,11 @@ SQL;
                     $this->carrello = '1';
                     $ok = true;
                 }
-                else $this->numError = ORDINEERR_NOTADDEDCART; //nessun ordine aggiunto al carrello
+                else $this->numError = Oe::NOTADDEDCART; //nessun ordine aggiunto al carrello
             }
-            else $this->numError = ORDINEERR_QUERYERROR; //Query errata    
+            else $this->numError = Oe::QUERYERROR; //Query errata    
         }
-        else $this->numError = ORDINEERR_IDNOTEXISTS; //Id nell'oggetto Ordine non presente
+        else $this->numError = Oe::IDNOTEXISTS; //Id nell'oggetto Ordine non presente
         return $ok;
     }
 
@@ -238,11 +230,11 @@ SQL;
                 if($this->h->affected_rows > 0){
                     $ok = true;
                 }
-                else $this->numError = ORDINEERR_DATANOTDELETED; //Nessun ordine cancellato
+                else $this->numError = Oe::DATANOTDELETED; //Nessun ordine cancellato
             } 
-            else $this->numError = ORDINEERR_QUERYERROR; //Query errata               
+            else $this->numError = Oe::QUERYERROR; //Query errata               
         }//if(isset($this->id)){
-        else $this->numError = ORDINEERR_IDNOTEXISTS; //Id nell'oggetto Ordine non presente
+        else $this->numError = Oe::IDNOTEXISTS; //Id nell'oggetto Ordine non presente
         return $ok;
     }
 
@@ -260,11 +252,11 @@ SQL;
                     $this->carrello = '0';
                     $ok = true;
                 }
-                else $this->numError = ORDINEERR_NOTDELETEDCART; //nessun ordine cancellato dal carrello
+                else $this->numError = Oe::NOTDELETEDCART; //nessun ordine cancellato dal carrello
             }
-            else $this->numError = ORDINEERR_QUERYERROR; //Query errata  
+            else $this->numError = Oe::QUERYERROR; //Query errata  
         }//if(isset($this->id)){
-        else $this->numError = ORDINEERR_IDNOTEXISTS; //Id nell'oggetto Ordine non presente
+        else $this->numError = Oe::IDNOTEXISTS; //Id nell'oggetto Ordine non presente
         return $ok;
     }
     
@@ -339,12 +331,12 @@ SQL;
                     $this->carrello = $ordine['carrello'];
                     //var_dump($this->carrello);
                 }
-                else $this->numError = ORDINEERR_INFONOTGETTED; //Impossibile ottenere le informazioni sull'ordine dal database MySql
+                else $this->numError = Oe::INFONOTGETTED; //Impossibile ottenere le informazioni sull'ordine dal database MySql
                 $r->free();
             }//if($r){
-            else $this->numError = ORDINEERR_QUERYERROR; //Query errata
+            else $this->numError = Oe::QUERYERROR; //Query errata
         }//if(isset($this->id)){
-        else $this->numError = ORDINEERR_IDNOTEXISTS; //Id nell'oggetto Ordine non presente
+        else $this->numError = Oe::IDNOTEXISTS; //Id nell'oggetto Ordine non presente
         return $ok;
     }
 
@@ -365,10 +357,10 @@ SQL;
                         $this->id = $this->h->insert_id;
                         $ok = true;
             }
-            else $this->numError = ORDINEERR_DATANOTINSERTED; //Errore durante l'inserimento dei dati nella tabella MySql
+            else $this->numError = Oe::DATANOTINSERTED; //Errore durante l'inserimento dei dati nella tabella MySql
         }
         else{
-            $this->numError = ORDINEERR_QUERYERROR; //Query errata
+            $this->numError = Oe::QUERYERROR; //Query errata
             $this->mysqlError = $this->h->error;
         } 
         return $ok;
@@ -391,7 +383,7 @@ SQL;
             $ok = true;
         }
         else{
-            $this->numError = ORDINEERR_QUERYERROR; //Query errata
+            $this->numError = Oe::QUERYERROR; //Query errata
             $this->mysqlError = $this->h->error;
         }
         return $ok;
