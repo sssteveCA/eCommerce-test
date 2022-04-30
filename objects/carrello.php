@@ -18,7 +18,7 @@ class Carrello implements Mv{
     public static function getCartIdos($user){
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
-        $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+        $h = new \mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
         if($h->connect_errno === 0){
             $h->set_charset("utf8mb4");
             $oTable = Mv::TABORD;

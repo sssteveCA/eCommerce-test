@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('../interfaces/messages.php');
 require_once('../interfaces/orderErrors.php');
 require_once('../interfaces/productErrors.php');
 require_once('../interfaces/userErrors.php');
@@ -12,6 +13,7 @@ require_once('paypalConfig.php');
 require_once('config.php');
 require_once('const.php');
 
+use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
@@ -121,7 +123,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         if(!$presente){
                             $okAdd = $ordine->addToCart($utente->getUsername());
                             if($okAdd){
-                                $risposta['msg'] = 'Ordine aggiunto al carrello';
+                                $risposta['msg'] = Msg::ORDERADDED;
                             }
                             else{
                                 $risposta['msg'] = $ordine->getStrError().'<br>';
@@ -129,7 +131,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                             }
                         }
                         else{
-                            $risposta['msg'] = 'Il prodotto selezionato è già presente nel carrello';   
+                            $risposta['msg'] = Msg::ERR_ALREALDYCART;   
                         }
                     }
                     else{
@@ -142,7 +144,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
             }
-            else $risposta['msg'] = "Impossibile aggiungere l' ordine al carrello perché uno o più dati passati non sono validi";
+            else $risposta['msg'] = Msg::ERR_ORDERINVALIDDATA;
         }
         //elimino un ordine del carrello
         else if($_POST['oper'] == '3'){
@@ -153,7 +155,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     if($ordine->getNumError() == 0){
                         $okDel = $ordine->delFromCart($utente->getUsername());
                         if($okDel){
-                            $risposta['msg'] = 'Ordine eliminato dal carrello';
+                            $risposta['msg'] = Msg::ORDERDELETED;
                             $risposta['del'] = '1';
                         }
                         else{
@@ -171,11 +173,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
             }
-            else $risposta['msg'] = "Impossibile eliminare l' ordine dal carrello perché l'id non è valido";
+            else $risposta['msg'] = Msg::ERR_ORDERDELETEINVALIDID;
             
         }
         else{
-            $risposta['msg'] = 'Operazione specificata non valida';
+            $risposta['msg'] = Msg::ERR_INVALIDOPERATION;
         }
     }
 
