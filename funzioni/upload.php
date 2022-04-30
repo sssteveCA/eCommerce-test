@@ -1,7 +1,9 @@
 <?php
 
 use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Interfaces\Messages as Msg;
 
+require_once('../interfaces/messages.php');
 require_once('../interfaces/productErrors.php');
 require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
@@ -27,7 +29,7 @@ if(isset($_POST['idU'],$_POST['nome'],$_POST['tipo'],$_POST['prezzo'],$_POST['sp
             try{
                 $prodotto = new Prodotto($dati);
                 if($prodotto->getNumError() == 0){
-                    $risposta['msg'] = 'Inserzione caricata correttamente';
+                    $risposta['msg'] = Msg::INSERTIONUPLOADED;
                     $risposta['ok'] = '1';
                 }
                 else{
@@ -37,14 +39,14 @@ if(isset($_POST['idU'],$_POST['nome'],$_POST['tipo'],$_POST['prezzo'],$_POST['sp
             catch(Exception $e){
                 $risposta['msg'] = $e->getMessage();
             }
-        }
+        }//if($_FILES['immagine']['error'] == 0){
         else{
-            $risposta['msg'] = "Il file caricato non è un' immagine JPEG";
+            $risposta['msg'] = Msg::ERR_INSERTIONNOTIMAGE;
         }
     }
     else{
-        $risposta['msg'] = "Il file non è stato caricato";
+        $risposta['msg'] = Msg::ERR_INSERTIONFILENOTUPLOADED;
     }
-}
+}//if(isset($_POST['idU'],$_POST['nome'],$_POST['tipo'],$_POST['prezzo'],$_POST['spedizione'],$_POST['condizione'],$_POST['stato'],$_POST['citta'],$_POST['descrizione'])){
 echo json_encode($risposta);
 ?>

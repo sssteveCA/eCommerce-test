@@ -10,6 +10,7 @@ interface Messages{
     const EMAILRECOVERY = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
     const EMAILSENT1 = 'La mail è stata inviata correttamente al venditore';
     const EMAILSENT2 = 'Grazie per averci contattato! Le risponderemo il prima possibile';
+    const INSERTIONUPLOADED = 'Inserzione caricata correttamente';
     const ORDERADDEDCART = 'Ordine aggiunto al carrello';
     const ORDERAMOUNTUPDATED = 'Quantità ordine modificata con successo';
 	const ORDERDELETED = 'Ordine cancellato con successo';
@@ -33,6 +34,8 @@ interface Messages{
     const ERR_EMAILSENDING2 = 'C\'è stato un errore durante l\'invio della mail. Riprova più tardi';
     const ERR_FORMINVALIDVALUE = 'Nessun valore valido inserito nel form';
     const ERR_GENDERINVALID = 'Il genere inserito non è valido';
+    const ERR_INSERTIONFILENOTUPLOADED = 'Il file non è stato caricato';
+    const ERR_INSERTIONNOTIMAGE = 'Il file caricato non è un\' immagine JPEG';
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
     const ERR_INVALIDOPERATION1 = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
