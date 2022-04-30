@@ -10,7 +10,10 @@ interface Messages{
     const EMAILSENT1 = 'La mail è stata inviata correttamente al venditore';
     const EMAILSENT2 = 'Grazie per averci contattato! Le risponderemo il prima possibile';
     const ORDERADDEDCART = 'Ordine aggiunto al carrello';
+    const ORDERAMOUNTUPDATED = 'Quantità ordine modificata con successo';
+	const ORDERDELETED = 'Ordine cancellato con successo';
     const ORDERDELETEDCART = 'Ordine eliminato dal carrello';
+    const ORDERINSERTEDCART = 'Ordine inserito nel carrello';
     const PERSONALDATAUPDATED = 'Dati personali aggiornati con successo';
     const PRODDELETED = 'Prodotto cancellato';
     const PWDUPDATED = 'Password aggiornata';
@@ -29,10 +32,15 @@ interface Messages{
     const ERR_FORMINVALIDVALUE = 'Nessun valore valido inserito nel form';
     const ERR_GENDERINVALID = 'Il genere inserito non è valido';
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
-    const ERR_INVALIDOPERATION = 'Operazione specificata non valida';
+    const ERR_INVALIDOPERATION1 = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
     const ERR_NOTLOGGED = 'Non sei collegato';
+    const ERR_NOOPERATION = 'Nessuna operazione selezionata';
+    const ERR_ORDERALREALDYCART = 'Ordine già presente nel carrello';
+    const ERR_ORDERAMOUNTNOTPDATED = 'Errore durante l\' aggiornamento della quantità';
     const ERR_ORDERDELETEINVALIDID = 'Impossibile eliminare l\' ordine dal carrello perché l\'id non è valido';
+    const ERR_ORDERINVALID = 'Ordine non valido';
+    const ERR_ORDERINVALIDAMOUNT = 'Quantità non valida';
     const ERR_ORDERINVALIDDATA = 'Impossibile aggiungere l\' ordine al carrello perché uno o più dati passati non sono validi';
     const ERR_PERSONALDATANOTUPDATED = 'ERRORE: Dati personali non aggiornati';
     const ERR_PRODINVALID = 'Nessun prodotto valido specificato';
