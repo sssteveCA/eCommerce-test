@@ -1,7 +1,7 @@
 <?php
 
 //Error constants for class 'Utente'
-namespace EcommerceTest\Objects;
+namespace EcommerceTest\Interfaces;
 
 interface UserErrors{
 

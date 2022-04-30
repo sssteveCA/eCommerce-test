@@ -1,4 +1,9 @@
 <?php
+
+namespace EcommerceTest\Objects;
+
+use EcommerceTest\Interfaces\UserErrors as Ue;
+
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
 define("UTENTEERR_ACTIVEYOURACCOUNT", "2");
 define("UTENTEERR_CONNECTFAIL", "3");
@@ -74,9 +79,9 @@ class Utente{
         $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:MYSQLHOST;
         $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:MYSQLUSER;
         $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:MYSQLPASS;
-        $this->h = new mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
+        $this->h = new \mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
         if($this->h->connect_errno != 0){
-            throw new Exception("Connessione a MySQL fallita");
+            throw new \Exception(Ue::EXC_MYSQLCONN);
         }
         $this->connesso = true;
         $this->h->set_charset("utf8mb4");
@@ -84,7 +89,7 @@ class Utente{
         $this->createDb(); //crea il database se non esiste
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:MYSQLTABACC;
         if($this->createTab() === false){ //crea la tabella se non esiste
-            throw new Exception("Errore nella creazione dela tabella");
+            throw new \Exception(Ue::EXC_TABLECREATION);
         }
         $this->id=isset($ingresso['id'])? $ingresso['id']:null;
         $this->email=isset($ingresso['email'])? $ingresso['email']:null;
@@ -141,24 +146,24 @@ class Utente{
                                     $this->login = true;
                                 }
                                 //l'account non è ancora stato attivato
-                                else $this->numError = UTENTEERR_ACTIVEYOURACCOUNT; //l'utente deve prima attivare l'account
+                                else $this->numError = Ue::ACTIVEYOURACCOUNT; //l'utente deve prima attivare l'account
                             }
                             else{
-                                $this->numError = UTENTEERR_INCORRECTLOGINDATA; //email o password non corretti
+                                $this->numError = Ue::INCORRECTLOGINDATA; //email o password non corretti
                             }
                         }//if($user !== FALSE){ 
                         else{
-                            $this->numError = UTENTEERR_INCORRECTLOGINDATA; //email o password non corretti
+                            $this->numError = Ue::INCORRECTLOGINDATA; //email o password non corretti
                         }
                     }//if(isset($ingresso[$ingresso['campo']]) && preg_match(Utente::$regex[$ingresso['campo']],$ingresso[$ingresso['campo']])){
                     else{
-                        $this->numError = UTENTEERR_DATANOTSET; //uno o più dati richiesti non sono stati settati
+                        $this->numError = Ue::DATANOTSET; //uno o più dati richiesti non sono stati settati
                     }
                 }
             }//if(in_array($ingresso['campo'],Utente::$campi) && isset($this->{$ingresso['campo']})){
             //errore, uno o più campi richiesti non sono stati impostati
             else {
-                $this->numError = UTENTEERR_INVALIDFIELD; //non è stato specificato un campo per fare la selezione dei dati oppure non è un campo valido
+                $this->numError = Ue::INVALIDFIELD; //non è stato specificato un campo per fare la selezione dei dati oppure non è un campo valido
             }
         }// if($this->registrato){
         //utente non registrato
@@ -185,14 +190,14 @@ class Utente{
                         }
                     }//if($mailexists == 0 && $userexists == 0){
                     //(registrazione) lo username o la mail inserita esistono già
-                    else $this->numError = UTENTEERR_USERNAMEMAILEXIST;
+                    else $this->numError = Ue::USERNAMEMAILEXIST;
                 }//if($this->valida($ingresso)){
                 //Uno o più parametri non sono nel formato corretto
-                else $this->numError = UTENTEERR_INVALIDDATAFORMAT;
+                else $this->numError = Ue::INVALIDDATAFORMAT;
             }//if(isset($ingresso['email'],$ingresso['username'])){
             //non esegue nessuna operazione dopo aver istanziato l'oggetto
             else{
-                $this->numError = UTENTEERR_DATANOTSET; //uno o più dati richiesti non sono stati settati
+                $this->numError = Ue::DATANOTSET; //uno o più dati richiesti non sono stati settati
             }
         }//else di if($this->registrato){
 
@@ -296,44 +301,44 @@ class Utente{
             case 0:
                 $this->strError = null;
                 break;
-            case UTENTEERR_INCORRECTLOGINDATA:
-                $this->strError = "email o password non corretti";
+            case Ue::INCORRECTLOGINDATA:
+                $this->strError = Ue::MSG_INCORRECTLOGINDATA;
                 break;
-            case UTENTEERR_ACTIVEYOURACCOUNT:
-                $this->strError = "l'utente deve prima attivare l'account";
+            case Ue::ACTIVEYOURACCOUNT:
+                $this->strError = Ue::MSG_ACTIVEYOURACCOUNT;
                 break;
-            case UTENTEERR_CONNECTFAIL:
-                $this->strError = "connessione a MySql fallita";
+            case Ue::CONNECTFAIL:
+                $this->strError = Ue::MSG_CONNECTFAIL;
                 break;
-            case UTENTEERR_DATANOTUPDATED:
-                $this->strError = "dati non aggiornati";
+            case Ue::DATANOTUPDATED:
+                $this->strError = Ue::MSG_DATANOTUPDATED;
                 break;
-            case UTENTEERR_DATANOTINSERTED:
-                $this->strError = "dati registrazione non inseriti nel database";
+            case Ue::DATANOTINSERTED:
+                $this->strError = Ue::MSG_DATANOTINSERTED;
                 break;
-            case UTENTEERR_QUERYERROR:
-                $this->strError = "query errata";
+            case Ue::QUERYERROR:
+                $this->strError = Ue::MSG_QUERYERROR;
                 break;
-            case UTENTEERR_USERNAMEMAILEXIST:
-                $this->strError = "lo username o la mail inserita esistono già";
+            case Ue::USERNAMEMAILEXIST:
+                $this->strError = Ue::MSG_USERNAMEMAILEXIST;
                 break;
-            case UTENTEERR_ACCOUNTNOTACTIVATED:
-                $this->strError = "attivazione account non riuscita";
+            case Ue::ACCOUNTNOTACTIVATED:
+                $this->strError = Ue::MSG_ACCOUNTNOTACTIVATED;
                 break;
-            case UTENTEERR_MAILNOTSENT:
-                $this->strError = "email non inviata";
+            case Ue::MAILNOTSENT:
+                $this->strError = Ue::MSG_MAILNOTSENT;
                 break;
-            case UTENTEERR_INVALIDFIELD:
-                $this->strError = "non è stato specificato un campo per fare la selezione dei dati oppure non è un campo valido";
+            case Ue::INVALIDFIELD:
+                $this->strError = Ue::MSG_INVALIDFIELD;
                 break;
-            case UTENTEERR_DATANOTSET:
-                $this->strError = "uno o più dati richiesti non sono stati settati";
+            case Ue::DATANOTSET:
+                $this->strError = Ue::MSG_DATANOTSET;
                 break;
-            case UTENTEERR_ACCOUNTNOTRECOVERED:
-                $this->strError = "impossibile recuperare l'account";
+            case Ue::ACCOUNTNOTRECOVERED:
+                $this->strError = Ue::MSG_ACCOUNTNOTRECOVERED;
                 break;
-            case UTENTEERR_INVALIDDATAFORMAT:
-                $this->strError = "Uno o più parametri non sono nel formato corretto";
+            case Ue::INVALIDDATAFORMAT:
+                $this->strError = Ue::MSG_INVALIDDATAFORMAT;
                 break;
             default:
                 $this->strError = null;
@@ -485,7 +490,7 @@ SQL;
         }
         else{
             $ret = -1;
-            $this->numError = UTENTEERR_QUERYERROR; //query errata
+            $this->numError = Ue::QUERYERROR; //query errata
         }
         return $ret;
     }
@@ -519,7 +524,7 @@ SQL;
             $r->free();
         }
         else{
-            $this->numError = UTENTEERR_QUERYERROR; //query errata
+            $this->numError = Ue::QUERYERROR; //query errata
         }
         return $utente;
     }
@@ -546,9 +551,9 @@ SQL;
             if($this->h->affected_rows > 0){
                 $ok = true;
             }
-            else $this->numError = UTENTEERR_DATANOTINSERTED; //dati registrazione non inseriti nel database
+            else $this->numError = Ue::DATANOTINSERTED; //dati registrazione non inseriti nel database
         }//if($h->query($this->querySql) === TRUE){
-        else $this->numError = UTENTEERR_QUERYERROR; //query errata
+        else $this->numError = Ue::QUERYERROR; //query errata
         return $ok;
     }
     
@@ -589,11 +594,11 @@ SQL;
                 if($this->h->affected_rows == 1){
                     $ok = true;
                 }
-                else $this->numError = UTENTEERR_ACCOUNTNOTRECOVERED; //impossibile recuperare l'account
+                else $this->numError = Ue::ACCOUNTNOTRECOVERED; //impossibile recuperare l'account
             }
-            else $this->numError = UTENTEERR_QUERYERROR; //query errata
+            else $this->numError = Ue::QUERYERROR; //query errata
         }//if(isset($ingresso['nuovaP']) && $ingresso['nuovaP'] != ''){
-        else $this->numError = UTENTEERR_DATANOTSET; //uno o più dati richiesti non sono stati settati
+        else $this->numError = Ue::DATANOTSET; //uno o più dati richiesti non sono stati settati
         return $ok;
     }
     //l'utente invia una mail agli amministratori del sito
@@ -601,7 +606,7 @@ SQL;
         $this->numError = 0;
         $from = $this->getEmail();
         $send = mail($to,$subject,$body,$headers);
-        if(!$send) $this->numError = UTENTEERR_MAILNOTSENT; //email non inviata
+        if(!$send) $this->numError = Ue::MAILNOTSENT; //email non inviata
         return $send;
     }
 
@@ -659,7 +664,7 @@ SQL;
                 $this->setValues($valori);
                 
             }
-            else $this->numError = UTENTEERR_DATANOTUPDATED; //dati non aggiornati
+            else $this->numError = Ue::DATANOTUPDATED; //dati non aggiornati
         }//if(is_array($valori) && is_array($where)){ 
         return $ok;
     }
