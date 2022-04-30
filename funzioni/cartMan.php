@@ -3,6 +3,7 @@ session_start();
 require_once('../interfaces/messages.php');
 require_once('../interfaces/orderErrors.php');
 require_once('../interfaces/productErrors.php');
+require_once('../interfaces/productsVals.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/mysqlVals.php');
 require_once('../objects/utente.php');
@@ -13,6 +14,7 @@ require_once('paypalConfig.php');
 require_once('config.php');
 require_once('const.php');
 
+use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
@@ -51,7 +53,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                                         $aV['id'] = $idv;
                                         $aV['registrato'] = '1';
                                         $venditore = new Utente($aV);
-                                        if($venditore->getNumError() == 0 || $venditore->getNumError() == 1){
+                                        if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                                             $oArray['clientId'] = $venditore->getClientId();
                                         }
                                         else{
@@ -177,7 +179,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             
         }
         else{
-            $risposta['msg'] = Msg::ERR_INVALIDOPERATION;
+            $risposta['msg'] = Msg::ERR_INVALIDOPERATION1;
         }
     }
 

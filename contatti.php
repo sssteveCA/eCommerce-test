@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once('objects/utente.php');
+
+//require_once('objects/utente.php');
 require_once("funzioni/const.php");
 
 //se un'utente ha effettuato il login

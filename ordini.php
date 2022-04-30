@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
 

@@ -1,8 +1,9 @@
 <?php
 session_start();
-require_once('objects/utente.php');
+
+/* require_once('objects/utente.php');
 require_once('objects/prodotto.php');
-require_once('objects/ordine.php');
+require_once('objects/ordine.php'); */
 require_once("funzioni/const.php");
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

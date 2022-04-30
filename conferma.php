@@ -1,5 +1,14 @@
 <?php
+
+use EcommerceTest\Objects\Ordine;
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Objects\Utente;
+
 session_start();
+
+require_once('interfaces/orderErrors.php');
+require_once('interfaces/productErrors.php');
+require_once('interfaces/userErrors.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');

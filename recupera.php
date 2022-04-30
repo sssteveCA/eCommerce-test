@@ -21,8 +21,8 @@ else{
     </head>
     <body>
         <div id="indietro">
-            <a href="accedi.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="accedi.php">Indietro</a>
+            <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
+            <a href="index.php">Indietro</a>
         </div>
         <fieldset id="dRecupera">
             <legend>Recupera il tuo account</legend>

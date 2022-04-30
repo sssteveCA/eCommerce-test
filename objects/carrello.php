@@ -6,12 +6,12 @@ namespace EcommerceTest\Objects;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 
 class Carrello implements Mv{
-    const HOST = 'localhost';
+    /* const HOST = 'localhost';
     const USERNAME = 'root';
     const PASSWORD = '';
     const DATABASE = 'stefano'; 
     const TABLE = 'ordini';
-    const TABLE_USERS = 'accounts';
+    const TABLE_USERS = 'accounts'; */
     private static $cartIdos = array();
     private static $nProdotti = 0;
     //ottengo gli id degli ordini aggiunti al carrello
