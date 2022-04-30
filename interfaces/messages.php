@@ -20,7 +20,7 @@ interface Messages{
     const ERR_ORDERINVALIDDATA = 'Impossibile aggiungere l\' ordine al carrello perché uno o più dati passati non sono validi';
     const ERR_PERSONALDATANOTUPDATED = 'ERRORE: Dati personali non aggiornati';
     const ERR_PWDCONFDIFFERENT = 'La password da sostituire non coincide con quella attuale';
-    const PWDCURRENTWRONG = 'password attuale non corretta';
+    const ERR_PWDCURRENTWRONG = 'password attuale non corretta';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';
 }
