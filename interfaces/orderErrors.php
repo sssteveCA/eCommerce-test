@@ -1,7 +1,7 @@
 <?php
 
 //Error constants for class 'Ordine'
-namespace EcommerceTest\interfaces;
+namespace EcommerceTest\Interfaces;
 
 interface OrderErrors{
 

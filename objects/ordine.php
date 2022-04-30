@@ -4,6 +4,14 @@ namespace EcommerceTest\Objects;
 
 use EcommerceTest\interfaces\OrderErrors as Oe;
 
+define("ORDINEERR_INFONOTGETTED","1");
+define("ORDINEERR_QUERYERROR","2");
+define("ORDINEERR_DATANOTINSERTED","3");
+define("ORDINEERR_DATANOTDELETED","4");
+define("ORDINEERR_NOTADDEDCART","5");
+define("ORDINEERR_IDNOTEXISTS","6");
+define("ORDINEERR_NOTDELETEDCART","7");
+
 if (! function_exists("array_key_last")) {
     function array_key_last($array) {
         if (!is_array($array) || empty($array)) {
