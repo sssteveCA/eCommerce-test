@@ -3,6 +3,7 @@
 namespace EcommerceTest\Objects;
 
 use EcommerceTest\Interfaces\UserErrors as Ue;
+use EcommerceTest\Interfaces\MySqlVals as Mv;
 
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
 define("UTENTEERR_ACTIVEYOURACCOUNT", "2");
@@ -28,7 +29,7 @@ if (! function_exists("array_key_last")) {
     }
 }
 
-class Utente{
+class Utente implements Ue,Mv{
     private $h; //handle connessione MySQL
     private $mysqlHost;
     private $mysqlUser;
@@ -76,18 +77,18 @@ class Utente{
         $this->numError = 0;
         $this->strError = null;
         $this->login = false;
-        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:MYSQLHOST;
-        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:MYSQLUSER;
-        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:MYSQLPASS;
+        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Mv::HOSTNAME;
+        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Mv::USERNAME;
+        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Mv::PASSWORD;
         $this->h = new \mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
         if($this->h->connect_errno != 0){
             throw new \Exception(Ue::EXC_MYSQLCONN);
         }
         $this->connesso = true;
         $this->h->set_charset("utf8mb4");
-        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:MYSQLDB;
+        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Mv::DATABASE;
         $this->createDb(); //crea il database se non esiste
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:MYSQLTABACC;
+        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABACC;
         if($this->createTab() === false){ //crea la tabella se non esiste
             throw new \Exception(Ue::EXC_TABLECREATION);
         }
@@ -379,9 +380,9 @@ SQL;
             if($this->h->affected_rows == 1){
                 $ok = true;
             }
-            else $this->numError = UTENTEERR_ACCOUNTNOTACTIVATED; //attivazione account non riuscita
+            else $this->numError = Ue::ACCOUNTNOTACTIVATED; //attivazione account non riuscita
         }//if($h->query($query) !== FALSE){
-        else $this->numError = UTENTEERR_QUERYERROR; //query errata
+        else $this->numError = Ue::QUERYERROR; //query errata
         return $ok;
     }
     //crea il codice di attivazione o di recupero password dell'account 
@@ -458,7 +459,7 @@ SQL;
             }//if($show->num_rows == 1){
         }//if(!$show){  
         else{
-            $this->numError = UTENTEERR_QUERYERROR;
+            $this->numError = Ue::QUERYERROR;
             $ok = false;
         }  
         return $ok;

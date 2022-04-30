@@ -4,9 +4,12 @@
 namespace EcommerceTest\Interfaces;
 
 interface MySqlVals{
-    const HOST = 'localhost';
-    const USER = 'root';
+    const HOSTNAME = 'localhost';
+    const USERNAME = 'root';
     const PASSWORD = '';
     const DATABASE = 'stefano';
+    const TABACC = 'accounts';
+    const TABORD = 'ordini';
+    const TABPROD = 'prodotti';
 }
 ?>

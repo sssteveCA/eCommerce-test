@@ -1,11 +1,13 @@
 <?php
 //require_once('../funzioni/config.php');
 
-class Carrello{
+use EcommerceTest\Interfaces\MySqlVals as Mv;
+
+class Carrello implements Mv{
     const HOST = 'localhost';
     const USERNAME = 'root';
     const PASSWORD = '';
-    const DATABASE = 'stefano';
+    const DATABASE = 'stefano'; 
     const TABLE = 'ordini';
     const TABLE_USERS = 'accounts';
     private static $cartIdos = array();
@@ -14,11 +16,11 @@ class Carrello{
     public static function getCartIdos($user){
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
-        $h = new mysqli(Carrello::HOST,Carrello::USERNAME,Carrello::PASSWORD,Carrello::DATABASE);
+        $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
         if($h->connect_errno === 0){
             $h->set_charset("utf8mb4");
-            $oTable = Carrello::TABLE;
-            $aTable = Carrello::TABLE_USERS;
+            $oTable = Mv::TABORD;
+            $aTable = Mv::TABACC;
             $query = <<<SQL
 SELECT `id`, `idv` FROM `{$oTable}` WHERE `idc` = (
     SELECT `id` FROM `{$aTable}` WHERE `username` = '$user'

@@ -4,6 +4,7 @@ namespace EcommerceTest\Objects;
 
 use EcommerceTest\Interfaces\ProductErrors as Pe;
 use EcommerceTest\Interfaces\ProductVals as Pv;
+use EcommerceTest\Interfaces\MySqlVals as Mv;
 
 define("PRODOTTOERR_INFONOTGETTED","1");
 define("PRODOTTOERR_IMGNOTCOPIED","2");
@@ -12,7 +13,7 @@ define("PRODOTTOERR_DATANOTDELETED","4");
 define("PRODOTTOERR_DATANOTINSERTED","5");
 define("PRODOTTOERR_IDNOTEXIST","6");
 
-class Prodotto implements Pe,Pv{
+class Prodotto implements Pe,Pv,Mv{
     private $h;
     public $connesso;
     private $mysqlTable;
@@ -40,11 +41,11 @@ class Prodotto implements Pe,Pv{
     private static $idList = array(); 
     public function __construct($ingresso){
         $this->connesso = false;
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:MYSQLHOST;
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:MYSQLUSER;
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:MYSQLPASS;
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:MYSQLDB;
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:MYSQLTABPROD;
+        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Mv::HOSTNAME;
+        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Mv::USERNAME;
+        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Mv::PASSWORD;
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Mv::DATABASE;
+        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABPROD;
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
             throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);
