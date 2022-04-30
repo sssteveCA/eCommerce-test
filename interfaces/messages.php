@@ -6,6 +6,7 @@ namespace EcommerceTest\Interfaces;
 interface Messages{
 
     //success messages
+    const CARTEMPTY = 'Il carrello è vuoto';
     const EMAILRECOVERY = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
     const EMAILSENT1 = 'La mail è stata inviata correttamente al venditore';
     const EMAILSENT2 = 'Grazie per averci contattato! Le risponderemo il prima possibile';

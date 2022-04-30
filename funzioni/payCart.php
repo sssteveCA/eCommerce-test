@@ -4,9 +4,11 @@ use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Objects\Carrello;
+use EcommerceTest\Interfaces\Messages as Msg;
 
 ob_start();
 session_start();
+require_once('../interfaces/messages.php');
 require_once('../objects/carrello.php');
 require_once('../objects/ordine.php');
 require_once('../objects/prodotto.php');
@@ -69,7 +71,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }
     }
     else{
-        $risposta['msg'] = 'Il carrello è vuoto';
+        $risposta['msg'] = Msg::CARTEMPTY;
     }
     if(!empty($carrello)){
         //API Paypal
