@@ -24,6 +24,7 @@ interface Messages{
     //error messages
     const ERR_ACTIVEACCOUNT = 'Attiva l\'account per poter accedere';
     const ERR_ALREALDYCART = 'Il prodotto selezionato è già presente nel carrello';
+    const ERR_CODEINVALD = 'Codice non valido';
     const ERR_DATEINVALID = 'La data inserita non è valida';
     const ERR_EMAILBUSINESSINVALID = 'La mail business non è valida';
     const ERR_EMAILINVALID = 'La mail che hai inserito non è valida';
@@ -48,6 +49,8 @@ interface Messages{
     const ERR_PRODNOTDELETED = 'Prodotto non cancellato';
     const ERR_PWDCONFDIFFERENT = 'La password da sostituire non coincide con quella attuale';
     const ERR_PWDCURRENTWRONG = 'password attuale non corretta';
+    const ERR_PWDNOTEQUAL = 'Le due password non coincidono';
+    const ERR_PWDNOTSETTED = 'Nessuna password impostata';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
     const ERR_REQUIREDFIELDSNOTFILLED = 'Uno o più campi obbligatori non sono stati compilati';
     const ERR_UNKNOWN = 'Errore sconosciuto';
