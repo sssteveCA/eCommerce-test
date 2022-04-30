@@ -3,6 +3,7 @@
 namespace EcommerceTest\Objects;
 
 use EcommerceTest\Interfaces\ProductErrors as Pe;
+use EcommerceTest\Interfaces\ProductVals as Pv;
 
 define("PRODOTTOERR_INFONOTGETTED","1");
 define("PRODOTTOERR_IMGNOTCOPIED","2");
@@ -11,7 +12,7 @@ define("PRODOTTOERR_DATANOTDELETED","4");
 define("PRODOTTOERR_DATANOTINSERTED","5");
 define("PRODOTTOERR_IDNOTEXIST","6");
 
-class Prodotto implements Pe{
+class Prodotto implements Pe,Pv{
     private $h;
     public $connesso;
     private $mysqlTable;
@@ -365,41 +366,8 @@ SQL;
     /*Controlla il formato dei dati prima di inserirli nel database */
     private function valida($ingresso){
         $ok = true;
-        $categorie = array(
-            "Arte e antiquariato",
-            "Abbigliamento e accessori",
-            "Auto e moto: ricambi e accessori",
-            "Auto e moto: veicoli",
-            "Bellezza e salute",
-            "Biglietti ed eventi",
-            "Casa, arredamento e bricolage",
-            "Cibi e bevande",
-            "Collezionismo",
-            "Commercio, ufficio e industria",
-            "Elettrodomestici",
-            "Film e DVD",
-            "Fotografia e video",
-            "Francobolli",
-            "Fumetti e memorabilia",
-            "Giardino e arredamento esterni",
-            "Giocattoli e modellismo",
-            "Hobby creativi",
-            "Infanzia e premaman",
-            "Informatica",
-            "Libri e riviste",
-            "Monete e banconote",
-            "Musica, CD e vinili",
-            "Nautica e imbarcazioni",
-            "Orologi e gioielli",
-            "Sport e viaggi",
-            "Strumenti musicali",
-            "Telefonia fissa e mobile",
-            "TV, audio e video",
-            "Videogiochi e console",
-            "Altre categorie"
-        );
         $condizione = array("Nuovo","Usato","Non specificato");
-        if(!in_array($ingresso['tipo'],$categorie)){
+        if(!in_array($ingresso['tipo'],Pv::CATEGORIES)){
             $ok = false;
         }
         if(!is_numeric($ingresso['prezzo'])){
