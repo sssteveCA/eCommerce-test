@@ -1,5 +1,11 @@
 <?php
+
+use EcommerceTest\Objects\Utente;
+
+require_once('interfaces/mysqlVals.php');
+require_once('interfaces/userErrors.php');
 require_once('objects/utente.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
