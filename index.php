@@ -16,12 +16,12 @@ else
     <head>
         <title>Accedi</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php P::REL_LOGINTO_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_LOGINTO_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script src=<?php P::REL_LOGINTO_JS; ?>></script>
+        <script src=<?php echo P::REL_LOGINTO_JS; ?>></script>
     </head>
     <body>
         <!-- < ?php echo password_hash('123456',PASSWORD_DEFAULT); ?><br> -->
@@ -41,7 +41,7 @@ else
                 </div>
                 <div>              
                     <input type="hidden" id="campo" name="campo" value="email">                
-                    <input type="submit" id="submit"  class="btn btn-primary" value="ACCEDI">
+                    <button type="submit" id="submit"  class="btn btn-primary">ACCEDI</button>
                 </div>
             </form>
             <div class="after-form ">

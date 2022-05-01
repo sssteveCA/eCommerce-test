@@ -105,8 +105,8 @@ else{
                     <label for="show" class="form-check-label">Mostra password</label>
                 </div>
                 <div class="buttons">
-                    <input type="submit" id="submit" class="btn btn-primary" value="REGISTRATI">
-                    <input type="reset" id="reset" class="btn btn-danger" value="ANNULLA">
+                    <button type="submit" id="submit" class="btn btn-primary">REGISTRATI</button>
+                    <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
                 </div>
                 <p>*Richiesti quando l'utente deve caricare le inserzioni</p>
             </form>
