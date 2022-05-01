@@ -1,0 +1,49 @@
+$single-selectors: (
+    'classes' : (
+        '.my-container': (
+            min-width: 350px
+        )
+    ),
+    'ids': (
+        '#formReg': (
+            padding-top: 80px,
+            padding-left: 20px,
+            padding-right: 20px,
+            padding-bottom: 20px,
+            width: 70%,
+            margin: '0 auto'
+        ),
+        '#indietro': (
+            position: absolute,
+            top: 30px,
+            left: 30px,
+            display: flex,
+            align-items: center
+        )
+    ),
+    'tags' : (
+        'img': (
+            width: 60px,
+            height: 60px
+        )
+    )
+);
+
+$compound-selectors : (
+    '.radios div': (
+        display: flex,
+        align-items: center
+    ),
+    '.radios div *': (
+        margin-right: 5px
+    ),
+    '#formReg>div': (
+        margin: 5px
+    ),
+    '#formReg input': (
+        margin: 2px
+    ),
+    '#formReg label': (
+        margin: 2px
+    )
+);
