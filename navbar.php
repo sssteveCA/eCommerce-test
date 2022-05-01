@@ -12,21 +12,21 @@ function menu($welcome){
         </button>
         <div id="navbar-content" class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
-                <li class="nav-item dropdown flex-fill">
+                <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-profile" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-profile">
                         <li><a class="dropdown-item" href="info.php">Informazioni</a></li>
                         <li><a class="dropdown-item" href="edit.php">Modifica</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown flex-fill">
+                <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-orders" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordini</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-orders">
                         <li><a class="dropdown-item" href="ordini.php">I miei ordini</a></li>
                         <li><a class="dropdown-item" href="carrello.php">Carrello</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown flex-fill">
+                <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-product" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prodotto</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-product">
                         <li><a class="dropdown-item" href="benvenuto.php">Cerca</a></li>
@@ -34,10 +34,10 @@ function menu($welcome){
                         <li><a class="dropdown-item" href="inserzioni.php">Le mie inserzioni</a></li>
                     </ul>
                 </li>
-                <li id="contatti" class="nav-item flex-fill">
+                <li id="contatti" class="nav-item flex-fill text-center">
                     <a class="nav-link" href="contatti.php">Contatti</a>
                 </li>
-                <li id="logout" class="nav-item flex-fill">
+                <li id="logout" class="nav-item flex-fill text-center">
                     <a class="nav-link" href="funzioni/logout.php">Esci</a>
                 </li>
             </ul>
