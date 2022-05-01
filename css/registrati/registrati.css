@@ -1,16 +1,3 @@
-.my-container {
-  min-width: 350px;
-}
-
-#formReg {
-  padding-top: 80px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  width: 70%;
-  margin: 0 auto;
-}
-
 #indietro {
   position: absolute;
   top: 30px;
@@ -23,9 +10,22 @@
           align-items: center;
 }
 
-img {
+#indietro img {
   width: 60px;
   height: 60px;
+}
+
+.my-container {
+  min-width: 350px;
+}
+
+#formReg {
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .radios div {

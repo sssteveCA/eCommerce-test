@@ -11,9 +11,9 @@ else{
     <head>
         <title>Recupera password</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/recupera.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
+        <link rel="stylesheet" href="css/recupera/recupera.min.css">
+        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css">
+        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css">
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="jqueryUI/jquery-ui.min.js"></script>
         <script src="js/dialog/dialog.js"></script>
