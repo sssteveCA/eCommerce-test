@@ -5,6 +5,7 @@ use EcommerceTest\Objects\Utente;
 
 session_start();
 
+require_once('navbar.php');
 require_once('interfaces/orderErrors.php');
 require_once('interfaces/productErrors.php');
 require_once('interfaces/productsVals.php');
@@ -13,7 +14,7 @@ require_once('interfaces/mysqlVals.php');
 require_once('funzioni/config.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
-require_once("funzioni/const.php");
+require_once('funzioni/const.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
@@ -38,46 +39,20 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <!-- Nome del prodotto -->
         <title><?php echo $prodotto->getNome(); ?></title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/prodotto.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="css/utente.css"> -->
+        <link rel="stylesheet" href="css/prodotto.css">
+        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css">
+        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css">
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="jqueryUI/jquery-ui.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="js/dialog/dialog.js"></script>
         <script src="js/logout.js"></script>
         <script src="js/prodotto.js"></script>
     </head>
     <body>
-        <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
-                </div>
-                <div id="ordini">
-                    Ordini
-                    <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
-                    </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
-                    <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
-                    </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
+        <?php echo menu($_SESSION['welcome']);?>
         <div id="container1" class="container">
             <!-- immagine del prodotto -->
             <div id="immagine" >
