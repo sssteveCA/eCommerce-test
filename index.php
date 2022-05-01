@@ -12,8 +12,8 @@ else
     <head>
         <title>Accedi</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/accedi/accedi.min.css" type="text/css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/accedi/accedi.min.css">
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="js/accedi.js"></script>
