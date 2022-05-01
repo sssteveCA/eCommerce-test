@@ -2,9 +2,11 @@ $(function(){
     $('#show').on('change',function(){
         if($(this).is(':checked')){
             $('#password').attr('type','text');
+            $('#confPass').attr('type','text');
         }
         else{
             $('#password').attr('type','password');
+            $('#confPass').attr('type','password');
         }
     });
     $('#formReg').on('submit',function(e){

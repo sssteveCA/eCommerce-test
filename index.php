@@ -1,5 +1,9 @@
 <?php
 
+use EcommerceTest\Interfaces\Paths as P;
+
+require_once('interfaces/paths.php');
+
 session_start();
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
     header('location: benvenuto.php');
@@ -12,11 +16,12 @@ else
     <head>
         <title>Accedi</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/accedi/accedi.min.css">
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="js/accedi.js"></script>
+        <link rel="stylesheet" href=<?php P::REL_LOGINTO_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script src=<?php P::REL_LOGINTO_JS; ?>></script>
     </head>
     <body>
         <!-- < ?php echo password_hash('123456',PASSWORD_DEFAULT); ?><br> -->

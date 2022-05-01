@@ -3,9 +3,11 @@
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
 
+require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('interfaces/mysqlVals.php');
 require_once('interfaces/orderErrors.php');
@@ -130,17 +132,16 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Conferma ordine</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="css/utente.css"> -->
-        <link rel="stylesheet" href="css/conferma.css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/conferma.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_CONFIRM_CSS; ?>>
+        <<link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script src=<?php echo P::REL_DIALOG_JS; ?>></script>
+        <script src=<?php echo P::REL_LOGOUT_JS; ?>></script>
+        <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

@@ -29,7 +29,7 @@ interface Paths{
     const REL_INFO_JS = "js/info.js";
     const REL_INSERTIONS_CSS = "css/inserzioni.css";
     const REL_INSERTIONS_JS = "js/inserzioni.js";
-    const REL_JQUERY = "js/jquery-3.5.1.min.js";
+    const REL_JQUERY_JS = "js/jquery-3.5.1.min.js";
     const REL_JQUERY_CSS = "jqueryUI/jquery-ui.min.css";
     const REL_JQUERYTHEME_CSS = "jqueryUI/jquery-ui.theme.min.css";
     const REL_JQUERYUI_JS = "jqueryUI/jquery-ui.min.js";
