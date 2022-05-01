@@ -1,0 +1,29 @@
+$single-selectors: (
+    'classes' : (
+        '.after-form': (
+            margin: 5px,
+            display: flex,
+            justify-content: center
+        ),
+        '.form-check' : (
+
+        )
+    ),
+    'ids': (
+        '#formLogin': (
+            padding: 20px,
+            margin: '0 auto'
+        )
+    )
+);
+
+$compound-selectors : (
+    'body .my-container': (
+        width: 75%,
+        min-width: 450px,
+        margin: '0 auto'
+    ),
+    '#formLogin * ': (
+        margin: 10px
+    )
+);
