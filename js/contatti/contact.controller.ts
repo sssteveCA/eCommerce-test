@@ -1,7 +1,7 @@
-import {Contact} from './contact.model';
+import Contact from './contact.model';
 
 //Do the HTTP request passing Contact object
-class ContactController{
+export default class ContactController{
 
     //constants
     private static CONTACT_URL = 'funzioni/mail.php';
@@ -49,8 +49,6 @@ class ContactController{
         if(this.contact.subject && this.contact.message && typeof(this.contact.ajax) != "undefined" ){
             ok = true;
         }//if(this.contact.subject && this.contact.message && typeof(this.contact.ajax) != "undefined" ){
-        else
-            this._errno = ContactController.ERR_DATAMISSED;
         return ok;
     }
 
@@ -64,6 +62,8 @@ class ContactController{
                     console.warn(err);
                 });
             }//if(this.validateContact()){
+            else
+                this._errno = ContactController.ERR_DATAMISSED;
         }//if(this.contact != null){
         else
             this._errno = ContactController.ERR_NOCONTACTOBJECT;

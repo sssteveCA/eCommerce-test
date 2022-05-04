@@ -1,14 +1,13 @@
 
-
-
-$(function(){
-    $('#fContatti').on('submit',function(ev){
+$(function () {
+    $('#fContatti').on('submit', function (ev) {
         ev.preventDefault();
-        var mess = {};
-        mess['oggetto'] = $('#oggetto').val();
-        mess['messaggio'] = $('#messaggio').val();
-        mess['ajax'] = true;
-        let contact = new Contact(mess);
-        let contactCtr = new ContactController(contact);
+        var mess = {
+            subject: $('#oggetto').val(),
+            message: $('#messaggio').val(),
+            ajax: true
+        };
+        let contact = new window.Contact(mess);
+        let contactCtr = new window.ContactController(contact);
     });
 });

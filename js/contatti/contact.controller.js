@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 //Do the HTTP request passing Contact object
-class ContactController {
+export default class ContactController {
     constructor(contact) {
         this._contact = contact;
         this._errno = 0;
@@ -37,8 +37,6 @@ class ContactController {
         if (this.contact.subject && this.contact.message && typeof (this.contact.ajax) != "undefined") {
             ok = true;
         } //if(this.contact.subject && this.contact.message && typeof(this.contact.ajax) != "undefined" ){
-        else
-            this._errno = ContactController.ERR_DATAMISSED;
         return ok;
     }
     //send support email
@@ -51,6 +49,8 @@ class ContactController {
                     console.warn(err);
                 });
             } //if(this.validateContact()){
+            else
+                this._errno = ContactController.ERR_DATAMISSED;
         } //if(this.contact != null){
         else
             this._errno = ContactController.ERR_NOCONTACTOBJECT;
@@ -89,4 +89,3 @@ ContactController.ERR_DATAMISSED = 2; //One or more properties of Contact object
 ContactController.ERR_MSG_NOCONTACTOBJECT = "L'oggetto Contact non è stato definito";
 ContactController.ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
 ContactController.ERR_MSG_MAILNOTSENT = "Errore durante l'invio della mail. Riprovare più tardi e se il problema persiste contattare l'amministratore del sito";
-export {};

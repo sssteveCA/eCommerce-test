@@ -1,5 +1,5 @@
 //Data passed in HTTP request
-export class Contact {
+export default class Contact {
     constructor(data) {
         this._subject = data.subject;
         this._message = data.message;

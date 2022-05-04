@@ -1,7 +1,7 @@
-import {ContactInterface} from './data.interface';
+import ContactInterface from './data.interface';
 
 //Data passed in HTTP request
-export class Contact{
+export default class Contact{
     _subject: string;
     _message: string;
     _ajax: boolean; //if this object is passed with ajax request
