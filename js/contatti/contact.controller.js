@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 //Do the HTTP request passing Contact object
 class ContactController {
     constructor(contact) {
@@ -24,9 +33,9 @@ class ContactController {
     //check if Contact object has the required properties
     validateContact() {
         let ok = false;
-        if (this.contact._subject && this.contact._message) {
+        if (this.contact.subject && this.contact.message && typeof (this.contact.ajax) != "undefined") {
             ok = true;
-        } //if(this.contact._subject && this.contact._message){
+        } //if(this.contact.subject && this.contact.message && typeof(this.contact.ajax) != "undefined" ){
         else
             this._errno = ContactController.ERR_DATAMISSED;
         return ok;
@@ -34,11 +43,35 @@ class ContactController {
     //send support email
     sendEmail() {
         if (this.contact != null) {
+            if (this.validateContact()) {
+            } //if(this.validateContact()){
         } //if(this.contact != null){
         else
             this._errno = ContactController.ERR_NOCONTACTOBJECT;
     }
+    //send support email Promise
+    sendEmailPromise() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield new Promise((resolve, reject) => {
+                let param = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'oggetto': this.contact.subject,
+                        'messaggio': this.contact.message,
+                        'ajax': this.contact.ajax
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                };
+                const response = fetch(ContactController.CONTACT_URL, param);
+            });
+        });
+    }
 }
+//constants
+ContactController.CONTACT_URL = 'funzioni/mail.php';
+//errors
 ContactController.ERR_NOCONTACTOBJECT = 1; //Contact object is null
 ContactController.ERR_DATAMISSED = 2; //One or more properties of Contact object are missed
 ContactController.ERR_MSG_NOCONTACTOBJECT = "L'oggetto Contact non è stato definito";
