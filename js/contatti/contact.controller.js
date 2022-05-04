@@ -61,15 +61,12 @@ export default class ContactController {
             return yield new Promise((resolve, reject) => {
                 let param = {
                     method: 'POST',
-                    body: JSON.stringify({
-                        'oggetto': this.contact.subject,
-                        'messaggio': this.contact.message,
-                        'ajax': this.contact.ajax
-                    }),
+                    body: `oggetto=${this.contact.subject}&messaggio=${this.contact.message}&ajax=${this.contact.ajax}`,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 };
+                //console.log(param);
                 const response = fetch(ContactController.CONTACT_URL, param);
                 response.then(r => {
                     resolve(r.text());

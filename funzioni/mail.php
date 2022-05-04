@@ -12,8 +12,10 @@ require_once('../objects/utente.php');
 require('const.php');
 
 $risultato = array();
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == true);
+$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
+$ajax = true;
 $risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
+$risultato['post'] = $_POST;
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -145,7 +147,7 @@ HTML;
         $risultato['msg'] = Msg::ERR_EMAILINSERT;
     }
 }//else di if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-if($ajax)echo json_encode($risultato);
+if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE);
 else{
     $html = <<<HTML
 <!DOCTYPE html>
