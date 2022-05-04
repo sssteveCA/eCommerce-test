@@ -19,3 +19,22 @@
         }
     }
 }
+
+//loop in div children of form
+@mixin form-elements-loop($formVals){
+    $id: map-get($formVals,'id');
+    $children: map-get($formVals,'children');
+    @if $id != null and $children != null{
+        #{$id}{
+            @for $i from 1 through $children{
+                div:nth-child(#{$i}){
+                    margin-top: 10px;
+                    @if $i == 3{
+                        display: flex;
+                        justify-content: space-evenly;
+                    }
+                }
+            }
+        }
+    }
+}

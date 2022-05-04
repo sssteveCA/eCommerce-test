@@ -18,7 +18,7 @@ interface Paths{
     const REL_CART_JS = "js/carrello.js";
     const REL_CONFIRM_CSS = "css/conferma.css";
     const REL_CONFIRM_JS = "js/conferma.js";
-    const REL_CONTACTS_CSS = "css/contatti.css";
+    const REL_CONTACTS_CSS = "css/contatti/contatti.min.css";
     const REL_CONTACTS_JS = "js/contatti.js";
     const REL_CREATE_CSS = "css/crea.css";
     const REL_CREATE_JS = "js/crea.js";
