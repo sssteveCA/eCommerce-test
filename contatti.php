@@ -38,16 +38,16 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 </div>
                 <form id="fContatti" method="post" action="funzioni/mail.php">
                     <div>
-                        <label for="oggetto">Oggetto </label>
-                        <input type="text" id="oggetto" name="oggetto">
+                        <label class="form-label" for="oggetto">Oggetto </label>
+                        <input type="text" id="oggetto" class="form-control" name="oggetto">
                     </div>
                     <div>
-                        <label for="messaggio">Messaggio </label>
-                        <textarea id="messaggio" name="messaggio"></textarea>
+                        <label class="form-label" for="messaggio">Messaggio </label>
+                        <textarea class="form-control" id="messaggio" class="form-control" name="messaggio"></textarea>
                     </div>
                     <div>
-                        <input type="submit" id="invia" value="INVIA">
-                        <input type="reset" id="annulla" value="ANNULLA">
+                        <button type="submit" id="invia" class="btn btn-primary">INVIA</button>
+                        <button type="reset" id="annulla" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </form>
             </fieldset>
