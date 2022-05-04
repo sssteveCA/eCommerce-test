@@ -12,7 +12,7 @@ require_once('../objects/utente.php');
 require('const.php');
 
 $risultato = array();
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
+$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == true);
 $risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
 
 //se un'utente ha effettuato il login

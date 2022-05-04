@@ -12,6 +12,7 @@ class ContactController{
 
     private static ERR_MSG_NOCONTACTOBJECT = "L'oggetto Contact non è stato definito";
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
+    private static ERR_MSG_MAILNOTSENT = "Errore durante l'invio della mail. Riprovare più tardi e se il problema persiste contattare l'amministratore del sito";
 
     _contact: Contact;
     _errno: number;
@@ -21,6 +22,7 @@ class ContactController{
         this._contact = contact;
         this._errno = 0;
         this._error = null;
+        this.sendEmail();
     }
 
     get contact(){return this._contact;}
@@ -56,6 +58,11 @@ class ContactController{
     private sendEmail(): void {
         if(this.contact != null){
             if(this.validateContact()){ 
+                this.sendEmailPromise().then(msg => {
+                    console.log(msg);
+                }).catch(err => {
+                    console.warn(err);
+                });
             }//if(this.validateContact()){
         }//if(this.contact != null){
         else
@@ -77,6 +84,12 @@ class ContactController{
                 }
             };
             const response = fetch(ContactController.CONTACT_URL,param);
+            response.then(r => {
+                resolve(r.text());
+            }).catch(err => {
+                console.warn(err);
+                reject(ContactController.ERR_MSG_MAILNOTSENT);
+            });
         });
     }
 }
