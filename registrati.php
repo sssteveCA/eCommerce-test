@@ -16,16 +16,24 @@ else{
     <head>
         <title>Registrati</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_SUBSCRIBE_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
-        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
-        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
-        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <link rel="stylesheet" href="<?php echo P::REL_SUBSCRIBE_CSS; ?>">
+        <link rel="stylesheet" href="<?php echo P::REL_BOOTSTRAP_CSS; ?>">
+        <link rel="stylesheet" href="<?php echo P::REL_JQUERY_CSS; ?>" >
+        <link rel="stylesheet" href="<?php echo P::REL_JQUERYTHEME_CSS; ?>" >
+        <script src="<?php echo P::REL_JQUERY_JS; ?>"></script>
+        <script src="<?php echo P::REL_JQUERYUI_JS; ?>"></script>
+        <script src="<?php echo P::REL_BOOTSTRAP_JS; ?>"></script>
         <script type="module">
-            import DialogMessage from './<?php echo P::REL_DIALOG_JS; ?>';
+            import DialogMessage from './<?php echo P::REL_DIALOG_MESSAGE_JS; ?>';
             window.DialogMessage = DialogMessage;
+        </script>
+        <script type="module">
+            import Subscriber from './<?php echo P::REL_SUBSCRIBE_MODEL_JS; ?>';
+            window.Subscriber = Subscriber;
+        </script>
+        <script type="module">
+            import SubscriberController from './<?php echo P::REL_SUBSCRIBE_CONTROLLER_JS; ?>';
+            window.SubscriberController = SubscriberController;
         </script>
         <script src=<?php echo P::REL_SUBSCRIBE_JS; ?>></script>
     </head>

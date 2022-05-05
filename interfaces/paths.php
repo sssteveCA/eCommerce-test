@@ -24,7 +24,7 @@ interface Paths{
     const REL_CONTACTS_MODEL_JS = "js/contacts/contact.model.js";
     const REL_CREATE_CSS = "css/crea.css";
     const REL_CREATE_JS = "js/crea.js";
-    const REL_DIALOG_JS = "js/dialog/dialogmessage.js";
+    const REL_DIALOG_MESSAGE_JS = "js/dialog/dialogmessage.js";
     const REL_EDIT_CSS = "css/edit.css";
     const REL_EDIT_JS = "js/edit.js";
     const REL_INFO_CSS = "css/info.css";
@@ -48,7 +48,9 @@ interface Paths{
     const REL_RESET_JS = "js/reset.js";
     const REL_SEARCH_CSS = "css/ricerca.css";
     const REL_SUBSCRIBE_CSS = "css/subscribe/subscribe.min.css";
+    const REL_SUBSCRIBE_CONTROLLER_JS = "js/subscribe/subscriber.controller.js";
     const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
+    const REL_SUBSCRIBE_MODEL_JS = "js/subscribe/subscribe.model.js";
     const REL_WELCOME_CSS = "css/benvenuto/benvenuto.min.css";
     const REL_WELCOME_JS = "js/benvenuto.js";
 }

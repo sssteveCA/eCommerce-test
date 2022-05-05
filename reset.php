@@ -25,7 +25,7 @@ require_once('funzioni/config.php');
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script src=<?php echo P::REL_DIALOG_JS; ?>></script>
+        <script src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script src=<?php echo P::REL_RESET_JS; ?>></script>
     <head>
     <body>
