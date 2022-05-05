@@ -35,7 +35,7 @@ else{
             import SubscriberController from './<?php echo P::REL_SUBSCRIBE_CONTROLLER_JS; ?>';
             window.SubscriberController = SubscriberController;
         </script>
-        <script src=<?php echo P::REL_SUBSCRIBE_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
     </head>
     <body>
         <div class="my-container">

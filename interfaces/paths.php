@@ -50,7 +50,7 @@ interface Paths{
     const REL_SUBSCRIBE_CSS = "css/subscribe/subscribe.min.css";
     const REL_SUBSCRIBE_CONTROLLER_JS = "js/subscribe/subscriber.controller.js";
     const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
-    const REL_SUBSCRIBE_MODEL_JS = "js/subscribe/subscribe.model.js";
+    const REL_SUBSCRIBE_MODEL_JS = "js/subscribe/subscriber.model.js";
     const REL_WELCOME_CSS = "css/benvenuto/benvenuto.min.css";
     const REL_WELCOME_JS = "js/benvenuto.js";
 }

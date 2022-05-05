@@ -3,7 +3,7 @@
 export default interface SubsciberInterface{
     name: string;
     surname: string;
-    birth: Date;
+    birth: Date|string;
     sex: string;
     address: string;
     number: number;
@@ -14,5 +14,6 @@ export default interface SubsciberInterface{
     clientId?: string;
     email: string;
     password: string;
+    confPass: string;
     ajax?: boolean;
 }

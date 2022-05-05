@@ -11,6 +11,9 @@ require_once('../objects/utente.php');
 ob_start();
 
 $data = json_decode((file_get_contents('php://input')));
+$response = array();
+$response['msg'] = 'Ciao';
+$response['data'] = $data;
 
-echo json_encode($data,JSON_UNESCAPED_UNICODE);
+echo json_encode($response,JSON_UNESCAPED_UNICODE);
 ?>

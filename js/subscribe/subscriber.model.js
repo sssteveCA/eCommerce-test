@@ -20,6 +20,7 @@ export default class Subscriber {
             this._clientId = null;
         this._email = data.email;
         this._password = data.password;
+        this._confPass = data.confPass;
         if (data.hasOwnProperty('ajax'))
             this._ajax = data.ajax;
         else
@@ -38,5 +39,6 @@ export default class Subscriber {
     get clientId() { return this._clientId; }
     get email() { return this._email; }
     get password() { return this._password; }
+    get confPass() { return this._confPass; }
     get isAjax() { return this._ajax; }
 }

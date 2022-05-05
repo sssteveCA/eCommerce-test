@@ -21,6 +21,7 @@ export default class SubscriberController{
         this._subscriber = subscriber;
         this._errno = 0;
         this._error = null;
+        this.subscribeRequest();
     }
 
     get subscriber(){return this._subscriber;}
@@ -81,14 +82,17 @@ export default class SubscriberController{
                 email: this.subscriber.email,
                 username: this.subscriber.username,
                 password: this.subscriber.password,
+                confPass: this.subscriber.confPass,
                 ajax: this.subscriber.isAjax
-            }
+            };
+            console.log("subscribePromise  data");
+            console.log(data);
             const params = {
                 method: 'POST',
-                body: '',
+                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    Accept: 'application/json'
                 }
             };
             const response = fetch(SubscriberController.SUBSCRIBE_URL,params);

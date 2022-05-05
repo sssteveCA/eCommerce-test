@@ -1,49 +1,38 @@
-$(function(){
-    $('#show').on('change',function(){
-        if($(this).is(':checked')){
-            $('#password').attr('type','text');
-            $('#confPass').attr('type','text');
+import SubscriberController from "./subscriber.controller.js";
+import Subscriber from "./subscriber.model.js";
+$(function () {
+    $('#show').on('change', function () {
+        //Show/hide password fields
+        if ($(this).is(':checked')) {
+            $('#password').attr('type', 'text');
+            $('#confPass').attr('type', 'text');
         }
-        else{
-            $('#password').attr('type','password');
-            $('#confPass').attr('type','password');
+        else {
+            $('#password').attr('type', 'password');
+            $('#confPass').attr('type', 'password');
         }
-    });
-    $('#formReg').on('submit',function(e){
+    }); //$('#show').on('change',function(){
+    $('#formReg').on('submit', function (e) {
+        //Submit subscribe form
         e.preventDefault();
-        var dati = {};
-        dati['ajax'] = '1';
-        dati['nome'] = $('#nome').val();
-        dati['cognome'] = $('#cognome').val();
-        dati['nascita'] = $('#nascita').val();
-        dati['sesso'] = $('input[name="sesso"]:checked').val();
-        dati['indirizzo'] = $('#indirizzo').val();
-        dati['numero'] = $('#numero').val();
-        dati['citta'] = $('#citta').val();
-        dati['cap'] = $('#cap').val();
-        dati['user'] = $('#user').val();
-        dati['paypalMail'] = $('#paypalMail').val();
-        dati['clientId'] = $('#clientId').val();
-        dati['email'] = $('#email').val();
-        dati['password'] = $('#password').val();
-        $.ajax({
-            url : 'funzioni/nuovoAccount.php',
-            method : 'post',
-            data : dati,
-            success : function(risposta, stato, xhr){
-                console.log(risposta);
-                var risp = JSON.parse(risposta);
-                message('Registrazione account','auto','400px',risp.msg,'close');
-                $('#dialog').on('dialogclose',function(){
-                    $('#dialog').remove();
-                });
-            },
-            error : function(xhr, stato, errore){
-
-            },
-            complete : function(xhr, stato){
-    
-            }
-        });
-    });//$('#formReg').on('submit',function(e){
-});
+        var dati = {
+            ajax: true,
+            name: $('#nome').val(),
+            surname: $('#cognome').val(),
+            birth: $('#nascita').val(),
+            sex: $('input[name="sesso"]:checked').val(),
+            address: $('#indirizzo').val(),
+            number: $('#numero').val(),
+            city: $('#citta').val(),
+            zip: $('#cap').val(),
+            username: $('#user').val(),
+            paypalMail: $('#paypalMail').val(),
+            clientId: $('#clientId').val(),
+            email: $('#email').val(),
+            password: $('#password').val(),
+            confPass: $('#confPass').val()
+        };
+        let subscriber = new Subscriber(dati);
+        let subscriberController = new SubscriberController(subscriber);
+    }); //$('#formReg').on('submit',function(e){
+}); //$(function(){

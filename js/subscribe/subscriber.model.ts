@@ -4,7 +4,7 @@ import SubsciberInterface from "./data.interface";
 export default class Subscriber{
     private _name: string;
     private _surname: string;
-    private _birth: Date; //Subscriber birth date
+    private _birth: Date|string; //Subscriber birth date
     private _sex: string; //Male or female
     private _address: string; //Subscriber living street
     private _number: number; //House number of subscriber
@@ -16,6 +16,7 @@ export default class Subscriber{
     private _clientId: string|null; //Unique ID of Paypal user
     private _email: string; //Personal email
     private _password: string;
+    private _confPass: string;
     private _ajax: boolean; //True if Subscriber data are passed via AJAX request
 
     constructor(data: SubsciberInterface){
@@ -34,10 +35,9 @@ export default class Subscriber{
         else this._clientId = null;
         this._email = data.email;
         this._password = data.password;
+        this._confPass = data.confPass;
         if(data.hasOwnProperty('ajax'))this._ajax = data.ajax as boolean;
         else this._ajax = false;
-
-
     }
 
     get name(){return this._name;}
@@ -53,6 +53,7 @@ export default class Subscriber{
     get clientId(){return this._clientId;}
     get email(){return this._email;}
     get password(){return this._password;}
+    get confPass(){return this._confPass;}
     get isAjax(){return this._ajax;}
 
 }
