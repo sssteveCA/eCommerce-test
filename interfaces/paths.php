@@ -24,7 +24,7 @@ interface Paths{
     const REL_CONTACTS_MODEL_JS = "js/contatti/contact.model.js";
     const REL_CREATE_CSS = "css/crea.css";
     const REL_CREATE_JS = "js/crea.js";
-    const REL_DIALOG_JS = "js/dialog/dialog.js";
+    const REL_DIALOG_JS = "js/dialog/dialogmessage.js";
     const REL_EDIT_CSS = "css/edit.css";
     const REL_EDIT_JS = "js/edit.js";
     const REL_INFO_CSS = "css/info.css";

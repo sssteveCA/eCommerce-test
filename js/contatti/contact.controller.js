@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import DialogMessage from './../dialog/dialogmessage.js';
 //Do the HTTP request passing Contact object
 export default class ContactController {
     constructor(contact) {
@@ -43,10 +44,22 @@ export default class ContactController {
     sendEmail() {
         if (this.contact != null) {
             if (this.validateContact()) {
-                this.sendEmailPromise().then(msg => {
-                    console.log(msg);
+                var dmData;
+                this.sendEmailPromise().then(res => {
+                    //console.log(res);
+                    let jsonRes = JSON.parse(res);
+                    dmData = {
+                        title: 'Contatti',
+                        message: jsonRes.msg
+                    };
+                    let dm = new DialogMessage(dmData);
                 }).catch(err => {
-                    console.warn(err);
+                    //console.warn(err);
+                    dmData = {
+                        title: 'Contatti',
+                        message: err
+                    };
+                    let dm = new DialogMessage(dmData);
                 });
             } //if(this.validateContact()){
             else

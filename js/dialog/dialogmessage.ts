@@ -18,7 +18,7 @@ export default class DialogMessage{
         else this._width = 'auto';
         if(typeof this._width == 'number')this._width = this._width+'px';
         if(data.hasOwnProperty('height'))this._height = data.height as number|string;
-        else this._height = 400;
+        else this._height = 'auto';
         if(typeof this._height == 'number')this._height = this._height+'px';
         this._title = data.title;
         this._message = data.message;
@@ -41,7 +41,12 @@ export default class DialogMessage{
     get isDraggable(){return this._draggable;}
 
     private showDialog(): void{
-        let myMessage = this.message;
+        let myParam = {
+            title: this.title,
+            message: this.message,
+            height: this.height,
+            width: this.width
+        }
         $('<div id="'+this.id+'">').dialog({
             resizable: this.isResizable,
             draggable: this.isDraggable,
@@ -50,12 +55,12 @@ export default class DialogMessage{
                 at: 'center center',
                 of: window
             },
-            height: this.height,
-            width: this.width,
+            height: myParam.height,
+            width: myParam.width,
             dialogClass: 'no-close',
-            title: this.title,
+            title: myParam.title,
             open: function(){
-                $(this).html(myMessage);
+                $(this).html(myParam.message);
             },
             buttons: [
                 {
@@ -65,7 +70,7 @@ export default class DialogMessage{
                     }
                 }
             ]
-        })
+        });
     }
 
 }

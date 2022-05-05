@@ -14,7 +14,7 @@ export default class DialogMessage {
         if (data.hasOwnProperty('height'))
             this._height = data.height;
         else
-            this._height = 400;
+            this._height = 'auto';
         if (typeof this._height == 'number')
             this._height = this._height + 'px';
         this._title = data.title;
@@ -42,7 +42,12 @@ export default class DialogMessage {
     get isResizable() { return this._resizable; }
     get isDraggable() { return this._draggable; }
     showDialog() {
-        let myMessage = this.message;
+        let myParam = {
+            title: this.title,
+            message: this.message,
+            height: this.height,
+            width: this.width
+        };
         $('<div id="' + this.id + '">').dialog({
             resizable: this.isResizable,
             draggable: this.isDraggable,
@@ -51,12 +56,12 @@ export default class DialogMessage {
                 at: 'center center',
                 of: window
             },
-            height: this.height,
-            width: this.width,
+            height: myParam.height,
+            width: myParam.width,
             dialogClass: 'no-close',
-            title: this.title,
+            title: myParam.title,
             open: function () {
-                $(this).html(myMessage);
+                $(this).html(myParam.message);
             },
             buttons: [
                 {
