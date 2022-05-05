@@ -48,9 +48,9 @@ export default class DialogMessage {
             height: this.height,
             width: this.width
         };
-        $('<div id="' + this.id + '">').dialog({
-            resizable: this.isResizable,
-            draggable: this.isDraggable,
+        $('<div id="' + this._id + '">').dialog({
+            resizable: this._resizable,
+            draggable: this._draggable,
             position: {
                 my: 'center center',
                 at: 'center center',
@@ -67,7 +67,7 @@ export default class DialogMessage {
                 {
                     text: 'OK',
                     click: function () {
-                        $(this).dialog('destroy');
+                        //$(this).dialog('destroy');
                     }
                 }
             ]

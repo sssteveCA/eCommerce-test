@@ -67,6 +67,12 @@ export default class ContactController{
                     
                     };
                     let dm = new DialogMessage(dmData);
+                    let msgDialog = $('#'+dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 }).catch(err => {
                     //console.warn(err);
                     dmData = {

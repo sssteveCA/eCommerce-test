@@ -42,6 +42,7 @@ else
                 <div>              
                     <input type="hidden" id="campo" name="campo" value="email">                
                     <button type="submit" id="submit"  class="btn btn-primary">ACCEDI</button>
+                    <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
                 </div>
             </form>
             <div class="after-form ">
