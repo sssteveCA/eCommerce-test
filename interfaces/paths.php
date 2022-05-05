@@ -47,8 +47,8 @@ interface Paths{
     const REL_RESET_CSS = "css/reset.css";
     const REL_RESET_JS = "js/reset.js";
     const REL_SEARCH_CSS = "css/ricerca.css";
-    const REL_SUBSCRIBE_CSS = "css/registrati/registrati.min.css";
-    const REL_SUBSCRIBE_JS = "js/registrati.js";
+    const REL_SUBSCRIBE_CSS = "css/subscribe/subscribe.min.css";
+    const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
     const REL_WELCOME_CSS = "css/benvenuto/benvenuto.min.css";
     const REL_WELCOME_JS = "js/benvenuto.js";
 }
