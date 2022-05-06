@@ -51,7 +51,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <?php echo menu($_SESSION['welcome']);?>
         <div id="container2">
             <h1>Modifica profilo</h1>
-            <fieldset id="f1">
+            <fieldset id="f1" class="my-3">
                 <legend>Modifica username</legend>
                 <form id="userEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="user" name="user" value="1">
@@ -65,7 +65,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     </div>
                 </form>
             </fieldset>
-            <fieldset id="f2">
+            <fieldset id="f2" class="my-3">
                 <legend>Modifica password</legend>
                 <form id="pwdEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="pwd" name="pwd" value="1">
@@ -87,7 +87,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     </div>
                 </form>
             </fieldset>
-            <fieldset id="f3">
+            <fieldset id="f3" class="my-3">
                 <legend>Dati personali</legend>
                 <form id="dataEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="pers" name="pers" value="1">

@@ -1,0 +1,42 @@
+@mixin single-selectors-loop($map){
+    @each $types,$list-type in $map{
+        @each $selector,$properties-list in $list-type{
+            #{$selector}{
+                @each $prop,$val in $properties-list{
+                    #{$prop}: #{$val};
+                }
+            }
+        }
+    }
+}
+
+@mixin compound-selectors-loop($map){
+    @each $selector, $properties-list in $map{
+        #{$selector}{
+            @each $prop,$val in $properties-list{
+                #{$prop}: #{$val};
+            }
+        }
+    }
+}
+
+//loop over the edit forms div children
+@mixin form-loop(){
+    $listId: ('userEdit','pwdEdit','dataEdit');
+    $divButtons: 0;
+    @each $id in $listId{
+        @if $id == 'userEdit'{
+            $divButtons: 3;
+        } 
+        @else if $id == 'pwdEdit'{
+            $divButtons: 5;
+        }
+        @else{
+            $divButtons: 10;
+        }
+        ##{$id} div:nth-child(#{$divButtons}){
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}

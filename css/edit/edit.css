@@ -1,0 +1,51 @@
+#container2 {
+  margin: 70px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  min-width: 300px;
+}
+
+h1 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+form div {
+  margin: 5px;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  min-width: 300px;
+}
+
+#userEdit div:nth-child(3) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#pwdEdit div:nth-child(5) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#dataEdit div:nth-child(10) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
