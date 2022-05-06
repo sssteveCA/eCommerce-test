@@ -66,7 +66,6 @@ export default class DialogMessage{
                 {
                     text: 'OK',
                     click: function(){
-                        //$(this).dialog('destroy');
                     }
                 }
             ]

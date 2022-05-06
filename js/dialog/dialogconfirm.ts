@@ -66,13 +66,11 @@ export default class DialogConfirm{
                 {
                     text: "SÌ",
                     click: function(){
-                        $(this).dialog('destroy');
                     }
                 },
                 {
                     text: "NO",
                     click: function(){
-                        $(this).dialog('destroy');
                     }
                 }
             ]
