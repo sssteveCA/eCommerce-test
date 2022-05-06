@@ -141,6 +141,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script src="js/dialog/dialog.js"></script> <!-- temporary -->
         <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
     </head>
     <body>
@@ -187,7 +188,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <!-- <input type="hidden" name="email" value="<?php //echo $utente->getEmail(); ?>"> -->
                     <!-- <input type="hidden" name="email" value="<?php //echo $emailPersonal; ?>"> -->
 
-                    <input type="submit" id="bOk" value="PAGA">
+                    <button type="submit" id="bOk" class="btn btn-primary">PAGA</button>
                 </form>
                 <form id="cart" method="post" action="funzioni/cartMan.php">
                     <!-- oper = 1, aggiunge il prodotto al carrello -->
@@ -195,12 +196,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <!-- ID dell'ordine -->
                     <input type="hidden" id="ido" name="ido" value="<?php echo $ordine->getId(); ?>">
                     <input type="hidden" id="idp" name="idp" value="<?php echo $prodotto->getId(); ?>">
-                    <input type="submit" id="bCart" value="AGGIUNGI AL CARRELLO">
+                    <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
                 </form>
                 <form id="back" method="post" action="compra.php">
                     <input type="hidden" id="idp" name="idp" value="<?php echo $dati['idp']; ?>">
                     <input type="hidden" id="qt" name="qt" value="<?php echo $dati['quantita']; ?>">
-                    <input type="submit" id="bInd" value="INDIETRO">
+                    <button type="submit" id="bInd" class="btn btn-warning">INDIETRO</button>
                 </form>
             </div>
         </fieldset>
