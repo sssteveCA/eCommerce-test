@@ -46,7 +46,7 @@ export default class SubscriberController {
             if (this.validateSubscriber()) {
                 let dm, dmData, msgDialog, resJson;
                 this.subscribePromise().then(res => {
-                    console.log(res);
+                    //console.log(res);
                     resJson = JSON.parse(res);
                     dmData = {
                         title: 'Registrazione',
