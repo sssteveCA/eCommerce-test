@@ -1,4 +1,5 @@
-import Subscriber from "./subscriber.model";
+import Subscriber from "./subscriber.model.js";
+import DialogMessage from "../dialog/dialogmessage.js";
 
 //Do the HTTP request passing Subscriber object
 export default class SubscriberController{
@@ -54,10 +55,34 @@ export default class SubscriberController{
     private subscribeRequest(): void{
         if(this.subscriber != null){
             if(this.validateSubscriber()){
+                let dm,dmData,msgDialog: JQuery<HTMLElement>, resJson;
                 this.subscribePromise().then(res => {
                     console.log(res);
+                    resJson = JSON.parse(res);
+                    dmData = {
+                        title: 'Registrazione',
+                        message: resJson.msg
+                    }
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#'+dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 }).catch(err => {
                     console.warn(err);
+                    dmData = {
+                        title: 'Registrazione',
+                        message: err
+                    };
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#'+dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 });
             }//if(this.validateSubscriber()){
             else this._errno = SubscriberController.ERR_DATAMISSED;
@@ -97,7 +122,7 @@ export default class SubscriberController{
             };
             const response = fetch(SubscriberController.SUBSCRIBE_URL,params);
             response.then(r => {
-                resolve(r.json());
+                resolve(r.text());
             }).catch(err => {
                 console.warn(err);
                 reject(SubscriberController.ERR_MSG_SUBSCRIBEERROR);

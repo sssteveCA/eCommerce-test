@@ -44,7 +44,7 @@ export default class ContactController {
     sendEmail() {
         if (this.contact != null) {
             if (this.validateContact()) {
-                var dmData;
+                let dm, dmData, msgDialog;
                 this.sendEmailPromise().then(res => {
                     //console.log(res);
                     let jsonRes = JSON.parse(res);
@@ -52,8 +52,8 @@ export default class ContactController {
                         title: 'Contatti',
                         message: jsonRes.msg
                     };
-                    let dm = new DialogMessage(dmData);
-                    let msgDialog = $('#' + dm.id);
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
                     $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
                         //User press OK button
                         msgDialog.dialog('destroy');
@@ -65,7 +65,13 @@ export default class ContactController {
                         title: 'Contatti',
                         message: err
                     };
-                    let dm = new DialogMessage(dmData);
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 });
             } //if(this.validateContact()){
             else

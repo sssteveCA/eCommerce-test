@@ -25,15 +25,15 @@ else{
         <script src="<?php echo P::REL_BOOTSTRAP_JS; ?>"></script>
         <script type="module">
             import DialogMessage from './<?php echo P::REL_DIALOG_MESSAGE_JS; ?>';
-            window.DialogMessage = DialogMessage;
+            //window.DialogMessage = DialogMessage;
         </script>
         <script type="module">
             import Subscriber from './<?php echo P::REL_SUBSCRIBE_MODEL_JS; ?>';
-            window.Subscriber = Subscriber;
+            //window.Subscriber = Subscriber;
         </script>
         <script type="module">
             import SubscriberController from './<?php echo P::REL_SUBSCRIBE_CONTROLLER_JS; ?>';
-            window.SubscriberController = SubscriberController;
+            //window.SubscriberController = SubscriberController;
         </script>
         <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
     </head>

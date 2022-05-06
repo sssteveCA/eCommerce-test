@@ -1,6 +1,6 @@
-import SubsciberInterface from "./data.interface";
-import SubscriberController from "./subscriber.controller";
-import Subscriber from "./subscriber.model";
+import SubsciberInterface from "./data.interface.js";
+import SubscriberController from "./subscriber.controller.js";
+import Subscriber from "./subscriber.model.js";
 
 $(function(){
     $('#show').on('change',function(){

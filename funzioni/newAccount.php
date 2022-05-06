@@ -10,43 +10,47 @@ require_once('functions.php');
 require_once('../objects/utente.php');
 ob_start();
 
-$post = json_decode((file_get_contents('php://input')));
+$post = json_decode(file_get_contents('php://input'),true);
 $response = array();
-$response['msg'] = 'Ciao';
-//$response['data'] = $post;
+$response['msg'] = '';
 
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['address'],$post['number'],$post['city'],$post['zip'],$post['email'],$post['username'],$post['password'],$post['confPass'])){
     if($post['password'] == $post['confPass']){
        $data = assign();
-        $validDate = dateControl($data['birth']);
+        $validDate = dateControl($data['nascita']);
         if($validDate){
-            $sex = checkSex($data['sex']);
+            $sex = checkSex($data['sesso']);
             if($sex != null){
+                if(!isset($data['paypalMail']))$data['paypalMail'] = null;
                 $okMails = checkMails($data['email'],$data['paypalMail']);
                 if($okMails == 1){
                     try{
-                        $utente = new Utente($dati);
-                            //if there are no errors
-                            if($utente->getNumError() == 0){
-                                $params = array();
-                                $params['codAut'] = $utente->getCodAut();
-                                $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
-                                $params['indAtt'] = dirname($url,2).'/attiva.php';
-                                $params['indAttCod'] = $indAtt.'?codAut='.$params['codAut'];
-                                $headers = msg_headers();
-                                $message = msg_body($params);
-                                //send activation email
-                                $send = $utente->sendMail($utente->getEmail(),'Attivazione account',$message,$headers);
-                                if($send){
-                                    $response['msg'] = Msg::SUBSCRIBECOMPLETED;
-                                    if(!$ajax)
-                                        header('referesh:10;url=../index.php');
-                                }//if($send){
-                                else $response['msg'] = $utente->getStrError();
-                            }//if($utente->getNumError() == 0){
-                    }
+                        $utente = new Utente($data);
+                        //if there are no errors
+                        if($utente->getNumError() == 0){
+                            $params = array();
+                            $params['codAut'] = $utente->getCodAut();
+                            $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
+                            $params['indAtt'] = dirname($url,2).'/attiva.php';
+                            $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
+                            $headers = msg_headers();
+                            $message = msg_body($params);
+                            //send activation email
+                            $send = $utente->sendMail($utente->getEmail(),'Attivazione account',$message,$headers);
+                            if($send){
+                                $response['msg'] = Msg::SUBSCRIBECOMPLETED;
+                                if(!$ajax)
+                                    header('referesh:10;url=../index.php');
+                            }//if($send){
+                            else $response['msg'] = $utente->getStrError();
+                        }//if($utente->getNumError() == 0){
+                        else{
+                            $response['queries'] = $utente->getQueries();
+                            $response['msg'] = $utente->getStrError();
+                        }
+                }
                     catch(Exception $e){
                         $response['msg'] = $e->getMessage();
                     }
@@ -79,17 +83,19 @@ else echo $response['msg'];
 function assign(){
     global $post;
     $data = array();
-    $data['name'] = $post['name'];
-    $data['surname'] = $post['surname'];
-    $data['birth'] = $post['birth'];
-    $data['sex'] = $post['sex'];
-    $data['address'] = $post['address'];
-    $data['number'] = $post['number'];
-    $data['city'] = $post['city'];
-    $data['zip'] = $post['zip'];
+    $data['nome'] = $post['name'];
+    $data['cognome'] = $post['surname'];
+    $data['nascita'] = $post['birth'];
+    $data['sesso'] = $post['sex'];
+    $data['indirizzo'] = $post['address'];
+    $data['numero'] = $post['number'];
+    $data['citta'] = $post['city'];
+    $data['cap'] = $post['zip'];
+    $data['username'] = $post['username'];
     //Not obligatory fields
     if(preg_match(Utente::$regex['paypalMail'],$post['paypalMail'] != ''))$data['paypalMail'] = $post['paypalMail'];
     if(preg_match(Utente::$regex['clientId'],$post['clientId'] != ''))$data['clientId'] = $post['clientId'];
+    $data['email'] = $post['email'];
     $data['password'] = password_hash($post['password'],PASSWORD_DEFAULT);
     $data['registrato'] = false;
     return $data;
@@ -115,9 +121,10 @@ function checkSex($sex){
 function checkMails($email,$paypalMail){
     $ok = 0;
     if(preg_match(Utente::$regex['email'],$email)){
-        $paypalOk = (isset($dati['paypalMail']) && preg_match(Utente::$regex['paypalMail'],$paypalMail));
-        if($paypalOk)$ok = 1;
-        else $ok = -2;
+        $ok = 1;
+        if(isset($paypalMail)){
+            if(!preg_match(Utente::$regex['paypalMail'],$paypalMail))$ok = -2;
+        }//if(isset($paypalMail)){
     }//if(preg_match(Utente::$regex['email'],$email)){
     else $ok = -1;
     return $ok;

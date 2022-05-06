@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import DialogMessage from "../dialog/dialogmessage.js";
 //Do the HTTP request passing Subscriber object
 export default class SubscriberController {
     constructor(subscriber) {
@@ -43,10 +44,34 @@ export default class SubscriberController {
     subscribeRequest() {
         if (this.subscriber != null) {
             if (this.validateSubscriber()) {
+                let dm, dmData, msgDialog, resJson;
                 this.subscribePromise().then(res => {
                     console.log(res);
+                    resJson = JSON.parse(res);
+                    dmData = {
+                        title: 'Registrazione',
+                        message: resJson.msg
+                    };
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 }).catch(err => {
                     console.warn(err);
+                    dmData = {
+                        title: 'Registrazione',
+                        message: err
+                    };
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 });
             } //if(this.validateSubscriber()){
             else
@@ -87,7 +112,7 @@ export default class SubscriberController {
                 };
                 const response = fetch(SubscriberController.SUBSCRIBE_URL, params);
                 response.then(r => {
-                    resolve(r.json());
+                    resolve(r.text());
                 }).catch(err => {
                     console.warn(err);
                     reject(SubscriberController.ERR_MSG_SUBSCRIBEERROR);
