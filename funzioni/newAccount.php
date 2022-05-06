@@ -14,7 +14,7 @@ $post = json_decode(file_get_contents('php://input'),true);
 $response = array();
 $response['msg'] = '';
 
-$ajax = (isset($post['ajax']) && $post['ajax'] == '1');
+$ajax = (isset($post['ajax']) && $post['ajax'] == true);
 
 if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['address'],$post['number'],$post['city'],$post['zip'],$post['email'],$post['username'],$post['password'],$post['confPass'])){
     if($post['password'] == $post['confPass']){

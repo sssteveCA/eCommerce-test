@@ -42,7 +42,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script src=<?php echo P::REL_LOGOUT_JS; ?>></script>
         <script src=<?php echo P::REL_EDIT_JS; ?>></script>
     </head>
