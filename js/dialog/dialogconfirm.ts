@@ -1,7 +1,7 @@
-import DialogMessageInterface from "./dialogmessage.interface";
+import DialogConfirmInterface from "./dialogconfirm.interface";
 
-//jQueryUI dialog message object
-export default class DialogMessage{
+//jQueryUI confirm dialog with YES/NO buttons
+export default class DialogConfirm{
     private _id: string;
     private _width: number|string;
     private _height: number|string;
@@ -11,7 +11,7 @@ export default class DialogMessage{
     private _resizable: boolean;
     private _draggable: boolean;
 
-    constructor(data: DialogMessageInterface){
+    constructor(data: DialogConfirmInterface){
         if(data.hasOwnProperty('id'))this._id = data.id as string;
         else this._id = 'dialog';
         if(data.hasOwnProperty('width'))this._width = data.width as number|string;
@@ -42,11 +42,11 @@ export default class DialogMessage{
 
     private showDialog(): void{
         let myParam = {
-            title: this.title,
-            message: this.message,
-            height: this.height,
-            width: this.width
-        }
+            title: this._title,
+            message: this._message,
+            height: this._height,
+            width: this._width
+        };
         $('<div id="'+this._id+'">').dialog({
             resizable: this._resizable,
             draggable: this._draggable,
@@ -57,20 +57,25 @@ export default class DialogMessage{
             },
             height: myParam.height,
             width: myParam.width,
-            dialogClass: 'no-close',
+            modal: this._modal,
             title: myParam.title,
             open: function(){
                 $(this).html(myParam.message);
             },
             buttons: [
                 {
-                    text: 'OK',
+                    text: "SÌ",
                     click: function(){
-                        //$(this).dialog('destroy');
+                        $(this).dialog('destroy');
+                    }
+                },
+                {
+                    text: "NO",
+                    click: function(){
+                        $(this).dialog('destroy');
                     }
                 }
             ]
         });
     }
-
 }

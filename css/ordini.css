@@ -12,7 +12,8 @@ td, th{
 }
 
 div#ordiniT{
-    position: absolute;
+    /*position: absolute;*/
+    margin-top: 20px;
     top: 70px;
     left: 10px;
     overflow: auto;

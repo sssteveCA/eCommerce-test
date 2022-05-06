@@ -1,6 +1,7 @@
 
 div#carrello{
-    position: absolute;
+    /*position: absolute;*/
+    margin-top: 20px;
     top: 100px;
     left: 100px;
     height: 500px;

@@ -1,5 +1,5 @@
-//jQueryUI dialog message object
-export default class DialogMessage {
+//jQueryUI confirm dialog with YES/NO buttons
+export default class DialogConfirm {
     constructor(data) {
         if (data.hasOwnProperty('id'))
             this._id = data.id;
@@ -43,10 +43,10 @@ export default class DialogMessage {
     get isDraggable() { return this._draggable; }
     showDialog() {
         let myParam = {
-            title: this.title,
-            message: this.message,
-            height: this.height,
-            width: this.width
+            title: this._title,
+            message: this._message,
+            height: this._height,
+            width: this._width
         };
         $('<div id="' + this._id + '">').dialog({
             resizable: this._resizable,
@@ -58,16 +58,22 @@ export default class DialogMessage {
             },
             height: myParam.height,
             width: myParam.width,
-            dialogClass: 'no-close',
+            modal: this._modal,
             title: myParam.title,
             open: function () {
                 $(this).html(myParam.message);
             },
             buttons: [
                 {
-                    text: 'OK',
+                    text: "SÌ",
                     click: function () {
-                        //$(this).dialog('destroy');
+                        $(this).dialog('destroy');
+                    }
+                },
+                {
+                    text: "NO",
+                    click: function () {
+                        $(this).dialog('destroy');
                     }
                 }
             ]
