@@ -74,8 +74,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <input type="hidden" id="nP" name="nP" value="<?php echo $qt; ?>">
                     <input type="hidden" id="tot" name="tot" value="<?php echo sprintf("%.2f€",$totale);; ?>">
                     <!-- <input type="hidden" id="qt" name="qt" value="<?php echo $qt; ?>"> -->
-                    <input type="submit" id="bOk" value="CONFERMA">
-                    <input type="button" id="bInd" value="INDIETRO">
+                    <button type="submit" id="bOk" class="btn btn-primary">CONFERMA</button>
+                    <button type="button" id="bInd" class="btn btn-danger">INDIETRO</button>
                 </div>
             </div>
         </form>
