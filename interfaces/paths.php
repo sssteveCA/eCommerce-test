@@ -41,7 +41,7 @@ interface Paths{
     const REL_ORDERS_CSS = "css/ordini.css";
     const REL_ORDERS_JS = "js/ordini.js";
     const REL_PRODUCT_CSS = "css/prodotto.css";
-    const REL_PRODUCT_JS = "css/prodotto.css";
+    const REL_PRODUCT_JS = "js/prodotto.js";
     const REL_RECOVERY_CSS = "css/recupera/recupera.min.css";
     const REL_RECOVERY_JS = "js/recupera.js";
     const REL_RESET_CSS = "css/reset.css";

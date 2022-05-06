@@ -140,7 +140,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
-        <script src=<?php echo P::REL_LOGOUT_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
     </head>
     <body>
@@ -217,7 +217,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <!-- PayPal In-Context Checkout script -->
     <script type="text/javascript">
         var clientId = '<?php echo $uVenditore->getClientId(); ?>';
-        console.log("clientId = "+clientId);
+        //console.log("clientId = "+clientId);
         var client = {
             sandbox:  clientId
         };

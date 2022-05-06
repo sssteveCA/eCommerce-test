@@ -7,7 +7,8 @@ div#f1d2 *{
 }
 
 form#fAvanzata{
-    position: absolute;
+    /*position: absolute;*/
+    margin-top: 20px;
 }
 
 form#fAvanzata{

@@ -49,14 +49,14 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
-        <script src=<?php echo P::REL_LOGOUT_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src=<?php echo P::REL_PRODUCT_JS; ?>></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
         <div id="container1" class="container">
             <!-- immagine del prodotto -->
-            <div id="immagine" >
+            <div id="immagine">
             <?php echo '<img src="'.$prodotto->getImmagine().'">'; ?>
             </div>
             <div id="dInfo1">

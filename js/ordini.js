@@ -122,7 +122,7 @@ function chiamaAjax(dati){
         method : 'get',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
             //console.log(risp);
             if(risp.length === 0){

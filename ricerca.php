@@ -34,7 +34,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
-        <script src=<?php echo P::REL_LOGOUT_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
@@ -159,7 +159,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     //i prodotti ottenuti sono mostrati in ordine decrescente in base alla data in cui è stato pubblicato l'annuncio
     $query .= "ORDER BY `data` DESC LIMIT 30;";
     //id dei prodotti ottenuti dalla query di ricerca
-    echo '<script>console.log("'.$query.'");</script>';
+    //echo '<script>console.log("'.$query.'");</script>';
     $listaId = Prodotto::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$query);
     if($listaId !== null){
         if(!empty($listaId)){
