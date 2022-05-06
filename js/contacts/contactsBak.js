@@ -1,5 +1,4 @@
-import Contact from './contact.model.js';
-import ContactController from './contact.controller.js';
+
 $(function () {
     $('#fContatti').on('submit', function (ev) {
         ev.preventDefault();
@@ -8,7 +7,7 @@ $(function () {
             message: $('#messaggio').val(),
             ajax: true
         };
-        let contact = new Contact(mess);
-        let contactCtr = new ContactController(contact);
+        let contact = new window.Contact(mess);
+        let contactCtr = new window.ContactController(contact);
     });
 });

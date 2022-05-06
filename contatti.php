@@ -37,7 +37,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             import ContactController from './<?php echo P::REL_CONTACTS_CONTROLLER_JS; ?>';
             window.ContactController = ContactController;
         </script>
-        <script src="<?php echo P::REL_CONTACTS_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_CONTACTS_JS; ?>"></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
