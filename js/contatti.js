@@ -4,7 +4,7 @@ function centerDiv(id){
     var divLeft = ($(window).width()) / 2 - (div.outerWidth() / 2);
     var divTop = ($(window).height()) / 2 - (div.outerHeight() / 2);
     div.css({
-        position : 'absolute',
+        //position : 'absolute',
         left : divLeft+'px',
         top : divTop+'px'
     });

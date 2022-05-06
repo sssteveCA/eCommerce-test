@@ -1,6 +1,14 @@
 <?php
+
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\Messages as Msg;
+
 //pagina che effettua la richiesta POST: reset.php
 ob_start();
+
+require_once('../interfaces/messages.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
 require_once('../objects/utente.php');
 require_once('const.php');
@@ -31,17 +39,17 @@ if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
                  $mess = $utente->getStrError().'<br>';
                  $mess .= ' Linea n. '.__LINE__;
             }
-        }
+        }//if($nuova == $conf){
         else{
-            $mess = 'Le due password non coincidono';
+            $mess = Msg::ERR_PWDNOTEQUAL;
         }
-    }
+    }//if(isset($_POST['nuova'],$_POST['confNuova']) && $_POST['nuova'] != '' && $_POST['confNuova'] != ''){
     else{
-        $mess = 'Nessuna password impostata';
+        $mess = Msg::ERR_PWDNOTSETTED;
     }
-}
+}//if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
 else{
-    $mess = 'Codice non valido';
+    $mess = Msg::ERR_CODEINVALD;
 }
 if($ajax){
     $messaggio['msg'] = $mess;

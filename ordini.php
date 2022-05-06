@@ -1,5 +1,10 @@
 <?php
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
+
+require_once('interfaces/paths.php');
+require_once('navbar.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
 
@@ -12,46 +17,20 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Ordini</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/ordini.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/ordini.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_ORDERS_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script src="js/dialog/dialog.js"></script> <!-- temporary -->
+        <script src=<?php echo P::REL_ORDERS_JS; ?>></script>
     </head>
     <body>
-        <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
-                </div>
-                <div id="ordini">
-                    Ordini
-                    <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
-                    </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
-                    <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
-                    </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
+        <?php echo menu($_SESSION['welcome']);?>
         <div id="ordiniT">
 <?php
 /*$ordini = getOrdini($_SESSION['user']);

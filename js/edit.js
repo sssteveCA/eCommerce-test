@@ -30,7 +30,7 @@ function chiamaAjax(dati){
 
         }
     });
-}
+}//function chiamaAjax(dati){
 
 $(function(){
     var post = {};

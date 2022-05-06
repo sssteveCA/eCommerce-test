@@ -1,5 +1,18 @@
 <?php
+
+use EcommerceTest\Objects\Ordine;
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\UserErrors as Ue;
+use EcommerceTest\Interfaces\Messages as Msg;
+
 session_start();
+require_once('../interfaces/messages.php');
+require_once('../interfaces/orderErrors.php');
+require_once('../interfaces/productErrors.php');
+require_once('../interfaces/productsVals.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
 require_once('functions.php');
 require_once('../objects/utente.php');
@@ -52,8 +65,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         $risposta['msg'] = $e->getMessage();
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
                     }
-                }
-            }
+                }//foreach($ordiniCliente as $v){
+            }//if($risposta['i'] > 0){
         }//if($_GET['oper'] == '0'){
         //l'utente richiede i dettagli di un ordine specifico
         else if($_GET['oper'] == '1' && isset($_GET['idOrd'])){
@@ -67,7 +80,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                             $vend['id'] = $prodotto->getIdu();
                             $vend['registrato'] = '1';
                             $venditore = new Utente($vend);
-                            if($venditore->getNumError() == 0 || $venditore->getNumError() == UTENTEERR_INCORRECTLOGINDATA){
+                            if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                                 $risposta['nomeP'] = $prodotto->getNome();
                                 $risposta['tipo'] = $prodotto->getTipo();
                                 $risposta['prezzo'] = sprintf("%.2f",$prodotto->getPrezzo());
@@ -85,22 +98,21 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                                 $risposta['cap'] = $venditore->getCap();
                                 $risposta['email'] = $venditore->getEmail();
                                 $risposta['info'] = '1';
-                            }
+                            }//if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                             else{
                                 $risposta['msg'] = $venditore->getStrError().'<br>';
                                 //$risposta['msg'] .= ' Linea n. '.__LINE__;
                             }
-                        }
+                        }//if($prodotto->getNumError() == 0){
                         else{
                             $risposta['msg'] = $prodotto->getStrError().'<br>';
                             //$risposta['msg'] .= ' Linea n. '.__LINE__;
                         }
-                    }
+                    }//if($ordine->getNumError() == 0){
                     else{
                         $risposta['msg'] = $ordine->getStrError().'<br>';
                         //$risposta['msg'] .= ' Linea n. '.__LINE__;
-                    }
-                    
+                    }              
                 }
                 catch(Exception $e){
                     $risposta['msg'] = $e->getMessage().'<br>';
@@ -116,7 +128,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $ordine = new Ordine(array('id' => $_GET['idOrd']));
                     $ok = $ordine->cancOrdine($utente->getUsername());
                     if($ok){
-                        $risposta['msg'] = 'Ordine cancellato con successo';
+                        $risposta['msg'] = Msg::ORDERDELETED;
                         $risposta['aggiorna'] = '1';
                         unset($_SESSION['ordini']);
                     }
@@ -129,10 +141,10 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta['msg'] = $e->getMessage().'<br>';
                     $risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
-            }
+            }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
             //else echo 'non esiste';
             //$canc = cancOrdine($_GET['idOrd'],$_SESSION['user']);
-        }
+        }// else if($_GET['oper'] == '2' && isset($_GET['idOrd'])){
         //l'utente vuole aggiungere al carrello un ordine
          //l'utente vuole modificare la quantità di un ordine
          else if($_GET['oper'] == '3' && isset($_GET['idOrd']) && isset($_GET['quantita'])){
@@ -153,18 +165,18 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                                 $aQt['totale'] = sprintf("%.2f",$aQt['totale']);
                                 $update = $ordine->update($aQt);
                                 if($update){
-                                    $risposta['msg'] = 'Quantità ordine modificata con successo';
+                                    $risposta['msg'] = Msg::ORDERAMOUNTUPDATED;
                                     $risposta['aggiorna'] = '1';
                                 }
                                 else{
-                                    $risposta['msg'] = 'Errore durante l\' aggiornamento della quantità';
+                                    $risposta['msg'] = Msg::ERR_ORDERAMOUNTNOTPDATED;
                                 }
-                            }
+                            }//if($prodotto->getNumError() == 0){
                             else{
                                 $risposta['msg'] = $prodotto->getStrError().'<br>';
                                 $risposta['msg'] .= ' Linea n. '.__LINE__;
                             }
-                        }
+                        }//if($ordine->getNumError() == 0){
                         else{
                             $risposta['msg'] = $ordine->getStrError().'<br>';
                             $risposta['msg'] .= ' Linea n. '.__LINE__;
@@ -175,13 +187,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         $risposta['msg'] = $e->getMessage().'<br>';
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
                     }
-                }
+                }//if(is_numeric($quantita) && $quantita > 0){
                 else{
-                    $risposta['msg'] = 'Quantità non valida';
+                    $risposta['msg'] = Msg::ERR_ORDERINVALIDAMOUNT;
                 }
-            }
+            }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
             else{
-                $risposta['msg'] = 'Ordine non valido';
+                $risposta['msg'] = Msg::ERR_ORDERINVALID;
             }
         }//else if($_GET['oper'] == '3' && isset($_GET['idOrd']) && isset($_GET['quantita'])){
         //l utente vuole aggiungere al carrello un ordine
@@ -194,16 +206,16 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         if(!$carrello){
                             $aggiungi = $ordine->addToCart($utente->getUsername());
                             if($aggiungi){
-                                $risposta['msg'] = 'Ordine inserito nel carrello';
+                                $risposta['msg'] = Msg::ORDERINSERTEDCART;
                                 $risposta['aggiorna'] = '1';
                             }
                             else{                           
                                 $risposta['msg'] = $ordine->getStrError().'<br>';
                                 $risposta['msg'] .= ' Linea n. '.__LINE__;
                             }
-                        }
-                        else $risposta['msg'] = 'Ordine già presente nel carrello';
-                    }
+                        }//if(!$carrello){
+                        else $risposta['msg'] = Msg::ERR_ORDERALREALDYCART;
+                    }//if($ordine->getNumError() == 0){
                     else{
                         $risposta['msg'] = $ordine->getStrError().'<br>';
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
@@ -213,9 +225,9 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta['msg'] = $e->getMessage().'<br>';
                     $risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
-            }
+            }// if(isset($_SESSION['ordini'][$_GET['idOrd']])){
             else{
-                $risposta['msg'] = 'Ordine non valido';
+                $risposta['msg'] = Msg::ERR_ORDERINVALID;
             }
         }//else if($_GET['oper'] == '4' && isset($_GET['idOrd'])){
         //l'utente vuole pagare un ordine lasciato in sospeso
@@ -223,16 +235,16 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             if(isset($_SESSION['ordini'][$_GET['idOrd']])){
             }
             else{
-                $risposta['msg'] = 'Ordine non valido';
+                $risposta['msg'] = Msg::ERR_ORDERINVALID;
             }
 
-        }
+        }//else if($_GET['oper'] == '5' && isset($_GET['idOrd'])){
         else{
-            $risposta['msg'] = 'Operazione selezionata non valida';
+            $risposta['msg'] = Msg::ERR_INVALIDOPERATION1;
         }
     }//if(isset($_GET['oper'])){
     else{
-        $risposta['msg'] = 'Nessuna operazione selezionata';
+        $risposta['msg'] = Msg::ERR_NOOPERATION;
     }
     echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 

@@ -1,7 +1,17 @@
 <?php
+
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\UserErrors as Ue;
+use EcommerceTest\Interfaces\Messages as Msg;
+
 session_start();
+
+require_once('../interfaces/messages.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('../objects/utente.php');
 require_once('const.php');
+
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $risposta = array();
@@ -16,11 +26,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         $utente = new Utente($dati);
         //file_put_contents("log.txt","editProfile.php utente try => ".var_export($utente,true)."\r\n",FILE_APPEND);
         $errno = $utente->getNumError();
-        if($errno == 0 || $errno == UTENTEERR_INCORRECTLOGINDATA){
+        if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             //file_put_contents("log.txt","editProfile.php utente errno 0 => ".var_export($utente,true)."\r\n",FILE_APPEND);
             $where = array();
             $where['username'] = $utente->getUsername();
-            $risposta["msg"] = "Nessun valore valido inserito nel form";     
+            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE;     
             //verifica se il valore passato è composto solo da spazi
             $regex = '/(^$|^\s+$)/';
             //se l'utente vuole modificare lo username
@@ -28,7 +38,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 $dati = array('username' => $_POST['username']);
                 $aggiorna = $utente->update($dati,$where);
                 if($aggiorna){
-                    $risposta["msg"] = "Username aggiornato";
+                    $risposta["msg"] = Msg::USERUPDATED;
                     $_SESSION['welcome'] = '';
                     if($utente->getSesso() == 'Maschio'){
                         $_SESSION['welcome'] = 'Benvenuto ';
@@ -40,7 +50,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta["user"] = $utente->getUsername(); 
                     $_SESSION['utente'] = serialize($utente);
                 }
-                else $risposta["msg"] = "ERRORE: Username non aggiornato";
+                else $risposta["msg"] = Msg::ERR_USERNOTUPDATED;
             }//if(isset($_POST["username"]) && !preg_match($regex,$_POST["username"])){
             //se l'utente vuole modificare la password
             if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"],$_POST["pwd"])
@@ -58,14 +68,14 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                                 $aggiorna = $utente->update($nuovo,$where); 
                                 //update('username',$_SESSION["user"],'password',password_hash($_POST["nPwd"],PASSWORD_DEFAULT));
                                 if($aggiorna){
-                                    $risposta["msg"] = "Password aggiornata";
+                                    $risposta["msg"] = Msg::PWDUPDATED;
                                     $_SESSION['utente'] = serialize($utente);
                                 }
-                                else $risposta["msg"] = "ERRORE: password non aggiornata";
+                                else $risposta["msg"] = Msg::ERR_PWDNOTUPDATED;
                             }//if($_POST["nPwd"] == $_POST["confPwd"]){
-                            else $risposta["msg"] = 'La password da sostituire non coincide con quella attuale';
+                            else $risposta["msg"] = Msg::ERR_PWDCONFDIFFERENT;
                         }//if(password_verify($_POST["oPwd"],$passwordC)){
-                        else $risposta["msg"] = 'password attuale non corretta';
+                        else $risposta["msg"] = Msg::ERR_PWDCURRENTWRONG;
                 
             }//if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"])&& !preg_match($regex,$_POST["oPwd"]) && !preg_match($regex,$_POST["nPwd"])&& !preg_match($regex,$_POST["confPwd"])){
             //se l'utente vuole modificare i suoi dati personali
@@ -91,10 +101,10 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         //file_put_contents("log.txt","editProfile.php valida => false\r\n",FILE_APPEND);
                     }
                     if($aggiorna){
-                        $risposta["msg"] = "Dati personali aggiornati con successo";
+                        $risposta["msg"] = Msg::PERSONALDATAUPDATED;
                         }
                         else {
-                            $risposta["msg"] = "ERRORE: Dati personali non aggiornati";
+                            $risposta["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
                         }
                 }
             }//if(isset($_POST['nome']) && isset($_POST["cognome"]) && isset($_POST["indirizzo"]) && isset($_POST["numero"]) && isset($_POST["citta"]) && isset($_POST["cap"])){

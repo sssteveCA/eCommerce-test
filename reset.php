@@ -1,5 +1,13 @@
 <?php
+
+use EcommerceTest\Objects\Utente; 
+use EcommerceTest\Interfaces\Paths as P;
+
 ob_start();
+
+require_once('interfaces/paths.php');
+require_once('interfaces/userErrors.php');
+require_once('interfaces/mysqlVals.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('funzioni/config.php');
@@ -10,13 +18,15 @@ require_once('funzioni/config.php');
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recupera password</title>
-        <link rel="stylesheet" href="css/reset.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/reset.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_RESET_CSS; ?> type="text/css">
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script src=<?php echo P::REL_RESET_JS; ?>></script>
     <head>
     <body>
 <?php

@@ -1,5 +1,13 @@
 <?php
+
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
+
+require_once('interfaces/paths.php');
+require_once('navbar.php');
+require_once('interfaces/mysqlVals.php');
+require_once('interfaces/userErrors.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
 
@@ -27,125 +35,97 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Modifica profilo</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/edit.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/edit.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_EDIT_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script src=<?php echo P::REL_EDIT_JS; ?>></script>
     </head>
     <body>
     <div id="container">
-    <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
-                </div>
-                <div id="ordini">
-                    Ordini
-                    <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
-                    </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
-                    <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
-                    </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
-        </div>
+        <?php echo menu($_SESSION['welcome']);?>
         <div id="container2">
             <h1>Modifica profilo</h1>
-            <fieldset id="f1">
+            <fieldset id="f1" class="my-3">
                 <legend>Modifica username</legend>
                 <form id="userEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="user" name="user" value="1">
                     <div>
-                        <label for="newUser">Nuovo username</label>
-                        <input type="text" id="newUser" name="username" value="<?php echo $utente['username']; ?>">
+                        <label class="form-label" for="newUser">Nuovo username</label>
+                        <input type="text" id="newUser" class="form-control" name="username" value="<?php echo $utente['username']; ?>">
                     </div>
                     <div>
-                        <input type="submit" id="bUser" value="OK">
-                        <input type="reset" value="ANNULLA">
+                        <button type="submit" id="bUser" class="btn btn-primary">OK</button>
+                        <button type="reset" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </form>
             </fieldset>
-            <fieldset id="f2">
+            <fieldset id="f2" class="my-3">
                 <legend>Modifica password</legend>
-                <form id="pwdEdit" method="post" action="editProfile.php">
+                <form id="pwdEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="pwd" name="pwd" value="1">
                     <div>
-                        <label for="oldPwd">Vecchia password</label>
-                        <input type="password" id="oldPwd" name="oPwd">
+                        <label class="form-label" for="oldPwd">Vecchia password</label>
+                        <input type="password" id="oldPwd" class="form-control" name="oPwd">
                     </div>
                     <div>
-                        <label for="newPwd">Nuova password</label>
-                        <input type="password" id="newPwd" name="nPwd">
+                        <label class="form-label" for="newPwd">Nuova password</label>
+                        <input type="password" id="newPwd" class="form-control" name="nPwd">
                     </div>
                     <div>
-                        <label for="confPwd">Conferma nuova password</label>
-                        <input type="password" id="confPwd" name="confPwd">
+                        <label class="form-label" for="confPwd">Conferma nuova password</label>
+                        <input type="password" id="confPwd" class="form-control" name="confPwd">
                     </div>
                     <div>
-                        <input type="submit" id="bPwd" value="OK">
-                        <input type="reset" value="ANNULLA">
+                        <button type="submit" id="bPwd" class="btn btn-primary">OK</button>
+                        <button type="reset" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </form>
             </fieldset>
-            <fieldset id="f3">
-                <legend>utente personali</legend>
-                <form id="dataEdit" method="post" action="editProfile.php">
+            <fieldset id="f3" class="my-3">
+                <legend>Dati personali</legend>
+                <form id="dataEdit" method="post" action="funzioni/editProfile.php">
                     <input type="hidden" id="pers" name="pers" value="1">
                     <div>
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" value="<?php echo $utente['nome']; ?>">
+                        <label class="form-label" for="nome">Nome</label>
+                        <input type="text" id="nome" class="form-control" name="nome" value="<?php echo $utente['nome']; ?>">
                     </div>
                     <div>
-                        <label for="cognome">Cognome</label>
-                        <input type="text" id="cognome" name="cognome" value="<?php echo $utente['cognome']; ?>">
+                        <label class="form-label" for="cognome">Cognome</label>
+                        <input type="text" id="cognome" class="form-control" name="cognome" value="<?php echo $utente['cognome']; ?>">
                     </div>
                     <div>
-                        <label for="indirizzo">Indirizzo</label>
-                        <input type="text" id="indirizzo" name="indirizzo" value="<?php echo $utente['indirizzo']; ?>">
+                        <label class="form-label" for="indirizzo">Indirizzo</label>
+                        <input type="text" id="indirizzo" class="form-control" name="indirizzo" value="<?php echo $utente['indirizzo']; ?>">
                     </div>
                     <div>
-                        <label for="numero">Numero</label>
-                        <input type="text" id="numero" name="numero" value="<?php echo $utente['numero']; ?>">
+                        <label class="form-label" for="numero">Numero</label>
+                        <input type="text" id="numero" class="form-control" name="numero" value="<?php echo $utente['numero']; ?>">
                     </div>
                     <div>
-                        <label for="citta">Città</label>
-                        <input type="text" id="citta" name="citta" value="<?php echo $utente['citta']; ?>">
+                        <label class="form-label" for="citta">Città</label>
+                        <input type="text" id="citta" class="form-control" name="citta" value="<?php echo $utente['citta']; ?>">
                     </div>
                     <div>
-                        <label for="cap">CAP</label>
-                        <input type="text" id="cap" name="cap" value="<?php echo $utente['cap']; ?>">
+                        <label class="form-label" for="cap">CAP</label>
+                        <input type="text" id="cap" class="form-control" name="cap" value="<?php echo $utente['cap']; ?>">
                     </div>
                     <div>
-                        <label for="paypalMail">Email business</label>
-                        <input type="text" id="paypalMail" name="paypalMail" value="<?php echo $utente['paypalMail']; ?>">
+                        <label class="form-label" for="paypalMail">Email business</label>
+                        <input type="text" id="paypalMail" class="form-control" name="paypalMail" value="<?php echo $utente['paypalMail']; ?>">
                     </div>
                     <div>
-                        <label for="clientId">Client ID</label>
-                        <input type="text" id="clientId" name="clientId" value="<?php echo $utente['clientId']; ?>">
+                        <label class="form-label" for="clientId">Client ID</label>
+                        <input type="text" id="clientId" class="form-control" name="clientId" value="<?php echo $utente['clientId']; ?>">
                     </div>
                     <div>
-                        <input type="submit" id="butente" value="OK">
-                        <input type="reset" value="ANNULLA">
+                        <button type="submit" id="butente" class="btn btn-primary">OK</button>
+                        <button type="reset" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </form>
             </fieldset>

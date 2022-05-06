@@ -1,0 +1,6 @@
+
+#deny access to .json, .scss and .ts Typescript files
+<Files ~ "(.scss|.ts|.txt)$">
+    Order deny,allow
+    Deny from all
+</Files>

@@ -1,5 +1,11 @@
 <?php
+
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
+
+require_once('interfaces/paths.php');
+
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
     echo '<a href="logout.php">Esci </a> dall\' account per registrarti';
 }
@@ -10,88 +16,103 @@ else{
     <head>
         <title>Registrati</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/registrati.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/registrati.js"></script>
+        <link rel="stylesheet" href="<?php echo P::REL_SUBSCRIBE_CSS; ?>">
+        <link rel="stylesheet" href="<?php echo P::REL_BOOTSTRAP_CSS; ?>">
+        <link rel="stylesheet" href="<?php echo P::REL_JQUERY_CSS; ?>" >
+        <link rel="stylesheet" href="<?php echo P::REL_JQUERYTHEME_CSS; ?>" >
+        <script src="<?php echo P::REL_JQUERY_JS; ?>"></script>
+        <script src="<?php echo P::REL_JQUERYUI_JS; ?>"></script>
+        <script src="<?php echo P::REL_BOOTSTRAP_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_SUBSCRIBE_MODEL_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_SUBSCRIBE_CONTROLLER_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
     </head>
     <body>
-        <div id="indietro">
-            <a href="accedi.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="accedi.php">Indietro</a>
+        <div class="my-container">
+            <div id="indietro">
+                <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
+                <a href="index.php">Indietro</a>
+            </div>
+            <form id="formReg" method="post" action="funzioni/nuovoAccount.php">
+                <div>
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" id="nome" class="form-control" name="nome" required>
+                </div>
+                <div>
+                    <label for="cognome" class="form-label">Cognome</label>
+                    <input type="text" id="cognome" class="form-control" name="cognome" required>
+                </div>
+                <div>
+                    <label for="nascita" class="form-label">Data di nascita</label>
+                    <input type="date" id="nascita" class="form-control" name="nascita" min="1920-01-01" max="2001-12-31" required>
+                </div>
+                <div class="radios-div d-flex">
+                    <div class="d-flex align-items-center me-4">
+                        Genere
+                    </div>
+                    <div class="radios d-flex">
+                        <div>
+                            <input type="radio" id="m" name="sesso" value="M" checked>
+                            <label for="m">Maschio</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="f" name="sesso" value="F">
+                            <label for="f">Femmina</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="indirizzo" class="form-label">Indirizzo</label>
+                    <input type="text" id="indirizzo" class="form-control" name="indirizzo" required>
+                </div>
+                <div>
+                    <label for="numero" class="form-label">Numero civico</label>
+                    <input type="text" id="numero" class="form-control" name="numero" required>
+                </div>
+                <div>
+                    <label for="citta" class="form-label">Residente a</label>
+                    <input type="text" id="citta" class="form-control" name="citta" required>
+                </div>
+                <div>
+                    <label for="cap" class="form-label">CAP</label>
+                    <input type="text" id="cap" class="form-control" name="cap" required>
+                </div>
+                <div>
+                    <label for="user" class="form-label">Nome utente</label>
+                    <input type="text" id="user" class="form-control" name="user" required>
+                </div>
+                <div>
+                    <label for="email" class="form-label">Email business*</label>
+                    <input type="email" id="paypalMail" class="form-control" name="paypalMail">
+                </div>
+                <div>
+                    <label for="email" class="form-label">ID venditore*</label>
+                    <input type="email" id="clientId" class="form-control" name="clientId">
+                </div>
+                <div>
+                    <label for="email" class="form-label">Indirizzo mail</label>
+                    <input type="email" id="email" class="form-control" name="email" required>
+                </div>
+                <div>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" required>
+                </div>
+                <div>
+                    <label for="confPass" class="form-label">Conferma Password</label>
+                    <input type="password" id="confPass" class="form-control" name="confPass" required>
+                </div>
+                <div>
+                    <input type="checkbox" id="show" class="form-check-input">
+                    <label for="show" class="form-check-label">Mostra password</label>
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="submit" class="btn btn-primary">REGISTRATI</button>
+                    <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
+                </div>
+                <p>*Richiesti quando l'utente deve caricare le inserzioni</p>
+            </form>
         </div>
-        <form id="formReg" method="post" action="funzioni/nuovoAccount.php">
-            <div>
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" required>
-            </div>
-            <div>
-                <label for="cognome">Cognome</label>
-                <input type="text" id="cognome" name="cognome" required>
-            </div>
-            <div>
-                <label for="nascita">Data di nascita</label>
-                <input type="date" id="nascita" name="nascita" min="1920-01-01" max="2001-12-31" required>
-            </div>
-            <div>
-                <div>
-                    <input type="radio" id="m" name="sesso" value="M" checked>
-                    <label for="m">Maschio</label>
-                </div>
-                <div>
-                    <input type="radio" id="f" name="sesso" value="F">
-                    <label for="f">Femmina</label>
-                </div>
-            </div>
-            <div>
-                <label for="indirizzo">Indirizzo</label>
-                <input type="text" id="indirizzo" name="indirizzo" required>
-            </div>
-            <div>
-                <label for="numero">Numero civico</label>
-                <input type="text" id="numero" name="numero" required>
-            </div>
-            <div>
-                <label for="citta">Residente a</label>
-                <input type="text" id="citta" name="citta" required>
-            </div>
-            <div>
-                <label for="cap">CAP</label>
-                <input type="text" id="cap" name="cap" required>
-            </div>
-            <div>
-                <label for="user">Nome utente</label>
-                <input type="text" id="user" name="user" required>
-            </div>
-            <div>
-                <label for="email">Email business*</label>
-                <input type="email" id="paypalMail" name="paypalMail">
-            </div>
-            <div>
-                <label for="email">ID venditore*</label>
-                <input type="email" id="clientId" name="clientId">
-            </div>
-            <div>
-                <label for="email">Indirizzo mail</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <input type="checkbox" id="show">
-                <label for="show">Mostra password</label>
-            </div>
-            <div>
-                <input type="submit" id="submit" value="REGISTRATI">
-                <input type="reset" id="reset" value="ANNULLA">
-            </div>
-        </form>
-        <p>*Richiesti quando l'utente deve caricare le inserzioni</p>
     </body>
 </html>
 <?php

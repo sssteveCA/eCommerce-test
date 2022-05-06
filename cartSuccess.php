@@ -1,5 +1,14 @@
 <?php
+
+use EcommerceTest\Objects\Ordine;
+use EcommerceTest\Objects\Carrello;
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\UserErrors as Ue;
+
 session_start();
+require_once('interfaces/mysqlVals.php');
+require_once('interfaces/userErrors.php');
+require_once('interfaces/orderErrors.php');
 require_once('objects/utente.php');
 require_once('objects/carrello.php');
 require_once('objects/ordine.php');
@@ -38,7 +47,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $aV['clientId'] = $clientId;
             try{
                 $venditore = new Utente($aV);
-                if($venditore->getNumError() == 0 || $venditore->getNumError() == UTENTEERR_INCORRECTLOGINDATA){
+                if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                     //$risposta['idv'] = $venditore->getId();
                     $idVend = $venditore->getId();
                     $ordiniCarr = Carrello::getCartIdos($utente->getUsername());

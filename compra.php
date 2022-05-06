@@ -1,5 +1,15 @@
 <?php
+
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
+
+require_once('interfaces/paths.php');
+require_once('navbar.php');
+require_once('interfaces/userErrors.php');
+require_once('interfaces/productErrors.php');
+require_once('interfaces/productsVals.php');
+require_once('interfaces/mysqlVals.php');
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');
 require_once('funzioni/config.php');
@@ -22,46 +32,19 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Acquista prodotto</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/compra.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/compra.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_BUY_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script src=<?php echo P::REL_BUY_JS; ?>></script>
     </head>
     <body>
-    <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
-                </div>
-                <div id="ordini">
-                    Ordini
-                    <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
-                    </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
-                    <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
-                    </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
+        <?php echo menu($_SESSION['welcome']);?>
         <form id="conferma" method="post" action="conferma.php">
             <div id="divConf">
                 <fieldset id="f1">
@@ -91,8 +74,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <input type="hidden" id="nP" name="nP" value="<?php echo $qt; ?>">
                     <input type="hidden" id="tot" name="tot" value="<?php echo sprintf("%.2f€",$totale);; ?>">
                     <!-- <input type="hidden" id="qt" name="qt" value="<?php echo $qt; ?>"> -->
-                    <input type="submit" id="bOk" value="CONFERMA">
-                    <input type="button" id="bInd" value="INDIETRO">
+                    <button type="submit" id="bOk" class="btn btn-primary">CONFERMA</button>
+                    <button type="button" id="bInd" class="btn btn-danger">INDIETRO</button>
                 </div>
             </div>
         </form>

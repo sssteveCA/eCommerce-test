@@ -1,6 +1,12 @@
 <?php
+
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
-require_once('objects/utente.php');
+
+require_once('interfaces/paths.php');
+//require_once('objects/utente.php');
+require_once('navbar.php');
 require_once("funzioni/const.php");
 
 //se un'utente ha effettuato il login
@@ -11,68 +17,42 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Contatti</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/contatti.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/contatti.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_CONTACTS_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_CONTACTS_MODEL_JS;?>"></script>
+        <script type="module" src="<?php echo P::REL_CONTACTS_CONTROLLER_JS; ?>"></script>
+        <script type="module" src="<?php echo P::REL_CONTACTS_JS; ?>"></script>
     </head>
     <body>
-    <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
+        <?php echo menu($_SESSION['welcome']);?>
+        <div id="d1">
+            <fieldset id="f1">
+                <legend>Scrivi il tuo messaggio</legend>
+                <div>
+                    Contattaci per avere maggiori informazioni o segnalarci un problema
                 </div>
-                <div id="ordini">
-                    Ordini
+                <form id="fContatti" method="post" action="funzioni/mail.php">
                     <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
+                        <label class="form-label" for="oggetto">Oggetto </label>
+                        <input type="text" id="oggetto" class="form-control" name="oggetto">
                     </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
                     <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
+                        <label class="form-label" for="messaggio">Messaggio </label>
+                        <textarea class="form-control" id="messaggio" class="form-control" name="messaggio"></textarea>
                     </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
-            <div id="d1">
-                <fieldset id="f1">
-                    <legend>Scrivi il tuo messaggio</legend>
                     <div>
-                        Contattaci per avere maggiori informazioni o segnalarci un problema
+                        <button type="submit" id="invia" class="btn btn-primary">INVIA</button>
+                        <button type="reset" id="annulla" class="btn btn-danger">ANNULLA</button>
                     </div>
-                    <form id="fContatti" method="post" action="funzioni/mail.php">
-                        <div>
-                            <label for="oggetto">Oggetto </label>
-                            <input type="text" id="oggetto" name="oggetto">
-                        </div>
-                        <div>
-                            <label for="messaggio">Messaggio </label>
-                            <textarea id="messaggio" name="messaggio"></textarea>
-                        </div>
-                        <div>
-                            <input type="submit" id="invia" value="INVIA">
-                            <input type="reset" id="annulla" value="ANNULLA">
-                        </div>
-                    </form>
-                </fieldset>
-            </div>
+                </form>
+            </fieldset>
         </div>
     </body>
 </html>

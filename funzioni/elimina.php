@@ -1,8 +1,19 @@
 <?php
+
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Interfaces\Messages as Msg;
+
 session_start();
+
+require_once('../interfaces/messages.php');
+require_once('../interfaces/productErrors.php');
+require_once('../interfaces/productsVals.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
 require_once('../objects/prodotto.php');
-require_once('../objects/utente.php');
+//require_once('../objects/utente.php');
+
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -16,13 +27,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $prodotto = new Prodotto($dati);
             if($prodotto->getNumError() == 0){
                 if($prodotto->cancella($id)){
-                    $risposta['msg'] = "Prodotto cancellato";
+                    $risposta['msg'] = Msg::PRODDELETED;
                     $risposta['ok'] = '1';
                 }
                 else{
-                    $risposta['msg'] = "Prodotto non cancellato";
+                    $risposta['msg'] = Msg::ERR_PRODNOTDELETED;
                 }
-            }
+            }//if($prodotto->getNumError() == 0){
             else{
                 $risposta['msg'] = $prodotto->getStrError().'<br>';
                 $risposta['msg'] .= ' Linea n. '.__LINE__;
@@ -32,13 +43,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $risposta['msg'] = $e->getMessage().'<br>';
             $risposta['msg'] .= ' Linea n. '.__LINE__;
         }
-    }
+    }//if(isset($_POST['idp']) && is_numeric($_POST['idp'])){
     else{
-        $risposta['msg'] = 'Nessun prodotto valido specificato';
+        $risposta['msg'] = Msg::ERR_PRODINVALID;
     }
-}
+}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
-    $risposta['msg'] = 'Non sei collegato';
+    $risposta['msg'] = Msg::ERR_NOTLOGGED;
 }
 if($ajax)json_encode($risposta);
 else{

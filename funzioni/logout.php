@@ -1,5 +1,5 @@
 <?php
-require_once('../objects/utente.php');
+//require_once('../objects/utente.php');
 session_start();
 unset($_SESSION['logged']);
 unset($_SESSION['welcome']);

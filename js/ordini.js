@@ -72,6 +72,7 @@ function tabella(dati){
                     html += '   <input type="hidden" id="nP" name="nP" value="'+dati[i].quantita+'">';
                     html += '   <input type="hidden" id="nP" name="nP" value="'+dati[i].quantita+'">';
                     html += '   <input type="hidden" id="ord" name="ord" value="1">';
+                    html += '   <input type="hidden" id="tot" name="tot" value="'+dati[i].totale+'">';
                     html += '   <input type="submit" value="PAGA">';
                     html += '</form>';
                 }//if(btnPaga == true){
@@ -121,7 +122,7 @@ function chiamaAjax(dati){
         method : 'get',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
             //console.log(risp);
             if(risp.length === 0){

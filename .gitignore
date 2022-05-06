@@ -1,5 +1,8 @@
-
+/.vscode
 *.json
+!tsconfig.json
 *.txt
 /funzioni/*.txt
 /tabelle
+/bootstrap
+/node_modules

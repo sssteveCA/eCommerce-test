@@ -1,13 +1,21 @@
 <?php
 
+use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Objects\Utente;
+
 session_start();
+require_once('../interfaces/messages.php');
+require_once('../interfaces/userErrors.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('functions.php');
 require_once('../objects/utente.php');
 require('const.php');
 
 $risultato = array();
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
-$risultato['msg'] = 'Non è stata scelta alcuna operazione valida';
+$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
+$ajax = true;
+$risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
+$risultato['post'] = $_POST;
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -26,11 +34,11 @@ HEADER;
         //invio la mail all'amministratore del sito
         $send = $utente->sendMail($to,$oggetto,$messaggio,$headers);
         if($send){
-            $risultato['msg'] = 'Grazie per averci contattato! Le risponderemo il prima possibile';
+            $risultato['msg'] = Msg::EMAILSENT2;
         }
-        else $risultato['msg'] = "C'è stato un errore durante l'invio della mail. Riprova più tardi";
-    }
-    else $risultato['msg'] = 'Errore sconosciuto';
+        else $risultato['msg'] = Msg::ERR_EMAILSENDING2;
+    }//if(isset($_POST['oggetto'],$_POST['messaggio']) && $_POST['oggetto'] != '' && $_POST['messaggio'] != ''){
+    else $risultato['msg'] = Msg::ERR_UNKNOWN;
     //se l'utente vuole contattare il venditore del prodotto visualizzato
     if(isset($_POST['oper']) && $_POST['oper'] == '3'){
         if(isset($_POST['emailTo'],$_POST['pOggetto'],$_POST['pMessaggio']) && preg_match(Utente::$regex['email'],$_POST['emailTo'])){
@@ -44,13 +52,13 @@ Reply-to: <{$from}>
 HEADER;
             $send = $utente->sendMail($to,$oggetto,$messaggio,$headers);
             if($send){
-                $risultato['msg'] = 'La mail è stata inviata correttamente al venditore';
+                $risultato['msg'] = Msg::EMAILSENT1;
             }
-            else $risposta['msg'] = 'Errore durante l\' invio della mail';
+            else $risposta['msg'] = Msg::ERR_EMAILSENDING1;
         }
-        else $risultato['msg'] = 'Dati incompleti o non validi';
-    }
-}
+        else $risultato['msg'] = Msg::ERR_INVALIDDATA;
+    }//if(isset($_POST['oper']) && $_POST['oper'] == '3'){
+}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     //password dimenticata
     if(isset($_POST['email']) && $_POST['email'] != ''){
@@ -125,21 +133,21 @@ HEADER;
 HTML;
             $send = $utente->sendMail($utente->getEmail(),'Recupero password',$body,$headers);
             if($send){
-                $risultato['msg'] = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
+                $risultato['msg'] = Msg::EMAILRECOVERY;
             }
             else{
-                $risultato['msg'] = "C'è stato un errore durante l' invio della mail";
+                $risultato['msg'] = Msg::ERR_EMAILSENDING1;
             }
-        }
+        }//if($mod){
         else{
             $risultato['msg'] = $utente->getStrError();
         } 
     }
     else{
-            $risultato['msg'] = 'Inserisci un indirizzo mail';
+        $risultato['msg'] = Msg::ERR_EMAILINSERT;
     }
-}
-if($ajax)echo json_encode($risultato);
+}//else di if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE);
 else{
     $html = <<<HTML
 <!DOCTYPE html>

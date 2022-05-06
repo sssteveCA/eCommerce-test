@@ -1,0 +1,40 @@
+@mixin single-selectors-loop($map){
+    @each $types,$list-type in $map{
+        @each $selector,$properties-list in $list-type{
+            #{$selector}{
+                @each $prop,$val in $properties-list{
+                    #{$prop}: #{$val};
+                }
+            }
+        }
+    }
+}
+
+@mixin compound-selectors-loop($map){
+    @each $selector,$properties-list in $map{
+        #{$selector}{
+            @each $prop,$val in $properties-list{
+                #{$prop}: #{$val};
+            }
+        }
+    }
+}
+
+//loop in div children of form
+@mixin form-elements-loop($formVals){
+    $id: map-get($formVals,'id');
+    $children: map-get($formVals,'children');
+    @if $id != null and $children != null{
+        #{$id}{
+            @for $i from 1 through $children{
+                div:nth-child(#{$i}){
+                    margin-top: 10px;
+                    @if $i == 3{
+                        display: flex;
+                        justify-content: space-evenly;
+                    }
+                }
+            }
+        }
+    }
+}

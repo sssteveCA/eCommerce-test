@@ -1,5 +1,11 @@
 <?php
 
+namespace EcommerceTest\Objects;
+
+use EcommerceTest\Interfaces\ProductErrors as Pe;
+use EcommerceTest\Interfaces\ProductVals as Pv;
+use EcommerceTest\Interfaces\MySqlVals as Mv;
+
 define("PRODOTTOERR_INFONOTGETTED","1");
 define("PRODOTTOERR_IMGNOTCOPIED","2");
 define("PRODOTTOERR_QUERYERROR","3");
@@ -7,7 +13,7 @@ define("PRODOTTOERR_DATANOTDELETED","4");
 define("PRODOTTOERR_DATANOTINSERTED","5");
 define("PRODOTTOERR_IDNOTEXIST","6");
 
-class Prodotto{
+class Prodotto implements Pe,Pv,Mv{
     private $h;
     public $connesso;
     private $mysqlTable;
@@ -35,20 +41,20 @@ class Prodotto{
     private static $idList = array(); 
     public function __construct($ingresso){
         $this->connesso = false;
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:MYSQLHOST;
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:MYSQLUSER;
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:MYSQLPASS;
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:MYSQLDB;
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:MYSQLTABPROD;
-        $this->h = new mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
+        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Mv::HOSTNAME;
+        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Mv::USERNAME;
+        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Mv::PASSWORD;
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Mv::DATABASE;
+        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABPROD;
+        $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
-            throw new Exception("Connessione a MySql fallita: ".$this->h->connect_error);
+            throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);
         }
         $this->h->set_charset("utf8mb4");
         $this->connesso = true;
         $this->createDb();
         if($this->createTab() === false){
-            throw new Exception("Errore nella creazione dela tabella");
+            throw new \Exception(Pe::EXC_TABLECREATION);
         }
         $this->id=isset($ingresso['id'])? $ingresso['id']:null;
         $this->imgTmpName = null;
@@ -68,7 +74,7 @@ class Prodotto{
                 $this->imgTmpName = $ingresso['tmp_name'];
                 $this->insertProduct();
             }
-            else throw New Exception("Il formato dei dati inseriti non è valido");
+            else throw New \Exception(Pe::EXC_INVALIDDATA);
         }
 
     }
@@ -151,23 +157,23 @@ class Prodotto{
             case 0:
                 $this->strError = null;
                 break;
-            case PRODOTTOERR_INFONOTGETTED:
-                $this->strError = "Impossibile ottenere le informazioni sul prodotto dal database MySql";
+            case Pe::INFONOTGETTED:
+                $this->strError = Pe::MSG_INFONOTGETTED;
                 break;
-            case PRODOTTOERR_IMGNOTCOPIED:
-                $this->strError = "Il file immagine non è stato copiato";
+            case Pe::IMGNOTCOPIED:
+                $this->strError = Pe::MSG_IMGNOTCOPIED;
                 break;
-            case PRODOTTOERR_QUERYERROR:
-                $this->strError = "Query errata";
+            case Pe::QUERYERROR:
+                $this->strError = Pe::MSG_QUERYERROR;
                 break;
-            case PRODOTTOERR_DATANOTDELETED:
-                $this->strError = "Impossibile cancellare il prodotto selezionato";
+            case Pe::DATANOTDELETED:
+                $this->strError = Pe::MSG_DATANOTDELETED;
                 break; 
-            case PRODOTTOERR_DATANOTINSERTED:
-                $this->strError = "Prodotto non inserito nel database";  
+            case Pe::DATANOTINSERTED:
+                $this->strError = Pe::MSG_DATANOTINSERTED;  
                 break;
-            case PRODOTTOERR_IDNOTEXIST:
-                $this->strError = "Questo prodotto non ha un ID";
+            case Pe::IDNOTEXIST:
+                $this->strError = Pe::MSG_IDNOTEXIST;
                 break;
             default:
                 $this->strError = null;
@@ -223,7 +229,7 @@ SQL;
             }//if($show->num_rows == 1){
         }//if($show){  
         else{
-            $this->numError = PRODOTTOERR_QUERYERROR;
+            $this->numError = Pe::QUERYERROR;
             $ok = false;
         }  
         return $ok;
@@ -243,13 +249,13 @@ SQL;
                     $ok = true;
                 }
                 else
-                    $this->numError = PRODOTTOERR_DATANOTDELETED;
+                    $this->numError = Pe::DATANOTDELETED;
             }
             else
-                $this->numError = PRODOTTOERR_QUERYERROR; 
+                $this->numError = Pe::QUERYERROR; 
         }//if(isset($this->id)){
         else 
-            $this->numError = PRODOTTOERR_IDNOTEXIST;
+            $this->numError = Pe::IDNOTEXIST;
         return $ok;
     }
     //trasforma una data nel formato anno-mese-giorno in giorno-mese-anno
@@ -263,7 +269,7 @@ SQL;
     //ottengo la lista degli id ottenuti dalla query di ricerca per la tabella prodotti
     public static function getIdList($host,$username,$password,$database,$query){
         Prodotto::$idList = array();
-        $handle = new mysqli($host,$username,$password,$database);
+        $handle = new \mysqli($host,$username,$password,$database);
         if($handle->connect_errno === 0){
             $handle->set_charset("utf8mb4");
             //$queryE = $handle->real_escape_string($query);
@@ -349,53 +355,20 @@ SQL;
                     if(copy($this->imgTmpName,"../img/{$this->id}.jpg")){
                         $ok = true;
                     }
-                    else $this->numError = PRODOTTOERR_IMGNOTCOPIED; //Il file immagine non è stato copiato
+                    else $this->numError = Pe::IMGNOTCOPIED; //Il file immagine non è stato copiato
                 }
             }
-            else $this->numError = PRODOTTOERR_DATANOTINSERTED;
+            else $this->numError = Pe::DATANOTINSERTED;
         }
-        else $this->NumError = PRODOTTOERR_QUERYERROR; //Query errata
+        else $this->NumError = Pe::QUERYERROR; //Query errata
         return $ok;
     }
 
     /*Controlla il formato dei dati prima di inserirli nel database */
     private function valida($ingresso){
         $ok = true;
-        $categorie = array(
-            "Arte e antiquariato",
-            "Abbigliamento e accessori",
-            "Auto e moto: ricambi e accessori",
-            "Auto e moto: veicoli",
-            "Bellezza e salute",
-            "Biglietti ed eventi",
-            "Casa, arredamento e bricolage",
-            "Cibi e bevande",
-            "Collezionismo",
-            "Commercio, ufficio e industria",
-            "Elettrodomestici",
-            "Film e DVD",
-            "Fotografia e video",
-            "Francobolli",
-            "Fumetti e memorabilia",
-            "Giardino e arredamento esterni",
-            "Giocattoli e modellismo",
-            "Hobby creativi",
-            "Infanzia e premaman",
-            "Informatica",
-            "Libri e riviste",
-            "Monete e banconote",
-            "Musica, CD e vinili",
-            "Nautica e imbarcazioni",
-            "Orologi e gioielli",
-            "Sport e viaggi",
-            "Strumenti musicali",
-            "Telefonia fissa e mobile",
-            "TV, audio e video",
-            "Videogiochi e console",
-            "Altre categorie"
-        );
         $condizione = array("Nuovo","Usato","Non specificato");
-        if(!in_array($ingresso['tipo'],$categorie)){
+        if(!in_array($ingresso['tipo'],Pv::CATEGORIES)){
             $ok = false;
         }
         if(!is_numeric($ingresso['prezzo'])){

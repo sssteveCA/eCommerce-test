@@ -1,5 +1,19 @@
 <?php
+
+use EcommerceTest\Objects\Ordine;
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Objects\Utente;
+use EcommerceTest\Interfaces\Paths as P;
+
 session_start();
+
+require_once('interfaces/paths.php');
+require_once('navbar.php');
+require_once('interfaces/mysqlVals.php');
+require_once('interfaces/orderErrors.php');
+require_once('interfaces/productErrors.php');
+require_once('interfaces/productsVals.php');
+require_once('interfaces/userErrors.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');
@@ -118,46 +132,20 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Conferma ordine</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/utente.css" type="text/css">
-        <link rel="stylesheet" href="css/conferma.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="jqueryUI/jquery-ui.theme.min.css" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="jqueryUI/jquery-ui.min.js"></script>
-        <script src="js/dialog/dialog.js"></script>
-        <script src="js/conferma.js"></script>
-        <script src="js/logout.js"></script>
+        <link rel="stylesheet" href=<?php echo P::REL_CONFIRM_CSS; ?>>
+        <<link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
+        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
+        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <script src="js/dialog/dialog.js"></script> <!-- temporary -->
+        <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
     </head>
     <body>
-    <div id="container">
-            <div id="menu">
-                <div id="welcome"><?php echo $_SESSION['welcome']; ?></div>
-                <div id="profilo">
-                    Profilo
-                    <div>
-                        <a href="info.php">Informazioni</a>
-                        <a href="edit.php">Modifica</a>
-                    </div>
-                </div>
-                <div id="ordini">
-                    Ordini
-                    <div>
-                        <a href="ordini.php">I miei ordini</a>
-                        <a href="carrello.php">Carrello</a>
-                    </div>
-                </div>
-                <div id="prodotto">
-                    Prodotto
-                    <div>
-                        <a href="benvenuto.php">Cerca</a>
-                        <a href="crea.php">Crea inserzione</a>
-                        <a href="inserzioni.php">Le mie inserzioni</a>
-                    </div>
-                </div>
-                <div id="contatti"><a href="contatti.php">Contatti</a></div>
-                <div id="logout"><a href="funzioni/logout.php">Esci</a></div>
-            </div>
-        </div>
+        <?php echo menu($_SESSION['welcome']);?>
         <fieldset id="f1">
             <legend>Ordine</legend>
             <p>Fai click su 'PAGA' per acquistare il prodotto</p>
@@ -200,7 +188,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <!-- <input type="hidden" name="email" value="<?php //echo $utente->getEmail(); ?>"> -->
                     <!-- <input type="hidden" name="email" value="<?php //echo $emailPersonal; ?>"> -->
 
-                    <input type="submit" id="bOk" value="PAGA">
+                    <button type="submit" id="bOk" class="btn btn-primary">PAGA</button>
                 </form>
                 <form id="cart" method="post" action="funzioni/cartMan.php">
                     <!-- oper = 1, aggiunge il prodotto al carrello -->
@@ -208,12 +196,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <!-- ID dell'ordine -->
                     <input type="hidden" id="ido" name="ido" value="<?php echo $ordine->getId(); ?>">
                     <input type="hidden" id="idp" name="idp" value="<?php echo $prodotto->getId(); ?>">
-                    <input type="submit" id="bCart" value="AGGIUNGI AL CARRELLO">
+                    <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
                 </form>
                 <form id="back" method="post" action="compra.php">
                     <input type="hidden" id="idp" name="idp" value="<?php echo $dati['idp']; ?>">
                     <input type="hidden" id="qt" name="qt" value="<?php echo $dati['quantita']; ?>">
-                    <input type="submit" id="bInd" value="INDIETRO">
+                    <button type="submit" id="bInd" class="btn btn-warning">INDIETRO</button>
                 </form>
             </div>
         </fieldset>
@@ -230,7 +218,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <!-- PayPal In-Context Checkout script -->
     <script type="text/javascript">
         var clientId = '<?php echo $uVenditore->getClientId(); ?>';
-        console.log("clientId = "+clientId);
+        //console.log("clientId = "+clientId);
         var client = {
             sandbox:  clientId
         };
