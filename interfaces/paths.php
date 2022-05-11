@@ -26,7 +26,9 @@ interface Paths{
     const REL_CREATE_JS = "js/crea.js";
     const REL_DIALOG_MESSAGE_JS = "js/dialog/dialogmessage.js";
     const REL_EDIT_CSS = "css/edit/edit.min.css";
-    const REL_EDIT_JS = "js/edit.js";
+    const REL_EDIT_CONTROLLER_JS = "js/edit/edit.controller.js";
+    const REL_EDIT_JS = "js/edit/edit.js";
+    const REL_EDIT_MODEL_JS = "js/edit/edit.model.js";
     const REL_INFO_CSS = "css/info.css";
     const REL_INFO_JS = "js/info.js";
     const REL_INSERTIONS_CSS = "css/inserzioni.css";

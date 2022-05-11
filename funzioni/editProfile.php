@@ -12,39 +12,46 @@ require_once('../interfaces/mysqlVals.php');
 require_once('../objects/utente.php');
 require_once('const.php');
 
+$input = file_get_contents('php://input');
+$post = json_decode($input,true);
+$response = array();
+$response['msg'] = '';
+
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-    $risposta = array();
-    $risposta['post'] = $_POST;
+    $response['post'] = $post;
     $utente = unserialize($_SESSION['utente']);
     $regex = '/(^$|^\s+$)/';
     //se l'utente vuole modificare lo username
-    if(isset($_POST["username"],$_POST["user"]) && !preg_match($regex,$_POST["username"]) && $_POST["user"] == "1"){
+    if(isset($post["username"],$post["user"]) && !preg_match($regex,$post["username"]) && $post["user"] == "1"){
         updateUsername();
-    }//if(isset($_POST["username"]) && !preg_match($regex,$_POST["username"])){
+    }//if(isset($post["username"],$post["user"]) && !preg_match($regex,$post["username"]) && $post["user"] == "1"){
     //se l'utente vuole modificare la password
-    if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"],$_POST["pwd"])
-    && !preg_match($regex,$_POST["oPwd"]) 
-    && !preg_match($regex,$_POST["nPwd"])
-    && !preg_match($regex,$_POST["confPwd"]) && $_POST["pwd"] == "1"){
+    if(isset($post["oPwd"],$post["nPwd"],$post["confPwd"],$post["pwd"])
+    && !preg_match($regex,$post["oPwd"]) 
+    && !preg_match($regex,$post["nPwd"])
+    && !preg_match($regex,$post["confPwd"]) && $post["pwd"] == "1"){
         updatePassword();
-    }//if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"])&& !preg_match($regex,$_POST["oPwd"]) && !preg_match($regex,$_POST["nPwd"])&& !preg_match($regex,$_POST["confPwd"])){
+    }/*if(isset($post["oPwd"],$post["nPwd"],$post["confPwd"],$post["pwd"])
+    && !preg_match($regex,$post["oPwd"]) 
+    && !preg_match($regex,$post["nPwd"])
+    && !preg_match($regex,$post["confPwd"]) && $post["pwd"] == "1"){*/
     //se l'utente vuole modificare i suoi dati personali
-    if(isset($_POST['nome'],$_POST["cognome"],$_POST["indirizzo"],$_POST["numero"],$_POST["citta"],$_POST["cap"],$_POST["pers"])){
-        if(!preg_match($regex,$_POST["nome"]) && !preg_match($regex,$_POST["cognome"]) && !preg_match($regex,$_POST["indirizzo"]) &&
-        !preg_match($regex,$_POST["citta"]) && !preg_match($regex,$_POST["cap"]) && $_POST["pers"] == "1"){
+    if(isset($post['name'],$post["surname"],$post["address"],$post["number"],$post["city"],$post["zip"],$post["pers"])){
+        if(!preg_match($regex,$post["name"]) && !preg_match($regex,$post["surname"]) && !preg_match($regex,$post["address"]) &&
+        !preg_match($regex,$post["city"]) && !preg_match($regex,$post["zip"]) && $post["pers"] == "1"){
             updatePersonalData();
         }
-    }//if(isset($_POST['nome']) && isset($_POST["cognome"]) && isset($_POST["indirizzo"]) && isset($_POST["numero"]) && isset($_POST["citta"]) && isset($_POST["cap"])){
-    echo json_encode($risposta);
+    }//if(isset($post['name'],$post["surname"],$post["address"],$post["number"],$post["city"],$post["zip"],$post["pers"])){isset($_POST["cap"])){
+    echo json_encode($response);
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
-    echo '<a href="accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    echo '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 
 //Update username field
 function updateUsername(){
-    global $risposta,$utente;
+    global $post,$response,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -55,11 +62,11 @@ function updateUsername(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE; 
-            $data = array('username' => $_POST['username']);
+            $response["msg"] = Msg::ERR_FORMINVALIDVALUE; 
+            $data = array('username' => $post['username']);
             $aggiorna = $utente->update($data,$where);
             if($aggiorna){
-                $risposta["msg"] = Msg::USERUPDATED;
+                $response["msg"] = Msg::USERUPDATED;
                 $_SESSION['welcome'] = '';
                 if($utente->getSesso() == 'Maschio'){
                     $_SESSION['welcome'] = 'Benvenuto ';
@@ -68,24 +75,24 @@ function updateUsername(){
                     $_SESSION['welcome'] = 'Benvenuta ';
                 }
                 $_SESSION['welcome'] .= $utente->getUsername();
-                $risposta["user"] = $utente->getUsername(); 
+                $response["user"] = $utente->getUsername(); 
                 $_SESSION['utente'] = serialize($utente);
             }
-            else $risposta["msg"] = Msg::ERR_USERNOTUPDATED;
+            else $response["msg"] = Msg::ERR_USERNOTUPDATED;
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
         else{
-            $risposta['msg'] = $utente->getStrError();
+            $response['msg'] = $utente->getStrError();
         }
     }
     catch(Exception $e){
-        $risposta['msg'] = $e->getMessage();
+        $response['msg'] = $e->getMessage();
     }
     
 }
 
 //Update password field
 function updatePassword(){
-    global $risposta,$utente;
+    global $post,$response,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -96,36 +103,36 @@ function updatePassword(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE;  
+            $response["msg"] = Msg::ERR_FORMINVALIDVALUE;  
             $passwordC = $utente->getPassword();
-            file_put_contents("log.txt","PasswordC => ".var_export($passwordC,true)."\r\n",FILE_APPEND);
-            file_put_contents("log.txt","POST => ".var_export($_POST,true)."\r\n",FILE_APPEND);
+            /* file_put_contents("log.txt","PasswordC => ".var_export($passwordC,true)."\r\n",FILE_APPEND);
+            file_put_contents("log.txt","POST => ".var_export($_POST,true)."\r\n",FILE_APPEND); */
             //se la password da sostituire è uguale a quella attuale
-                if(password_verify($_POST["oPwd"],$passwordC)){
+                if(password_verify($post["oPwd"],$passwordC)){
                     //se la nuova password è uguale a quella confermata
-                    if($_POST["nPwd"] == $_POST["confPwd"]){
+                    if($post["nPwd"] == $post["confPwd"]){
                     $new = array();
-                    $new['password'] = $_POST['nPwd'];
+                    $new['password'] = $post['nPwd'];
                     $aggiorna = $utente->update($new,$where);
                     if($aggiorna){
-                        $risposta["msg"] = Msg::PWDUPDATED;
+                        $response["msg"] = Msg::PWDUPDATED;
                         $_SESSION['utente'] = serialize($utente);
                     }
-                    else $risposta["msg"] = Msg::ERR_PWDNOTUPDATED;
+                    else $response["msg"] = Msg::ERR_PWDNOTUPDATED;
                     }//if($_POST["nPwd"] == $_POST["confPwd"]){
-                else $risposta["msg"] = Msg::ERR_PWDCONFDIFFERENT;
+                else $response["msg"] = Msg::ERR_PWDCONFDIFFERENT;
             }//if(password_verify($_POST["oPwd"],$passwordC)){
-            else $risposta["msg"] = Msg::ERR_PWDCURRENTWRONG;
+            else $response["msg"] = Msg::ERR_PWDCURRENTWRONG;
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
     }
     catch(Exception $e){
-        $risposta['msg'] = $e->getMessage();
+        $response['msg'] = $e->getMessage();
     } 
 }
 
 //Update personal data
 function updatePersonalData(){
-    global $risposta,$utente;
+    global $post,$response,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -136,36 +143,38 @@ function updatePersonalData(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE; 
+            $response["msg"] = Msg::ERR_FORMINVALIDVALUE; 
             $update = false;
             $data = array(
-                'nome' => $_POST['nome'],
-                'cognome' => $_POST['cognome'],
-                'indirizzo' => $_POST['indirizzo'],
-                'numero' => $_POST['numero'],
-                'citta' => $_POST['citta'],
-                'cap' => $_POST['cap']
+                'nome' => $post['name'],
+                'cognome' => $post['surname'],
+                'indirizzo' => $post['address'],
+                'numero' => $post['number'],
+                'citta' => $post['city'],
+                'cap' => $post['zip'],
+                'paypalMail' => $post['paypalMail'],
+                'clientId' => $post['clientId']
             );
             if($utente->valida($data)){
                 $update = $utente->update($data,$where);
                 $_SESSION['utente'] = serialize($utente);
                 if($update){
-                    $risposta["msg"] = Msg::PERSONALDATAUPDATED;
+                    $response["msg"] = Msg::PERSONALDATAUPDATED;
                 }
                 else {
-                    $risposta["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
+                    $response["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
                 }
             }//if($utente->valida($dati)){
             else{
-                $risposta['msg'] = Ue::INVALIDDATAFORMAT;
+                $response['msg'] = Ue::INVALIDDATAFORMAT;
             }
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
-        $risposta["errore"] = $utente->getNumError();
-        $risposta["query"] = $utente->getQuery();
-        $risposta["queries"] = $utente->getQueries();
+        $response["errore"] = $utente->getNumError();
+        $response["query"] = $utente->getQuery();
+        $response["queries"] = $utente->getQueries();
     }
     catch(Exception $e){
-        $risposta['msg'] = $e->getMessage();
+        $response['msg'] = $e->getMessage();
     }
 }
 ?>

@@ -28,6 +28,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $utente['username'] = $oUtente->getUsername();
     $utente['paypalMail'] = $oUtente->getPaypalMail();
     $utente['clientId'] = $oUtente->getClientId();
+    file_put_contents("log.txt",var_export($utente,true)."\r\n",FILE_APPEND);
     //se le informazioni sono state ottenute senza problemi
 ?>
 <!DOCTYPE html>
@@ -45,7 +46,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src="js/dialog/dialog.js"></script> <!-- temporary -->
-        <script src=<?php echo P::REL_EDIT_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_EDIT_JS; ?>></script>
     </head>
     <body>
     <div id="container">

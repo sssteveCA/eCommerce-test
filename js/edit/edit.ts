@@ -25,7 +25,7 @@ $(function(){
         post['pwd'] = $('#pwd').val();
         post['oldPassword'] = $('#oldPwd').val();
         post['newPassword'] = $('#newPwd').val();
-        post['confPassword'] = $('#confPassword').val();
+        post['confPassword'] = $('#confPwd').val();
         post['ajax'] = true;
         try{
             let editUser = new EditUser(post);
@@ -41,12 +41,13 @@ $(function(){
         post['pers'] = $('#pers').val();
         post['name'] = $('#nome').val();
         post['surname'] = $('#cognome').val();
-        post['address'] = $('#address').val();
+        post['address'] = $('#indirizzo').val();
         post['number'] = $('#numero').val();
         post['city'] = $('#citta').val();
-        post['cap'] = $('#cap').val();
+        post['zip'] = $('#cap').val();
         post['paypalMail'] = $('#paypalMail').val();
         post['clientId'] = $('#clientId').val();
+        console.log(post);
         try{
             let editUser = new EditUser(post);
             let editUserCtr = new EditUserController(editUser);

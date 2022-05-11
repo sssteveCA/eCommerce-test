@@ -30,6 +30,7 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
             if($utente->getSesso() == 'Femmina') $_SESSION['welcome'] = 'Benvenuta '.$utente->getUsername();
             else $_SESSION['welcome'] = $utente->getUsername();
             $_SESSION['utente'] = serialize($utente);
+            file_put_contents("log.txt","login session utente => ".var_export($_SESSION['utente'],true)."\r\n",FILE_APPEND);
             $_SESSION['logged'] = true;
             header('location: ../benvenuto.php');
         }
