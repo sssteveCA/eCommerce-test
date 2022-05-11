@@ -34,12 +34,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             <fieldset id="f1">
                 <div id="f1d1">
                     <legend id="l1">Inserisci parola chiave</legend>
-                    <input type="text" id="ricerca" name="ricerca" placeholder="Inserisci parola chiave">
+                    <input type="text" id="ricerca" class="form-control" name="ricerca" placeholder="Inserisci parola chiave">
                 </div>
                 <div id="f1d2">
-                    <label id="lCat" for="selCat">In questa categoria
-                    <select name="selCat" id="selCat">
-							<option value="Tutte le categorie">Tutte le categorie</option>
+                    <label id="lCat" class="form-label" for="selCat">In questa categoria
+                    <select name="selCat" id="selCat" class="form-select">
+							<option value="Tutte le categorie" selected>Tutte le categorie</option>
 							<option value="Abbigliamento e accessori">Abbigliamento e accessori</option>
 							<option value="Arte e antiquariato">Arte e antiquariato</option>
 							<option value="Auto e moto: ricambi e accessori">Auto e moto: ricambi e accessori</option>
@@ -76,55 +76,55 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             </fieldset>
             <fieldset id="f2">
                 <legend>Prezzo</legend>
-                <input type="checkbox" id="cPrezzo" name="cPrezzo" value="1">
-                <label id="lPrezzo" for="cPrezzo">Mostra oggetti con prezzi da</label>
-                EUR <input type="number" id="minP" name="minP" disabled> 
-                a EUR <input type="number" id="maxP" name="maxP" disabled>
+                <input type="checkbox" id="cPrezzo" class="form-check-input" name="cPrezzo" value="1">
+                <label id="lPrezzo" class="form-check-label" for="cPrezzo">Mostra oggetti con prezzi da</label>
+                EUR <input type="number" id="minP" class="form-control" name="minP" disabled> 
+                a EUR <input type="number" id="maxP" class="form-control" name="maxP" disabled>
             </fieldset>
             <fieldset id="f3">
                 <legend>Condizione</legend>
                 <div>
-                    <input type="checkbox" id="cN" name="cN"value="1">
-                    <label id="lCn" for="cN">Nuovo</label>
+                    <input type="checkbox" id="cN" class="form-check-input" name="cN"value="1">
+                    <label id="lCn" class="form-check-label" for="cN">Nuovo</label>
                 </div>
                 <div>
-                    <input type="checkbox" id="cU" name="cU"value="1">
-                    <label id="lCu" for="cU">Usato</label>
+                    <input type="checkbox" id="cU" class="form-check-input" name="cU"value="1">
+                    <label id="lCu" class="form-check-label" for="cU">Usato</label>
                 </div>
                 <div>
-                    <input type="checkbox" id="cNs" name="cNs"value="1">
-                    <label id="lCns" for="lCns">Non specificato</label>
+                    <input type="checkbox" id="cNs" class="form-check-input" name="cNs"value="1">
+                    <label id="lCns" class="form-check-label" for="lCns">Non specificato</label>
                 </div>
             </fieldset>
             <fieldset id="f4">
                 <legend>Intervallo di tempo in cui è stata inserita l'inserzione</legend>
                 <div id="f4d1">
-                    <input type="checkbox" id="dataI" name="dataI" value="1">
-                    <label id="lDi" for="dataI">Data più vecchia</label>
-                    <input type="date" id="oDate" name="oDate" disabled>
+                    <input type="checkbox" id="dataI" class="form-check-input" name="dataI" value="1">
+                    <label id="lDi" class="form-check-label" for="dataI">Data più vecchia</label>
+                    <input type="date" id="oDate" class="form-control" name="oDate" disabled>
                 </div>
                 <div id="f4d2">
-                    <input type="checkbox" id="dataF" name="dataF" value="1">
-                    <label id="lDf" for="dataF">Data più recente</label>
-                    <input type="date" id="rDate" name="rDate" disabled>
+                    <input type="checkbox" id="dataF" class="form-check-input" name="dataF" value="1">
+                    <label id="lDf" class="form-check-label" for="dataF">Data più recente</label>
+                    <input type="date" id="rDate" class="form-control" name="rDate" disabled>
                 </div>
             </fieldset>
             <fieldset id="f5">
                 <legend>Luogo di provenienza del prodotto</legend>
                 <div id="f5d1">
-                    <input type="checkbox" id="cStato" name="cStato" value="1">
-                    <label id="lStato" for="cStato">Nazione</label>
+                    <input type="checkbox" id="cStato" class="form-check-input" name="cStato" value="1">
+                    <label id="lStato" class="form-check-label"  for="cStato">Nazione</label>
                     <input type="text" id="stato" name="stato" disabled>
                 </div>
                 <div id="f5d2">
-                    <input type="checkbox" id="cCitta" name="cCitta" value="1">
-                    <label id="lCitta" for="cCitta">Città</label>
+                    <input type="checkbox" id="cCitta" class="form-check-input" name="cCitta" value="1">
+                    <label id="lCitta" class="form-check-label"  for="cCitta">Città</label>
                     <input type="text" id="citta" name="citta" disabled>
                 </div>
             </fieldset>
             <div id="divButtons">
-                <input type="submit" id="submit" value="CERCA">
-                <input type="reset" id="reset" value="ANNULLA">
+                <button type="submit" id="submit" class="btn btn-primary">CERCA</button>
+                <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
             </div>
         </form>
     </body>
