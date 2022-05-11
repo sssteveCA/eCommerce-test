@@ -10,21 +10,21 @@ export default class EditUser{
     private static ERR_INVALIDACTION = "Operazione non valida";
     private static ERR_MISSINGDATAREQUIRED = "Uno o più dati richiesti non sono stati impostati";
 
-    _action: number;
-    _username: string | null = null;
-    _oldPassword: string | null = null;
-    _newPassword: string | null = null;
-    _confPassword: string | null = null;
-    _name: string | null = null;
-    _surname: string | null = null;
-    _address: string | null = null;
-    _number: number | null = null;
-    _city: string | null = null;
-    _zip: string | null = null;
-    _paypalMail: string | null = null;
-    _clientId: string | null = null;
-    _ajax: boolean;
-    _error: string|null = null;
+    private _action: number;
+    private _username: string | null = null;
+    private _oldPassword: string | null = null;
+    private _newPassword: string | null = null;
+    private _confPassword: string | null = null;
+    private _name: string | null = null;
+    private _surname: string | null = null;
+    private _address: string | null = null;
+    private _number: number | null = null;
+    private _city: string | null = null;
+    private _zip: string | null = null;
+    private _paypalMail: string | null = null;
+    private _clientId: string | null = null;
+    private _ajax: boolean;
+    private _error: string|null = null;
 
     constructor(data: EditUserInterface){
         this._error = null;

@@ -25,6 +25,7 @@ export default class EditUserController {
                 case EditUser.ACTION_PERSONALDATA:
                     break;
                 default:
+                    this._errno = EditUserController.ERR_INVALIDACTION;
                     break;
             }
         }
@@ -40,6 +41,9 @@ export default class EditUserController {
                 break;
             case EditUserController.ERR_DATAMISSED:
                 this._error = EditUserController.ERR_MSG_DATAMISSED;
+                break;
+            case EditUserController.ERR_INVALIDACTION:
+                this._error = EditUserController.ERR_MSG_INVALIDACTION;
                 break;
             default:
                 this._error = null;
@@ -58,33 +62,13 @@ export default class EditUserController {
     //User edits his username
     editUsername() {
         if (this.validateEditUsername()) {
-            let dm, dmData, msgDialog, jsonRes;
+            let jsonRes;
             this.editUsernamePromise().then(res => {
                 jsonRes = JSON.parse(res);
-                dmData = {
-                    title: 'Modifica nome utente',
-                    message: jsonRes.msg
-                };
-                dm = new DialogMessage(dmData);
-                msgDialog = $('#' + dm.id);
-                $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
-                    //User press OK button
-                    msgDialog.dialog('destroy');
-                    msgDialog.remove();
-                });
+                this.printDialog('Modifica nome utente', jsonRes.msg);
             }).catch(err => {
                 console.warn(err);
-                dmData = {
-                    title: 'Modifica nome utente',
-                    message: err
-                };
-                dm = new DialogMessage(dmData);
-                msgDialog = $('#' + dm.id);
-                $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
-                    //User press OK button
-                    msgDialog.dialog('destroy');
-                    msgDialog.remove();
-                });
+                this.printDialog('Modifica nome utente', err);
             });
         }
         else
@@ -116,12 +100,80 @@ export default class EditUserController {
             });
         });
     }
+    //validate edit password data
+    validateEditPassword() {
+        let ok = false;
+        if (this._editUser.oldPassword && this._editUser.newPassword && this._editUser.confPassword && typeof (this._editUser.isAjax) != "undefined") {
+            ok = true;
+        }
+        return ok;
+    }
+    //User edits his password
+    editPassword() {
+        if (this.validateEditPassword()) {
+            let jsonRes;
+            this.editPasswordPromise().then(res => {
+                jsonRes = JSON.parse(res);
+                this.printDialog('Modifica password', jsonRes.msg);
+            }).catch(err => {
+                console.warn(err);
+                this.printDialog('Modifica password', err);
+            });
+        } //if(this.validateEditPassword()){
+        else
+            this._errno = EditUserController.ERR_DATAMISSED;
+    }
+    editPasswordPromise() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield new Promise((resolve, reject) => {
+                const data = {
+                    pwd: '1',
+                    oPwd: this._editUser.oldPassword,
+                    nPwd: this._editUser.newPassword,
+                    confPwd: this._editUser.confPassword
+                };
+                const params = {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json'
+                    }
+                };
+                const response = fetch(EditUserController.EDITPROFILE_URL, params);
+                response.then(res => {
+                    resolve(res.text());
+                }).catch(err => {
+                    console.warn(err);
+                    reject(EditUserController.ERR_MSG_EDITPASSWORD);
+                });
+            });
+        });
+    }
+    //Show dialog with message
+    printDialog(title, message) {
+        let dm, dmData, msgDialog;
+        dmData = {
+            title: title,
+            message: message
+        };
+        dm = new DialogMessage(dmData);
+        msgDialog = $('#' + dm.id);
+        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+            //User press OK button
+            msgDialog.dialog('destroy');
+            msgDialog.remove();
+        });
+    }
 }
 //constants
 EditUserController.EDITPROFILE_URL = 'funzioni/editProfile.php';
 //errors
 EditUserController.ERR_NOEDITUSEROBJECT = 1;
 EditUserController.ERR_DATAMISSED = 2;
+EditUserController.ERR_INVALIDACTION = 3;
+EditUserController.ERR_MSG_EDITPASSWORD = "Errore durante la modifica della password";
 EditUserController.ERR_MSG_EDITUSERNAME = "Errore durante la modifica del nome utente";
 EditUserController.ERR_MSG_NOEDITUSEROBJECT = "L'oggetto EditUser non è stato definito";
 EditUserController.ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
+EditUserController.ERR_MSG_INVALIDACTION = "L'operazione scelta non è valida";
