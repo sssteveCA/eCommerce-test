@@ -11,6 +11,7 @@ export default class EditUserController{
     private static ERR_INVALIDACTION = 3;
 
     private static ERR_MSG_EDITPASSWORD = "Errore durante la modifica della password";
+    private static ERR_MSG_EDITPERSONALDATA = "Errore durante la modifica dei dati personali";
     private static ERR_MSG_EDITUSERNAME = "Errore durante la modifica del nome utente";
     private static ERR_MSG_NOEDITUSEROBJECT =  "L'oggetto EditUser non è stato definito";
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
@@ -33,6 +34,7 @@ export default class EditUserController{
                     this.editUsername();
                     break;
                 case EditUser.ACTION_PASSWORD:
+                    this.editPassword();
                     break;
                 case EditUser.ACTION_PERSONALDATA:
                     break;
@@ -179,6 +181,62 @@ export default class EditUserController{
             msgDialog.remove();
         });  
 
+    }
+
+    //validate EditPersonalData data
+    private validatePersonalData(): boolean{
+        let ok = false;
+        if(this._editUser.name && this._editUser.surname && this._editUser.address && this._editUser.number && this._editUser.city && this._editUser.zip && typeof (this._editUser.isAjax) != "undefined"){
+            ok = true;
+        }
+        return ok;
+    }
+
+    //User edits his personal data
+    private editPersonalData(): void{
+        if(this.validateEditPassword()){
+            let jsonRes;
+            this.editPersonalDataPromise().then(res => {
+                jsonRes = JSON.parse(res);
+                this.printDialog('Modifica dati personali',jsonRes.msg);
+            }).catch(err => {
+                console.warn(err);
+                this.printDialog('Modifica dati personali',err);
+            });
+        }//if(this.validateEditPassword()){
+        else EditUserController.ERR_DATAMISSED;
+    }
+
+    //Do the edit personal data action
+    private async editPersonalDataPromise(): Promise<string>{
+        return await new Promise((resolve,reject) => {
+            let data = {
+                pers: '1',
+                name: this._editUser.name,
+                surname: this._editUser.surname,
+                address: this._editUser.address,
+                number: this._editUser.number,
+                city: this._editUser.city,
+                zip: this._editUser.zip,
+                paypalMail : this._editUser.paypalMail,
+                clientId: this._editUser.clientId
+            };
+            const params = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            };
+            const response = fetch(EditUserController.EDITPROFILE_URL,params);
+            response.then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                console.warn(err);
+                reject(EditUserController.ERR_MSG_EDITPERSONALDATA);
+            })
+        });
     }
 
 
