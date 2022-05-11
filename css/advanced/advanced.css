@@ -1,0 +1,109 @@
+#divButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+#fAvanzata {
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 575px) {
+  #fAvanzata {
+    width: 95% !important;
+    min-width: 150px !important;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  #fAvanzata {
+    width: 75% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #fAvanzata {
+    width: 50% !important;
+    max-width: 750px !important;
+  }
+}
+
+#f1 {
+  margin: 20px auto;
+}
+
+#f1 #f1d1 {
+  margin: 10px auto;
+}
+
+#f1 #f1d2 {
+  margin: 10px auto;
+}
+
+#f2 input {
+  margin-bottom: 10px;
+}
+
+#f3 {
+  margin: 20px auto;
+}
+
+#f4 {
+  margin: 30px auto;
+}
+
+#f4 #f4d1 {
+  margin: 10px auto;
+}
+
+#f4 #f4d2 {
+  margin: 10px auto;
+}
+
+#f5 {
+  margin: 20px auto;
+}
+
+#f5 #f5d1 {
+  margin: 15px auto;
+}
+
+#f5 #f5d1 input {
+  margin: 5px auto;
+}
+
+#f5 #f5d2 {
+  margin: 15px auto;
+}
+
+#f5 #f5d2 input {
+  margin: 5px auto;
+}
+
+#f5 #f5d3 {
+  margin: 15px auto;
+}
+
+#f5 #f5d3 input {
+  margin: 5px auto;
+}
+
+#f5 #f5d4 {
+  margin: 15px auto;
+}
+
+#f5 #f5d4 input {
+  margin: 5px auto;
+}
+
+#f5 #f5d5 {
+  margin: 15px auto;
+}
+
+#f5 #f5d5 input {
+  margin: 5px auto;
+}

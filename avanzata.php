@@ -37,7 +37,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <input type="text" id="ricerca" class="form-control" name="ricerca" placeholder="Inserisci parola chiave">
                 </div>
                 <div id="f1d2">
-                    <label id="lCat" class="form-label" for="selCat">In questa categoria
+                    <label id="lCat" class="form-label" for="selCat">In questa categoria</label>
                     <select name="selCat" id="selCat" class="form-select">
 							<option value="Tutte le categorie" selected>Tutte le categorie</option>
 							<option value="Abbigliamento e accessori">Abbigliamento e accessori</option>
@@ -114,12 +114,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 <div id="f5d1">
                     <input type="checkbox" id="cStato" class="form-check-input" name="cStato" value="1">
                     <label id="lStato" class="form-check-label"  for="cStato">Nazione</label>
-                    <input type="text" id="stato" name="stato" disabled>
+                    <input type="text" id="stato" class="form-control" name="stato" disabled>
                 </div>
                 <div id="f5d2">
                     <input type="checkbox" id="cCitta" class="form-check-input" name="cCitta" value="1">
                     <label id="lCitta" class="form-check-label"  for="cCitta">Città</label>
-                    <input type="text" id="citta" name="citta" disabled>
+                    <input type="text" id="citta" class="form-control" name="citta" disabled>
                 </div>
             </fieldset>
             <div id="divButtons">

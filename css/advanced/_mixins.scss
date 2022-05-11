@@ -1,0 +1,104 @@
+
+@mixin single-selectors-loop($map){
+    @each $types,$list-type in $map{
+        @each $selector,$properties-list in $list-type{
+            #{$selector}{
+                @each $prop,$val in $properties-list{
+                    #{$prop}: #{$val};
+                }
+            }
+        }
+    }
+}
+
+@mixin compound-selectors-loop($map){
+    @each $selector,$properties-list in $map{
+        #{$selector}{
+            @each $prop,$val in $properties-list{
+                #{$prop}: #{$val};
+            }
+        }
+    }
+}
+
+@mixin responsive-rules(){
+    @media only screen and(max-width: #{$breakpoint-xsm}){
+        #fAvanzata{
+            width: 95% !important;
+            min-width: 150px !important;
+        }
+    }
+    @media only screen and(min-width: #{$breakpoint-xsm + 1}) and(max-width: #{$breakpoint-sm}){
+        #fAvanzata{
+            width: 75% !important;
+        }
+    }
+    @media only screen and(min-width: #{$breakpoint-gt}){
+        #fAvanzata{
+            width: 50% !important;
+            max-width: 750px !important;
+        }
+    }
+}
+
+@mixin form-loop(){
+    $fieldsets: 5;
+    @for $i from 1 through $fieldsets{
+        //Fieldsets loop
+        @if $i == 1{
+            //Keyword
+            $divs: 2;
+            #f#{$i}{
+                margin: 20px auto;
+                @for $j from 1 through $divs{
+                    #f#{$i}d#{$j}{
+                        margin: 10px auto;
+                    }
+                }
+            }
+        }
+        @else if $i == 2{
+            //Price
+            #f#{$i}{
+                input{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+        @else if $i == 3{
+            //Condition
+           $divs: 3;
+           #f#{$i}{
+               margin: 20px auto;
+           }
+           
+        }
+        @else if $i == 4{
+            //Time interval
+            $divs: 2;
+            #f#{$i}{
+                margin: 30px auto;
+                @for $j from 1 through $divs{
+                    #f4d#{$j}{
+                        margin: 10px auto;
+                    }
+                }      
+            }
+        }
+        @else if $i == 5{
+            //Product location
+            $divs: 5;
+            #f#{$i}{
+                margin: 20px auto;
+                @for $j from 1 through $divs{
+                    #f5d#{$j}{
+                        margin: 15px auto;
+                        input{
+                            margin: 5px auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

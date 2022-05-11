@@ -8,7 +8,7 @@ interface Paths{
     //absolute paths
 
     //relative paths
-    const REL_ADVSEARCH_CSS = "css/avanzata.css";
+    const REL_ADVSEARCH_CSS = "css/advanced/advanced.min.css";
     const REL_ADVSEARCH_JS = "js/avanzata.js";
     const REL_BOOTSTRAP_CSS = "bootstrap/css/bootstrap.min.css";
     const REL_BOOTSTRAP_JS = "bootstrap/js/bootstrap.min.js";
