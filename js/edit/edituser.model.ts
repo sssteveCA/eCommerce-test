@@ -3,9 +3,9 @@ import EditUserInterface from "./data.interface";
 //Model used to change user profile data
 export default class EditUser{
 
-    private static ACTION_USERNAME: number = 1;
-    private static ACTION_PASSWORD: number = 2;
-    private static ACTION_PERSONALDATA: number = 3;
+    public static ACTION_USERNAME: number = 1;
+    public static ACTION_PASSWORD: number = 2;
+    public static ACTION_PERSONALDATA: number = 3;
 
     private static ERR_INVALIDACTION = "Operazione non valida";
     private static ERR_MISSINGDATAREQUIRED = "Uno o più dati richiesti non sono stati impostati";
