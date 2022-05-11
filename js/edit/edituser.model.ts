@@ -11,20 +11,20 @@ export default class EditUser{
     private static ERR_MISSINGDATAREQUIRED = "Uno o più dati richiesti non sono stati impostati";
 
     _action: number;
-    _username: string;
-    _oldPassword: string;
-    _newPassword: string;
-    _confPassword: string;
-    _name: string;
-    _surname: string;
-    _address: string;
-    _number: number;
-    _city: string;
-    _zip: string;
-    _paypalMail: string;
-    _clientId: string;
+    _username: string | null = null;
+    _oldPassword: string | null = null;
+    _newPassword: string | null = null;
+    _confPassword: string | null = null;
+    _name: string | null = null;
+    _surname: string | null = null;
+    _address: string | null = null;
+    _number: number | null = null;
+    _city: string | null = null;
+    _zip: string | null = null;
+    _paypalMail: string | null = null;
+    _clientId: string | null = null;
     _ajax: boolean;
-    _error: string|null;
+    _error: string|null = null;
 
     constructor(data: EditUserInterface){
         this._error = null;
@@ -39,7 +39,25 @@ export default class EditUser{
             this.personalDataAction(data);
         }
         else throw EditUser.ERR_INVALIDACTION;
+        if(data.ajax)this._ajax = data.ajax;
+        else this._ajax = false;
     }
+
+    get action(){return this._action;}
+    get username(){return this._username;}
+    get oldPassword(){return this._oldPassword;}
+    get newPassword(){return this._newPassword;}
+    get confPassword(){return this._confPassword;}
+    get name(){return this._name;}
+    get surname(){return this._surname;}
+    get address(){return this._address;}
+    get number(){return this._number;}
+    get city(){return this._city;}
+    get zip(){return this._zip;}
+    get paypalMail(){return this._paypalMail;}
+    get clientId(){return this._clientId;}
+    get isAjax(){return this._ajax;}
+    get error(){return this._error;}
 
     //User wants change his username
     private usernameAction(data: EditUserInterface): void{
