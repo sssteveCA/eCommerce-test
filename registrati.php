@@ -24,8 +24,6 @@ else{
         <script src="<?php echo P::REL_JQUERYUI_JS; ?>"></script>
         <script src="<?php echo P::REL_BOOTSTRAP_JS; ?>"></script>
         <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_SUBSCRIBE_MODEL_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_SUBSCRIBE_CONTROLLER_JS; ?>"></script>
         <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
     </head>
     <body>
