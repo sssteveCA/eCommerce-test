@@ -35,11 +35,11 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
         }
         else if($err == 1){
             echo Msg::ERR_USERPWDWRONG.'<br>';
-            header('refresh:7;url=../accedi.php');
+            header('refresh:7;url=../index.php');
         }
         else if($err == 2){
             echo Msg::ERR_ACTIVEACCOUNT.'<br>';
-            header('refresh:10;url=../accedi.php');
+            header('refresh:10;url=../index.php');
         }
         else{
             echo Msg::ERR_UNKNOWN.'<br>';
@@ -50,6 +50,6 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
     } 
 }//if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST['password'] != ''){
 else{
-    header('location: ../accedi.php');
+    header('location: ../index.php');
 }
 ?>
