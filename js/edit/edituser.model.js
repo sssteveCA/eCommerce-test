@@ -7,15 +7,17 @@ export default class EditUser {
             this.usernameAction(data);
         }
         else if (this._action == EditUser.ACTION_PASSWORD) {
+            this.passwordAction(data);
         }
         else if (this._action == EditUser.ACTION_PERSONALDATA) {
+            this.personalDataAction(data);
         }
         else
             throw EditUser.ERR_INVALIDACTION;
     }
     //User wants change his username
     usernameAction(data) {
-        let usernameOk = (data.username && (data.username.trim().length > 0));
+        const usernameOk = (data.username && (data.username.trim().length > 0));
         if (usernameOk) {
             //username property exists and it's not blank
             this._username = data.username;
@@ -25,14 +27,38 @@ export default class EditUser {
     }
     //User wants change his password
     passwordAction(data) {
-        let oldPwdOk = (data.oldPassword && (data.oldPassword.trim().length > 0));
-        let newPwdOk = (data.newPassword && (data.newPassword.trim().length > 0));
-        let confPwdOk = (data.confPassword && (data.confPassword.trim().length > 0));
+        const oldPwdOk = (data.oldPassword && (data.oldPassword.trim().length > 0));
+        const newPwdOk = (data.newPassword && (data.newPassword.trim().length > 0));
+        const confPwdOk = (data.confPassword && (data.confPassword.trim().length > 0));
         if (oldPwdOk && newPwdOk && confPwdOk) {
             //password properties exist and are not blank
             this._oldPassword = data.oldPassword;
             this._newPassword = data.newPassword;
             this._confPassword = data.confPassword;
+        }
+        else
+            throw EditUser.ERR_MISSINGDATAREQUIRED;
+    }
+    //User wants change his personal data
+    personalDataAction(data) {
+        const nameOk = (data.name && (data.name.trim().length > 0));
+        const surnameOk = (data.surname && (data.surname.trim().length > 0));
+        const addressOk = (data.address && (data.address.trim().length > 0));
+        const cityOk = (data.city && (data.city.trim().length > 0));
+        const zipOk = (data.zip && (data.zip.trim().length > 0));
+        if (nameOk && surnameOk && addressOk && data.number && cityOk && zipOk) {
+            this._name = data.name;
+            this._surname = data.surname;
+            this._address = data.address;
+            this._number = data.number;
+            this._city = data.city;
+            this._zip = data.zip;
+            const paypalMailOk = (data.paypalMail && (data.paypalMail.trim().length > 0));
+            if (paypalMailOk)
+                this._paypalMail = data.paypalMail;
+            const clientIdOk = (data.clientId && (data.clientId.trim().length > 0));
+            if (clientIdOk)
+                this._clientId = data.clientId;
         }
         else
             throw EditUser.ERR_MISSINGDATAREQUIRED;
