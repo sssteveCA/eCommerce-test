@@ -35,22 +35,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $regex = '/(^$|^\s+$)/';
             //se l'utente vuole modificare lo username
             if(isset($_POST["username"],$_POST["user"]) && !preg_match($regex,$_POST["username"]) && $_POST["user"] == "1"){
-                $dati = array('username' => $_POST['username']);
-                $aggiorna = $utente->update($dati,$where);
-                if($aggiorna){
-                    $risposta["msg"] = Msg::USERUPDATED;
-                    $_SESSION['welcome'] = '';
-                    if($utente->getSesso() == 'Maschio'){
-                        $_SESSION['welcome'] = 'Benvenuto ';
-                    }
-                    else if($utente->getSesso() == 'Femmina'){
-                        $_SESSION['welcome'] = 'Benvenuta ';
-                    }
-                    $_SESSION['welcome'] .= $utente->getUsername();
-                    $risposta["user"] = $utente->getUsername(); 
-                    $_SESSION['utente'] = serialize($utente);
-                }
-                else $risposta["msg"] = Msg::ERR_USERNOTUPDATED;
+                updateUsername();
             }//if(isset($_POST["username"]) && !preg_match($regex,$_POST["username"])){
             //se l'utente vuole modificare la password
             if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"],$_POST["pwd"])
@@ -124,5 +109,26 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     echo '<a href="accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+}
+
+//Update username field
+function updateUsername(){
+    global $risposta,$utente,$where;
+    $dati = array('username' => $_POST['username']);
+    $aggiorna = $utente->update($dati,$where);
+    if($aggiorna){
+        $risposta["msg"] = Msg::USERUPDATED;
+        $_SESSION['welcome'] = '';
+        if($utente->getSesso() == 'Maschio'){
+            $_SESSION['welcome'] = 'Benvenuto ';
+        }
+        else if($utente->getSesso() == 'Femmina'){
+            $_SESSION['welcome'] = 'Benvenuta ';
+        }
+        $_SESSION['welcome'] .= $utente->getUsername();
+        $risposta["user"] = $utente->getUsername(); 
+        $_SESSION['utente'] = serialize($utente);
+    }
+    else $risposta["msg"] = Msg::ERR_USERNOTUPDATED;
 }
 ?>
