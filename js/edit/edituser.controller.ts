@@ -17,8 +17,6 @@ export default class EditUserController{
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
     private static ERR_MSG_INVALIDACTION = "L'operazione scelta non è valida";
 
-
-
     private _editUser: EditUser;
     private _errno: number;
     private _error: string|null;
@@ -167,23 +165,6 @@ export default class EditUserController{
         });
     }
 
-    //Show dialog with message
-    private printDialog(title: string, message: string): void{
-        let dm, dmData, msgDialog: JQuery<HTMLElement>;
-        dmData = {
-            title: title,
-            message: message
-        };
-        dm = new DialogMessage(dmData);
-        msgDialog = $('#'+dm.id);
-        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
-            //User press OK button
-            msgDialog.dialog('destroy');
-            msgDialog.remove();
-        });  
-
-    }
-
     //validate EditPersonalData data
     private validatePersonalData(): boolean{
         let ok = false;
@@ -195,7 +176,7 @@ export default class EditUserController{
 
     //User edits his personal data
     private editPersonalData(): void{
-        if(this.validateEditPassword()){
+        if(this.validatePersonalData()){
             let jsonRes;
             this.editPersonalDataPromise().then(res => {
                 jsonRes = JSON.parse(res);
@@ -204,7 +185,7 @@ export default class EditUserController{
                 console.warn(err);
                 this.printDialog('Modifica dati personali',err);
             });
-        }//if(this.validateEditPassword()){
+        }//if(this.validatePersonalData()){
         else EditUserController.ERR_DATAMISSED;
     }
 
@@ -238,6 +219,23 @@ export default class EditUserController{
                 reject(EditUserController.ERR_MSG_EDITPERSONALDATA);
             })
         });
+    }
+
+    //Show dialog with message
+    private printDialog(title: string, message: string): void{
+        let dm, dmData, msgDialog: JQuery<HTMLElement>;
+        dmData = {
+            title: title,
+            message: message
+        };
+        dm = new DialogMessage(dmData);
+        msgDialog = $('#'+dm.id);
+        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+            //User press OK button
+            msgDialog.dialog('destroy');
+            msgDialog.remove();
+        });  
+
     }
 
 

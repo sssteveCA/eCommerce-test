@@ -152,21 +152,6 @@ export default class EditUserController {
             });
         });
     }
-    //Show dialog with message
-    printDialog(title, message) {
-        let dm, dmData, msgDialog;
-        dmData = {
-            title: title,
-            message: message
-        };
-        dm = new DialogMessage(dmData);
-        msgDialog = $('#' + dm.id);
-        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
-            //User press OK button
-            msgDialog.dialog('destroy');
-            msgDialog.remove();
-        });
-    }
     //validate EditPersonalData data
     validatePersonalData() {
         let ok = false;
@@ -177,7 +162,7 @@ export default class EditUserController {
     }
     //User edits his personal data
     editPersonalData() {
-        if (this.validateEditPassword()) {
+        if (this.validatePersonalData()) {
             let jsonRes;
             this.editPersonalDataPromise().then(res => {
                 jsonRes = JSON.parse(res);
@@ -186,7 +171,7 @@ export default class EditUserController {
                 console.warn(err);
                 this.printDialog('Modifica dati personali', err);
             });
-        } //if(this.validateEditPassword()){
+        } //if(this.validatePersonalData()){
         else
             EditUserController.ERR_DATAMISSED;
     }
@@ -221,6 +206,21 @@ export default class EditUserController {
                     reject(EditUserController.ERR_MSG_EDITPERSONALDATA);
                 });
             });
+        });
+    }
+    //Show dialog with message
+    printDialog(title, message) {
+        let dm, dmData, msgDialog;
+        dmData = {
+            title: title,
+            message: message
+        };
+        dm = new DialogMessage(dmData);
+        msgDialog = $('#' + dm.id);
+        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+            //User press OK button
+            msgDialog.dialog('destroy');
+            msgDialog.remove();
         });
     }
 }
