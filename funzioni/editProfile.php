@@ -48,30 +48,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             if(isset($_POST['nome'],$_POST["cognome"],$_POST["indirizzo"],$_POST["numero"],$_POST["citta"],$_POST["cap"],$_POST["pers"])){
                 if(!preg_match($regex,$_POST["nome"]) && !preg_match($regex,$_POST["cognome"]) && !preg_match($regex,$_POST["indirizzo"]) &&
                 !preg_match($regex,$_POST["citta"]) && !preg_match($regex,$_POST["cap"]) && $_POST["pers"] == "1"){
-                    $aggiorna = false;
-                    $dati = array(
-                        'nome' => $_POST['nome'],
-                        'cognome' => $_POST['cognome'],
-                        'indirizzo' => $_POST['indirizzo'],
-                        'numero' => $_POST['numero'],
-                        'citta' => $_POST['citta'],
-                        'cap' => $_POST['cap']
-                    );
-                    //controlla i dati prima di aggiornarli
-                    if($utente->valida($dati)){
-                        //file_put_contents("log.txt","editProfile.php valida => true\r\n",FILE_APPEND);
-                            $aggiorna = $utente->update($dati,$where);
-                            $_SESSION['utente'] = serialize($utente);
-                    }
-                    else{
-                        //file_put_contents("log.txt","editProfile.php valida => false\r\n",FILE_APPEND);
-                    }
-                    if($aggiorna){
-                        $risposta["msg"] = Msg::PERSONALDATAUPDATED;
-                        }
-                        else {
-                            $risposta["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
-                        }
+                    updatePersonalData();
                 }
             }//if(isset($_POST['nome']) && isset($_POST["cognome"]) && isset($_POST["indirizzo"]) && isset($_POST["numero"]) && isset($_POST["citta"]) && isset($_POST["cap"])){
         }//if($errno == 0 || $errno == UTENTEERR_INCORRECTLOGINDATA){
@@ -171,5 +148,51 @@ function updatePassword(){
     catch(Exception $e){
         $risposta['msg'] = $e->getMessage();
     } 
+}
+
+//Update personal data
+function updatePersonalData(){
+    global $risposta,$utente;
+    $data = array();
+    $data['campo'] = 'username';
+    $data['username'] = $utente->getUsername();
+    $data['registrato'] = true;
+    try{
+        $utente = new Utente($data);
+        $errno = $utente->getNumError();
+        if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
+            $where = array();
+            $where['username'] = $utente->getUsername();
+            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE; 
+            $update = false;
+            $data = array(
+                'nome' => $_POST['nome'],
+                'cognome' => $_POST['cognome'],
+                'indirizzo' => $_POST['indirizzo'],
+                'numero' => $_POST['numero'],
+                'citta' => $_POST['citta'],
+                'cap' => $_POST['cap']
+            );
+            if($utente->valida($data)){
+                $update = $utente->update($data,$where);
+                $_SESSION['utente'] = serialize($utente);
+                if($update){
+                    $risposta["msg"] = Msg::PERSONALDATAUPDATED;
+                }
+                else {
+                    $risposta["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
+                }
+            }//if($utente->valida($dati)){
+            else{
+                $risposta['msg'] = Ue::INVALIDDATAFORMAT;
+            }
+        }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
+        $risposta["errore"] = $utente->getNumError();
+        $risposta["query"] = $utente->getQuery();
+        $risposta["queries"] = $utente->getQueries();
+    }
+    catch(Exception $e){
+        $risposta['msg'] = $e->getMessage();
+    }
 }
 ?>

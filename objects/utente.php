@@ -4,6 +4,7 @@ namespace EcommerceTest\Objects;
 
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
+use EcommerceTest\Interfaces\UserErrors;
 
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
 define("UTENTEERR_ACTIVEYOURACCOUNT", "2");
@@ -674,6 +675,7 @@ SQL;
     /*controlla che i dati passati all'oggetto siano corretti, per essere inseriti nel database*/
     public function valida($ingresso){
         $ok = true;
+        $this->errno = 0;
         if(!preg_match(Utente::$regex['email'],$this->email))$ok = false;
         //file_put_contents("log.txt","utente.php ok email => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(isset($ingresso['paypalMail']) && $ingresso['paypalMail'] != "" && !preg_match(Utente::$regex['paypalMail'],$ingresso['paypalMail']))$ok = false;
@@ -682,6 +684,7 @@ SQL;
         //file_put_contents("log.txt","utente.php ok client => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(!preg_match(Utente::$regex['username'],$this->username))$ok = false;
         //file_put_contents("log.txt","utente.php ok username => ".var_export($ok,true)."\r\n",FILE_APPEND);
+        if(!$ok)$this->errno = UserErrors::INVALIDDATAFORMAT;
         return $ok;
     }
 }
