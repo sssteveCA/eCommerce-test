@@ -37,6 +37,7 @@ export default class EditUserController{
                     this.editPassword();
                     break;
                 case EditUser.ACTION_PERSONALDATA:
+                    this.editPersonalData();
                     break;
                 default:
                     this._errno = EditUserController.ERR_INVALIDACTION;
