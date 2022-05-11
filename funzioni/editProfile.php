@@ -17,53 +17,26 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $risposta = array();
     $risposta['post'] = $_POST;
     $utente = unserialize($_SESSION['utente']);
-    //file_put_contents("log.txt","editProfile.php utente => ".var_export($utente,true)."\r\n",FILE_APPEND);
-    $dati = array();
-    $dati['campo'] = 'username';
-    $dati['username'] = $utente->getUsername();
-    $dati['registrato'] = true;
-    try{
-        $utente = new Utente($dati);
-        //file_put_contents("log.txt","editProfile.php utente try => ".var_export($utente,true)."\r\n",FILE_APPEND);
-        $errno = $utente->getNumError();
-        if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
-            //file_put_contents("log.txt","editProfile.php utente errno 0 => ".var_export($utente,true)."\r\n",FILE_APPEND);
-            $where = array();
-            $where['username'] = $utente->getUsername();
-            $risposta["msg"] = Msg::ERR_FORMINVALIDVALUE;     
-            //verifica se il valore passato è composto solo da spazi
-            $regex = '/(^$|^\s+$)/';
-            //se l'utente vuole modificare lo username
-            if(isset($_POST["username"],$_POST["user"]) && !preg_match($regex,$_POST["username"]) && $_POST["user"] == "1"){
-                updateUsername();
-            }//if(isset($_POST["username"]) && !preg_match($regex,$_POST["username"])){
-            //se l'utente vuole modificare la password
-            if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"],$_POST["pwd"])
-            && !preg_match($regex,$_POST["oPwd"]) 
-            && !preg_match($regex,$_POST["nPwd"])
-            && !preg_match($regex,$_POST["confPwd"]) && $_POST["pwd"] == "1"){
-               updatePassword();
-            }//if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"])&& !preg_match($regex,$_POST["oPwd"]) && !preg_match($regex,$_POST["nPwd"])&& !preg_match($regex,$_POST["confPwd"])){
-            //se l'utente vuole modificare i suoi dati personali
-            if(isset($_POST['nome'],$_POST["cognome"],$_POST["indirizzo"],$_POST["numero"],$_POST["citta"],$_POST["cap"],$_POST["pers"])){
-                if(!preg_match($regex,$_POST["nome"]) && !preg_match($regex,$_POST["cognome"]) && !preg_match($regex,$_POST["indirizzo"]) &&
-                !preg_match($regex,$_POST["citta"]) && !preg_match($regex,$_POST["cap"]) && $_POST["pers"] == "1"){
-                    updatePersonalData();
-                }
-            }//if(isset($_POST['nome']) && isset($_POST["cognome"]) && isset($_POST["indirizzo"]) && isset($_POST["numero"]) && isset($_POST["citta"]) && isset($_POST["cap"])){
-        }//if($errno == 0 || $errno == UTENTEERR_INCORRECTLOGINDATA){
-        else{
-            $risposta['msg'] = $utente->getStrError();
+    $regex = '/(^$|^\s+$)/';
+    //se l'utente vuole modificare lo username
+    if(isset($_POST["username"],$_POST["user"]) && !preg_match($regex,$_POST["username"]) && $_POST["user"] == "1"){
+        updateUsername();
+    }//if(isset($_POST["username"]) && !preg_match($regex,$_POST["username"])){
+    //se l'utente vuole modificare la password
+    if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"],$_POST["pwd"])
+    && !preg_match($regex,$_POST["oPwd"]) 
+    && !preg_match($regex,$_POST["nPwd"])
+    && !preg_match($regex,$_POST["confPwd"]) && $_POST["pwd"] == "1"){
+        updatePassword();
+    }//if(isset($_POST["oPwd"],$_POST["nPwd"],$_POST["confPwd"])&& !preg_match($regex,$_POST["oPwd"]) && !preg_match($regex,$_POST["nPwd"])&& !preg_match($regex,$_POST["confPwd"])){
+    //se l'utente vuole modificare i suoi dati personali
+    if(isset($_POST['nome'],$_POST["cognome"],$_POST["indirizzo"],$_POST["numero"],$_POST["citta"],$_POST["cap"],$_POST["pers"])){
+        if(!preg_match($regex,$_POST["nome"]) && !preg_match($regex,$_POST["cognome"]) && !preg_match($regex,$_POST["indirizzo"]) &&
+        !preg_match($regex,$_POST["citta"]) && !preg_match($regex,$_POST["cap"]) && $_POST["pers"] == "1"){
+            updatePersonalData();
         }
-        $risposta["errore"] = $utente->getNumError();
-        $risposta["query"] = $utente->getQuery();
-        $risposta["queries"] = $utente->getQueries();
-        echo json_encode($risposta);
-    }
-    catch(Exception $e){
-        $risposta['msg'] = $e->getMessage();
-    }
-    
+    }//if(isset($_POST['nome']) && isset($_POST["cognome"]) && isset($_POST["indirizzo"]) && isset($_POST["numero"]) && isset($_POST["citta"]) && isset($_POST["cap"])){
+    echo json_encode($risposta);
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     echo '<a href="accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
