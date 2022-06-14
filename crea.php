@@ -47,7 +47,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         <textarea id="name" class="form-control" name="name"></textarea>
                     </div>
                     <div>
-                        <label for="immagine" class="form-label">Immagine</label>
+                        <label for="image" class="form-label">Immagine</label>
                         <input type="file" id="image" class="form-control" name="image" accept="image/jpeg">
                     </div>
                     <div>
@@ -114,12 +114,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         </div>
                     </div>
                     <div>
-                        <label for="stato" class="form-label">Nazione di provenienza</label>
-                        <input type="text" id="stato" class="form-control" name="stato">
+                        <label for="state" class="form-label">Nazione di provenienza</label>
+                        <input type="text" id="state" class="form-control" name="state">
                     </div>
                     <div>
-                        <label for="citta" class="form-label">Città di provenienza</label>
-                        <input type="text" id="citta" class="form-control" name="citta">
+                        <label for="city" class="form-label">Città di provenienza</label>
+                        <input type="text" id="city" class="form-control" name="city">
                     </div>
                     <div>
                         <label for="description" class="form-label">Descrizione</label>

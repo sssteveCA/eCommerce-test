@@ -1,0 +1,11 @@
+export default interface InsertionInterface{
+    name: string,
+    image: string,
+    type: string,
+    price: number,
+    shipping: number,
+    condition: string,
+    state: string,
+    city: string,
+    description: string
+}
