@@ -43,16 +43,16 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 <fieldset id="f1">
                     <legend>Informazioni sul prodotto</legend>
                     <div>
-                        <label for="nome">Nome</label>
-                        <textarea id="nome" name="nome"></textarea>
+                        <label for="name" class="form-label">Nome</label>
+                        <textarea id="name" class="form-control" name="name"></textarea>
                     </div>
                     <div>
-                        <label for="immagine">Immagine</label>
-                        <input type="file" id="immagine" name="immagine" accept="image/jpeg">
+                        <label for="immagine" class="form-label">Immagine</label>
+                        <input type="file" id="image" class="form-control" name="image" accept="image/jpeg">
                     </div>
                     <div>
-                        <label for="tipo">Tipo</label>
-                        <select name="tipo" id="tipo">
+                        <label for="type">Tipo</label>
+                        <select name="type" id="type" class="form-select">
 							<option value="Abbigliamento e accessori">Abbigliamento e accessori</option>
 							<option value="Arte e antiquariato">Arte e antiquariato</option>
 							<option value="Auto e moto: ricambi e accessori">Auto e moto: ricambi e accessori</option>
@@ -87,45 +87,45 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         </select>
                     </div>
                     <div>
-                        <label for="prezzo">Prezzo (in Euro)</label>
-                        <input type="number" id="prezzo" name="prezzo" step=".01">
+                        <label for="price" class="form-label">Prezzo (in Euro)</label>
+                        <input type="number" id="price" class="form-control" name="price" step=".01">
                     </div>
                     <div>
-                        <label for="spedizione">Spese di spedizione (in Euro)</label>
-                        <input type="number" id="spedizione" name="spedizione" step=".01">
+                        <label for="shipping" class="form-label">Spese di spedizione (in Euro)</label>
+                        <input type="number" id="shipping" class="form-control" name="shipping" step=".01">
                     </div>
                     <div>
-                        <div id="cond">
+                        <div id="cond" class="form-check">
                             <div>Condizione</div>
-                            <div>
-                                <input type="radio" id="cN" name="condizione" value="Nuovo">
-                                <label id="lCn" for="cN">Nuovo</label>
+                            <div class="form-check">
+                                <input type="radio" id="cN" class="form-check-input" name="condition" value="Nuovo">
+                                <label id="lCn" class="form-check-label" for="cN">Nuovo</label>
                             </div>
-                            <div>
-                                <input type="radio" id="cU" name="condizione" value="Usato">
-                                <label id="lCu" for="cU">Usato</label>
+                            <div class="form-check">
+                                <input type="radio" id="cU" class="form-check-input" name="condition" value="Usato">
+                                <label id="lCu" class="form-check-label" for="cU">Usato</label>
                             </div>
-                            <div>
-                                <input type="radio" id="cNs" name="condizione" value="Non specificato">
-                                <label id="lCns" for="lCns">Non specificato</label>
+                            <div class="form-check">
+                                <input type="radio" id="cNs" class="form-check-input" name="condition" value="Non specificato">
+                                <label id="lCns" class="form-check-label" for="lCns">Non specificato</label>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <label for="stato">Nazione di provenienza</label>
-                        <input type="text" id="stato" name="stato">
+                        <label for="stato" class="form-label">Nazione di provenienza</label>
+                        <input type="text" id="stato" class="form-control" name="stato">
                     </div>
                     <div>
-                        <label for="citta">Città di provenienza</label>
-                        <input type="text" id="citta" name="citta">
+                        <label for="citta" class="form-label">Città di provenienza</label>
+                        <input type="text" id="citta" class="form-control" name="citta">
                     </div>
                     <div>
-                        <label for="descrizione">Descrizione</label>
-                        <textarea id="descrizione" name="descrizione"></textarea>
+                        <label for="description" class="form-label">Descrizione</label>
+                        <textarea id="description" class="form-control"  name="description"></textarea>
                     </div>
                     <div id="buttons">
-                        <input type="submit" id="bOk" value="OK">
-                        <input type="reset" id="bAnnulla" value="ANNULLA">
+                        <button type="submit" id="bOk" class="btn btn-success">OK</button>
+                        <button type="reset" id="bAnnulla" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </fieldset>
             </form>
