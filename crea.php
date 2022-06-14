@@ -36,9 +36,9 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 //se l'utente ha associato il suo account ad una mail Paypal allora può caricare un annuncio
     if($utente->getPaypalMail() !== null && $utente->getPaypalMail() != ''){
 ?>
-        <div id="inserzione">
+        <div id="insertion">
             <h1>Inserisci le informazioni richieste per caricare l'inserzione</h1>
-            <form id="fInserzione" method="post" action="funzioni/upload.php" enctype="multipart/form-data">
+            <form id="fInsertion" method="post" action="funzioni/upload.php" enctype="multipart/form-data">
                 <input type="hidden" name="idU" value="<?php echo $utente->getId(); ?>">
                 <fieldset id="f1">
                     <legend>Informazioni sul prodotto</legend>
@@ -97,17 +97,19 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     <div>
                         <div id="cond" class="form-check">
                             <div>Condizione</div>
-                            <div class="form-check">
-                                <input type="radio" id="cN" class="form-check-input" name="condition" value="Nuovo">
-                                <label id="lCn" class="form-check-label" for="cN">Nuovo</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" id="cU" class="form-check-input" name="condition" value="Usato">
-                                <label id="lCu" class="form-check-label" for="cU">Usato</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" id="cNs" class="form-check-input" name="condition" value="Non specificato">
-                                <label id="lCns" class="form-check-label" for="lCns">Non specificato</label>
+                            <div>
+                                <div class="form-check">
+                                    <input type="radio" id="cN" class="form-check-input" name="condition" value="Nuovo">
+                                    <label id="lCn" class="form-check-label" for="cN">Nuovo</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="cU" class="form-check-input" name="condition" value="Usato">
+                                    <label id="lCu" class="form-check-label" for="cU">Usato</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="cNs" class="form-check-input" name="condition" value="Non specificato">
+                                    <label id="lCns" class="form-check-label" for="lCns">Non specificato</label>
+                                </div>
                             </div>
                         </div>
                     </div>
