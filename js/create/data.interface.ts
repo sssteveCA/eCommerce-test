@@ -7,5 +7,6 @@ export default interface InsertionInterface{
     condition: string,
     state: string,
     city: string,
-    description: string
+    description: string,
+    ajax? : boolean
 }
