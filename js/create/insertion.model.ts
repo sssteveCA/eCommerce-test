@@ -3,7 +3,7 @@ import InsertionInterface from "./data.interface";
 //Insert this model in DB
 export default class Insertion{
    private _name: string;
-   private _image: string;
+   private _image: File|null;
    private _type: string;
    private _price: number;
    private _shipping: number;

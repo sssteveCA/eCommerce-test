@@ -1,6 +1,6 @@
 export default interface InsertionInterface{
     name: string,
-    image: string,
+    image: File|null,
     type: string,
     price: number,
     shipping: number,
