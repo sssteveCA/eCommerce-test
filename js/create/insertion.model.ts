@@ -2,16 +2,16 @@ import InsertionInterface from "./data.interface";
 
 //Insert this model in DB
 export default class Insertion{
-   private _name: string;
-   private _image: File|null;
-   private _type: string;
-   private _price: number;
-   private _shipping: number;
-   private _condition: string;
-   private _state: string;
-   private _city: string;
-   private _description: string;
-   private _ajax: boolean;
+    private _name: string;
+    private _image: File;
+    private _type: string;
+    private _price: number;
+    private _shipping: number;
+    private _condition: string;
+    private _state: string;
+    private _city: string;
+    private _description: string;
+    private _ajax: boolean;
 
    constructor(data: InsertionInterface){
     this._name = data.name;
@@ -39,5 +39,5 @@ export default class Insertion{
    get state(){return this._state;}
    get city(){return this._city;}
    get description(){return this._description;}
-   get ajax(){return this._ajax;}
+   get ajax(){return this._ajax;} 
 }

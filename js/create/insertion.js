@@ -1,3 +1,5 @@
+import Insertion from "./insertion.model.js";
+import InsertionController from "./insertion.controller.js";
 $(function () {
     $('#fInsertion').on('submit', (ev) => {
         ev.preventDefault();
@@ -11,7 +13,7 @@ $(function () {
                 var data = {
                     name: $('#name').val(),
                     image: imageFile,
-                    type: $('#type').filter(':selected').val(),
+                    type: $('#type').val(),
                     price: $('#price').val(),
                     shipping: $('#shipping').val(),
                     condition: $('input[name=condition]:checked').val(),
@@ -21,8 +23,9 @@ $(function () {
                     ajax: true
                 };
                 console.log(data);
+                let insertion = new Insertion(data);
+                let insertionController = new InsertionController(insertion);
             } //if(imageFileList){
         } //if(image != null){  
     });
 });
-export {};

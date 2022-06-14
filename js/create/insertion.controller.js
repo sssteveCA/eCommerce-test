@@ -13,6 +13,7 @@ export default class InsertionController {
         this._errno = 0;
         this._error = null;
         this._insertion = insertion;
+        this.createInsertion();
     }
     get insertion() { return this._insertion; }
     get errno() { return this._errno; }
@@ -37,10 +38,20 @@ export default class InsertionController {
                     'Content-Type': 'application/json',
                     Accept: 'application/json'
                 };
+                let fd = new FormData();
+                fd.append('name', this._insertion.name);
+                fd.append('image', this._insertion.image, 'file.jpg');
+                fd.append('type', this._insertion.type);
+                fd.append('price', this._insertion.price.toString());
+                fd.append('shipping', this._insertion.shipping.toString());
+                fd.append('condition', this._insertion.condition);
+                fd.append('state', this._insertion.state);
+                fd.append('city', this._insertion.city);
+                fd.append('description', this._insertion.description);
+                fd.append('ajax', this._insertion.ajax.toString());
                 const request = fetch(InsertionController.INSERTION_URL, {
                     method: 'POST',
-                    body: JSON.stringify(this._insertion),
-                    headers: headers
+                    body: fd
                 });
                 request.then(r => {
                     resolve(r.text());
@@ -73,7 +84,7 @@ export default class InsertionController {
     validateInsertion() {
         let ok = false;
         let okName = (this._insertion.name != '');
-        let okImage = (this._insertion.image != null && this._insertion.image.size > 0);
+        let okImage = (this._insertion.image != null);
         let okType = (this._insertion.type != '');
         let okPrice = (this._insertion.price > 0);
         let okShipping = (this._insertion.shipping > 0);

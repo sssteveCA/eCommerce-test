@@ -23,6 +23,7 @@ export default class InsertionController{
 
     constructor(insertion: Insertion){
         this._insertion = insertion;
+        this.createInsertion();
     }
 
 
@@ -49,10 +50,20 @@ export default class InsertionController{
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             };
+            let fd = new FormData();
+            fd.append('name',this._insertion.name);
+            fd.append('image',this._insertion.image,'file.jpg');
+            fd.append('type',this._insertion.type);
+            fd.append('price',this._insertion.price.toString());
+            fd.append('shipping',this._insertion.shipping.toString());
+            fd.append('condition',this._insertion.condition);
+            fd.append('state',this._insertion.state);
+            fd.append('city',this._insertion.city);
+            fd.append('description',this._insertion.description);
+            fd.append('ajax',this._insertion.ajax.toString());
             const request = fetch(InsertionController.INSERTION_URL,{
                 method: 'POST',
-                body: JSON.stringify(this._insertion),
-                headers: headers
+                body: fd
             });
             request.then(r => {
                 resolve(r.text());
@@ -86,7 +97,7 @@ export default class InsertionController{
     private validateInsertion(): boolean{
         let ok = false;
         let okName: boolean = (this._insertion.name != '');
-        let okImage: boolean = (this._insertion.image != null && this._insertion.image.size > 0);
+        let okImage: boolean = (this._insertion.image != null);
         let okType: boolean = (this._insertion.type != '');
         let okPrice: boolean = (this._insertion.price > 0);
         let okShipping: boolean = (this._insertion.shipping > 0);
