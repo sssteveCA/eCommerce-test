@@ -2,6 +2,7 @@ import InsertionInterface from "./data.interface";
 
 //Insert this model in DB
 export default class Insertion{
+    private _idU: number;
     private _name: string;
     private _image: File;
     private _type: string;
@@ -14,6 +15,7 @@ export default class Insertion{
     private _ajax: boolean;
 
    constructor(data: InsertionInterface){
+    this._idU = data.idU;
     this._name = data.name;
     this._image = data.image;
     this._type = data.type;
@@ -30,6 +32,7 @@ export default class Insertion{
         this._ajax = false;
    }//constructor(data: InsertionInterface){
 
+   get idU(){return this._idU;}
    get name(){return this._name;}
    get image(){return this._image;}
    get type(){return this._type;}

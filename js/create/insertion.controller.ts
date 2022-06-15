@@ -1,5 +1,5 @@
 import Insertion from "./insertion.model";
-import DialogMessage from "../dialog/dialogmessage";
+import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 
 //Create the Insertion in DB passing the Insertion object
@@ -52,6 +52,7 @@ export default class InsertionController{
                 Accept: 'application/json'
             };
             let fd = new FormData();
+            fd.append('idU',this._insertion.idU.toString());
             fd.append('name',this._insertion.name);
             fd.append('image',this._insertion.image);
             fd.append('type',this._insertion.type);
@@ -83,7 +84,7 @@ export default class InsertionController{
             if(this.validateInsertion()){
                 //All data are valid
                 this.createPromise().then(res => {
-                    console.log(res); 
+                    //console.log(res); 
                     resJson = JSON.parse(res);
                     dmData = {
                         title: 'Nuova inserzione',

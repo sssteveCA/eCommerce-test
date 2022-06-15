@@ -22,10 +22,10 @@ $ajax = $_POST['ajax'];
 
 //if an user is logged
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-    if(isset($_POST['idu'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
+    if(isset($_POST['idU'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
         if($_FILES['image']['error'] == 0){
             //Image file uploaded to the server
-            create_insertion($_POST,$_FILES);
+            create_insertion($_POST,$_FILES,$response);
         }//if($_FILES['image']['error'] == 0){
         else
             $response['msg'] = M::ERR_INSERTIONFILENOTUPLOADED;
@@ -58,7 +58,7 @@ HTML;
 }
 
 //Insert data in DB
-function create_insertion($post,$files): bool{
+function create_insertion($post,$files,&$response): bool{
     $ok = false;
     if(exif_imagetype($files['image']['tmp_name']) == IMAGETYPE_JPEG){
         //MIME type is image/jpeg

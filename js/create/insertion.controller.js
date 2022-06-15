@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import DialogMessage from "../dialog/dialogmessage.js";
 //Create the Insertion in DB passing the Insertion object
 export default class InsertionController {
     constructor(insertion) {
@@ -39,8 +40,9 @@ export default class InsertionController {
                     Accept: 'application/json'
                 };
                 let fd = new FormData();
+                fd.append('idU', this._insertion.idU.toString());
                 fd.append('name', this._insertion.name);
-                fd.append('image', this._insertion.image, 'file.jpg');
+                fd.append('image', this._insertion.image);
                 fd.append('type', this._insertion.type);
                 fd.append('price', this._insertion.price.toString());
                 fd.append('shipping', this._insertion.shipping.toString());
@@ -64,14 +66,38 @@ export default class InsertionController {
     //HTTP request for insert the insertion in MySql DB
     createInsertion() {
         this._errno = 0;
+        let dm, dmData, msgDialog, resJson;
         if (this._insertion != null) {
             //Insertion object is istantiated
             if (this.validateInsertion()) {
                 //All data are valid
                 this.createPromise().then(res => {
-                    console.log(res);
+                    //console.log(res); 
+                    resJson = JSON.parse(res);
+                    dmData = {
+                        title: 'Nuova inserzione',
+                        message: resJson.msg
+                    };
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 }).catch(err => {
                     console.warn(err);
+                    dmData = {
+                        title: 'Nuova inserzione',
+                        message: err
+                    };
+                    dm = new DialogMessage(dmData);
+                    msgDialog = $('#' + dm.id);
+                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click', () => {
+                        //User press OK button
+                        msgDialog.dialog('destroy');
+                        msgDialog.remove();
+                    });
                 });
             } //if(this.validateInsertion()){
             else

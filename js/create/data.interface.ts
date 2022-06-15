@@ -1,4 +1,5 @@
 export default interface InsertionInterface{
+    idU: number,
     name: string,
     image: File,
     type: string,

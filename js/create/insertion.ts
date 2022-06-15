@@ -26,6 +26,7 @@ $(function(){
                     //File list from input type file exists
                     let imageFile = imageFileList.item(0) as File;
                     var data: InsertionInterface = {
+                        idU: $('#idU').val() as number,
                         name: $('#name').val() as string,
                         image: imageFile,
                         type: $('#type').val() as string,
@@ -37,7 +38,7 @@ $(function(){
                         description: $('#description').val() as string,
                         ajax: true
                     };
-                    console.log(data);
+                    //console.log(data);
                     let insertion = new Insertion(data);
                     let insertionController = new InsertionController(insertion);
                 }//if(imageFileList){
