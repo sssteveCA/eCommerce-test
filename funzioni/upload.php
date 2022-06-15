@@ -2,11 +2,16 @@
 session_start();
 
 require_once("../interfaces/messages.php");
+require_once("../interfaces/mysqlVals.php");
+require_once("../interfaces/productErrors.php");
+require_once("../interfaces/productsVals.php");
+require_once("../objects/prodotto.php");
 
 use EcommerceTest\Interfaces\Messages as M;
+use EcommerceTest\Objects\Prodotto;
 
 $response = array(
-    'done' => true,
+    'done' => false,
     'msg' => ''
 );
 $input = file_get_contents('php://input');
@@ -17,10 +22,20 @@ $ajax = $_POST['ajax'];
 
 //if an user is logged
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    if(isset($_POST['idu'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
+        if($_FILES['image']['error'] == 0){
+            //Image file uploaded to the server
+            create_insertion($_POST,$_FILES);
+        }//if($_FILES['image']['error'] == 0){
+        else
+            $response['msg'] = M::ERR_INSERTIONFILENOTUPLOADED;
+    }//if(isset($_POST['idu'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
+    else
+        $response['msg'] = M::ERR_REQUIREDFIELDSNOTFILLED;
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{  
     if($ajax)$response['msg'] = M::ERR_NOTLOGGED;
-    else '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    else echo M::ERR_LOGIN2;
 }
 
 if($ajax){
@@ -40,6 +55,43 @@ else{
 </html>
 HTML;
     echo $html;
+}
+
+//Insert data in DB
+function create_insertion($post,$files): bool{
+    $ok = false;
+    if(exif_imagetype($files['image']['tmp_name']) == IMAGETYPE_JPEG){
+        //MIME type is image/jpeg
+        $data = [
+            'idU' => $post['idU'],
+            'nome' => $post['name'],
+            'tipo' => $post['type'],
+            'prezzo' => $post['price'],
+            'spedizione' => $post['shipping'],
+            'condizione' => $post['condition'],
+            'stato' => $post['state'],
+            'citta' => $post['city'],
+            'descrizione' => $post['description'],
+            'tmp_name' => $files['image']['tmp_name']
+        ];
+        try{
+            $product = new Prodotto($data);
+            $errno = $product->getNumError();
+            if($errno == 0){
+                //Insertion operation completed
+                $response['msg'] = M::INSERTIONUPLOADED;
+                $response['done'] = true;
+                $ok = true;
+            }//if($errno == 0){
+            else
+                $response['msg'] = $product->getStrError();
+        }catch(Exception $e){
+            $response['msg'] = $e->getMessage();
+        }
+    }//if(exif_imagetype($files['image']['tmp_name']) == IMAGETYPE_JPEG){
+    else
+        $response['msg'] = M::ERR_INSERTIONNOTIMAGE;
+    return $ok;
 }
 
 
