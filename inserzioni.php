@@ -1,10 +1,14 @@
 <?php
 
-use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Interfaces\Messages as M;
+use EcommerceTest\Interfaces\MySqlVals as Msv;
 use EcommerceTest\Interfaces\Paths as P;
+use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Objects\Utente;
 
 session_start();
 
+require_once('interfaces/messages.php');
 require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('interfaces/productErrors.php');
@@ -13,82 +17,118 @@ require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
-require_once('funzioni/config.php');
-require_once("funzioni/const.php");
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
-?>
+    $page_data = [
+        'insertions_css' => P::REL_INSERTIONS_CSS,
+        'bootstrap_css' => P::REL_BOOTSTRAP_CSS,
+        'jquery_css' => P::REL_JQUERY_CSS,
+        'jquerytheme_css' => P::REL_JQUERYTHEME_CSS,
+        'jquery_js' => P::REL_JQUERY_JS,
+        'jqueryUi_js' => P::REL_JQUERYUI_JS,
+        'bootstrap_js' => P::REL_BOOTSTRAP_JS,
+        'dialog_message_js' => P::REL_DIALOG_MESSAGE_JS,
+        'logout_js' => P::REL_LOGOUT_JS,
+        'insertions_js' => P::REL_INSERTIONS_JS,
+        'menu' => menu($_SESSION['welcome'])
+    ];
+    $page_data['result'] = result($utente);
+    $page = html_page($page_data);
+    echo $page;
+}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+else
+    echo M::ERR_LOGIN1;
+
+//HTML page to display for user insertions
+function html_page(array $data): string{
+    $html = <<<HTML
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title>Le mie inserzioni</title>
+    <title>Le mie inserzioni</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_INSERTIONS_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
-        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
-        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
-        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
-        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
-        <script src=<?php echo P::REL_INSERTIONS_JS; ?>></script>
+        <link rel="stylesheet" href="{$data['insertions_css']}">
+        <link rel="stylesheet" href="{$data['bootstrap_css']}">
+        <link rel="stylesheet" href="{$data['jquery_css']}">
+        <link rel="stylesheet" href="{$data['jquerytheme_css']}" >
+        <script src="{$data['jquery_js']}"></script>
+        <script src="{$data['jqueryUi_js']}"></script>
+        <script src="{$data['bootstrap_js']}"></script>
+        <script type="module" src="{$data['dialog_message_js']}"></script>
+        <script type="module" src="{$data['logout_js']}"></script>
+        <script src="{$data['insertions_js']}"></script>
+    </head>
     </head>
     <body>
-        <?php echo menu($_SESSION['welcome']);?>
+        {$data['menu']}
         <div id="risultato">
-<?php
-    //ottengo gli id dei prodotti che l'utente ha caricato
-    $idA = $utente->getId();
-    $query = <<<SQL
-SELECT `id` FROM `prodotti` WHERE `idU`= '{$idA} ORDER BY `data` DESC LIMIT 30;';
-SQL;
-    echo '<script>console.log("'.$query.'");</script>';
-    $listaId = Prodotto::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$query);
-    if($listaId !== null){
-        if(!empty($listaId)){
-            $prodotti = array();
-            echo '<table border="1">';
-            foreach($listaId as $id){
-                try{
-                    $prodotti[$id] = new Prodotto(array('id' => $id));
-                    echo '<tr>';
-                    //nome del prodotto
-                    echo '<td class="nome">'.$prodotti[$id]->getNome().'</td>';
-                    //immagine prodotto, mostrata con la codifica base64
-                    echo '<td class="timg"><img src="'.$prodotti[$id]->getImmagine().'"></td>';
-                    //categoria del prodotto
-                    echo '<td class="tipo">'.$prodotti[$id]->getTipo().'</td>';
-                    //prezzo in Euro
-                    echo '<td class="prezzo">';
-                    printf("%.2f€",$prodotti[$id]->getPrezzo());
-                    echo '</td>';
-                    echo '<td class="dettagli">';
-                    //form che consente all'utente di aprire la scheda del prodotto selezionato
-                    echo '<form method="get" action="prodotto.php"><input type="hidden" name="id" value="'.$id.'">';
-                    echo '<input type="submit" value="DETTAGLI"></form>';
-                    echo '</td>';
-                    echo '</tr>';
-
-                }
-                catch(Exception $e){
-                    echo '<script>alert("'.$e->getMessage().'");<br>';            
-                }
-            }
-            echo '</table>';
-        }
-        else{
-            echo '<p id="null">Non hai caricato alcun annuncio</p>';
-        }
-    }
-    else{
-        echo '<script>alert("Connessione a MySql fallita");</script>';
-    }
-?>
+            {$data['result']}
         </div>
     </body>
 </html>
-<?php
+HTML;
+    return $html;
+}
+
+//HTML inside the div risultato
+function result(Utente $user): string{
+    $result = '';
+    $idA = $user->getId();
+    $tabProd = Msv::TABPROD;
+    $query = <<<SQL
+SELECT `id` FROM `{$tabProd}` WHERE `idU`='{$idA}' ORDER BY `data` DESC LIMIT 30;
+SQL;
+    $idList = Prodotto::getIdList(Msv::HOSTNAME,Msv::USERNAME,Msv::PASSWORD,Msv::DATABASE,$query);
+    if($idList !== null){
+        //Connected to MySql
+        if(!empty($idList)){
+            $productsHtml = '';
+            try{
+                //User has already uploaded at least one insertion
+                foreach($idList as $id){
+                    //Get info about product by id
+                    $product = new Prodotto(['id' => $id]);
+                    $productsHtml .= '<tr>';
+                    $productsHtml .= '<td class="name">'.$product->getNome().'</td>';
+                    $productsHtml .= '<td class="timg"><img src="'.$product->getImmagine().'"></td>';
+                    $productsHtml .= '<td class="type">'.$product->getTipo().'</td>';
+                    $productsHtml .= '<td class="price">'.$product->getPrezzo().'</td>';
+                    $productsHtml .= <<<HTML
+    <td class="details">
+        <form method="get" action="prodotto.php">
+            <input type="hidden" name="id" value="{$id}">
+            <button type="submit" class="btn btn-info">DETTAGLI</button>
+        </form>
+    </td>
+    HTML;
+                $productsHtml .= '</tr>';
+                }//foreach($idList as $id){
+                $result =<<<HTML
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">NOME</th>
+                <th scope="col">IMMAGINE</th> 
+                <th scope="col">TIPO</th> 
+                <th scope="col">PREZZO</th> 
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {$productsHtml}
+        </tbody>
+    </table>
+    HTML;
+            }catch(Exception $e){
+                $result = '<p>'.$e->getMessage().'</p>';
+            }
+        }//if(!empty($idList)){  
+        else
+            $result = '<p id="null">'.M::ERR_NOINSERTIONUPLOADED.'</p>';
+    }//if($idList !== null){
+    else
+        $result = '<p>'.M::ERR_INSERTIONLIST.'</p>';
+    return $result;
 }
 ?>

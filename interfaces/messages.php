@@ -36,6 +36,7 @@ interface Messages{
     const ERR_GENDERINVALID = 'Il genere inserito non è valido';
     const ERR_INSERTIONFILENOTUPLOADED = 'Il file non è stato caricato';
     const ERR_INSERTIONNOTIMAGE = 'Il file caricato non è un\' immagine JPEG';
+    const ERR_INSERTIONLIST = 'Errore durante il caricamento delle inserzioni dell\'utente';
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
     const ERR_INVALIDOPERATION1 = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
@@ -43,8 +44,9 @@ interface Messages{
     const ERR_LOGIN2 = '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
     const ERR_MYSQLCONN = 'Errore durante la connessione a MySql';
     const ERR_MYSQLQUERY = 'Query errata';
-    const ERR_NOTLOGGED = 'Non sei collegato';
+    const ERR_NOINSERTIONUPLOADED = 'Non hai caricato alcun annuncio';
     const ERR_NOOPERATION = 'Nessuna operazione selezionata';
+    const ERR_NOTLOGGED = 'Non sei collegato';
     const ERR_ORDERALREALDYCART = 'Ordine già presente nel carrello';
     const ERR_ORDERAMOUNTNOTPDATED = 'Errore durante l\' aggiornamento della quantità';
     const ERR_ORDERDELETEINVALIDID = 'Impossibile eliminare l\' ordine dal carrello perché l\'id non è valido';
@@ -64,5 +66,8 @@ interface Messages{
     const ERR_UNKNOWN = 'Errore sconosciuto';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';
     const ERR_USERPWDWRONG = 'Email o password non corretti';
+
+    //Other
+    const ADMIN_CONTACT = 'Se il problema persiste contattare l\'amministratore del sito';
 }
 ?>
