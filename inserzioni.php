@@ -121,14 +121,14 @@ SQL;
     </table>
     HTML;
             }catch(Exception $e){
-                $result = '<p>'.$e->getMessage().'</p>';
+                $result = '<p class="error">'.$e->getMessage().'</p>';
             }
         }//if(!empty($idList)){  
         else
-            $result = '<p id="null">'.M::ERR_NOINSERTIONUPLOADED.'</p>';
+            $result = '<p class="error">'.M::ERR_NOINSERTIONUPLOADED.'</p>';
     }//if($idList !== null){
     else
-        $result = '<p>'.M::ERR_INSERTIONLIST.'</p>';
+        $result = '<p class="error">'.M::ERR_INSERTIONLIST.'</p>';
     return $result;
 }
 ?>
