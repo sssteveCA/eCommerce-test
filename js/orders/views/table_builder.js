@@ -29,25 +29,9 @@ export default class TableBuilder {
         if (this._done == true && this.orders_count > 0) {
             let columnCart = this.columnCart(); //Add the add Cart column to the table if at least an order is not actually in the cart
             let table = `
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Id ordine</th>
-            <th scope="col">Id prodotto</th>
-            <th scope="col">Id venditore</th>
-            <th scope="col">Data ordine</th>
-            <th scope="col">Quantità</th>
-            <th scope="col">Prezzo totale</th>
-            <th scope="col">Ordine pagato</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>`;
-            if (columnCart === false) {
-                table += `<th scope="col"></th>`;
-            }
+<table class="table">`;
+            table += this.tableThead(columnCart);
             table += `
-        </tr>
-    </thead>
     <tbody>
             `;
             this._orders.forEach((order, index) => {
@@ -69,7 +53,7 @@ export default class TableBuilder {
         <input type="hidden" form="f${index}" class="idOrd" name="idOrd" value="${order.id}">
     </td>        
     <td>
-            <button type="submit" form="f${index}" class="bDettagli btn btn-secondary" name="bDettagli">DETTAGLI</button>
+        <button type="submit" form="f${index}" class="bDettagli btn btn-secondary" name="bDettagli">DETTAGLI</button>
     </td>        
     <td>
         <button type="submit" form="f${index}" class="bElimina btn btn-danger" name="bElimina">ELIMINA</button>
@@ -78,11 +62,14 @@ export default class TableBuilder {
                     row += `<td>`;
                     if (order.cart === false) {
                         row += `
-                        <button type="submit" form="f${index}" class="bCarrello btn btn-secondary" name="bCarrello">CARRELLO</button>
+<button type="submit" form="f${index}" class="bCarrello btn btn-secondary" name="bCarrello">CARRELLO</button>
                     `;
                     } //if(order.cart === false){
                     row += `</td>`;
                 } //if(columnCart){
+                if (payed == 'No') {
+                    row += this.payForm(order);
+                } //if(payed == 'No'){
                 row += `
 </tr>
             `;
@@ -92,6 +79,7 @@ export default class TableBuilder {
     </tbody>
 </table>
 `;
+            parent.append(table);
         } //if(this._done == true && this.orders_count > 0){
         else {
             //No orders found
@@ -115,8 +103,49 @@ export default class TableBuilder {
         } //for(let i in this._orders){
         return columnCart;
     }
-    payForm() {
+    payForm(order) {
         let payForm = ``;
+        var btnPay = false; //true = show the pay button
+        payForm += `<td>`;
+        if (order.cart === true)
+            btnPay = true;
+        if (btnPay == true) {
+            payForm += `
+<form id="pagaForm" method="post" action="conferma.php">
+    <input type="hidden" id="idO" name="idO" value="${order.id}">
+    <input type="hidden" id="idC" name="idC" value="${order.idc}">
+    <input type="hidden" id="idP" name="idP" value="${order.idp}">
+    <input type="hidden" id="nP" name="nP" value="${order.quantity}">
+    <input type="hidden" id="ord" name="ord" value="1">
+    <input type="hidden" id="tot" name="tot" value="${order.total}">
+    <button type="submit" class="btn btn-success">PAGA</button>
+</form>
+            `;
+        } //if(btnPaga == true){
+        payForm += '</td>';
         return payForm;
+    }
+    //Table thead HTML
+    tableThead(columnCart) {
+        let thead = `
+        <thead>
+        <tr>
+            <th scope="col">Id ordine</th>
+            <th scope="col">Id prodotto</th>
+            <th scope="col">Id venditore</th>
+            <th scope="col">Data ordine</th>
+            <th scope="col">Quantità</th>
+            <th scope="col">Prezzo totale</th>
+            <th scope="col">Ordine pagato</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>`;
+        if (columnCart === false) {
+            thead += `<th scope="col"></th>`;
+        }
+        thead += `
+        </tr>
+    </thead>`;
+        return thead;
     }
 }
