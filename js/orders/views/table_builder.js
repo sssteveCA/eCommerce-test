@@ -27,6 +27,7 @@ export default class TableBuilder {
         let parent = $('#' + this._id_container);
         parent.html('');
         if (this._done == true && this.orders_count > 0) {
+            let columnCart = this.columnCart(); //Add the add Cart column to the table if at least an order is not actually in the cart
             let table = `
 <table class="table">
     <thead>
@@ -41,6 +42,9 @@ export default class TableBuilder {
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>`;
+            if (columnCart === false) {
+                table += `<th scope="col"></th>`;
+            }
             table += `
         </tr>
     </thead>
@@ -69,9 +73,20 @@ export default class TableBuilder {
     </td>        
     <td>
         <button type="submit" form="f${index}" class="bElimina btn btn-danger" name="bElimina">ELIMINA</button>
-    </td>        
+    </td> `;
+                if (columnCart) {
+                    row += `<td>`;
+                    if (order.cart === false) {
+                        row += `
+                        <button type="submit" form="f${index}" class="bCarrello btn btn-secondary" name="bCarrello">CARRELLO</button>
+                    `;
+                    } //if(order.cart === false){
+                    row += `</td>`;
+                } //if(columnCart){
+                row += `
 </tr>
             `;
+                table += row;
             }); //this._orders.forEach((order)=>{
             table += `
     </tbody>
@@ -92,6 +107,16 @@ export default class TableBuilder {
     }
     columnCart() {
         let columnCart = false;
+        for (let i in this._orders) {
+            if (this._orders[i].cart === false) {
+                columnCart = true;
+                break;
+            }
+        } //for(let i in this._orders){
         return columnCart;
+    }
+    payForm() {
+        let payForm = ``;
+        return payForm;
     }
 }
