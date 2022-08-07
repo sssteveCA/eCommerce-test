@@ -100,7 +100,7 @@ function getOrders(array &$risposta){
                                 'carrello' => ($ordine->isCarrello())? '1':'0',
                             );
                             
-                            $risposta[$i]=$datiOrdine;
+                            $risposta['orders'][$i]=$datiOrdine;
                             $_SESSION['ordini'][$ordine->getId()]=$datiOrdine;
                             $i++;
                         }//if($ordine->getNumError() == 0){
