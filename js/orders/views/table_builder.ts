@@ -17,6 +17,7 @@ export default class TableBuilder{
         this._done = data.done;
         this._orders = data.orders;
         this._msg = data.msg;
+        this.setTable();
     }
 
     get done(){return this._done;}
@@ -58,17 +59,8 @@ export default class TableBuilder{
         <button type="submit" class="btn btn-primary">MODIFICA</button>
     </td>        
     <td>${order.total}€</td>        
-    <td>${payed}</td>    
-    <form id="f${index}" class="formOrder" method="get" action="orderMan.php"></form>   
-    <td>
-        <input type="hidden" form="f${index}" class="idOrd" name="idOrd" value="${order.id}">
-    </td>        
-    <td>
-        <button type="submit" form="f${index}" class="bDettagli btn btn-secondary" name="bDettagli">DETTAGLI</button>
-    </td>        
-    <td>
-        <button type="submit" form="f${index}" class="bElimina btn btn-danger" name="bElimina">ELIMINA</button>
-    </td> `;
+    <td>${payed}</td>`;
+            row += this.formButton(index, order);
             if(columnCart){
                 row += `<td>`;
                 if(order.cart === false){
@@ -115,6 +107,23 @@ export default class TableBuilder{
             }
         }//for(let i in this._orders){
         return columnCart;
+    }
+
+    //Buttonns and its form part of the table
+    private formButton(index: number, order: Order): string{
+        let formButton: string = `
+    <form id="f${index}" class="formOrder" method="get" action="orderMan.php"></form>   
+    <td>
+        <input type="hidden" form="f${index}" class="idOrd" name="idOrd" value="${order.id}">
+    </td>        
+    <td>
+        <button type="submit" form="f${index}" class="bDettagli btn btn-secondary" name="bDettagli">DETTAGLI</button>
+    </td>        
+    <td>
+        <button type="submit" form="f${index}" class="bElimina btn btn-danger" name="bElimina">ELIMINA</button>
+    </td>        
+        `;
+        return formButton;
     }
 
     private payForm(order: Order): string{
