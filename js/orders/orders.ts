@@ -1,7 +1,9 @@
 import GetOrdersInterface from "./interfaces/getorders.interface";
 import TableBuilderInterface from "./interfaces/table_builder.interface";
+import { Operations, TableEventsInterface } from "./interfaces/table_events.interface";
 import GetOrders from "./requests/getorders.js";
 import TableBuilder from "./views/table_builder.js";
+import TableEvents from "./views/table_events";
 
 $(function(){
     getOrders();
@@ -31,4 +33,23 @@ function getOrders(){
 
 function table(data: TableBuilderInterface){
     let table_builder: TableBuilder = new TableBuilder(data);
+    let te_data: TableEventsInterface = {
+        form_class: 'formOrder',
+        button_classes: [
+            'bQuantita',
+            'bDettagli',
+            'bElimina',
+            'bCarrello'
+        ],
+        operations: {
+          quantity: '3',
+            details: '1',
+            delete: '2',
+            cart: '4'  
+        }
+    };
+    let te: TableEvents = new TableEvents(te_data);
+   
+
+    
 }

@@ -1,5 +1,6 @@
 import GetOrders from "./requests/getorders.js";
 import TableBuilder from "./views/table_builder.js";
+import TableEvents from "./views/table_events";
 $(function () {
     getOrders();
 });
@@ -26,4 +27,20 @@ function getOrders() {
 }
 function table(data) {
     let table_builder = new TableBuilder(data);
+    let te_data = {
+        form_class: 'formOrder',
+        button_classes: [
+            'bQuantita',
+            'bDettagli',
+            'bElimina',
+            'bCarrello'
+        ],
+        operations: {
+            quantity: '3',
+            details: '1',
+            delete: '2',
+            cart: '4'
+        }
+    };
+    let te = new TableEvents(te_data);
 }
