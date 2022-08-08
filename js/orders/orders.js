@@ -1,6 +1,6 @@
 import GetOrders from "./requests/getorders.js";
 import TableBuilder from "./views/table_builder.js";
-import TableEvents from "./views/table_events";
+import TableEvents from "./views/table_events.js";
 $(function () {
     getOrders();
 });

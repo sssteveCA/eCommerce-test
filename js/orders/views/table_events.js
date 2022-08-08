@@ -1,25 +1,31 @@
-import AddToCart from "../requests/addtocart";
-import DeleteOrder from "../requests/deleteorder";
-import EditQuantity from "../requests/editquantity";
-import GetOrder from "../requests/getorder";
+import AddToCart from "../requests/addtocart.js";
+import DeleteOrder from "../requests/deleteorder.js";
+import EditQuantity from "../requests/editquantity.js";
+import GetOrder from "../requests/getorder.js";
 //Set the events for the orders table
 export default class TableEvents {
     constructor(data) {
+        console.log(data);
         this._form_class = data.form_class;
         this._button_classes = data.button_classes;
         this._operations = data.operations;
+        this.setEvents();
     }
     get form_class() { return this._form_class; }
     get button_classes() { return this._button_classes; }
     get operations() { return this._operations; }
     setEvents() {
         let button_classes = this._button_classes;
+        console.log(button_classes);
         let operations = this._operations;
         let forms = $('.' + this._form_class);
+        console.log(forms);
         let this_obj = this; //Referenche to this inside submit event
         forms.on('submit', function (ev) {
             ev.preventDefault();
-            let btn = $('input[type=submit]:focus');
+            console.log("submit");
+            let btn = $('button[type=submit]:focus');
+            console.log(btn);
             let formId = $(this).attr('id');
             let idOrd = $('input[type=hidden][form=' + formId + ']').val();
             if (btn.hasClass(button_classes[0])) {
@@ -60,5 +66,7 @@ export default class TableEvents {
             operation: this._operations.quantity
         };
         let eq = new EditQuantity(eq_data);
+        eq.editQuantity().then(res => {
+        });
     }
 }

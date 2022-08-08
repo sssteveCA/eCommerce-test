@@ -3,7 +3,7 @@ import TableBuilderInterface from "./interfaces/table_builder.interface";
 import { Operations, TableEventsInterface } from "./interfaces/table_events.interface";
 import GetOrders from "./requests/getorders.js";
 import TableBuilder from "./views/table_builder.js";
-import TableEvents from "./views/table_events";
+import TableEvents from "./views/table_events.js";
 
 $(function(){
     getOrders();
@@ -49,7 +49,4 @@ function table(data: TableBuilderInterface){
         }
     };
     let te: TableEvents = new TableEvents(te_data);
-   
-
-    
 }

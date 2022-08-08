@@ -55,13 +55,7 @@ export default class GetOrder{
     public async getOrderPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject)=>{
             let body_params:string = `?idOrd=${this._id_order}&oper=${this._operation}`;
-            fetch(GetOrder.GETORDER_URL,{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                },
-                body: body_params
-            }).then(res => {
+            fetch(GetOrder.GETORDER_URL+body_params).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);

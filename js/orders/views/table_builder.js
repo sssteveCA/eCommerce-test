@@ -38,10 +38,11 @@ export default class TableBuilder {
     <td>${order.id}</td>        
     <td>${order.idp}</td>        
     <td>${order.idv}</td>        
-    <td>${order.date}</td>        
+    <td>${order.date}</td>   
+    <form id="f${index}" class="formOrder" method="get" action="orderMan.php"></form>        
     <td class="tQuantita">
         <input type="number" id="q${index}" class="iQuantita" name="quantita" form="f${index}" value="${order.quantity}">
-        <button type="submit" class="btn btn-primary">MODIFICA</button>
+        <button type="submit" class="bQuantita btn btn-primary" form="f${index}" name="bQuantita">MODIFICA</button>
     </td>        
     <td>${order.total}€</td>        
     <td>${payed}</td>`;
@@ -94,7 +95,6 @@ export default class TableBuilder {
     //Buttonns and its form part of the table
     formButton(index, order) {
         let formButton = `
-    <form id="f${index}" class="formOrder" method="get" action="orderMan.php"></form>   
     <td>
         <input type="hidden" form="f${index}" class="idOrd" name="idOrd" value="${order.id}">
     </td>        

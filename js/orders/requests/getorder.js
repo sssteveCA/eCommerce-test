@@ -49,13 +49,7 @@ export default class GetOrder {
         return __awaiter(this, void 0, void 0, function* () {
             return yield new Promise((resolve, reject) => {
                 let body_params = `?idOrd=${this._id_order}&oper=${this._operation}`;
-                fetch(GetOrder.GETORDER_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
-                    body: body_params
-                }).then(res => {
+                fetch(GetOrder.GETORDER_URL + body_params).then(res => {
                     resolve(res.text());
                 }).catch(err => {
                     reject(err);
