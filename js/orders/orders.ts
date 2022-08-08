@@ -1,4 +1,12 @@
+import GetOrdersInterface from "./interfaces/getorders.interface";
+import GetOrders from "./requests/getorders";
+
 $(function(){
-    let data: object = {};
-    data['oper'] = '0';
+    let gos_data: GetOrdersInterface = {
+        operation: '0'
+    };
+    let get_orders: GetOrders = new GetOrders(gos_data);
+    get_orders.getOrders().then(obj => {
+
+    });
 });

@@ -1,8 +1,10 @@
 import Order from "../models/order.model";
+import GetOrdersInterface from "../interfaces/getorders.interface";
 
 //Get all user orders
 export default class GetOrders{
 
+    private _operation: string; //command to sent at backend to get orders
     private _orders: Order[];
     private _length: number; //Number of orders retrieved
     private _errno: number = 0;
@@ -16,8 +18,11 @@ export default class GetOrders{
     //Error messages
     private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
 
-    constructor(){}
+    constructor(data: GetOrdersInterface){
+        this._operation = data.operation;
+    }
 
+    get operation(){return this._operation;}
     get orders(){return this._orders;}
     get length(){return this._length;}
     get errno(){return this._errno;}
@@ -54,7 +59,7 @@ export default class GetOrders{
 
     private async getOrdersPromise(): Promise<string>{
         let response = await new Promise<string>((resolve,reject)=>{
-            fetch(GetOrders.GETORDERS_URL+'?oper=0').then(res => {
+            fetch(GetOrders.GETORDERS_URL+'?oper='+this._operation).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);

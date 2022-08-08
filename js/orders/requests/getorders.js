@@ -9,10 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 //Get all user orders
 export default class GetOrders {
-    constructor() {
+    constructor(data) {
         this._errno = 0;
         this._error = null;
+        this._operation = data.operation;
     }
+    get operation() { return this._operation; }
     get orders() { return this._orders; }
     get length() { return this._length; }
     get errno() { return this._errno; }
@@ -51,7 +53,7 @@ export default class GetOrders {
     getOrdersPromise() {
         return __awaiter(this, void 0, void 0, function* () {
             let response = yield new Promise((resolve, reject) => {
-                fetch(GetOrders.GETORDERS_URL + '?oper=0').then(res => {
+                fetch(GetOrders.GETORDERS_URL + '?oper=' + this._operation).then(res => {
                     resolve(res.text());
                 }).catch(err => {
                     reject(err);
