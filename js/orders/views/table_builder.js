@@ -4,8 +4,6 @@ export default class TableBuilder {
         this._table = ''; //HTML table
         this._errno = 0;
         this._error = null;
-        console.log("TableBuilder constructor");
-        console.log(data);
         this._id_container = data.id_container;
         this._orders = data.orders;
         this.setTable();

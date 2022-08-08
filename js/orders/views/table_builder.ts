@@ -11,8 +11,6 @@ export default class TableBuilder{
     private _error: string|null = null;
 
     constructor(data: TableBuilderInterface){
-        console.log("TableBuilder constructor");
-        console.log(data);
         this._id_container = data.id_container;
         this._orders = data.orders;
         this.setTable();

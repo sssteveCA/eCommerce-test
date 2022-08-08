@@ -40,7 +40,6 @@ export default class GetOrders {
                 yield this.getOrdersPromise().then(res => {
                     //console.log(res);
                     response = JSON.parse(res);
-                    console.log(response);
                     this.insertOrders(response);
                 }).catch(err => {
                     throw err;
@@ -73,7 +72,6 @@ export default class GetOrders {
         this._length = response['i'];
         if (response['done'] === true && this._length > 0) {
             response['orders'].forEach(element => {
-                console.log(element);
                 let payed = false;
                 let cart = false;
                 if (element.hasOwnProperty('pagato')) {

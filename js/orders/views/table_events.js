@@ -9,7 +9,6 @@ import * as ordersMain from "../orders.js";
 //Set the events for the orders table
 export default class TableEvents {
     constructor(data) {
-        console.log(data);
         this._form_class = data.form_class;
         this._button_classes = data.button_classes;
         this._operations = data.operations;
@@ -20,15 +19,11 @@ export default class TableEvents {
     get operations() { return this._operations; }
     setEvents() {
         let button_classes = this._button_classes;
-        console.log(button_classes);
         let forms = $('.' + this._form_class);
-        console.log(forms);
         let this_obj = this; //Referenche to this inside submit event
         forms.on('submit', function (ev) {
             ev.preventDefault();
-            console.log("submit");
             let btn = $('button[type=submit]:focus');
-            console.log(btn);
             let formId = $(this).attr('id');
             let idOrd = $('input[type=hidden][form=' + formId + ']').
                 val();
@@ -53,13 +48,11 @@ export default class TableEvents {
     }
     //edit order quantity request
     editQuantity(idOrd, new_quantity) {
-        console.log("editQuantity");
         let eq_data = {
             id_order: idOrd,
             operation: this._operations.quantity,
             quantity: new_quantity
         };
-        console.log(eq_data);
         let eq = new EditQuantity(eq_data);
         eq.editQuantity().then(obj => {
             let dm_data = {

@@ -22,7 +22,6 @@ export default class TableEvents{
     private _operations: Operations; //Orders table backend operations list
 
     constructor(data: TableEventsInterface){
-        console.log(data);
         this._form_class = data.form_class;
         this._button_classes = data.button_classes;
         this._operations = data.operations;
@@ -35,15 +34,11 @@ export default class TableEvents{
 
     private setEvents(): void{
         let button_classes: Array<string> = this._button_classes;
-        console.log(button_classes);
         let forms: JQuery = $('.'+this._form_class);
-        console.log(forms);
         let this_obj: TableEvents = this; //Referenche to this inside submit event
         forms.on('submit',function(ev){
             ev.preventDefault();
-            console.log("submit");
             let btn: JQuery = $('button[type=submit]:focus');
-            console.log(btn);
             let formId = $(this).attr('id');
             let idOrd = $('input[type=hidden][form='+formId+']').
             val() as number; 
@@ -69,13 +64,11 @@ export default class TableEvents{
 
     //edit order quantity request
     private editQuantity(idOrd: number, new_quantity: number): void{
-        console.log("editQuantity");
         let eq_data: EditQuantityInterface = {
             id_order: idOrd as number,
             operation: this._operations.quantity,
             quantity: new_quantity
         };
-        console.log(eq_data);
         let eq: EditQuantity = new EditQuantity(eq_data);
         eq.editQuantity().then(obj => {
             let dm_data: DialogMessageInterface = {
