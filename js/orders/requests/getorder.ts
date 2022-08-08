@@ -8,7 +8,13 @@ export default class GetOrder{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETORDER_URL:string = 'funzioni/orderMan.php'
+    private static GETORDER_URL:string = 'funzioni/orderMan.php';
+
+    //Error numbers
+    private static ERR_FETCH:number = 1;
+
+    //Error messages
+    private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
 
     constructor(data: GetOrderInterface){
         this._id_order = data.id_order;
@@ -20,6 +26,9 @@ export default class GetOrder{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
+            case GetOrder.ERR_FETCH:
+                this._error = GetOrder.ERR_FETCH_MSG;
+                break;
             default:
                 this._error = null;
                 break;
@@ -29,6 +38,17 @@ export default class GetOrder{
 
     public async getOrder(): Promise<Order|null>{
         let order: Order|null = null;
+        this._errno = 0;
+        try{
+            await this.getOrderPromise().then(res =>{
+                console.log(res);
+            }).catch(err => {
+                throw err;
+            })
+
+        }catch(e){
+            this._errno = GetOrder.ERR_FETCH;
+        }
         return order;
     }
 

@@ -19,6 +19,9 @@ export default class GetOrder {
     get errno() { return this._errno; }
     get error() {
         switch (this._errno) {
+            case GetOrder.ERR_FETCH:
+                this._error = GetOrder.ERR_FETCH_MSG;
+                break;
             default:
                 this._error = null;
                 break;
@@ -28,6 +31,17 @@ export default class GetOrder {
     getOrder() {
         return __awaiter(this, void 0, void 0, function* () {
             let order = null;
+            this._errno = 0;
+            try {
+                yield this.getOrderPromise().then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    throw err;
+                });
+            }
+            catch (e) {
+                this._errno = GetOrder.ERR_FETCH;
+            }
             return order;
         });
     }
@@ -51,3 +65,7 @@ export default class GetOrder {
     }
 }
 GetOrder.GETORDER_URL = 'funzioni/orderMan.php';
+//Error numbers
+GetOrder.ERR_FETCH = 1;
+//Error messages
+GetOrder.ERR_FETCH_MSG = "Errore durante la richiesta dei dati";
