@@ -1,8 +1,8 @@
 import DeleteOrderInterface from "../interfaces/deleteorder.interface";
 
 export default class DeleteOrder{
-    private _id_order: string; //Order to be deleted
-    private _operation: string; //command to sent at backend to delete the order 
+    private _id_order: number; //Order to be deleted
+    private _operation: number; //command to sent at backend to delete the order 
 
     constructor(data: DeleteOrderInterface){
         this._id_order = data.id_order;

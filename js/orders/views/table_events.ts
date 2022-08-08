@@ -30,7 +30,6 @@ export default class TableEvents{
     private setEvents(): void{
         let button_classes: Array<string> = this._button_classes;
         console.log(button_classes);
-        let operations: Operations = this._operations;
         let forms: JQuery = $('.'+this._form_class);
         console.log(forms);
         let this_obj: TableEvents = this; //Referenche to this inside submit event
@@ -40,48 +39,64 @@ export default class TableEvents{
             let btn: JQuery = $('button[type=submit]:focus');
             console.log(btn);
             let formId = $(this).attr('id');
-            let idOrd = $('input[type=hidden][form='+formId+']').val() as string; 
+            let idOrd = $('input[type=hidden][form='+formId+']').
+            val() as number; 
             if(btn.hasClass(button_classes[0])){
                 //class of button order quantity
-                this_obj.editQuantity(idOrd);
+                let new_quantity: number = $('input[name=quantita][form='+formId+']').val() as number;
+                this_obj.editQuantity(idOrd,new_quantity);
             }
             else if(btn.hasClass(button_classes[1])){
                 //class of button order details
-                let go_data: GetOrderInterface = {
-                    id_order: idOrd as string,
-                    operation: operations.quantity
-                };
-                let go: GetOrder = new GetOrder(go_data);
+                this_obj.getOrder(idOrd);
             }
             else if(btn.hasClass(button_classes[2])){
                 //class of button order delete
-                let do_data: DeleteOrderInterface = {
-                    id_order: idOrd as string,
-                    operation: operations.quantity
-                };
-                let del_ord: DeleteOrder = new DeleteOrder(do_data);
+                this_obj.deleteOrder(idOrd);
             }
             else if(btn.hasClass(button_classes[3])){
                 //class of button add to cart
-                let ac_data: AddToCartInterface = {
-                    id_order: idOrd as string,
-                    operation: operations.quantity
-                };
-                let ac: AddToCart = new AddToCart(ac_data);
+                this_obj.addToCart(idOrd);
             }
         });//forms.on('submit',function(ev){
     }
 
     //edit order quantity request
-    private editQuantity(idOrd: string): void{
+    private editQuantity(idOrd: number, new_quantity: number): void{
         console.log("editQuantity");
         let eq_data: EditQuantityInterface = {
-            id_order: idOrd as string,
-            operation: this._operations.quantity
+            id_order: idOrd as number,
+            operation: this._operations.quantity,
+            quantity: new_quantity
         };
+        console.log(eq_data);
         let eq: EditQuantity = new EditQuantity(eq_data);
         eq.editQuantity().then(res => {
 
         });
+    }
+
+    private getOrder(idOrd: number): void{
+        let go_data: GetOrderInterface = {
+            id_order: idOrd as number,
+            operation: this._operations.details
+        };
+        let go: GetOrder = new GetOrder(go_data);
+    }
+
+    private deleteOrder(idOrd: number): void{
+        let do_data: DeleteOrderInterface = {
+            id_order: idOrd as number,
+            operation: this._operations.delete
+        };
+        let del_ord: DeleteOrder = new DeleteOrder(do_data);
+    }
+
+    private addToCart(idOrd: number): void{
+        let ac_data: AddToCartInterface = {
+            id_order: idOrd as number,
+            operation: this._operations.cart
+        };
+        let ac: AddToCart = new AddToCart(ac_data);
     }
 }

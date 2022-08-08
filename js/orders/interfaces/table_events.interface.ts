@@ -5,8 +5,8 @@ export interface TableEventsInterface{
 }
 
 export interface Operations{
-    quantity: string;
-    details: string;
-    delete: string;
-    cart: string;
+    quantity: number;
+    details: number;
+    delete: number;
+    cart: number;
 }

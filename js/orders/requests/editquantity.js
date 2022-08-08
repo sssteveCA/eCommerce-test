@@ -13,9 +13,11 @@ export default class EditQuantity {
         this._error = null;
         this._id_order = data.id_order;
         this._operation = data.operation;
+        this._quantity = data.quantity;
     }
     get id_order() { return this._id_order; }
     get operation() { return this._operation; }
+    get quantity() { return this._quantity; }
     get errno() { return this._errno; }
     get error() {
         switch (this._errno) {
@@ -47,7 +49,7 @@ export default class EditQuantity {
     editQuantityPromise() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield new Promise((resolve, reject) => {
-                let body_params = `?idOrd=${this._id_order}&oper=${this._operation}`;
+                let body_params = `?idOrd=${this._id_order}&oper=${this._operation}&quantita=${this._quantity}`;
                 fetch(EditQuantity.EDITQUANTITY_URL + body_params).then(res => {
                     resolve(res.text());
                 }).catch(err => {

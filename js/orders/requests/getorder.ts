@@ -2,8 +2,8 @@ import GetOrderInterface from "../interfaces/getorder.interface";
 import Order from "../models/order.model";
 
 export default class GetOrder{
-    private _id_order: string; //Order to be obtained
-    private _operation: string; //command to sent at backend to get the order
+    private _id_order: number; //Order to be obtained
+    private _operation: number; //command to sent at backend to get the order
     private _order: Order;
     private _errno: number = 0;
     private _error: string|null = null;

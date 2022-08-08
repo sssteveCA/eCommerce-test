@@ -204,6 +204,7 @@ function deleteOrder(array &$risposta,Utente $utente){
 //User wants edit order quantity
 function editOrderQuantity(array &$risposta){
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
+        file_put_contents('log.txt',var_export($_GET,true)."\r\n",FILE_APPEND);
         $quantita = $_GET['quantita'];
         if(is_numeric($quantita) && $quantita > 0){
             try{

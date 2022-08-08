@@ -11,7 +11,7 @@ $(function(){
 
 function getOrders(){
     let gos_data: GetOrdersInterface = {
-        operation: '0'
+        operation: 0
     };
     let get_orders: GetOrders = new GetOrders(gos_data);
     get_orders.getOrders().then(obj => {
@@ -42,10 +42,10 @@ function table(data: TableBuilderInterface){
             'bCarrello'
         ],
         operations: {
-          quantity: '3',
-            details: '1',
-            delete: '2',
-            cart: '4'  
+          quantity: 3,
+            details: 1,
+            delete: 2,
+            cart: 4  
         }
     };
     let te: TableEvents = new TableEvents(te_data);

@@ -6,7 +6,7 @@ $(function () {
 });
 function getOrders() {
     let gos_data = {
-        operation: '0'
+        operation: 0
     };
     let get_orders = new GetOrders(gos_data);
     get_orders.getOrders().then(obj => {
@@ -36,10 +36,10 @@ function table(data) {
             'bCarrello'
         ],
         operations: {
-            quantity: '3',
-            details: '1',
-            delete: '2',
-            cart: '4'
+            quantity: 3,
+            details: 1,
+            delete: 2,
+            cart: 4
         }
     };
     let te = new TableEvents(te_data);

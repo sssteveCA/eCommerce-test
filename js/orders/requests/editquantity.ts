@@ -1,8 +1,9 @@
 import EditQuantityInterface from "../interfaces/editquantity.interface";
 
 export default class EditQuantity{
-    private _id_order: string; //Order to be obtained
-    private _operation: string; //command to sent at backend to edit order quantity
+    private _id_order: number; //Order to be obtained
+    private _operation: number; //command to sent at backend to edit order quantity
+    private _quantity: number; //new order quantity
     private _errno: number = 0;
     private _error: string|null = null;
 
@@ -17,10 +18,12 @@ export default class EditQuantity{
     constructor(data: EditQuantityInterface){
         this._id_order = data.id_order;
         this._operation = data.operation;
+        this._quantity = data.quantity;
     }
 
     get id_order(){return this._id_order;}
     get operation(){return this._operation;}
+    get quantity(){return this._quantity;}
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
@@ -50,7 +53,7 @@ export default class EditQuantity{
 
     public async editQuantityPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject) => {
-            let body_params: string = `?idOrd=${this._id_order}&oper=${this._operation}`;
+            let body_params: string = `?idOrd=${this._id_order}&oper=${this._operation}&quantita=${this._quantity}`;
             fetch(EditQuantity.EDITQUANTITY_URL+body_params).then(res => {
                 resolve(res.text());
             }).catch(err => {

@@ -5,7 +5,7 @@ import OrderInterface from "../interfaces/order.interface";
 //Get all user orders
 export default class GetOrders{
 
-    private _operation: string; //command to sent at backend to get orders
+    private _operation: number; //command to sent at backend to get orders
     private _orders: Order[] = [];
     private _length: number = 0; //Number of orders retrieved
     private _errno: number = 0;
