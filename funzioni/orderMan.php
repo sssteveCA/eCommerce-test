@@ -264,6 +264,7 @@ function addOrderToCart(array &$risposta, Utente $utente){
                 if(!$carrello){
                     $aggiungi = $ordine->addToCart($utente->getUsername());
                     if($aggiungi){
+                        $risposta['done'] = true;
                         $risposta['msg'] = Msg::ORDERINSERTEDCART;
                         $risposta['aggiorna'] = '1';
                     }
