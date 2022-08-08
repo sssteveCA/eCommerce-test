@@ -28,7 +28,6 @@ $risposta = array(
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-    $risposta = array();
     $p = array(); //array da passare alla classe prodotto
     $v = array(); //array da passare alla classe utente(venditore)
     $utente = unserialize($_SESSION['utente']);

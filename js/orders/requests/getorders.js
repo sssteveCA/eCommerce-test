@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import Order from "../models/order.model";
 //Get all user orders
 export default class GetOrders {
     constructor(data) {
@@ -32,10 +33,13 @@ export default class GetOrders {
     getOrders() {
         return __awaiter(this, void 0, void 0, function* () {
             let response = {};
+            this._errno = 0;
             try {
                 yield this.getOrdersPromise().then(res => {
-                    console.log(res);
+                    //console.log(res);
                     response = JSON.parse(res);
+                    console.log(response);
+                    this.insertOrders(response);
                 }).catch(err => {
                     throw err;
                 });
@@ -62,9 +66,44 @@ export default class GetOrders {
             return response;
         });
     }
+    //Insert the retrieve orders in the orders property array
+    insertOrders(response) {
+        if (response['done'] === true) {
+            response['orders'].array.forEach(element => {
+                let payed = false;
+                let cart = false;
+                if (element.hasOwnProperty('pagato')) {
+                    if (element['pagato'] == '1')
+                        payed = true;
+                }
+                if (element.hasOwnProperty('carrello')) {
+                    if (element['carrello'] == '1')
+                        cart = true;
+                }
+                let o_data = {
+                    id: element.id,
+                    idc: element.idc,
+                    idp: element.idp,
+                    idv: element.idv,
+                    date: element.data,
+                    quantity: element.quantita,
+                    total: element.totale,
+                    payed: payed,
+                    cart: cart
+                };
+                let order = new Order(o_data);
+                this._orders.push(order);
+            });
+        }
+        else {
+            this._errno = GetOrders.ERR_NOORDERS;
+        }
+    }
 }
 GetOrders.GETORDERS_URL = 'funzioni/orderMan.php';
 //Error numbers
 GetOrders.ERR_FETCH = 1;
+GetOrders.ERR_NOORDERS = 2;
 //Error messages
 GetOrders.ERR_FETCH_MSG = "Errore durante la richiesta dei dati";
+GetOrders.ERR_NOORDERS_MSG = "Nessun ordine effettuato";
