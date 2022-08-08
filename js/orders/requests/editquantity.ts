@@ -37,20 +37,26 @@ export default class EditQuantity{
         return this._error;
     }
 
-    public async editQuantity(): Promise<string>{
-        let message: string = '';
+    public async editQuantity(): Promise<object>{
+        let message: object = {};
         this._errno = 0;
         try{
             await this.editQuantityPromise().then(res => {
                 //console.log(res);
                 let json:object = JSON.parse(res);
-                message = json['msg'];
+                message = {
+                    done: json['done'],
+                    msg: json['msg']
+                };
             }).catch(err => {
                 throw err;
             });
         }catch(e){
             this._errno = EditQuantity.ERR_FETCH;
-            message = EditQuantity.ERR_FETCH_MSG;
+            message = {
+               done: false,
+               msg: EditQuantity.ERR_FETCH_MSG 
+            };
         }
         return message;
     }

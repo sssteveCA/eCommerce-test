@@ -61,18 +61,21 @@ export default class TableEvents {
         };
         console.log(eq_data);
         let eq = new EditQuantity(eq_data);
-        eq.editQuantity().then(msg => {
+        eq.editQuantity().then(obj => {
             let dm_data = {
                 title: 'Modifica Quantità',
-                message: msg
+                message: obj['msg']
             };
             let dm = new DialogMessage(dm_data);
             dm.btOk.on('click', () => {
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
-                ordersMain.getOrders();
-            });
-        });
+                if (obj['done'] == true) {
+                    //Reload orders table only if edit quantity operation was done successfully
+                    ordersMain.getOrders();
+                }
+            }); //dm.btOk.on('click',()=>{
+        }); //eq.editQuantity().then(obj => {
     }
     getOrder(idOrd) {
         let go_data = {
