@@ -35,7 +35,9 @@ export default class GetOrder {
             this._errno = 0;
             try {
                 yield this.getOrderPromise().then(res => {
-                    console.log(res);
+                    //console.log(res);
+                    let json = JSON.parse(res);
+                    console.log(json);
                 }).catch(err => {
                     throw err;
                 });

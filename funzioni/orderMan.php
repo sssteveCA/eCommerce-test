@@ -22,7 +22,6 @@ require_once("const.php");
 
 $risposta = array(
     'done' => false,
-    'orders' => array(),
     'msg' => ''
 );
 
@@ -81,6 +80,7 @@ function getOrders(array &$risposta){
     $ordiniCliente = Ordine::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$nomeUtente);
     $risposta['i'] = count($ordiniCliente);
     $risposta['tab'] = '1'; //se verrà creata la tabella con gli ordini
+    $risposta['orders'] = array();
     if($risposta['i'] > 0){
         $i = 0;
         foreach($ordiniCliente as $v){
@@ -135,22 +135,22 @@ function getOrder(array &$risposta){
                     $vend['registrato'] = '1';
                     $venditore = new Utente($vend);
                     if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
-                        $risposta['nomeP'] = $prodotto->getNome();
-                        $risposta['tipo'] = $prodotto->getTipo();
-                        $risposta['prezzo'] = sprintf("%.2f",$prodotto->getPrezzo());
-                        $risposta['spedizione'] = sprintf("%.2f",$prodotto->getSpedizione());
-                        $risposta['quantita'] = $ordine->getQuantita();
-                        $risposta['stato'] = $prodotto->getStato();
-                        $risposta['citta'] = $prodotto->getCitta();
-                        $risposta['totale'] = sprintf("%.2f",$ordine->getTotale());
-                        $risposta['nome'] = $venditore->getNome();
-                        $risposta['cognome'] = $venditore->getCognome();
-                        $risposta['nascita'] = $venditore->getNascita();
-                        $risposta['indirizzo'] = $venditore->getIndirizzo();
-                        $risposta['numero'] = $venditore->getNumero();
-                        $risposta['citta'] = $venditore->getCitta();
-                        $risposta['cap'] = $venditore->getCap();
-                        $risposta['email'] = $venditore->getEmail();
+                        $risposta['order']['nomeP'] = $prodotto->getNome();
+                        $risposta['order']['tipo'] = $prodotto->getTipo();
+                        $risposta['order']['prezzo'] = sprintf("%.2f",$prodotto->getPrezzo());
+                        $risposta['order']['spedizione'] = sprintf("%.2f",$prodotto->getSpedizione());
+                        $risposta['order']['quantita'] = $ordine->getQuantita();
+                        $risposta['order']['stato'] = $prodotto->getStato();
+                        $risposta['order']['citta'] = $prodotto->getCitta();
+                        $risposta['order']['totale'] = sprintf("%.2f",$ordine->getTotale());
+                        $risposta['order']['nome'] = $venditore->getNome();
+                        $risposta['order']['cognome'] = $venditore->getCognome();
+                        $risposta['order']['nascita'] = $venditore->getNascita();
+                        $risposta['order']['indirizzo'] = $venditore->getIndirizzo();
+                        $risposta['order']['numero'] = $venditore->getNumero();
+                        $risposta['order']['citta'] = $venditore->getCitta();
+                        $risposta['order']['cap'] = $venditore->getCap();
+                        $risposta['order']['email'] = $venditore->getEmail();
                         $risposta['info'] = '1';
                         $risposta['done'] = true;
                     }//if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){

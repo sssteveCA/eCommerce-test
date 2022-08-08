@@ -42,11 +42,12 @@ export default class GetOrder{
         this._errno = 0;
         try{
             await this.getOrderPromise().then(res =>{
-                console.log(res);
+                //console.log(res);
+                let json: object = JSON.parse(res);
+                console.log(json);
             }).catch(err => {
                 throw err;
-            })
-
+            });
         }catch(e){
             this._errno = GetOrder.ERR_FETCH;
             message = GetOrder.ERR_FETCH_MSG;
