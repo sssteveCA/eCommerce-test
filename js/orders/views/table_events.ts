@@ -35,7 +35,7 @@ export default class TableEvents{
             }
             else if(btn.hasClass(button_classes[1])){
                 //class of button order details
-                data['oper'] = operations.delete;
+                data['oper'] = operations.details;
             }
             else if(btn.hasClass(button_classes[2])){
                 //class of button order delete
