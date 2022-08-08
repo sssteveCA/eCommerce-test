@@ -5,25 +5,19 @@ import Order from "../models/order.model";
 //Print HTML orders table
 export default class TableBuilder{
     private _id_container: string;
-    private _done: boolean;
     private _orders: Order[];
-    private _msg: string;
     private _table: string = ''; //HTML table
     private _errno: number = 0;
     private _error: string|null = null;
 
     constructor(data: TableBuilderInterface){
         this._id_container = data.id_container;
-        this._done = data.done;
         this._orders = data.orders;
-        this._msg = data.msg;
         this.setTable();
     }
 
-    get done(){return this._done;}
     get orders(){return this._orders;}
     get orders_count(){return this._orders.length;}
-    get msg(){return this._msg;}
     get table(){return this._table;}
     get errno(){return this._errno;}
     get error(){
@@ -38,7 +32,7 @@ export default class TableBuilder{
     private setTable(): void{
         let parent: JQuery = $('#'+this._id_container);
         parent.html('');
-        if(this._done == true && this.orders_count > 0){
+        if(this.orders_count > 0){
             let columnCart: boolean = this.columnCart(); //Add the add Cart column to the table if at least an order is not actually in the cart
             let table: string = `
 <table class="table">`;

@@ -1,4 +1,5 @@
 import GetOrders from "./requests/getorders.js";
+import TableBuilder from "./views/table_builder.js";
 $(function () {
     getOrders();
 });
@@ -12,9 +13,17 @@ function getOrders() {
         let errno = get_orders.errno;
         switch (errno) {
             case 0:
+                let tb_data = {
+                    id_container: 'ordiniT',
+                    orders: get_orders.orders,
+                };
+                table(tb_data);
                 break;
             case GetOrders.ERR_FETCH:
                 break;
         }
     });
+}
+function table(data) {
+    let table_builder = new TableBuilder(data);
 }

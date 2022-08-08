@@ -5,15 +5,11 @@ export default class TableBuilder {
         this._errno = 0;
         this._error = null;
         this._id_container = data.id_container;
-        this._done = data.done;
         this._orders = data.orders;
-        this._msg = data.msg;
         this.setTable();
     }
-    get done() { return this._done; }
     get orders() { return this._orders; }
     get orders_count() { return this._orders.length; }
-    get msg() { return this._msg; }
     get table() { return this._table; }
     get errno() { return this._errno; }
     get error() {
@@ -27,7 +23,7 @@ export default class TableBuilder {
     setTable() {
         let parent = $('#' + this._id_container);
         parent.html('');
-        if (this._done == true && this.orders_count > 0) {
+        if (this.orders_count > 0) {
             let columnCart = this.columnCart(); //Add the add Cart column to the table if at least an order is not actually in the cart
             let table = `
 <table class="table">`;
