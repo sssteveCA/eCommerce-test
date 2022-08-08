@@ -77,44 +77,49 @@ else{
 //Orders list of logged user
 function getOrders(array &$risposta){
     global $mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$nomeUtente;
+    $done = true;
     $ordiniCliente = Ordine::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$nomeUtente);
-            $risposta['i'] = count($ordiniCliente);
-            $risposta['tab'] = '1'; //se verrà creata la tabella con gli ordini
-            if($risposta['i'] > 0){
-                $i = 0;
-                foreach($ordiniCliente as $v){
-                    try{
-                        $ordine = new Ordine(array('id' => $v));
-                        //var_dump($ordine->isCarrello());
-                        if($ordine->getNumError() == 0){
-                            $datiOrdine = array(
-                                'id' => $ordine->getId(),
-                                'idc' =>$ordine->getIdc(),
-                                'idp' => $ordine->getIdp(),
-                                'idv' => $ordine->getIdv(),
-                                'data' => $ordine->getData(),
-                                'quantita' => $ordine->getQuantita(),
-                                'totale' => $ordine->getTotale(),
-                                'pagato' => ($ordine->isPagato())? '1':'0',
-                                'carrello' => ($ordine->isCarrello())? '1':'0',
-                            );
-                            
-                            $risposta['orders'][$i]=$datiOrdine;
-                            $_SESSION['ordini'][$ordine->getId()]=$datiOrdine;
-                            $i++;
-                        }//if($ordine->getNumError() == 0){
-                        else{
-                             $risposta['msg'] = $ordine->getStrError().'<br>';
-                             $risposta['msg'] .= ' Linea n. '.__LINE__;
-                        }
-                    }
-                    catch(Exception $e){
-                        $risposta['msg'] = $e->getMessage();
+    $risposta['i'] = count($ordiniCliente);
+    $risposta['tab'] = '1'; //se verrà creata la tabella con gli ordini
+    if($risposta['i'] > 0){
+        $i = 0;
+        foreach($ordiniCliente as $v){
+            try{
+                $ordine = new Ordine(array('id' => $v));
+                //var_dump($ordine->isCarrello());
+                if($ordine->getNumError() == 0){
+                    $datiOrdine = array(
+                        'id' => $ordine->getId(),
+                        'idc' =>$ordine->getIdc(),
+                        'idp' => $ordine->getIdp(),
+                        'idv' => $ordine->getIdv(),
+                        'data' => $ordine->getData(),
+                        'quantita' => $ordine->getQuantita(),
+                        'totale' => $ordine->getTotale(),
+                        'pagato' => ($ordine->isPagato())? '1':'0',
+                        'carrello' => ($ordine->isCarrello())? '1':'0',
+                    );
+                    
+                    $risposta['orders'][$i]=$datiOrdine;
+                    $_SESSION['ordini'][$ordine->getId()]=$datiOrdine;
+                    $i++;
+                }//if($ordine->getNumError() == 0){
+                else{
+                        $risposta['msg'] = $ordine->getStrError().'<br>';
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
-                    }
-                }//foreach($ordiniCliente as $v){
-                    $risposta['done']  = true;
-            }//if($risposta['i'] > 0){
+                        $done = false;
+                        break;
+                }
+            }
+            catch(Exception $e){
+                $risposta['msg'] = $e->getMessage();
+                $risposta['msg'] .= ' Linea n. '.__LINE__;
+                $done = false;
+                break;
+            }
+        }//foreach($ordiniCliente as $v){  
+    }//if($risposta['i'] > 0){
+    $risposta['done']  = $done;
 }
 
 //Information about single order

@@ -1,4 +1,4 @@
-import Order from "../models/order.model";
+import Order from "../models/order.model.js";
 import GetOrdersInterface from "../interfaces/getorders.interface";
 import OrderInterface from "../interfaces/order.interface";
 
@@ -6,16 +6,16 @@ import OrderInterface from "../interfaces/order.interface";
 export default class GetOrders{
 
     private _operation: string; //command to sent at backend to get orders
-    private _orders: Order[];
-    private _length: number; //Number of orders retrieved
+    private _orders: Order[] = [];
+    private _length: number = 0; //Number of orders retrieved
     private _errno: number = 0;
     private _error: string|null = null;
 
     private static GETORDERS_URL:string = 'funzioni/orderMan.php';
 
     //Error numbers
-    private static ERR_FETCH:number = 1;
-    private static ERR_NOORDERS:number = 2;
+    public static ERR_FETCH:number = 1;
+    public static ERR_NOORDERS:number = 2;
 
     //Error messages
     private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
@@ -76,8 +76,10 @@ export default class GetOrders{
 
     //Insert the retrieve orders in the orders property array
     private insertOrders(response: object): void{
-        if(response['done'] === true){
-            response['orders'].array.forEach(element => {
+        this._length = response['i'] as number;
+        if(response['done'] === true && this._length > 0){
+            response['orders'].forEach(element => {
+                console.log(element);
                 let payed: boolean = false;
                 let cart: boolean = false;
                 if(element.hasOwnProperty('pagato')){
@@ -102,10 +104,7 @@ export default class GetOrders{
                 let order: Order = new Order(o_data);
                 this._orders.push(order);
             });
-        }
-        else{
-            this._errno = GetOrders.ERR_NOORDERS;
-        }
+        }//if(response['done'] === true && response['i'] > 0){
 
     }
 

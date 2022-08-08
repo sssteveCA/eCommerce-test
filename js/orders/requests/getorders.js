@@ -7,10 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Order from "../models/order.model";
+import Order from "../models/order.model.js";
 //Get all user orders
 export default class GetOrders {
     constructor(data) {
+        this._orders = [];
+        this._length = 0; //Number of orders retrieved
         this._errno = 0;
         this._error = null;
         this._operation = data.operation;
@@ -68,8 +70,10 @@ export default class GetOrders {
     }
     //Insert the retrieve orders in the orders property array
     insertOrders(response) {
-        if (response['done'] === true) {
-            response['orders'].array.forEach(element => {
+        this._length = response['i'];
+        if (response['done'] === true && this._length > 0) {
+            response['orders'].forEach(element => {
+                console.log(element);
                 let payed = false;
                 let cart = false;
                 if (element.hasOwnProperty('pagato')) {
@@ -94,10 +98,7 @@ export default class GetOrders {
                 let order = new Order(o_data);
                 this._orders.push(order);
             });
-        }
-        else {
-            this._errno = GetOrders.ERR_NOORDERS;
-        }
+        } //if(response['done'] === true && response['i'] > 0){
     }
 }
 GetOrders.GETORDERS_URL = 'funzioni/orderMan.php';
