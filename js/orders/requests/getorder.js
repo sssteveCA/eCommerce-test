@@ -30,6 +30,7 @@ export default class GetOrder {
     }
     getOrder() {
         return __awaiter(this, void 0, void 0, function* () {
+            let message = '';
             let order = null;
             this._errno = 0;
             try {
@@ -41,8 +42,9 @@ export default class GetOrder {
             }
             catch (e) {
                 this._errno = GetOrder.ERR_FETCH;
+                message = GetOrder.ERR_FETCH_MSG;
             }
-            return order;
+            return message;
         });
     }
     getOrderPromise() {
@@ -62,4 +64,4 @@ GetOrder.GETORDER_URL = 'funzioni/orderMan.php';
 //Error numbers
 GetOrder.ERR_FETCH = 1;
 //Error messages
-GetOrder.ERR_FETCH_MSG = "Errore durante la richiesta dei dati";
+GetOrder.ERR_FETCH_MSG = "Errore durante l'esecuzione dell'operazione'";

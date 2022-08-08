@@ -93,6 +93,9 @@ export default class TableEvents{
             operation: this._operations.delete
         };
         let del_ord: DeleteOrder = new DeleteOrder(do_data);
+        del_ord.deleteOrder().then(msg => {
+
+        });
     }
 
     private addToCart(idOrd: number): void{

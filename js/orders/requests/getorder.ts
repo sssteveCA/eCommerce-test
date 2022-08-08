@@ -14,7 +14,7 @@ export default class GetOrder{
     private static ERR_FETCH:number = 1;
 
     //Error messages
-    private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
+    private static ERR_FETCH_MSG:string = "Errore durante l'esecuzione dell'operazione'";
 
     constructor(data: GetOrderInterface){
         this._id_order = data.id_order;
@@ -36,7 +36,8 @@ export default class GetOrder{
         return this._error;
     }
 
-    public async getOrder(): Promise<Order|null>{
+    public async getOrder(): Promise<string>{
+        let message: string = '';
         let order: Order|null = null;
         this._errno = 0;
         try{
@@ -48,8 +49,9 @@ export default class GetOrder{
 
         }catch(e){
             this._errno = GetOrder.ERR_FETCH;
+            message = GetOrder.ERR_FETCH_MSG;
         }
-        return order;
+        return message;
     }
 
     private async getOrderPromise(): Promise<string>{
