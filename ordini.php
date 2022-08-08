@@ -27,7 +27,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src="js/dialog/dialog.js"></script> <!-- temporary -->
-        <script src=<?php echo P::REL_ORDERS_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_ORDERS_JS; ?>></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
