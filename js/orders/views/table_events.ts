@@ -9,6 +9,9 @@ import AddToCart from "../requests/addtocart.js";
 import DeleteOrder from "../requests/deleteorder.js";
 import EditQuantity from "../requests/editquantity.js";
 import GetOrder from "../requests/getorder.js";
+import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
+import { Constants } from "../../constants/constants.js";
+import DialogConfirm from "../../dialog/dialogconfirm.js";
 
 //Set the events for the orders table
 export default class TableEvents{
@@ -98,14 +101,27 @@ export default class TableEvents{
     }
 
     private deleteOrder(idOrd: number): void{
-        let do_data: DeleteOrderInterface = {
+        let dc_data: DialogConfirmInterface = {
+            title: 'Elimina ordine',
+            message: Constants.MSG_CONFIRM_ORDERDELETE
+        };
+        let dc: DialogConfirm = new DialogConfirm(dc_data);
+        dc.btYes.on('click',()=>{
+            dc.dialog.dialog('destroy');
+            dc.dialog.remove();
+        });
+        dc.btNo.on('click',()=>{
+            dc.dialog.dialog('destroy');
+            dc.dialog.remove();
+        });
+        /* let do_data: DeleteOrderInterface = {
             id_order: idOrd as number,
             operation: this._operations.delete
         };
         let del_ord: DeleteOrder = new DeleteOrder(do_data);
         del_ord.deleteOrder().then(msg => {
 
-        });
+        }); */
     }
 
     private addToCart(idOrd: number): void{
