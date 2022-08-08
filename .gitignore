@@ -1,8 +1,12 @@
 /.vscode
-*.json
-!tsconfig.json
+paypal_esempiorichiesta.json
+paypal_pagasubito.json
+paypal.json
+prodotti.json
 *.txt
 /funzioni/*.txt
 /tabelle
 /bootstrap
 /node_modules
+/css/*/*.css
+/js/**/*.js
