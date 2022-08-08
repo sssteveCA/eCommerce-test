@@ -109,19 +109,28 @@ export default class TableEvents{
         dc.btYes.on('click',()=>{
             dc.dialog.dialog('destroy');
             dc.dialog.remove();
+            let do_data: DeleteOrderInterface = {
+                id_order: idOrd as number,
+                operation: this._operations.delete
+            };
+            let del_ord: DeleteOrder = new DeleteOrder(do_data);
+            del_ord.deleteOrder().then(msg => {
+                let dm_data: DialogMessageInterface = {
+                    title: 'Elimina ordine',
+                    message: msg
+                };
+                let dm: DialogMessage = new DialogMessage(dm_data);
+                dm.btOk.on('click',()=>{
+                    dm.dialog.dialog('destroy');
+                    dm.dialog.remove();
+                });
+            });
         });
         dc.btNo.on('click',()=>{
             dc.dialog.dialog('destroy');
             dc.dialog.remove();
         });
-        /* let do_data: DeleteOrderInterface = {
-            id_order: idOrd as number,
-            operation: this._operations.delete
-        };
-        let del_ord: DeleteOrder = new DeleteOrder(do_data);
-        del_ord.deleteOrder().then(msg => {
-
-        }); */
+        
     }
 
     private addToCart(idOrd: number): void{

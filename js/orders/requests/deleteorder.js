@@ -22,7 +22,9 @@ export default class DeleteOrder {
             this._errno = 0;
             try {
                 yield this.deleteOrderPromise().then(res => {
-                    console.log(res);
+                    //console.log(res);
+                    let json = JSON.parse(res);
+                    message = json['msg'];
                 }).catch(err => {
                     throw err;
                 });

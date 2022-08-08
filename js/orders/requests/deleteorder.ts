@@ -27,11 +27,12 @@ export default class DeleteOrder{
         this._errno = 0;
         try{
             await this.deleteOrderPromise().then(res =>{
-                console.log(res);
+                //console.log(res);
+                let json: object = JSON.parse(res);
+                message = json['msg'];
             }).catch(err => {
                 throw err;
             })
-
         }catch(e){
             this._errno = DeleteOrder.ERR_FETCH;
             message = DeleteOrder.ERR_FETCH_MSG;

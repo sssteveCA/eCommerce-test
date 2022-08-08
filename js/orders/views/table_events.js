@@ -1,5 +1,6 @@
 import DialogMessage from "../../dialog/dialogmessage.js";
 import AddToCart from "../requests/addtocart.js";
+import DeleteOrder from "../requests/deleteorder.js";
 import EditQuantity from "../requests/editquantity.js";
 import GetOrder from "../requests/getorder.js";
 import { Constants } from "../../constants/constants.js";
@@ -89,19 +90,27 @@ export default class TableEvents {
         dc.btYes.on('click', () => {
             dc.dialog.dialog('destroy');
             dc.dialog.remove();
+            let do_data = {
+                id_order: idOrd,
+                operation: this._operations.delete
+            };
+            let del_ord = new DeleteOrder(do_data);
+            del_ord.deleteOrder().then(msg => {
+                let dm_data = {
+                    title: 'Elimina ordine',
+                    message: msg
+                };
+                let dm = new DialogMessage(dm_data);
+                dm.btOk.on('click', () => {
+                    dm.dialog.dialog('destroy');
+                    dm.dialog.remove();
+                });
+            });
         });
         dc.btNo.on('click', () => {
             dc.dialog.dialog('destroy');
             dc.dialog.remove();
         });
-        /* let do_data: DeleteOrderInterface = {
-            id_order: idOrd as number,
-            operation: this._operations.delete
-        };
-        let del_ord: DeleteOrder = new DeleteOrder(do_data);
-        del_ord.deleteOrder().then(msg => {
-
-        }); */
     }
     addToCart(idOrd) {
         let ac_data = {
