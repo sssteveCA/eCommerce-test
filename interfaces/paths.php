@@ -43,7 +43,7 @@ interface Paths{
     const REL_LOGINTO_CSS = "css/accedi/accedi.min.css";
     const REL_LOGINTO_JS = "js/accedi.js";
     const REL_LOGOUT_JS = "js/logout/logout.js";
-    const REL_ORDERS_CSS = "css/ordini.css";
+    const REL_ORDERS_CSS = "css/orders/orders.min.css";
     const REL_ORDERS_JS = "js/orders/orders.js";
     const REL_PRODUCT_CSS = "css/prodotto.css";
     const REL_PRODUCT_JS = "js/prodotto.js";
