@@ -30,20 +30,26 @@ export default class AddToCart {
     }
     AddToCart() {
         return __awaiter(this, void 0, void 0, function* () {
-            let message = '';
+            let message = {};
             this._errno = 0;
             try {
                 yield this.AddToCartPromise().then(res => {
                     //console.log(res);
                     let json = JSON.parse(res);
-                    message = json['msg'];
+                    message = {
+                        done: json['done'],
+                        msg: json['msg']
+                    };
                 }).catch(err => {
                     throw err;
                 });
             }
             catch (e) {
                 this._errno = AddToCart.ERR_FETCH;
-                message = AddToCart.ERR_FETCH_MSG;
+                message = {
+                    done: false,
+                    msg: AddToCart.ERR_FETCH_MSG
+                };
             }
             return message;
         });

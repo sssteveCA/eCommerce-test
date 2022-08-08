@@ -34,20 +34,26 @@ export default class AddToCart{
         return this._error;
     }
 
-    public async AddToCart(): Promise<string>{
-        let message: string = '';
+    public async AddToCart(): Promise<object>{
+        let message: object = {};
         this._errno = 0;
         try{
             await this.AddToCartPromise().then(res =>{
                 //console.log(res);
                 let json:object = JSON.parse(res);
-                message = json['msg'];
+                message = {
+                    done: json['done'],
+                    msg: json['msg']
+                };
             }).catch(err => {
                 throw err;
             });
         }catch(e){
             this._errno = AddToCart.ERR_FETCH;
-            message = AddToCart.ERR_FETCH_MSG;
+            message = {
+                done: false,
+                msg: AddToCart.ERR_FETCH_MSG
+            };
         }
         return message;
     }

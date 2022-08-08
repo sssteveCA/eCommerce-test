@@ -153,15 +153,19 @@ export default class TableEvents{
             operation: this._operations.cart
         };
         let ac: AddToCart = new AddToCart(ac_data);
-        ac.AddToCart().then(msg => {
+        ac.AddToCart().then(obj => {
             let dm_data: DialogMessageInterface = {
                 title: 'Aggiungi al carrello',
-                message: msg
+                message: obj['msg']
             };
             let dm: DialogMessage = new DialogMessage(dm_data);
             dm.btOk.on('click',()=>{
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
+                if(obj['done'] == true){
+                    //Reload orders table only if add to cart operation was done successfully
+                    ordersMain.getOrders();
+                }
             });
         });
     }
