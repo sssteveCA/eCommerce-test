@@ -78,7 +78,16 @@ export default class TableEvents {
             operation: this._operations.details
         };
         let go = new GetOrder(go_data);
-        go.getOrder().then(res => {
+        go.getOrder().then(msg => {
+            let dm_data = {
+                title: "Informazioni sull' ordine",
+                message: msg
+            };
+            let dm = new DialogMessage(dm_data);
+            dm.btOk.on('click', () => {
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
     deleteOrder(idOrd) {

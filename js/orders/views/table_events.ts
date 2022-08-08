@@ -95,8 +95,16 @@ export default class TableEvents{
             operation: this._operations.details
         };
         let go: GetOrder = new GetOrder(go_data);
-        go.getOrder().then(res => {
-
+        go.getOrder().then(msg => {
+            let dm_data: DialogMessageInterface = {
+                title: "Informazioni sull' ordine",
+                message: msg
+            };
+            let dm: DialogMessage = new DialogMessage(dm_data);
+            dm.btOk.on('click',()=>{
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
 
