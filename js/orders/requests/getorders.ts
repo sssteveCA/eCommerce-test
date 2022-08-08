@@ -15,11 +15,9 @@ export default class GetOrders{
 
     //Error numbers
     public static ERR_FETCH:number = 1;
-    public static ERR_NOORDERS:number = 2;
 
     //Error messages
     private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
-    private static ERR_NOORDERS_MSG:string = "Nessun ordine effettuato";
 
     constructor(data: GetOrdersInterface){
         this._operation = data.operation;

@@ -41,8 +41,26 @@ export default class EditQuantity {
             return message;
         });
     }
+    editQuantityPromise() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield new Promise((resolve, reject) => {
+                let body_params = `idOrd=${this._id_order}&oper=${this._operation}`;
+                fetch(EditQuantity.EDITQUANTITY_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                    body: body_params
+                }).then(res => {
+                    resolve(res.text());
+                }).catch(err => {
+                    reject(err);
+                });
+            });
+        });
+    }
 }
-EditQuantity.GETORDERS_URL = 'funzioni/orderMan.php';
+EditQuantity.EDITQUANTITY_URL = 'funzioni/orderMan.php';
 //Error numbers
 EditQuantity.ERR_FETCH = 1;
 //Error messages

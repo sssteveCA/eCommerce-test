@@ -104,7 +104,5 @@ export default class GetOrders {
 GetOrders.GETORDERS_URL = 'funzioni/orderMan.php';
 //Error numbers
 GetOrders.ERR_FETCH = 1;
-GetOrders.ERR_NOORDERS = 2;
 //Error messages
 GetOrders.ERR_FETCH_MSG = "Errore durante la richiesta dei dati";
-GetOrders.ERR_NOORDERS_MSG = "Nessun ordine effettuato";
