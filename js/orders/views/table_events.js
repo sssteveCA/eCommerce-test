@@ -1,3 +1,4 @@
+import DialogMessage from "../../dialog/dialogmessage.js";
 import AddToCart from "../requests/addtocart.js";
 import DeleteOrder from "../requests/deleteorder.js";
 import EditQuantity from "../requests/editquantity.js";
@@ -57,7 +58,16 @@ export default class TableEvents {
         };
         console.log(eq_data);
         let eq = new EditQuantity(eq_data);
-        eq.editQuantity().then(res => {
+        eq.editQuantity().then(msg => {
+            let dm_data = {
+                title: 'Modifica Quantità',
+                message: msg
+            };
+            let dm = new DialogMessage(dm_data);
+            dm.btOk.on('click', () => {
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
     getOrder(idOrd) {

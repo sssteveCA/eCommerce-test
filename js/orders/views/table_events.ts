@@ -1,3 +1,5 @@
+import DialogMessage from "../../dialog/dialogmessage.js";
+import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import AddToCartInterface from "../interfaces/addtocart.interface";
 import DeleteOrderInterface from "../interfaces/deleteorder.interface";
 import EditQuantityInterface from "../interfaces/editquantity.interface";
@@ -71,8 +73,16 @@ export default class TableEvents{
         };
         console.log(eq_data);
         let eq: EditQuantity = new EditQuantity(eq_data);
-        eq.editQuantity().then(res => {
-
+        eq.editQuantity().then(msg => {
+            let dm_data: DialogMessageInterface = {
+                title: 'Modifica Quantità',
+                message: msg
+            };
+            let dm: DialogMessage = new DialogMessage(dm_data);
+            dm.btOk.on('click',()=>{
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
 

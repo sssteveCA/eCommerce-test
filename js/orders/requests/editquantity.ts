@@ -42,7 +42,9 @@ export default class EditQuantity{
         this._errno = 0;
         try{
             await this.editQuantityPromise().then(res => {
-                console.log(res);
+                //console.log(res);
+                let json:object = JSON.parse(res);
+                message = json['msg'];
             });
         }catch(e){
             this._errno = EditQuantity.ERR_FETCH;
