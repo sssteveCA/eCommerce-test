@@ -99,7 +99,6 @@ function getOrders(array &$risposta){
                         'pagato' => ($ordine->isPagato())? '1':'0',
                         'carrello' => ($ordine->isCarrello())? '1':'0',
                     );
-                    
                     $risposta['orders'][$i]=$datiOrdine;
                     $_SESSION['ordini'][$ordine->getId()]=$datiOrdine;
                     $i++;

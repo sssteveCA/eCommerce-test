@@ -31,13 +31,18 @@ export default class GetOrder {
     getOrder() {
         return __awaiter(this, void 0, void 0, function* () {
             let message = '';
-            let order = null;
             this._errno = 0;
             try {
                 yield this.getOrderPromise().then(res => {
                     //console.log(res);
                     let json = JSON.parse(res);
                     console.log(json);
+                    if (json['done'] == true) {
+                        message = this.setOrderMessage(json['order']);
+                    } //if(json['done'] == true){
+                    else {
+                        message = json['msg'];
+                    }
                 }).catch(err => {
                     throw err;
                 });
@@ -60,6 +65,28 @@ export default class GetOrder {
                 });
             });
         });
+    }
+    setOrderMessage(order_obj) {
+        let message = `
+Dati venditore<br>     
+Nome: ${order_obj['nome']}<br>
+Cognome: ${order_obj['cognome']}<br>
+Nato il: ${order_obj['nascita']}<br>
+Residente a: ${order_obj['citta']}<br>
+Indirizzo: ${order_obj['indirizzo']}, ${order_obj['numero']}<br>
+CAP: ${order_obj['cap']}<br>
+Indirizzo email: ${order_obj['email']}<br><br>
+Dati prodotto<br>
+Nome: ${order_obj['nomeP']}<br>
+Categoria: ${order_obj['indirizzo']}<br>
+Indirizzo: ${order_obj['tipo']}<br>
+Prezzo: ${order_obj['prezzo']}<br>
+Spedizione: ${order_obj['spedizione']}<br>
+Quantità: ${order_obj['quantita']}<br>
+Spedito da: ${order_obj['stato']}<br>
+Totale: ${order_obj['totale']}<br>
+        `;
+        return message;
     }
 }
 GetOrder.GETORDER_URL = 'funzioni/orderMan.php';
