@@ -10,6 +10,9 @@ export default class DialogConfirm{
     private _modal: boolean;
     private _resizable: boolean;
     private _draggable: boolean;
+    private _dialog: JQuery;
+    private _btYes: JQuery; 
+    private _btNo: JQuery;
 
     constructor(data: DialogConfirmInterface){
         if(data.hasOwnProperty('id'))this._id = data.id as string;
@@ -39,6 +42,9 @@ export default class DialogConfirm{
     get isModal(){return this._modal;}
     get isResizable(){return this._resizable;}
     get isDraggable(){return this._draggable;}
+    get dialog(){return this._dialog;}
+    get btYes(){return this._btYes;}
+    get btNo(){return this._btNo;}
 
     private showDialog(): void{
         let myParam = {
@@ -47,7 +53,11 @@ export default class DialogConfirm{
             height: this._height,
             width: this._width
         };
-        $('<div id="'+this._id+'">').dialog({
+        this._dialog = $('<div>');
+        this._dialog.attr('id',this._id);
+        this._dialog.appendTo($('body'));
+        this._dialog.dialog({
+            closeOnEscape: false,
             resizable: this._resizable,
             draggable: this._draggable,
             position: {
@@ -62,6 +72,9 @@ export default class DialogConfirm{
             open: function(){
                 $(this).html(myParam.message);
             },
+            close: function(){
+
+            },
             buttons: [
                 {
                     text: "SÌ",
@@ -75,5 +88,7 @@ export default class DialogConfirm{
                 }
             ]
         });
+        this._btYes = $('body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons > div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix > div > button:first-child');
+        this._btNo = $('body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons > div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix > div > button:last-child');
     }
 }

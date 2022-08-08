@@ -10,6 +10,8 @@ export default class DialogMessage{
     private _modal: boolean;
     private _resizable: boolean;
     private _draggable: boolean;
+    private _dialog: JQuery;
+    private _btOk: JQuery;
 
     constructor(data: DialogMessageInterface){
         if(data.hasOwnProperty('id'))this._id = data.id as string;
@@ -39,6 +41,8 @@ export default class DialogMessage{
     get isModal(){return this._modal;}
     get isResizable(){return this._resizable;}
     get isDraggable(){return this._draggable;}
+    get dialog(){return this._dialog;}
+    get btOk(){return this._btOk;}
 
     private showDialog(): void{
         let myParam = {
@@ -47,9 +51,14 @@ export default class DialogMessage{
             height: this.height,
             width: this.width
         }
-        $('<div id="'+this._id+'">').dialog({
+        this._dialog = $('<div>');
+        this._dialog.attr('id',this._id);
+        this._dialog.appendTo($('body'));
+        this._dialog.dialog({
+            closeOnEscape: false,
             resizable: this._resizable,
             draggable: this._draggable,
+            modal: true,
             position: {
                 my: 'center center',
                 at: 'center center',
@@ -62,6 +71,9 @@ export default class DialogMessage{
             open: function(){
                 $(this).html(myParam.message);
             },
+            close: function(){
+
+            },
             buttons: [
                 {
                     text: 'OK',
@@ -70,6 +82,7 @@ export default class DialogMessage{
                 }
             ]
         });
+        this._btOk = $('body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons > div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix > div > button');
     }
 
 }
