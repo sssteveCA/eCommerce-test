@@ -9,7 +9,7 @@ $(function(){
     getOrders();
 });
 
-function getOrders(){
+export function getOrders(){
     let gos_data: GetOrdersInterface = {
         operation: 0
     };

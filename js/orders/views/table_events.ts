@@ -12,6 +12,7 @@ import GetOrder from "../requests/getorder.js";
 import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
 import { Constants } from "../../constants/constants.js";
 import DialogConfirm from "../../dialog/dialogconfirm.js";
+import * as ordersMain from "../orders.js";
 
 //Set the events for the orders table
 export default class TableEvents{
@@ -85,6 +86,7 @@ export default class TableEvents{
             dm.btOk.on('click',()=>{
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
+                ordersMain.getOrders();
             });
         });
     }
@@ -122,18 +124,22 @@ export default class TableEvents{
                 operation: this._operations.delete
             };
             let del_ord: DeleteOrder = new DeleteOrder(do_data);
-            del_ord.deleteOrder().then(msg => {
+            del_ord.deleteOrder().then(obj => {
                 let dm_data: DialogMessageInterface = {
                     title: 'Elimina ordine',
-                    message: msg
+                    message: obj['msg']
                 };
                 let dm: DialogMessage = new DialogMessage(dm_data);
                 dm.btOk.on('click',()=>{
                     dm.dialog.dialog('destroy');
                     dm.dialog.remove();
+                    if(obj['done'] == true){
+                        //Reload orders table only if delete operation was done successfully
+                        ordersMain.getOrders();
+                    }
                 });
-            });
-        });
+            });//del_ord.deleteOrder().then(obj => {
+        });//dc.btYes.on('click',()=>{
         dc.btNo.on('click',()=>{
             dc.dialog.dialog('destroy');
             dc.dialog.remove();

@@ -184,6 +184,7 @@ function deleteOrder(array &$risposta,Utente $utente){
             $ordine = new Ordine(array('id' => $_GET['idOrd']));
             $ok = $ordine->cancOrdine($utente->getUsername());
             if($ok){
+                $risposta['done'] = true;
                 $risposta['msg'] = Msg::ORDERDELETED;
                 $risposta['aggiorna'] = '1';
                 unset($_SESSION['ordini']);

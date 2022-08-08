@@ -18,20 +18,26 @@ export default class DeleteOrder {
     get operation() { return this._operation; }
     deleteOrder() {
         return __awaiter(this, void 0, void 0, function* () {
-            let message = '';
+            let message = {};
             this._errno = 0;
             try {
                 yield this.deleteOrderPromise().then(res => {
                     //console.log(res);
                     let json = JSON.parse(res);
-                    message = json['msg'];
+                    message = {
+                        done: json['done'],
+                        msg: json['msg']
+                    };
                 }).catch(err => {
                     throw err;
                 });
             }
             catch (e) {
                 this._errno = DeleteOrder.ERR_FETCH;
-                message = DeleteOrder.ERR_FETCH_MSG;
+                message = {
+                    done: false,
+                    msg: DeleteOrder.ERR_FETCH_MSG
+                };
             }
             return message;
         });

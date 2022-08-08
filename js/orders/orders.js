@@ -4,7 +4,7 @@ import TableEvents from "./views/table_events.js";
 $(function () {
     getOrders();
 });
-function getOrders() {
+export function getOrders() {
     let gos_data = {
         operation: 0
     };

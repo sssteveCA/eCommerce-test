@@ -22,20 +22,26 @@ export default class DeleteOrder{
     get id_order(){return this._id_order;}
     get operation(){return this._operation;}
 
-    public async deleteOrder(): Promise<string>{
-        let message: string = '';
+    public async deleteOrder(): Promise<object>{
+        let message: object = {};
         this._errno = 0;
         try{
             await this.deleteOrderPromise().then(res =>{
                 //console.log(res);
                 let json: object = JSON.parse(res);
-                message = json['msg'];
+                message = {
+                    done: json['done'],
+                    msg: json['msg']
+                }
             }).catch(err => {
                 throw err;
             })
         }catch(e){
             this._errno = DeleteOrder.ERR_FETCH;
-            message = DeleteOrder.ERR_FETCH_MSG;
+            message = {
+                done: false,
+                msg: DeleteOrder.ERR_FETCH_MSG
+            } 
         }
         return message;
     }
