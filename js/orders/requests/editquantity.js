@@ -39,6 +39,8 @@ export default class EditQuantity {
                     //console.log(res);
                     let json = JSON.parse(res);
                     message = json['msg'];
+                }).catch(err => {
+                    throw err;
                 });
             }
             catch (e) {

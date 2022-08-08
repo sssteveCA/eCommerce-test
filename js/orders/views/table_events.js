@@ -119,6 +119,15 @@ export default class TableEvents {
         };
         let ac = new AddToCart(ac_data);
         ac.AddToCart().then(msg => {
+            let dm_data = {
+                title: 'Aggiungi al carrello',
+                message: msg
+            };
+            let dm = new DialogMessage(dm_data);
+            dm.btOk.on('click', () => {
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
 }

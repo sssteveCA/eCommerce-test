@@ -39,11 +39,12 @@ export default class AddToCart{
         this._errno = 0;
         try{
             await this.AddToCartPromise().then(res =>{
-                console.log(res);
+                //console.log(res);
+                let json:object = JSON.parse(res);
+                message = json['msg'];
             }).catch(err => {
                 throw err;
-            })
-
+            });
         }catch(e){
             this._errno = AddToCart.ERR_FETCH;
             message = AddToCart.ERR_FETCH_MSG;

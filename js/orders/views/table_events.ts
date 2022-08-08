@@ -140,7 +140,15 @@ export default class TableEvents{
         };
         let ac: AddToCart = new AddToCart(ac_data);
         ac.AddToCart().then(msg => {
-
+            let dm_data: DialogMessageInterface = {
+                title: 'Aggiungi al carrello',
+                message: msg
+            };
+            let dm: DialogMessage = new DialogMessage(dm_data);
+            dm.btOk.on('click',()=>{
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
+            });
         });
     }
 }
