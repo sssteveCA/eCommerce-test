@@ -1,20 +1,40 @@
 # eCommerce-test
-This project is a test of e-commerce on a local server, which allows registered users to choose one or more available products, uploaded by other users and via Paypal sandbox to make fictitious payments between the various accounts.
+This is a test of e-commerce on a local server, not fully completed, which allows registered users to choose one or more available products, uploaded by other users and via Paypal sandbox to make fictitious payments between the various accounts .
 
-This project is a beta version and may not work properly.
-
-I tested this in a local server using <a href="https://www.apachefriends.org/download.html">XAMPP</a> with PHP Version 7.4.19
-
-Download <a href="https://getbootstrap.com/docs/5.1/getting-started/download/">Bootstrap Compiled CSS and JS</a> and put in /bootstrap folder
-
-To use SASS and Typescript compiler, <a href="https://nodejs.org/en/download/">install NodeJs</a>, 
-and in the project root folder install this packages:
+It contains:
 <ul>
-  <li><b>npm i -g sass</b></li>
-  <li><b>npm i -g node-sass</b></li>
-  <li><b>npm i -g typescrypt</b></li>
-  <li><b>npm i --save-dev @types/jquery</b></li>
-  <li><b>npm i --save-dev @types/jqueryui</b></li>
+  <li>
+    Account
+    <ul>
+      <li>Login</li>
+      <li>Registration</li>
+      <li>Email verifying</li>
+      <li>Account recovery</li>
+      <li>Account view & editing</li>
+    </ul>
+  </li>
+  <li>
+    Product
+    <ul>
+      <li>Products search</li>
+      <li>Advanced products search</li>
+      <li>Create insertion</li>
+      <li>View insertions</li>
+    </ul>
+  </li>
+  <li>
+    Orders
+    <ul>
+      <li>View orders</li>
+      <li>View single order</li>
+      <li>Update product order quantity</li>
+      <li>Delete order</li>
+      <li>Add orders to cart</li>
+      <li>Pay pending orders</li>
+    </ul>
+  </li>
+  <li>Contact form</li>
+  <li>Pay orders with Paypal</li>
 </ul>
 
 
