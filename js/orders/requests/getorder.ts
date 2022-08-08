@@ -52,7 +52,7 @@ export default class GetOrder{
         return order;
     }
 
-    public async getOrderPromise(): Promise<string>{
+    private async getOrderPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject)=>{
             let body_params:string = `?idOrd=${this._id_order}&oper=${this._operation}`;
             fetch(GetOrder.GETORDER_URL+body_params).then(res => {

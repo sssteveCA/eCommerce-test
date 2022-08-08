@@ -82,6 +82,9 @@ export default class TableEvents{
             operation: this._operations.details
         };
         let go: GetOrder = new GetOrder(go_data);
+        go.getOrder().then(res => {
+
+        });
     }
 
     private deleteOrder(idOrd: number): void{
