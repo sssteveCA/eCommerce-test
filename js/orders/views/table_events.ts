@@ -104,5 +104,8 @@ export default class TableEvents{
             operation: this._operations.cart
         };
         let ac: AddToCart = new AddToCart(ac_data);
+        ac.AddToCart().then(msg => {
+
+        });
     }
 }

@@ -22,13 +22,13 @@ export default class Order{
         this._total = data.total;
         if(data.payed)
             this._payed = data.payed; 
-        else this._payed = null;
+        else this._payed = false;
         if(data.tnx_id)
             this._tnx_id = data.tnx_id; 
         else this._tnx_id = null;
         if(data.cart)
             this._cart = data.cart; 
-        else this._cart = null;
+        else this._cart = false;
     }
 
     get id(){return this._id;}

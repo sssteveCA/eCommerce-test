@@ -10,7 +10,7 @@ export default class Order {
         if (data.payed)
             this._payed = data.payed;
         else
-            this._payed = null;
+            this._payed = false;
         if (data.tnx_id)
             this._tnx_id = data.tnx_id;
         else
@@ -18,7 +18,7 @@ export default class Order {
         if (data.cart)
             this._cart = data.cart;
         else
-            this._cart = null;
+            this._cart = false;
     }
     get id() { return this._id; }
     get idc() { return this._idc; }

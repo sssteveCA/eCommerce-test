@@ -4,6 +4,8 @@ export default class TableBuilder {
         this._table = ''; //HTML table
         this._errno = 0;
         this._error = null;
+        console.log("TableBuilder constructor");
+        console.log(data);
         this._id_container = data.id_container;
         this._orders = data.orders;
         this.setTable();
@@ -51,7 +53,7 @@ export default class TableBuilder {
                     row += `<td>`;
                     if (order.cart === false) {
                         row += `
-<button type="submit" form="f${index}" class="bCarrello btn btn-secondary" name="bCarrello">CARRELLO</button>
+<button type="submit" form="f${index}" class="bCarrello btn btn-warning" name="bCarrello">CARRELLO</button>
                     `;
                     } //if(order.cart === false){
                     row += `</td>`;
