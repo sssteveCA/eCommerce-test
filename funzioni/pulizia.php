@@ -2,10 +2,12 @@
 
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Config as Cf;
 
 ob_start();
 
 require_once('config.php');
+require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/mysqlVals.php');
 
@@ -14,7 +16,7 @@ $time = time();
 if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
     if($_REQUEST['password'] == $passwordPulizia){
         //apro la connessione al server MySQL
-        $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+        $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
         //errore
         if($h->connect_errno){
             $mess = Msg::ERR_MYSQLCONN;
