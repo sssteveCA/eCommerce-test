@@ -4,6 +4,7 @@ session_start();
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Paths as P;
 
+require_once('config.php');
 require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('interfaces/mysqlVals.php');

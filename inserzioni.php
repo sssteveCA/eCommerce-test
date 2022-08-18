@@ -8,6 +8,7 @@ use EcommerceTest\Objects\Utente;
 
 session_start();
 
+require_once('config.php');
 require_once('interfaces/messages.php');
 require_once('interfaces/paths.php');
 require_once('navbar.php');

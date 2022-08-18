@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/orderErrors.php');
 require_once('../interfaces/productErrors.php');

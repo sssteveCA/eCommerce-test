@@ -6,6 +6,7 @@ use EcommerceTest\Interfaces\Messages as Msg;
 
 session_start();
 
+require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/mysqlVals.php');

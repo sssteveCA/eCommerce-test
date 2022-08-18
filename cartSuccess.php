@@ -6,6 +6,7 @@ use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 
 session_start();
+require_once('config.php');
 require_once('interfaces/mysqlVals.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/orderErrors.php');

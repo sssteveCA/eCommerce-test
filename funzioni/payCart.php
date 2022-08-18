@@ -8,7 +8,12 @@ use EcommerceTest\Interfaces\Messages as Msg;
 
 ob_start();
 session_start();
+require_once('../config.php');
+require_once('../interfaces/mysqlVals.php');
 require_once('../interfaces/messages.php');
+require_once('../interfaces/orderErrors.php');
+require_once('../interfaces/productErrors.php');
+require_once("../interfaces/userErrors.php");
 require_once('../objects/carrello.php');
 require_once('../objects/ordine.php');
 require_once('../objects/prodotto.php');

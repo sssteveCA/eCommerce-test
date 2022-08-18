@@ -5,6 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 
 ob_start();
 
+require_once('config.php');
 require_once('interfaces/paths.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
