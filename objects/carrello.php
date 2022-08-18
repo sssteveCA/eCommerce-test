@@ -4,6 +4,7 @@
 namespace EcommerceTest\Objects;
 
 use EcommerceTest\Interfaces\MySqlVals as Mv;
+use EcommerceTest\Config as Cf;
 
 class Carrello implements Mv{
     /* const HOST = 'localhost';
@@ -19,6 +20,7 @@ class Carrello implements Mv{
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
         $h = new \mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+        $h = new \mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
         if($h->connect_errno === 0){
             $h->set_charset("utf8mb4");
             $oTable = Mv::TABORD;

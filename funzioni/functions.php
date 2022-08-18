@@ -1,5 +1,6 @@
 <?php
 
+use EcommerceTest\Config as Cf;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as Msg;
 
@@ -8,7 +9,7 @@ require_once('config.php');
 function cancOrdine($id,$user){
     $ordine = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::HOSTNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         $ordine['msg'] = 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -49,7 +50,7 @@ function casuale($ls, $c = 'ABCDEFGHIJKLMNOPQRSTUVWXYzabcdefghijklmnopqrstuvwxyz
 //inserisce i dati dell'ordine nella tabella MySql 'ordini', true se li ha inseriti
 function creaOrdine($idc,$idp,$np,$tot){
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -90,7 +91,7 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists($campo,$campoW,$str){
-    $mysqli = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         $query = "SELECT `".$campo."` from `accounts` WHERE `".$campoW."` = '$str'";
@@ -120,7 +121,7 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists2($where){
-    $mysqli = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         $query = "SELECT * from `accounts` WHERE {$where};";
@@ -147,7 +148,7 @@ function ddmmyyyy($data){
 function getMaxId($table){
     $id = -1;
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno == 0){
         $h->set_charset("utf8mb4");
@@ -173,7 +174,7 @@ SQL;
 function getOrdini($user){
     $ordini = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -217,7 +218,7 @@ SQL;
 function getPassword($email){
     $result = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -250,7 +251,7 @@ SQL;
 //restituisce tutte le informazioni su un prodotto specifico con id = $idp
 function getProdotto($idp){
     $prodotto = array();
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     if($h->connect_errno){
         $prodotto["msg"] =  'Connessione a MySQL fallita: '.$h->connect_error;
         $prodotto["done"] = '0';
@@ -293,7 +294,7 @@ SQL;
 function getUserData($user){
     $info = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -326,7 +327,7 @@ SQL;
 //inserisce i dati passati nel form se sono validi nel database MySql
 function InsertData($nome,$cognome,$nascita,$sesso,$ind,$num,$citta,$cap,$email,$user,$password,&$codAut){
     //echo "$nome,$cognome,$nascita,$sesso,$email,$user,$password<br>";
-    $mysqli = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         //consente di trasformare caratteri speciali in caratteri inseribili in una stringa
@@ -371,7 +372,7 @@ SQL;
 function insertProduct($nome,$imgPath,$tipo,$prezzo,$condizione,$stato,$citta,$descrizione){
     $insert = -1;
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno == 0){
         $h->set_charset("utf8mb4");
@@ -417,7 +418,7 @@ SQL;
  -1 in caso di errore*/
  function isMaschio($user){
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -456,7 +457,7 @@ SQL;
 function setPassword($email){
     $result = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -494,7 +495,7 @@ $campo = campo da modificare
 $valore = valore del campo da modificare */
 function update($campoW,$valW,$campo,$valore){
     //apro la connessione al server MySQL
-    $mysqli = new mysqli(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE);
+    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
     //errore
     if($mysqli->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$mysqli->connect_error.'<br>';

@@ -5,6 +5,7 @@ namespace EcommerceTest\Objects;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\UserErrors;
+use EcommerceTest\Config as Cf;
 
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
 define("UTENTEERR_ACTIVEYOURACCOUNT", "2");
@@ -78,16 +79,16 @@ class Utente implements Ue,Mv{
         $this->numError = 0;
         $this->strError = null;
         $this->login = false;
-        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Mv::HOSTNAME;
-        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Mv::USERNAME;
-        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Mv::PASSWORD;
+        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Cf::MYSQL_HOSTNAME;
+        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Cf::MYSQL_USERNAME;
+        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
         $this->h = new \mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
         if($this->h->connect_errno != 0){
             throw new \Exception(Ue::EXC_MYSQLCONN);
         }
         $this->connesso = true;
         $this->h->set_charset("utf8mb4");
-        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Mv::DATABASE;
+        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
         $this->createDb(); //crea il database se non esiste
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABACC;
         if($this->createTab() === false){ //crea la tabella se non esiste

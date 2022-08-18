@@ -4,6 +4,7 @@ namespace EcommerceTest\Objects;
 
 use EcommerceTest\interfaces\OrderErrors as Oe;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
+use EcommerceTest\Config as Cf;
 
 define("ORDINEERR_INFONOTGETTED","1");
 define("ORDINEERR_QUERYERROR","2");
@@ -45,10 +46,10 @@ class Ordine implements Oe,Mv{
     private $mysqlError;
     private static $idList = array();
     public function __construct($ingresso){
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Mv::HOSTNAME;
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Mv::USERNAME;
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Mv::PASSWORD;
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Mv::DATABASE;
+        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Cf::MYSQL_HOSTNAME;
+        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Cf::MYSQL_USERNAME;
+        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABORD;
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
