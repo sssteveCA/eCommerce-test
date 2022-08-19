@@ -2,7 +2,9 @@
 
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Config as Cf;
 
+require_once('config.php');
 require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
@@ -11,6 +13,7 @@ require_once('functions.php');
 require_once('../objects/utente.php');
 ob_start();
 
+$hostname = Cf::HOSTNAME;
 $post = json_decode(file_get_contents('php://input'),true);
 $response = array();
 $response['msg'] = '';
@@ -132,9 +135,10 @@ function checkMails($email,$paypalMail){
 }
 
 function msg_headers(){
+    global $hostname;
     $headers = <<<HEADER
-From: Admin <noreply@localhost.lan>
-Reply-to: <noreply@localhost.lan>
+From: Admin <noreply@{{$hostname}}.lan>
+Reply-to: <noreply@{{$hostname}}.lan>
 Content-type: text/html
 MIME-Version: 1.0
 HEADER;

@@ -2,9 +2,11 @@
 
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Config as Cf;
 
 session_start();
 
+require_once('config.php');
 require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
@@ -18,6 +20,7 @@ $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
 $ajax = true;
 $risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
 $risultato['post'] = $_POST;
+$hostname = Cf::HOSTNAME;
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -27,7 +30,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     if(isset($_POST['oggetto'],$_POST['messaggio']) && $_POST['oggetto'] != '' && $_POST['messaggio'] != ''){
         $oggetto = $_POST['oggetto'];
         $messaggio = $_POST['messaggio'];
-        $to = 'admin@localhost.lan';
+        $to = 'admin@'.$hostname.'.lan';
         $headers = <<<HEADER
 To: <{$to}>
 From: <{$from}>
@@ -88,8 +91,8 @@ else{
             $indResetCod = $indReset.'?codReset='.$utente->getCambioPwd();
             //inserisce $codReset in 'cambioPwd nel campo 'email' che ha $email
             $headers = <<<HEADER
-From: Admin <noreply@localhost.lan>
-Reply-to: noreply@localhost.lan
+From: Admin <noreply@{{$hostname}}.lan>
+Reply-to: noreply@{{$hostname}}.lan
 Content-type: text/html
 MIME-Version: 1.0
 HEADER;
