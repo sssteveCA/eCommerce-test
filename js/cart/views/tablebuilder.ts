@@ -47,7 +47,7 @@ export default class TableBuilder{
     //Form of order details
     private detailsForm(idp: number,i: string): string{
         let df: string = `
-<form id="fDett" method="get" action="prodotto.php">
+<form class="fDett" method="get" action="prodotto.php">
     <input type="hidden" name="id" value="${idp}">
     <input type="submit" class="iDett" id="bDett${i}" value="DETTAGLI">
 </form>

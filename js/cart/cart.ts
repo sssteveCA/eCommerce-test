@@ -1,24 +1,24 @@
-import GetOrdersInCartInterface from "./interfaces/getordersincart.interface";
+import GetCartOrdersInterface from "./interfaces/getcartorders.interface";
 import TableBuilderInterface from "./interfaces/tablebuilder.interface";
-import GetOrdersInCart from "./requests/getordersincart.js";
+import GetCartOrders from "./requests/getordersincart";
 import TableBuilder from "./views/tablebuilder.js";
 
 $(()=>{
-    let goic_data: GetOrdersInCartInterface = {
+    let gco_data: GetCartOrdersInterface = {
         operation: 1
     };
-    getCartOrders(goic_data);
+    fGetCartOrders(gco_data);
     
 });
 
 /**
  * Get user orders added to cart
- * @param goic_data 
+ * @param gco_data 
  */
-function getCartOrders(goic_data: GetOrdersInCartInterface): void{
-    let goic = new GetOrdersInCart(goic_data);
-    goic.getOrdersInCart().then(obj => {
-        let errno = goic.errno;
+function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
+    let gco = new GetCartOrders(gco_data);
+    gco.getCartOrders().then(obj => {
+        let errno = gco.errno;
         switch(errno){
             case 0:
                 let tb_data: TableBuilderInterface = {
@@ -27,7 +27,7 @@ function getCartOrders(goic_data: GetOrdersInCartInterface): void{
                 };
                 table(tb_data);
                 break;
-            case GetOrdersInCart.ERR_FETCH:
+            case GetCartOrders.ERR_FETCH:
                 break;
         }
     });//goic.getOrdersInCart().then(obj => {

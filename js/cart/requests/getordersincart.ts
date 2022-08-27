@@ -1,15 +1,15 @@
 import CartOrderInterface from "../interfaces/cartorder.interface";
-import GetOrdersInCartInterface from "../interfaces/getordersincart.interface";
+import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
 import CartOrder from "../models/cartorder.model.js";
 
-export default class GetOrdersInCart{
+export default class GetCartOrders{
     private _operation: number; //command to sent at backend to get orders in backend
     private _cart_orders: CartOrder[] = [];
     private _length: number = 0; //Number of orders in cart retrieved
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETORDERSINCART_URL:string = 'funzioni/cartMan.php';
+    private static GETCARTORDERS_URL:string = 'funzioni/cartMan.php';
 
     //Error numbers
     public static ERR_FETCH:number = 1;
@@ -17,7 +17,7 @@ export default class GetOrdersInCart{
     //Error messages
     private static ERR_FETCH_MSG:string = "Errore durante la richiesta dei dati";
 
-    constructor(data: GetOrdersInCartInterface){
+    constructor(data: GetCartOrdersInterface){
         this._operation = data.operation;
     }
 
@@ -27,8 +27,8 @@ export default class GetOrdersInCart{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
-            case GetOrdersInCart.ERR_FETCH:
-                this._error = GetOrdersInCart.ERR_FETCH_MSG;
+            case GetCartOrders.ERR_FETCH:
+                this._error = GetCartOrders.ERR_FETCH_MSG;
                 break;
             default:
                 this._error = null;
@@ -37,11 +37,11 @@ export default class GetOrdersInCart{
         return this._error;
     }
 
-    public async getOrdersInCart(): Promise<object>{
+    public async getCartOrders(): Promise<object>{
         let response: object = {};
         this._errno = 0;
         try{
-            await this.getOrdersInCartPromise().then(res => {
+            await this.getCartOrdersPromise().then(res => {
                 //console.log(res);
                 response = JSON.parse(res);
                 console.log(response);
@@ -51,22 +51,22 @@ export default class GetOrdersInCart{
             });
         }catch(e){
             console.warn(e);
-            this._errno = GetOrdersInCart.ERR_FETCH;
+            this._errno = GetCartOrders.ERR_FETCH;
             response = {
                 done: false,
-                msg: GetOrdersInCart.ERR_FETCH_MSG
+                msg: GetCartOrders.ERR_FETCH_MSG
             };
         }
         return response;
     }
 
-    private async getOrdersInCartPromise(): Promise<string>{
+    private async getCartOrdersPromise(): Promise<string>{
         let response = await new Promise<string>((resolve, reject) => {
             let post_data: object = {
                 'ajax': '1',
                 'oper': '1'
             };
-            fetch(GetOrdersInCart.GETORDERSINCART_URL,{
+            fetch(GetCartOrders.GETCARTORDERS_URL,{
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
