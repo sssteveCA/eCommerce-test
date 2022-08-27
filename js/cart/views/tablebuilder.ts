@@ -34,7 +34,7 @@ export default class TableBuilder{
     //Form of cart order delete
     private deleteForm(ido: number, idv: number, i:string): string{
         let df: string = `
-<form class="fElim" id="fEl'+i+'" method="post" action="funzioni/cartMan.php">
+<form class="fElim" id="fEl${i}" method="post" action="funzioni/cartMan.php">
     <input type="hidden" name="oper" value="3"> 
     <input type="hidden" name="ido" value="${ido}">
     <input type="hidden" name="idv" value="${idv}">
@@ -57,16 +57,18 @@ export default class TableBuilder{
 
     //Single order html row
     private orderRow(order: object, i: string):string{
+        console.log("order");
+        console.log(order);
         let row: string = `
 <tr>
-<td>${order['nome']}</td>
-<td class="timg"><img src="${order['immagine']}"></td>
-<td>${order['tipo']}</td>
-<td>${order['quantita']}</td>
-<td>${order['totale']}</td>
+<td>${order[i]['nome']}</td>
+<td class="timg"><img src="${order[i]['immagine']}"></td>
+<td>${order[i]['tipo']}</td>
+<td>${order[i]['quantita']}</td>
+<td>${order[i]['totale']}</td>
         `;
-        let details_form: string = this.detailsForm(order['idp'],i);
-        let delete_form: string = this.deleteForm(order['ido'],order['idv'],i);
+        let details_form: string = this.detailsForm(order[i]['idp'],i);
+        let delete_form: string = this.deleteForm(order[i]['ido'],order[i]['idv'],i);
         row += `<td>${details_form}</td>`;
         row += `<td>${delete_form}</td>`;
         row += `</tr>`;
@@ -74,15 +76,20 @@ export default class TableBuilder{
     }
 
     private payButton(idv: string): string{
+        let colspan = TableBuilder.N_COLUMS;
         let payForm: string = `
+<tr>
+<td colspan="${colspan}">
 <div id="divCarrello${idv}" style="padding:10px; display:flex; justify-content:center; align-items:center;">
     <div id="paypalArea${idv}" class="paypalArea">
 
     </div>
     <div id="confirm${idv}" class="confirm">
-        <button id="confirmButton${idv}" class="confirmButton">PAGA BUTTON</button>
+        <button id="confirmButton${idv}" class="confirmButton">PAGA ORDINI</button>
     </div>
-</div>      
+</div> 
+</td>
+</tr>     
         `;
         return payForm;
     }
@@ -98,13 +105,16 @@ export default class TableBuilder{
             table += this.tableThead();
             table += `<tbody>`;
             for(let idv in this._cart_data){
+                console.log("idv in cart data");
                 let seller = this._cart_data[idv] as object;
+                //console.log(seller);
                 for(let i in seller){
+                    console.log("i in seller");
                     table += this.orderRow(seller,i);
                 }
                 table += this.payButton(idv);
             }//for(let idv in this._cart_data){
-            table += `</tbody>`;
+            table += `</tbody></table>`;
         }//if(this.cart_data_length > 0){
         else{
            table = `
@@ -120,12 +130,16 @@ Nessun ordine effettuato
     //Table thead part
     private tableThead(): string{
         let thead: string = `
+<thead>
+<tr>
 <th>Nome</th>
 <th>Immagine</th>'
 <th>Tipo</th>'
 <th>Quantità</th>'
 <th>Totale</th>'
-<th></th><th></th>'
+<th></th><th></th>
+</tr>
+</thead>'
         `;
         return thead;
     }
