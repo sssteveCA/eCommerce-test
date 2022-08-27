@@ -25,6 +25,19 @@ export default class TableBuilder{
         return this._error;
     }
 
+    //Form of cart order delete
+    private deleteForm(ido: number, idv: number, i:number): string{
+        let df: string = `
+<form class="fElim" id="fEl'+i+'" method="post" action="funzioni/cartMan.php">
+    <input type="hidden" name="oper" value="3"> 
+    <input type="hidden" name="ido" value="${ido}">
+    <input type="hidden" name="idv" value="${idv}">
+    <input type="submit" class="iElim" id="bElim${i}" value="ELIMINA">
+</form>    
+        `;
+        return df;
+    }
+
     //Form of order details
     private detailsForm(idp: number,i: number): string{
         let df: string = `
