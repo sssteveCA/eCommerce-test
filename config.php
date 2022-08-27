@@ -1,4 +1,3 @@
-//This is an example on how you must set your /config.php file
 <?php
 
 namespace EcommerceTest;

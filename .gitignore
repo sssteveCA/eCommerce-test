@@ -1,11 +1,9 @@
 .vscode
-config.php
 paypal_esempiorichiesta.json
 paypal_pagasubito.json
 paypal.json
 prodotti.json
 *.txt
-!config.example.txt
 funzioni/*.txt
 tabelle
 bootstrap
