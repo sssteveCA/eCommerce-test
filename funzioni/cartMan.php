@@ -113,8 +113,19 @@ function addOrderToCart(array $oData, string|int $idp, Utente $user){
             if($okAdd){
                 $response['msg'] = Msg::ORDERADDEDCART;
             }
+            else{
+                $response['msg'] = $order->getStrError();
+                //$response['msg'] .= ' Linea n. '.__LINE__;
+            }
+        }//if(!$already_in){
+        else{
+            $response['msg'] = Msg::ERR_ALREALDYCART;   
         }
     }//if($ordine->getNumError() == 0){
+    else{
+        $response['msg'] = $order->getStrError();
+        //$response['msg'] .= ' Linea n. '.__LINE__;
+    } 
 }
 
 /**
