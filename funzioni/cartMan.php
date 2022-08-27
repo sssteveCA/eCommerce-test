@@ -70,6 +70,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }//else if($post['oper'] == '3'){
     }//if(isset($post['oper'])){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+else
+    $response['msg'] = Msg::ERR_NOTLOGGED;
 
 if($ajax)
     echo json_encode($response);
@@ -171,7 +173,7 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
 }
 
 /**
- * Print HTML is this is non AJAX request
+ * Print HTML if this is non AJAX request
  */
 function printHtml(array $response): string {
     $html = <<<HTML
