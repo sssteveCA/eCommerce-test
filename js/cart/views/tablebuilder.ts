@@ -24,4 +24,26 @@ export default class TableBuilder{
         }
         return this._error;
     }
+
+    private setTable(): void{
+        let parent: JQuery = $('#'+this._id_container);
+        parent.html('');
+        let table: string = `
+        <table >`;
+        table += this.tableThead();
+    }
+
+    //Table thead part
+    private tableThead(): string{
+        let thead: string = `
+<th>Nome</th>
+<th>Immagine</th>'
+<th>Tipo</th>'
+<th>Quantità</th>'
+<th>Totale</th>'
+<th></th><th></th>'
+        `;
+        return thead;
+    }
+
 }
