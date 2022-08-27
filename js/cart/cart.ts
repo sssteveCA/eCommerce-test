@@ -1,5 +1,5 @@
 import GetOrdersInCartInterface from "./interfaces/getordersincart.interface";
-import GetOrdersInCart from "./requests/getordersincart";
+import GetOrdersInCart from "./requests/getordersincart.js";
 
 $(()=>{
     let goic_data: GetOrdersInCartInterface = {

@@ -28,8 +28,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
-        <script src=<?php echo P::REL_CART_JS; ?>></script>
-        <script src="//www.paypalobjects.com/api/checkout.js"></script>
+        <script type="module" src=<?php echo P::REL_CART_JS; ?>></script>
+        <!-- <script src="//www.paypalobjects.com/api/checkout.js"></script> -->
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

@@ -23,10 +23,11 @@ use EcommerceTest\Objects\Utente;
 use EcommerceTest\Objects\Carrello;
 
 $input = file_get_contents("php://input");
-$post = json_decode($input);
+$post = json_decode($input,true);
 
 $response = [
-    'sbn_code' => SBN_CODE
+    'sbn_code' => SBN_CODE,
+    'post' => $post
 ];
 
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
@@ -37,7 +38,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     if(isset($post['oper'])){
         if($post['oper'] == '1'){
             //Show all items in the cart
-            showCart($user);
+            showCart($response,$user);
         }
         else if($post['oper'] == '2'){
             if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
@@ -209,7 +210,7 @@ HTML;
 /**
  * Show all items in the cart
  */
-function showCart(Utente $user){
+function showCart(array &$response, Utente $user){
     //Orders id list added to cart
     $ordersCart = Carrello::getCartIdos($user->getUsername());
     if(Carrello::nProdotti() > 0){
