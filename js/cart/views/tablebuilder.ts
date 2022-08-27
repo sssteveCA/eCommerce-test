@@ -8,6 +8,8 @@ export default class TableBuilder{
     private _errno: number = 0;
     private _error: string|null = null;
 
+    private static N_COLUMS: number = 7; //columns number of the table
+
     constructor(data: TableBuilderInterface){
         this._id_container = data.id_container;
         this._cart_data = data.cart_data;
@@ -26,7 +28,7 @@ export default class TableBuilder{
     }
 
     //Form of cart order delete
-    private deleteForm(ido: number, idv: number, i:number): string{
+    private deleteForm(ido: number, idv: number, i:string): string{
         let df: string = `
 <form class="fElim" id="fEl'+i+'" method="post" action="funzioni/cartMan.php">
     <input type="hidden" name="oper" value="3"> 
@@ -39,7 +41,7 @@ export default class TableBuilder{
     }
 
     //Form of order details
-    private detailsForm(idp: number,i: number): string{
+    private detailsForm(idp: number,i: string): string{
         let df: string = `
 <form id="fDett" method="get" action="prodotto.php">
     <input type="hidden" name="id" value="${idp}">
@@ -50,7 +52,7 @@ export default class TableBuilder{
     }
 
     //Single order html row
-    private orderRow(order: object, i: number):string{
+    private orderRow(order: object, i: string):string{
         let row: string = `
 <tr>
 <td>${order['nome']}</td>
@@ -59,22 +61,42 @@ export default class TableBuilder{
 <td>${order['quantita']}</td>
 <td>${order['totale']}</td>
         `;
-        row += this.detailsForm(order['idp'],i);
+        let details_form: string = this.detailsForm(order['idp'],i);
+        let delete_form: string = this.deleteForm(order['ido'],order['idv'],i);
+        row += `<td>${details_form}</td>`;
+        row += `<td>${delete_form}</td>`;
+        row += `</tr>`;
         return row;
+    }
+
+    private payButton(idv: number): string{
+        let payForm: string = `
+<div id="divCarrello${idv}" style="padding:10px; display:flex; justify-content:center; align-items:center;">
+    <div id="paypalArea${idv}" class="paypalArea">
+
+    </div>
+    <div id="confirm${idv}" class="confirm">
+        <button id="confirmButton${idv}" class="confirmButton">PAGA BUTTON</button>
+    </div>
+</div>      
+        `;
+        return payForm;
     }
 
     private setTable(): void{
         let parent: JQuery = $('#'+this._id_container);
         parent.html('');
         let table: string = `
-        <table >`;
+        <table>`;
         table += this.tableThead();
+        table += `<tbody>`;
         for(let idv in this._cart_data){
-            let seller = this._cart_data[idv];
+            let seller = this._cart_data[idv] as object;
             for(let i in seller){
-
+                table += this.orderRow(seller,i);
             }
         }//for(let idv in this._cart_data){
+        table += `</tbody>`;
     }
 
     //Table thead part
