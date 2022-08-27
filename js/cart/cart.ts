@@ -1,7 +1,9 @@
 import GetCartOrdersInterface from "./interfaces/getcartorders.interface";
 import TableBuilderInterface from "./interfaces/tablebuilder.interface";
+import { TableEventsInterface } from "./interfaces/tableevents.interface";
 import GetCartOrders from "./requests/getcartorders";
 import TableBuilder from "./views/tablebuilder.js";
+import TableEvents from "./views/tableevents";
 
 $(()=>{
     let gco_data: GetCartOrdersInterface = {
@@ -39,4 +41,13 @@ function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
  */
 function table(tb_data: TableBuilderInterface): void{
     let tab: TableBuilder = new TableBuilder(tb_data);
+    let te_data: TableEventsInterface = {
+        form_classes: {
+            delete: 'fElim'
+        },
+        operations: {
+            delete: 3
+        }
+    };
+    let tab_ev: TableEvents = new TableEvents(te_data);
 }
