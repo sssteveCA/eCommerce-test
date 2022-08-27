@@ -59,15 +59,22 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             if(isset($post['ido']) && is_numeric($post['ido'])){
                 $oData['id'] = $post['ido'];
                 try{
-
+                    delOrderFromCart($response, $oData, $user);
                 }catch(Exception $e){
                     $risposta['msg'] = $e->getMessage();
                     //$risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
             }//if(isset($post['ido']) && is_numeric($post['ido'])){
+            else
+                $response['msg'] = Msg::ERR_ORDERDELETEINVALIDID;
         }//else if($post['oper'] == '3'){
     }//if(isset($post['oper'])){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+
+if($ajax)
+    echo json_encode($response);
+else
+    echo printHtml($response);
 
 /**
  * Add one item to cart array response
@@ -161,6 +168,40 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
         $response['msg'] = $order->getStrError();
         //$risposta['msg'] .= ' Linea n. '.__LINE__;
     }
+}
+
+/**
+ * Print HTML is this is non AJAX request
+ */
+function printHtml(array $response): string {
+    $html = <<<HTML
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title>Carrello</title>
+        <meta charset="utf-8">
+        <style>
+            div{
+                padding: 20px;
+            }
+            img{
+                width: 60px;
+                height: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="indietro">
+            <a href="../carrello.php"><img src="../img/altre/indietro.png" alt="indietro" title="indietro"></a>
+            <a href="../carrello.php">Indietro</a>
+        </div>
+         <div>
+            {$response['msg']}
+         </div>
+    </body>
+</html>
+HTML;
+    return $html;
 }
 
 /**
