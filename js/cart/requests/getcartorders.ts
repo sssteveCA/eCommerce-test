@@ -44,7 +44,7 @@ export default class GetCartOrders{
             await this.getCartOrdersPromise().then(res => {
                 //console.log(res);
                 response = JSON.parse(res);
-                console.log(response);
+                //console.log(response);
                 //this.insertCartOrders(response);
             }).catch(err => {
                 throw err;

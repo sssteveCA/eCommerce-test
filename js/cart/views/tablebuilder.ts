@@ -57,15 +57,13 @@ export default class TableBuilder{
 
     //Single order html row
     private orderRow(order: object, i: string):string{
-        console.log("order");
-        console.log(order);
         let row: string = `
 <tr>
 <td>${order[i]['nome']}</td>
 <td class="timg"><img src="${order[i]['immagine']}"></td>
 <td>${order[i]['tipo']}</td>
 <td>${order[i]['quantita']}</td>
-<td>${order[i]['totale']}</td>
+<td>${order[i]['totale']}€</td>
         `;
         let details_form: string = this.detailsForm(order[i]['idp'],i);
         let delete_form: string = this.deleteForm(order[i]['ido'],order[i]['idv'],i);
@@ -105,11 +103,9 @@ export default class TableBuilder{
             table += this.tableThead();
             table += `<tbody>`;
             for(let idv in this._cart_data){
-                console.log("idv in cart data");
                 let seller = this._cart_data[idv] as object;
                 //console.log(seller);
                 for(let i in seller){
-                    console.log("i in seller");
                     table += this.orderRow(seller,i);
                 }
                 table += this.payButton(idv);

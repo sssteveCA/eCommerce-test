@@ -3,8 +3,9 @@ import { TableEventsInterface, Operations, FormClasses
  import DeleteCartOrderInterface from "../interfaces/deletecartorder.interface";
  import DeleteCartOrder from "../requests/deletecartorder";
  import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
- import DialogConfirm from "../../dialog/dialogconfirm";
- import { Constants } from "../../constants/constants";
+ import DialogConfirm from "../../dialog/dialogconfirm.js";
+ import { Constants } from "../../constants/constants.js";
+ import { deleteOrderFromCart } from "../cart.js";
 
 export default class TableEvents{
 
@@ -23,7 +24,7 @@ export default class TableEvents{
     private setEvents(): void{
         let form_classes: FormClasses = this._form_classes;
         let delete_form: JQuery = $('.'+form_classes.delete);
-        console.log(delete_form);
+        let this_obj: TableEvents = this;
         delete_form.on('submit',function(ev){
             ev.preventDefault();
             let dc_data: DialogConfirmInterface = {
@@ -32,11 +33,18 @@ export default class TableEvents{
             };
             let dc: DialogConfirm = new DialogConfirm(dc_data);
             dc.btYes.on('click',()=>{
+                dc.dialog.dialog('destroy');
+                dc.dialog.remove();
                 let input: JQuery = $(this).find('input[name=ido]');
-                console.log(input);
+                let order_id: number = input.val() as number;
+                let dco_data: DeleteCartOrderInterface = {
+                    order_id: order_id,
+                    operation: this_obj._operations.delete
+                };
+                deleteOrderFromCart(dco_data);
             });
             dc.btNo.on('click',()=>{
-                dc.dialog.dialog('remove');
+                dc.dialog.dialog('destroy');
                 dc.dialog.remove();
             });
         });//delete_form.on('submit',function(ev){
