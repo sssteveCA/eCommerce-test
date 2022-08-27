@@ -26,6 +26,7 @@ if (! function_exists("array_key_last")) {
 
 class Ordine implements Oe,Mv{
     private $mysqlTable;
+    private $mysqlTableAcc; //Accounts mysql table
     private $h;
     private $connesso;
     private $id;
@@ -51,6 +52,7 @@ class Ordine implements Oe,Mv{
         $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
         $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABORD;
+        $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:Mv::TABACC;
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
             throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);
@@ -206,12 +208,14 @@ SQL;
         return $ok;
     }
     
-    //aggiunge l'ordine al carrello
+    /**
+     * Put this order inside the cart 
+     */
     public function addToCart($user){
         $ok = false;
         if(isset($this->id)){
             $this->querySql = <<<SQL
-UPDATE `{$this->mysqlTable}` SET `carrello` = '1' WHERE `id` = '{$this->id}' AND `carrello` = '0' AND `idc` = (SELECT `id` FROM `accounts` WHERE `username` = '$user'); 
+UPDATE `{$this->mysqlTable}` SET `carrello` = '1' WHERE `id` = '{$this->id}' AND `carrello` = '0' AND `idc` = (SELECT `id` FROM `{$this->mysqlTableAcc}` WHERE `username` = '$user'); 
 SQL;
             $this->queries[] = $this->querySql;
             if($this->h->query($this->querySql) !== FALSE){

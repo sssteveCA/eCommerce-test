@@ -31,7 +31,35 @@ $response = [
 
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
-//Add one item to cart array response
+if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $user = unserialize($_SESSION['utente']);
+    $oDati = [];
+    if(isset($post['oper'])){
+        if($post['oper'] == '1'){
+            //Show all items in the cart
+            showCart($user);
+        }
+        else if($post['oper'] == '2'){
+            if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
+                $oData = [
+                    'id' => $post['ido'],
+                ];
+                $idp = $post['idp'];
+                try{
+
+                }catch(Exception $e){
+
+                }
+            }//if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
+            //Add an order to cart
+        }//else if($post['oper'] == '2'){
+    }//if(isset($post['oper'])){
+}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+
+/**
+ * Add one item to cart array response
+ * 
+ * */
 function addItemToCart(array &$response, Prodotto $product,Ordine $order){
     $oArray = [
         'ido' => $order->getId(),
@@ -60,7 +88,38 @@ function addItemToCart(array &$response, Prodotto $product,Ordine $order){
     $response['carrello'][$idv][] = $oArray;
 }
 
-//Show all the items in the cart
+/**
+ * Add order to the cart
+ */
+function addOrderToCart(array $oData, string|int $idp, Utente $user){
+    $order = new Ordine($oData);
+    if($order->getNumError() == 0){
+        //Id of orders inside the cart
+        $ordersCart = Carrello::getCartIdos($user->getUsername());
+        $already_in = false;
+        foreach($ordersCart as $seller){
+            foreach($seller as $ido){
+                $oCarr = new Ordine(array('id' => $ido));
+                //If product is already inside th cart
+                if($idp == $oCarr->getIdp()){
+                    $already_in = true;
+                    break;
+                }  
+            }//foreach($seller as $ido){
+            if($already_in)break;
+        }//foreach($ordersCart as $seller){
+        if(!$already_in){
+            $okAdd = $order->addToCart($user->getUsername());
+            if($okAdd){
+                $response['msg'] = Msg::ORDERADDEDCART;
+            }
+        }
+    }//if($ordine->getNumError() == 0){
+}
+
+/**
+ * Show all items in the cart
+ */
 function showCart(Utente $user){
     //Orders id list added to cart
     $ordersCart = Carrello::getCartIdos($user->getUsername());

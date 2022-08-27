@@ -15,7 +15,10 @@ class Carrello implements Mv{
     const TABLE_USERS = 'accounts'; */
     private static $cartIdos = array();
     private static $nProdotti = 0;
-    //ottengo gli id degli ordini aggiunti al carrello
+    
+    /**
+     * Get an array of user (order id & seller id) by username
+     */
     public static function getCartIdos($user){
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
