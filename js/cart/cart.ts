@@ -7,6 +7,6 @@ $(()=>{
     };
     let goic = new GetOrdersInCart(goic_data);
     goic.getOrdersInCart().then(obj => {
-
+        console.log(goic.cart_orders);
     });//goic.getOrdersInCart().then(obj => {
 });

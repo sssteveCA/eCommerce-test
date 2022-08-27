@@ -1,3 +1,4 @@
+import CartOrderInterface from "../interfaces/cartorder.interface";
 import GetOrdersInCartInterface from "../interfaces/getordersincart.interface";
 import CartOrder from "../models/cartorder.model";
 
@@ -41,8 +42,9 @@ export default class GetOrdersInCart{
         this._errno = 0;
         try{
             await this.getOrdersInCartPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
+                this.insertCartOrders(response);
             }).catch(err => {
                 throw err;
             });
@@ -77,4 +79,29 @@ export default class GetOrdersInCart{
         });
         return response;
     }
+
+    //Insert the retrieve cart orders in the orders property array
+    private insertCartOrders(response: object): void{
+        if(response['done'] === true){
+            response['carrello'].forEach(item => {
+                let co_data: CartOrderInterface = {
+                    ido: item.ido,
+                    idp: item.idp,
+                    idv: item.idv,
+                    name: item.nome,
+                    image: item.image,
+                    type: item.tipo,
+                    product_price: item.prezzo,
+                    quantity: item.quantita,
+                    shipping: item.spedizione,
+                    total: item.total
+                };
+                let cartOrder = new CartOrder(co_data);
+                this._cart_orders.push(cartOrder);
+            });//response['carrello'].forEach(item => {
+        }//if(response['done'] === true){
+        this._length = response['n_orders'] as number;
+        
+    }
+
 }

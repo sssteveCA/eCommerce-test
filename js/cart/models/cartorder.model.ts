@@ -4,6 +4,7 @@ export default class CartOrder{
     private _ido: number; //Order id
     private _idp: number; //Product id
     private _idv: number; //Seller id of this product
+    private _name: string; //Product name
     private _image: string; //URL of product image
     private _type: string; //Product category
     private _product_price: number; //Single product price
@@ -15,6 +16,7 @@ export default class CartOrder{
         this._ido = data.ido;
         this._idp = data.idp;
         this._idv = data.idv;
+        this._name = data.name;
         this._image = data.image;
         this._type = data.type;
         this._product_price = data.product_price;
@@ -26,6 +28,7 @@ export default class CartOrder{
     get ido(){return this._ido;}
     get idp(){return this._idp;}
     get idv(){return this._idv;}
+    get name(){return this._name;}
     get image(){return this._image;}
     get type(){return this._type;}
     get product_price(){return this._product_price;}

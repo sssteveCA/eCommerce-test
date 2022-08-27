@@ -26,6 +26,7 @@ $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 
 $response = [
+    'done' => false,
     'sbn_code' => SBN_CODE,
     'post' => $post
 ];
@@ -213,6 +214,8 @@ HTML;
 function showCart(array &$response, Utente $user){
     //Orders id list added to cart
     $ordersCart = Carrello::getCartIdos($user->getUsername());
+    $response['done'] = true;
+    $response['n_orders'] = 0;
     if(Carrello::nProdotti() > 0){
         $response['vuoto'] = '0';
         foreach ($ordersCart as $idv => $ordersArr){
@@ -223,6 +226,7 @@ function showCart(array &$response, Utente $user){
                         $product = new Prodotto(array('id' => $order->getIdp()));
                         if($product->getNumError() == 0){
                             addItemToCart($response,$product,$order);
+                            $response['n_orders']++;
                         }//if($product->getNumError() == 0){
                         else{
                             $response['msg'] = $product->getStrError();
