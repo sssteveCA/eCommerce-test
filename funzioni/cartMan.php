@@ -42,6 +42,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             showCart($response,$user);
         }
         else if($post['oper'] == '2'){
+            //Add an order to cart
             if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
                 $oData['id'] = $post['ido'];
                 $idp = $post['idp'];
@@ -54,7 +55,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             }//if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
             else
                 $response['msg'] = Msg::ERR_ORDERINVALIDDATA;
-            //Add an order to cart
         }//else if($post['oper'] == '2'){
         else if($post['oper'] == '3'){
             //Delete an order fron cart
@@ -162,6 +162,7 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
         if($okDel){
             $response['msg'] = Msg::ORDERDELETEDCART;
             $response['del'] = '1';
+            $response['done'] = true;
         }
         else{
             $response['msg'] = $order->getStrError();
