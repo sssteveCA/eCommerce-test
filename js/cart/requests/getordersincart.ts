@@ -1,6 +1,6 @@
 import CartOrderInterface from "../interfaces/cartorder.interface";
 import GetOrdersInCartInterface from "../interfaces/getordersincart.interface";
-import CartOrder from "../models/cartorder.model";
+import CartOrder from "../models/cartorder.model.js";
 
 export default class GetOrdersInCart{
     private _operation: number; //command to sent at backend to get orders in backend
@@ -44,7 +44,8 @@ export default class GetOrdersInCart{
             await this.getOrdersInCartPromise().then(res => {
                 //console.log(res);
                 response = JSON.parse(res);
-                this.insertCartOrders(response);
+                console.log(response);
+                //this.insertCartOrders(response);
             }).catch(err => {
                 throw err;
             });
