@@ -1,6 +1,6 @@
 import GetCartOrdersInterface from "./interfaces/getcartorders.interface";
 import TableBuilderInterface from "./interfaces/tablebuilder.interface";
-import GetCartOrders from "./requests/getordersincart";
+import GetCartOrders from "./requests/getcartorders";
 import TableBuilder from "./views/tablebuilder.js";
 
 $(()=>{
