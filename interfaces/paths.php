@@ -15,7 +15,7 @@ interface Paths{
     const REL_BUY_CSS = "css/compra.css";
     const REL_BUY_JS = "js/compra.js";
     const REL_CART_CSS = "css/carrello.css";
-    const REL_CART_JS = "js/carrello.js";
+    const REL_CART_JS = "js/cart/cart.js";
     const REL_CONFIRM_CSS = "css/conferma.css";
     const REL_CONFIRM_JS = "js/conferma.js";
     const REL_CONTACTS_CSS = "css/contacts/contacts.min.css";
