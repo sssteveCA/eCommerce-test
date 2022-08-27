@@ -50,6 +50,7 @@ export default class GetOrdersInCart{
                 throw err;
             });
         }catch(e){
+            console.warn(e);
             this._errno = GetOrdersInCart.ERR_FETCH;
             response = {
                 done: false,

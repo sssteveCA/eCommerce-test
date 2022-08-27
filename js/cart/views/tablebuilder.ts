@@ -13,9 +13,13 @@ export default class TableBuilder{
     constructor(data: TableBuilderInterface){
         this._id_container = data.id_container;
         this._cart_data = data.cart_data;
+        this.setTable();
     }
 
     get cart_data(){return this._cart_data;}
+    get cart_data_length():number{
+        return Object.keys(this._cart_data).length;
+    }
     get table(){return this._table;}
     get errno(){return this._errno;}
     get error(){
@@ -69,7 +73,7 @@ export default class TableBuilder{
         return row;
     }
 
-    private payButton(idv: number): string{
+    private payButton(idv: string): string{
         let payForm: string = `
 <div id="divCarrello${idv}" style="padding:10px; display:flex; justify-content:center; align-items:center;">
     <div id="paypalArea${idv}" class="paypalArea">
@@ -86,17 +90,31 @@ export default class TableBuilder{
     private setTable(): void{
         let parent: JQuery = $('#'+this._id_container);
         parent.html('');
-        let table: string = `
-        <table>`;
-        table += this.tableThead();
-        table += `<tbody>`;
-        for(let idv in this._cart_data){
-            let seller = this._cart_data[idv] as object;
-            for(let i in seller){
-                table += this.orderRow(seller,i);
-            }
-        }//for(let idv in this._cart_data){
-        table += `</tbody>`;
+        let table: string = ``;
+        if(this.cart_data_length > 0){
+            //If user has at least one cart in the cart
+            table = `
+            <table>`;
+            table += this.tableThead();
+            table += `<tbody>`;
+            for(let idv in this._cart_data){
+                let seller = this._cart_data[idv] as object;
+                for(let i in seller){
+                    table += this.orderRow(seller,i);
+                }
+                table += this.payButton(idv);
+            }//for(let idv in this._cart_data){
+            table += `</tbody>`;
+        }//if(this.cart_data_length > 0){
+        else{
+           table = `
+<p style="text-align:center; font-size: 22px; font-weight: bold;">
+Nessun ordine effettuato
+</p>           
+`; 
+        }
+        parent.append(table);
+        this._table = table;
     }
 
     //Table thead part
