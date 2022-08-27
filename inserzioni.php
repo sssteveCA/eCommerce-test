@@ -32,7 +32,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         'dialog_message_js' => P::REL_DIALOG_MESSAGE_JS,
         'logout_js' => P::REL_LOGOUT_JS,
         'insertions_js' => P::REL_INSERTIONS_JS,
-        'menu' => menu($_SESSION['welcome'])
+        'menu' => menu($_SESSION['welcome']),
+        'popper_js' => P::REL_POPPER_JS
     ];
     $page_data['result'] = result($utente);
     $page = html_page($page_data);
@@ -55,6 +56,7 @@ function html_page(array $data): string{
         <link rel="stylesheet" href="{$data['jquerytheme_css']}" >
         <script src="{$data['jquery_js']}"></script>
         <script src="{$data['jqueryUi_js']}"></script>
+        <script src="{$data['popper_js']}"></script>
         <script src="{$data['bootstrap_js']}"></script>
         <script type="module" src="{$data['dialog_message_js']}"></script>
         <script type="module" src="{$data['logout_js']}"></script>

@@ -15,6 +15,6 @@ interface Config{
     const MYSQL_HOSTNAME = 'localhost';
     const MYSQL_USERNAME = 'root';
     const MYSQL_PASSWORD = '';
-    const MYSQL_DATABASE = '';
+    const MYSQL_DATABASE = 'stefano';
 }
 ?>
