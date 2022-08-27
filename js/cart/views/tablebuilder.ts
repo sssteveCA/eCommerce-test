@@ -25,12 +25,43 @@ export default class TableBuilder{
         return this._error;
     }
 
+    //Form of order details
+    private detailsForm(idp: number,i: number): string{
+        let df: string = `
+<form id="fDett" method="get" action="prodotto.php">
+    <input type="hidden" name="id" value="${idp}">
+    <input type="submit" class="iDett" id="bDett${i}" value="DETTAGLI">
+</form>
+        `;
+        return df;
+    }
+
+    //Single order html row
+    private orderRow(order: object, i: number):string{
+        let row: string = `
+<tr>
+<td>${order['nome']}</td>
+<td class="timg"><img src="${order['immagine']}"></td>
+<td>${order['tipo']}</td>
+<td>${order['quantita']}</td>
+<td>${order['totale']}</td>
+        `;
+        row += this.detailsForm(order['idp'],i);
+        return row;
+    }
+
     private setTable(): void{
         let parent: JQuery = $('#'+this._id_container);
         parent.html('');
         let table: string = `
         <table >`;
         table += this.tableThead();
+        for(let idv in this._cart_data){
+            let seller = this._cart_data[idv];
+            for(let i in seller){
+
+            }
+        }//for(let idv in this._cart_data){
     }
 
     //Table thead part
