@@ -14,7 +14,7 @@
     @each $selector,$properties-list in $map{
         #{$selector}{
             @each $prop,$val in $properties-list{
-                #{$prop}: unquote($val)
+                #{$prop}: $val;
             }
         }
     }
