@@ -31,11 +31,37 @@ $response = [
 
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
+//Add one item to cart array response
+function addItemToCart(array &$response, Prodotto $product,Ordine $order){
+    $oArray = [
+        'ido' => $order->getId(),
+        'idp' => $product->getId()
+    ];
+    $idv = $order->getIdv();
+    $aV = [
+        'id' => $idv,
+        'registrato' => '1'
+    ];
+    $seller = new Utente($aV);
+    if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
+        $oArray['clientId'] = $seller->getClientId();
+    }//if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
+    else{
+        file_put_contents("log.txt",$seller->getStrError()."\r\n",FILE_APPEND);
+    }
+    $oArray['idv'] = $seller->getId();
+    $oArray['nome'] = $product->getNome();
+    $oArray['immagine'] = $product->getImmagine();
+    $oArray['tipo'] = $product->getTipo();
+    $oArray['prezzo'] = $product->getPrezzo();
+    $oArray['quantita'] = $order->getQuantita();
+    $oArray['spedizione'] = $product->getSpedizione();
+    $oArray['totale'] = $order->getTotale();
+    $response['carrello'][$idv][] = $oArray;
+}
 
 //Show all the items in the cart
 function showCart(Utente $user){
-    $oArray = array();
-    $idUtente = $user->getId();
     //Orders id list added to cart
     $ordersCart = Carrello::getCartIdos($user->getUsername());
     if(Carrello::nProdotti() > 0){
@@ -47,31 +73,7 @@ function showCart(Utente $user){
                     if($order->getNumError() == 0){
                         $product = new Prodotto(array('id' => $order->getIdp()));
                         if($product->getNumError() == 0){
-                            $oArray = [
-                                'ido' => $order->getId(),
-                                'idp' => $product->getId()
-                            ];
-                            $idv = $order->getIdv();
-                            $aV = [
-                                'id' => $idv,
-                                'registrato' => '1'
-                            ];
-                            $seller = new Utente($aV);
-                            if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
-                                $oArray['clientId'] = $seller->getClientId();
-                            }//if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
-                            else{
-                                file_put_contents("log.txt",$seller->getStrError()."\r\n",FILE_APPEND);
-                            }
-                            $oArray['idv'] = $seller->getId();
-                            $oArray['nome'] = $product->getNome();
-                            $oArray['immagine'] = $product->getImmagine();
-                            $oArray['tipo'] = $product->getTipo();
-                            $oArray['prezzo'] = $product->getPrezzo();
-                            $oArray['quantita'] = $order->getQuantita();
-                            $oArray['spedizione'] = $product->getSpedizione();
-                            $oArray['totale'] = $order->getTotale();
-                            $response['carrello'][$idv][] = $oArray;
+                            addItemToCart($response,$product,$order);
                         }//if($product->getNumError() == 0){
                         else{
                             $response['msg'] = $product->getStrError();
@@ -85,7 +87,8 @@ function showCart(Utente $user){
                         break;
                     } 
                 }catch(Exception $e){
-
+                    $response['msg'] = $e->getMessage();
+                    //$response['msg'] .= ' Linea n. '.__LINE__;
                 }
             }//foreach($ordersArr as $idp) {
         }//foreach ($ordersCart as $idv=>$arrayOrd){
