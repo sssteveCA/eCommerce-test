@@ -252,7 +252,9 @@ SQL;
         return $ok;
     }
 
-    //elimino l'ordine dal carrello
+    /**
+     * Remove an order from cart
+     */
     public function delFromCart($user){
         $ok = false;
         $this->numError = 0;

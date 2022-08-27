@@ -33,7 +33,7 @@ $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $user = unserialize($_SESSION['utente']);
-    $oDati = [];
+    $oData = [];
     if(isset($post['oper'])){
         if($post['oper'] == '1'){
             //Show all items in the cart
@@ -41,18 +41,31 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }
         else if($post['oper'] == '2'){
             if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
-                $oData = [
-                    'id' => $post['ido'],
-                ];
+                $oData['id'] = $post['ido'];
                 $idp = $post['idp'];
+                try{
+                    addOrderToCart($response,$idp,$user);
+                }catch(Exception $e){
+                    $response['msg'] = $e->getMessage();
+                    //$response['msg'] .= ' Linea n. '.__LINE__;
+                }
+            }//if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
+            else
+                $response['msg'] = Msg::ERR_ORDERINVALIDDATA;
+            //Add an order to cart
+        }//else if($post['oper'] == '2'){
+        else if($post['oper'] == '3'){
+            //Delete an order fron cart
+            if(isset($post['ido']) && is_numeric($post['ido'])){
+                $oData['id'] = $post['ido'];
                 try{
 
                 }catch(Exception $e){
-
+                    $risposta['msg'] = $e->getMessage();
+                    //$risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
-            }//if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
-            //Add an order to cart
-        }//else if($post['oper'] == '2'){
+            }//if(isset($post['ido']) && is_numeric($post['ido'])){
+        }//else if($post['oper'] == '3'){
     }//if(isset($post['oper'])){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 
@@ -126,6 +139,28 @@ function addOrderToCart(array $oData, string|int $idp, Utente $user){
         $response['msg'] = $order->getStrError();
         //$response['msg'] .= ' Linea n. '.__LINE__;
     } 
+}
+
+/**
+ * Delete the order from cart
+ */
+function delOrderFromCart(array &$response, array $oData, Utente $user){
+    $order = new Ordine($oData);
+    if($order->getNumError() == 0){
+        $okDel = $order->delFromCart($user->getUsername());
+        if($okDel){
+            $response['msg'] = Msg::ORDERDELETEDCART;
+            $response['del'] = '1';
+        }
+        else{
+            $response['msg'] = $order->getStrError();
+            //$response['msg'] .= ' Linea n. '.__LINE__;
+        }
+    }//if($order->getNumError() == 0){
+    else{ 
+        $response['msg'] = $order->getStrError();
+        //$risposta['msg'] .= ' Linea n. '.__LINE__;
+    }
 }
 
 /**
