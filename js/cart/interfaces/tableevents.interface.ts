@@ -1,9 +1,12 @@
 export interface TableEventsInterface{
-    form_class: string; //The class of the form submitted
-    button_classes: Array<string>; //button classes list when events occur
+    form_classes: FormClasses; //Form classes for every operation
     operations: Operations; //Orders table backend operations list
 }
 
 export interface Operations{
     delete: number;
+}
+
+export interface FormClasses{
+    delete: string;
 }
