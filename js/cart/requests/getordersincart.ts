@@ -35,4 +35,46 @@ export default class GetOrdersInCart{
         }
         return this._error;
     }
+
+    public async getOrdersInCart(): Promise<object>{
+        let response: object = {};
+        this._errno = 0;
+        try{
+            await this.getOrdersInCartPromise().then(res => {
+                console.log(res);
+                response = JSON.parse(res);
+            }).catch(err => {
+                throw err;
+            });
+        }catch(e){
+            this._errno = GetOrdersInCart.ERR_FETCH;
+            response = {
+                done: false,
+                msg: GetOrdersInCart.ERR_FETCH_MSG
+            };
+        }
+        return response;
+    }
+
+    private async getOrdersInCartPromise(): Promise<string>{
+        let response = await new Promise<string>((resolve, reject) => {
+            let post_data: object = {
+                'ajax': '1',
+                'oper': '1'
+            };
+            fetch(GetOrdersInCart.GETORDERSINCART_URL,{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(post_data)
+            }).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+        return response;
+    }
 }
