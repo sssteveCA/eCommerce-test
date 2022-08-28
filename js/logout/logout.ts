@@ -1,5 +1,7 @@
+import { Constants } from "../constants/constants.js";
 import DialogConfirmInterface from "../dialog/dialogconfirm.interface.js";
 import DialogConfirm from "../dialog/dialogconfirm.js";
+
 
 $(function(){
     //User logout from his account
@@ -7,11 +9,11 @@ $(function(){
         e.preventDefault();
         let dcParams: DialogConfirmInterface = {
             title: 'Esci',
-            message: 'Sei sicuro di voler abandonare la sessione?'
+            message: Constants.MSG_CONFIRM_LOGOUT
         };
-        let dc = new DialogConfirm(dcParams);
+        let dc: DialogConfirm = new DialogConfirm(dcParams);
         let dcDialog = $('#'+dc.id);
-        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset > button:first-child').on('click',() =>{
+        dc.btYes.on('click',() =>{
             //User press YES button
             console.log("Sì");
             dcDialog.dialog('destroy');
@@ -19,7 +21,7 @@ $(function(){
             window.location.href = 'funzioni/logout.php';
 
         });
-        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset > button:last-child').on('click',() =>{
+        dc.btNo.on('click',() =>{
             //User press NO button
             console.log("No");
             dcDialog.dialog('destroy');
