@@ -1,6 +1,12 @@
 
 $single-selectors: (
     'classes': (
+        '.divCart': (
+            padding: 10px,
+            display: flex,
+            justify-content: center,
+            align-items: center
+        ),
         '.timg': (
             height: 200px,
             width: 200px
@@ -13,7 +19,7 @@ $single-selectors: (
             left: 100px,
             height: 500px,
             width: 1000px,
-            overflow: auto
+            overflow: auto,
         ),
         '#null': (
             text-align: center,

@@ -78,7 +78,7 @@ export default class TableBuilder{
         let payForm: string = `
 <tr>
 <td colspan="${colspan}">
-<div id="divCarrello${idv}" style="padding:10px; display:flex; justify-content:center; align-items:center;">
+<div id="divCarrello${idv}" class="divCart">
     <div id="paypalArea${idv}" class="paypalArea">
 
     </div>
@@ -114,7 +114,7 @@ export default class TableBuilder{
         }//if(this.cart_data_length > 0){
         else{
            table = `
-<p style="text-align:center; font-size: 22px; font-weight: bold;">
+<p id="null">
 Nessun ordine effettuato
 </p>           
 `; 
