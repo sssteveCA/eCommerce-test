@@ -5,7 +5,7 @@ import { TableEventsInterface, Operations, FormClasses, ButtonClasses, TeConfirm
  import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
  import DialogConfirm from "../../dialog/dialogconfirm.js";
  import { Constants } from "../../constants/constants.js";
- import { deleteOrderFromCart } from "../cart.js";
+ import { deleteOrderFromCart,cartCheckout } from "../cart.js";
 
 export default class TableEvents{
 
@@ -39,7 +39,18 @@ export default class TableEvents{
      * @param confirm_button 
      */
     private confirmButtonEvent(confirm_button: JQuery): void{
-
+        let this_obj: TableEvents = this;
+        confirm_button.on('click', function(ev){
+            let inputId = ev.target.id;
+            let regex = /([0-9]+)$/;
+            let match: any = regex.exec(inputId);
+            let sellerId = match[1];
+            let seller = this_obj._confirm_params.cart_data[sellerId];
+            let clientId = this_obj._confirm_params.cart_data[sellerId][0]['clientId'];
+            let sbn = this_obj._confirm_params.sbn_code;
+            let currency = this_obj._confirm_params.currency;
+            cartCheckout(sbn,clientId,currency,seller,sellerId);
+        });
     }
 
     /**

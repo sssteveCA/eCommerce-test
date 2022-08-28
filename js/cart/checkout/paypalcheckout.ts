@@ -9,7 +9,7 @@ curr = valuta utilizzata
 subtotal = prezzo del prodotto
 shipping_amt = spese di spedizione
  */
-function paypalCheckout(sbn,cId,currency,venditore,idVend){
+export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
     var prodotti:any = [];
     var prezzo;
     for(let i in venditore){

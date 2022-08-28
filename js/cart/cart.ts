@@ -8,6 +8,7 @@ import DeleteCartOrder from "./requests/deletecartorder.js";
 import GetCartOrders from "./requests/getcartorders.js";
 import TableBuilder from "./views/tablebuilder.js";
 import TableEvents from "./views/tableevents.js";
+import paypalCheckout from "./checkout/paypalcheckout.js";
 
 $(()=>{
     let gco_data: GetCartOrdersInterface = {
@@ -16,6 +17,18 @@ $(()=>{
     fGetCartOrders(gco_data);
     
 });
+
+/**
+ * User clicks in 'pay now' button 
+ * @param sbn 
+ * @param cId 
+ * @param currency 
+ * @param seller 
+ * @param seller_id 
+ */
+export function cartCheckout(sbn, clientId, currency,seller,seller_id): void{
+    paypalCheckout(sbn,clientId,currency,seller,seller_id);
+}
 
 /**
  * Remove an order from cart
