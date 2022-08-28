@@ -77,6 +77,7 @@ function table(tb_data: TableBuilderInterface): void{
     let tab: TableBuilder = new TableBuilder(tb_data);
     let te_data: TableEventsInterface = {
         confirm_params: {
+            cart_data: tab.cart_data,
             currency: tab.confirm_params.currency,
             sbn_code: tab.confirm_params.sbn_code
         },

@@ -1,4 +1,4 @@
-import { TableEventsInterface, Operations, FormClasses, ButtonClasses
+import { TableEventsInterface, Operations, FormClasses, ButtonClasses, TeConfirmParams
  } from "../interfaces/tableevents.interface";
  import DeleteCartOrderInterface from "../interfaces/deletecartorder.interface";
  import DeleteCartOrder from "../requests/deletecartorder";
@@ -10,17 +10,20 @@ import { TableEventsInterface, Operations, FormClasses, ButtonClasses
 export default class TableEvents{
 
     private _button_classes: ButtonClasses;
+    private _confirm_params: TeConfirmParams;
     private _form_classes: FormClasses; //Form classes for every operation
     private _operations: Operations; //Orders table backend operations list
 
     constructor(data: TableEventsInterface){
         this._button_classes = data.button_classes;
+        this._confirm_params = data.confirm_params;
         this._form_classes = data.form_classes;
         this._operations = data.operations;
         this.setEvents();
     }
 
     get button_classes(){return this._button_classes;}
+    get confirm_params(){return this._confirm_params;}
     get form_classes(){return this._form_classes;}
     get operations(){return this._operations;}
 
