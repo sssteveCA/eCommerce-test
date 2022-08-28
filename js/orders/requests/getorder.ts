@@ -86,11 +86,11 @@ Dati prodotto<br>
 Nome: ${order_obj['nomeP']}<br>
 Categoria: ${order_obj['indirizzo']}<br>
 Indirizzo: ${order_obj['tipo']}<br>
-Prezzo: ${order_obj['prezzo']}<br>
-Spedizione: ${order_obj['spedizione']}<br>
+Prezzo: ${order_obj['prezzo']}€<br>
+Spedizione: ${order_obj['spedizione']}€<br>
 Quantità: ${order_obj['quantita']}<br>
 Spedito da: ${order_obj['stato']}<br>
-Totale: ${order_obj['totale']}<br>
+Totale: ${order_obj['totale']}€<br>
         `;
         return message;
     }

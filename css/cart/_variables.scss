@@ -1,0 +1,19 @@
+
+$single-selectors: (
+    'classes': (
+        margin-top: 20px,
+        top: 100px,
+        left: 100px,
+        height: 500px,
+        width: 1000px,
+        overflow: auto
+    ),
+    'ids': (),
+    'tags': ()
+);
+
+$compound-selectors: (
+    'tr:nth-child(2)': (
+
+    )
+);

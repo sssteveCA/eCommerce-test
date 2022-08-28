@@ -38,7 +38,7 @@ export default class TableBuilder{
     <input type="hidden" name="oper" value="3"> 
     <input type="hidden" name="ido" value="${ido}">
     <input type="hidden" name="idv" value="${idv}">
-    <input type="submit" class="iElim" id="bElim${i}" value="ELIMINA">
+    <button type="submit" class="btn btn-danger iElim" id="bElim${i}">ELIMINA</button>
 </form>    
         `;
         return df;
@@ -49,7 +49,7 @@ export default class TableBuilder{
         let df: string = `
 <form class="fDett" method="get" action="prodotto.php">
     <input type="hidden" name="id" value="${idp}">
-    <input type="submit" class="iDett" id="bDett${i}" value="DETTAGLI">
+    <button type="submit" class="btn btn-primary iDett" id="bDett${i}">DETTAGLI</button>
 </form>
         `;
         return df;
