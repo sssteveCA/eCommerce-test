@@ -83,7 +83,7 @@ export default class TableBuilder{
 
     </div>
     <div id="confirm${idv}" class="confirm">
-        <button id="confirmButton${idv}" class="confirmButton">PAGA ORDINI</button>
+        <button id="confirmButton${idv}" class="btn btn-success btn-lg confirmButton">PAGA ORDINI</button>
     </div>
 </div> 
 </td>
@@ -99,7 +99,7 @@ export default class TableBuilder{
         if(this.cart_data_length > 0){
             //If user has at least one cart in the cart
             table = `
-            <table>`;
+            <table class="table table-hover">`;
             table += this.tableThead();
             table += `<tbody>`;
             for(let idv in this._cart_data){
@@ -126,16 +126,16 @@ Nessun ordine effettuato
     //Table thead part
     private tableThead(): string{
         let thead: string = `
-<thead>
+<thead class="table-light">
 <tr>
-<th>Nome</th>
-<th>Immagine</th>'
-<th>Tipo</th>'
-<th>Quantità</th>'
-<th>Totale</th>'
-<th></th><th></th>
+<th scope="col">Nome</th>
+<th>Immagine</th>
+<th scope="col">Tipo</th>
+<th scope="col">Quantità</th>
+<th scope="col">Totale</th>
+<th scope="col"></th><th></th>
 </tr>
-</thead>'
+</thead>
         `;
         return thead;
     }

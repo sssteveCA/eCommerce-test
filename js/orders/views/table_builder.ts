@@ -35,7 +35,7 @@ export default class TableBuilder{
         if(this.orders_count > 0){
             let columnCart: boolean = this.columnCart(); //Add the add Cart column to the table if at least an order is not actually in the cart
             let table: string = `
-<table class="table">`;
+<table class="table table-hover">`;
             table += this.tableThead(columnCart);
             table += `
     <tbody>
@@ -145,7 +145,7 @@ export default class TableBuilder{
     //Table thead HTML
     private tableThead(columnCart: boolean): string{
         let thead: string = `
-        <thead>
+        <thead class="table-light">
         <tr>
             <th scope="col">Id ordine</th>
             <th scope="col">Id prodotto</th>
