@@ -1,8 +1,7 @@
-import DialogMessage from "../../dialog/dialogmessage";
+import DialogMessage from "../../dialog/dialogmessage.js";
 import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
-import GetCartOrders from "../requests/getcartorders";
-import { fGetCartOrders } from "../cart";
+import { fGetCartOrders } from "../cart.js";
 
 export function handleResponse(result, clientId, idVend) {
 
@@ -41,6 +40,7 @@ export function handleResponse(result, clientId, idVend) {
     dati['payer_status'] = status;
     dati['txn_id'] = transactionID;
     dati['clientId'] = clientId;
+    console.log(dati);
     $.ajax({
         url : 'cartSuccess.php',
         method : 'post',
@@ -55,6 +55,8 @@ export function handleResponse(result, clientId, idVend) {
             }
             let dm: DialogMessage = new DialogMessage(dm_data);
             dm.btOk.on('click', ()=>{
+                dm.dialog.dialog('destroy');
+                dm.dialog.remove();
                 if(risp['done'] === true){
                     //Refresh cart orders if payment was done successfully
                     let gco_data: GetCartOrdersInterface = {

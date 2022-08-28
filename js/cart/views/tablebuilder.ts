@@ -14,7 +14,11 @@ export default class TableBuilder{
     constructor(data: TableBuilderInterface){
         this._id_container = data.id_container;
         this._cart_data = data.cart_data;
+        console.log("tableevents.ts cart data");
+        console.log(this._cart_data);
         this._confirm_params = data.confirm_params;
+        console.log("tableevents.ts confirm params");
+        console.log(this._confirm_params);
         this.setTable();
     }
 

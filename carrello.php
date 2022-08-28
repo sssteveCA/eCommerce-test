@@ -29,7 +29,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script type="module" src=<?php echo P::REL_CART_JS; ?>></script>
-        <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

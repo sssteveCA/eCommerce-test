@@ -1,5 +1,5 @@
 
-import * as hr from './handleresponse';
+import * as hr from './handleresponse.js';
 
 declare var paypal:any;
 /**
@@ -188,7 +188,9 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
                                     }
                                 }
                             ]    
-                             }).then(hr.handleResponse);
+                             }).then(result => {
+                                hr.handleResponse(result,clientId,idVend);
+                             });
                             /*}).then(function(){
                                 //redirect a 'cartSuccess.php'
                                 actions.redirect();
