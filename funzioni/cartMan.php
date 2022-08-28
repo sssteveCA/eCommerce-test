@@ -27,6 +27,7 @@ $post = json_decode($input,true);
 
 $response = [
     'done' => false,
+    'msg' => '',
     'sbn_code' => SBN_CODE,
     'post' => $post
 ];

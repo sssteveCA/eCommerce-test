@@ -1,7 +1,10 @@
+import DialogMessage from "../../dialog/dialogmessage";
+import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
 import GetCartOrders from "../requests/getcartorders";
+import { fGetCartOrders } from "../cart";
 
-function handleResponse(result, clientId, idVend) {
+export function handleResponse(result, clientId, idVend) {
 
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
@@ -46,18 +49,19 @@ function handleResponse(result, clientId, idVend) {
             console.log(risposta);
             var risp = JSON.parse(risposta);
             console.log(risp);
-            var oper = {};
-            //aggiorno gli ordini nel carrello
-            let gco_data: GetCartOrdersInterface = {
-                operation: 1
+            let dm_data: DialogMessageInterface = {
+                title: 'Pagamento ordini',
+                message: risp['msg']
             }
-            let gco: GetCartOrders = new GetCartOrders(gco_data);
-            oper['ajax'] = '1';
-            oper['oper'] = '1';
-            chiamaAjax(oper);
-            message('Carrello','auto','400px',risp['msg'],'close');
-            $('#dialog').on('dialogclose',function(){
-                $('#dialog').remove();
+            let dm: DialogMessage = new DialogMessage(dm_data);
+            dm.btOk.on('click', ()=>{
+                if(risp['done'] === true){
+                    //Refresh cart orders if payment was done successfully
+                    let gco_data: GetCartOrdersInterface = {
+                        operation: 1
+                    }
+                    fGetCartOrders(gco_data);
+                }//if(risp['done'] === true){
             });
         },
         error : function(xhr, stato, errore){

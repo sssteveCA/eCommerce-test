@@ -18,6 +18,7 @@ require_once("funzioni/const.php");
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 $risposta = array();
 $risposta['msg'] = '';
+$risposta['done'] = false;
 $successo = false;
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -114,6 +115,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }
     }
     if($successo){
+        $risposta['done'] = true;
         $risposta['msg'] = 'Pagamento ordini nel carrello completato con successo';
     }
 }
