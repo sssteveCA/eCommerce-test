@@ -1,4 +1,7 @@
 
+import * as hr from './handleresponse';
+
+declare var paypal:any;
 /**
 sbn = SBN_CODE,
 cId = ID venditore App Paypal
@@ -7,9 +10,9 @@ subtotal = prezzo del prodotto
 shipping_amt = spese di spedizione
  */
 function paypalCheckout(sbn,cId,currency,venditore,idVend){
-    var prodotti = [];
+    var prodotti:any = [];
     var prezzo;
-    for(i in venditore){
+    for(let i in venditore){
         prodotti[i] = {};
         /*inserisco le informazioni sui prodotti del venditore, che verranno poi aggiunte al JSON*/
         prodotti[i].name = venditore[i]['nome'];
@@ -51,7 +54,7 @@ function paypalCheckout(sbn,cId,currency,venditore,idVend){
         payment: function(actions) {
             var subtotal = 0;
             var shipping_amt = 0;
-            for(i in venditore){
+            for(let i in venditore){
                 //somma dei prezzi dei prodotti del venditore
                 subtotal += venditore[i].prezzo;
                 //somma delle spese di spedizione dei prodotti del venditore
@@ -64,7 +67,7 @@ function paypalCheckout(sbn,cId,currency,venditore,idVend){
             //var subtotal = document.getElementById('amount').value;
             
             //totale da pagare
-            var total_amt = subtotal + shipping_amt;
+            var total_amt:any = subtotal + shipping_amt;
             total_amt = parseFloat(total_amt).toFixed(2);
             total_amt = parseFloat(total_amt);
             console.log("currency "+currency);
@@ -144,17 +147,26 @@ function paypalCheckout(sbn,cId,currency,venditore,idVend){
                        //total_amt =+ total_amt + shipping_amt_updated;
                         console.log(document.querySelector('#paypalArea'+idVend));
                         console.log(document.querySelector('#confirm'+idVend));
-                       document.querySelector('#paypalArea'+idVend).style.display = 'none';
-                       document.querySelector('#confirm'+idVend).style.display = 'block';
+                        let current_pa: HTMLElement|null = document.querySelector('#paypalArea'+idVend);
+                        if(current_pa != null)
+                            current_pa.style.display = 'none';
+                        let current_confirm: HTMLButtonElement|null = document.querySelector('#confirm'+idVend);
+                        if(current_confirm != null)
+                            current_confirm.style.display = 'block';
                         // Listen for click on confirm button
-                        document.querySelector('#confirmButton'+idVend).addEventListener('click', function(ev) {
+                        let current_cb: HTMLElement|null = document.querySelector('#confirmButton'+idVend);
+                        if(current_cb != null){
+                            current_cb.addEventListener('click', function(ev) {
                             //id del pulsante premuto
         
                             // Disable the button and show a loading message
-        
-                            document.querySelector('#confirm'+idVend).innerText = 'Loading...';
-                            document.querySelector('#confirm'+idVend).disabled = true;
-        
+                            let current_confirm: HTMLButtonElement|null = document.querySelector('#confirm'+idVend);
+                            if(current_confirm != null)
+                            {
+                                current_confirm.innerText = 'Loading...';
+                                current_confirm.disabled = true;
+                            }
+                            
                             // Execute the payment
                             var subtotal = currentTotal - currentShippingVal;
         
@@ -176,13 +188,15 @@ function paypalCheckout(sbn,cId,currency,venditore,idVend){
                                     }
                                 }
                             ]    
-                             }).then(handleResponse);
+                             }).then(hr.handleResponse);
                             /*}).then(function(){
                                 //redirect a 'cartSuccess.php'
                                 actions.redirect();
                             });*/
         
-                        })//fine AddEventListener #confirmButton  
+                            });//fine AddEventListener #confirmButton  
+                        }
+                            
                     })   //fine return actions.payment.execute().then(handleResponse);
               }, //fine onAuthorize
               //il cliente cancella il pagamento

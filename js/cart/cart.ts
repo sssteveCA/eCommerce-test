@@ -47,7 +47,7 @@ export function deleteOrderFromCart(dco_data: DeleteCartOrderInterface): void{
  * Get user orders added to cart
  * @param gco_data 
  */
-function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
+export function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
     let gco = new GetCartOrders(gco_data);
     gco.getCartOrders().then(obj => {
         let errno = gco.errno;
