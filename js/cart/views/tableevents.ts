@@ -1,4 +1,4 @@
-import { TableEventsInterface, Operations, FormClasses
+import { TableEventsInterface, Operations, FormClasses, ButtonClasses
  } from "../interfaces/tableevents.interface";
  import DeleteCartOrderInterface from "../interfaces/deletecartorder.interface";
  import DeleteCartOrder from "../requests/deletecartorder";
@@ -9,23 +9,34 @@ import { TableEventsInterface, Operations, FormClasses
 
 export default class TableEvents{
 
+    private _button_classes: ButtonClasses;
     private _form_classes: FormClasses; //Form classes for every operation
     private _operations: Operations; //Orders table backend operations list
 
     constructor(data: TableEventsInterface){
+        this._button_classes = data.button_classes;
         this._form_classes = data.form_classes;
         this._operations = data.operations;
         this.setEvents();
     }
 
+    get button_classes(){return this._button_classes;}
     get form_classes(){return this._form_classes;}
     get operations(){return this._operations;}
 
     private setEvents(): void{
-        let form_classes: FormClasses = this._form_classes;
-        let delete_form: JQuery = $('.'+form_classes.delete);
+        let delete_form: JQuery = $('.'+this._form_classes.delete);
         this.deleteFormEvent(delete_form);
-        
+        let confirm_button: JQuery = $('.'+this._button_classes.confirm);
+        this.confirmButtonEvent(confirm_button);
+    }
+
+    /**
+     * Register event on Pay cart order button click
+     * @param confirm_button 
+     */
+    private confirmButtonEvent(confirm_button: JQuery): void{
+
     }
 
     /**

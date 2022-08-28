@@ -2,7 +2,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import DeleteCartOrderInterface from "./interfaces/deletecartorder.interface";
 import GetCartOrdersInterface from "./interfaces/getcartorders.interface";
-import TableBuilderInterface from "./interfaces/tablebuilder.interface";
+import {TableBuilderInterface} from "./interfaces/tablebuilder.interface";
 import { TableEventsInterface } from "./interfaces/tableevents.interface";
 import DeleteCartOrder from "./requests/deletecartorder.js";
 import GetCartOrders from "./requests/getcartorders.js";
@@ -54,6 +54,10 @@ export function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
         switch(errno){
             case 0:
                 let tb_data: TableBuilderInterface = {
+                    confirm_params: {
+                        currency: 'EUR',
+                        sbn_code: obj['sbn_code']
+                    },
                     id_container: 'carrello',
                     cart_data: obj['carrello']
                 };
@@ -72,6 +76,10 @@ export function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
 function table(tb_data: TableBuilderInterface): void{
     let tab: TableBuilder = new TableBuilder(tb_data);
     let te_data: TableEventsInterface = {
+        confirm_params: {
+            currency: tab.confirm_params.currency,
+            sbn_code: tab.confirm_params.sbn_code
+        },
         button_classes: {
             confirm: 'confirmButton'
         },

@@ -1,7 +1,8 @@
-import TableBuilderInterface from "../interfaces/tablebuilder.interface";
+import {TbConfirmParams, TableBuilderInterface} from "../interfaces/tablebuilder.interface";
 
 //Print HTML orders table
 export default class TableBuilder{
+    private _confirm_params: TbConfirmParams;
     private _id_container: string; //id of parent element where table is appended
     private _cart_data: object;
     private _table: string = ''; //HTML table
@@ -13,9 +14,13 @@ export default class TableBuilder{
     constructor(data: TableBuilderInterface){
         this._id_container = data.id_container;
         this._cart_data = data.cart_data;
+        if(data.confirm_params != null){
+            this._confirm_params = data.confirm_params;
+        }
         this.setTable();
     }
 
+    get confirm_params(){return this._confirm_params;}
     get cart_data(){return this._cart_data;}
     get cart_data_length():number{
         return Object.keys(this._cart_data).length;
