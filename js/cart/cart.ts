@@ -72,6 +72,9 @@ export function fGetCartOrders(gco_data: GetCartOrdersInterface): void{
 function table(tb_data: TableBuilderInterface): void{
     let tab: TableBuilder = new TableBuilder(tb_data);
     let te_data: TableEventsInterface = {
+        button_classes: {
+            confirm: 'confirmButton'
+        },
         form_classes: {
             delete: 'fElim'
         },

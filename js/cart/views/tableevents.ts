@@ -24,6 +24,15 @@ export default class TableEvents{
     private setEvents(): void{
         let form_classes: FormClasses = this._form_classes;
         let delete_form: JQuery = $('.'+form_classes.delete);
+        this.deleteFormEvent(delete_form);
+        
+    }
+
+    /**
+     * Register event on remove item from cart form submit
+     * @param delete_form 
+     */
+    private deleteFormEvent(delete_form: JQuery): void{
         let this_obj: TableEvents = this;
         delete_form.on('submit',function(ev){
             ev.preventDefault();
