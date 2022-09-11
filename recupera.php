@@ -35,13 +35,13 @@ else{
             </div>
         <div class="my-container">
             <fieldset id="dRecupera">
-                <legend>Recupera il tuo account</legend>
+                <legend class="text-center pb-4">Recupera il tuo account</legend>
                 <form id="fRecupera" method="post" action="funzioni/mail.php">
-                    <div>
-                        <label for="email" class="form-label">Email</label>
+                    <div class="d-flex align-items-center">
+                        <label for="email" class="form-label me-3">Email</label>
                         <input type="email" id="email" class="form-control" name="email">
                     </div>
-                    <div>
+                    <div class="pt-4">
                         <button type="submit" id="bOk" class="btn btn-primary">OK</button>
                     </div>
                 </form>

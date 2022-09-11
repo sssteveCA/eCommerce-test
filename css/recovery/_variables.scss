@@ -1,12 +1,17 @@
 
 $single-selectors: (
     'classes' : (
+        '.my-container': (
+            min-width: 400px,
+            width: 80%,
+            max-width: 700px
+        )
     ),
     'ids': (    
         '#dRecupera': (
             padding: 50px,
             border: '1px solid black',
-            width: 350px
+            //width: 350px
         ) 
     ),
     'tags' : (
@@ -30,9 +35,9 @@ $compound-selectors : (
         display: flex,
         justify-content: center
     ),
-    'input[type=email]': (
+    /* 'input[type=email]': (
         width: 70%
-    ),
+    ), */
     'input[type=submit]': (
         padding: 5px
     )
