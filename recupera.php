@@ -30,21 +30,24 @@ else{
     </head>
     <body>
         <div id="indietro">
-            <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="index.php">Indietro</a>
+                <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
+                <a href="index.php">Indietro</a>
+            </div>
+        <div class="my-container">
+            <fieldset id="dRecupera">
+                <legend>Recupera il tuo account</legend>
+                <form id="fRecupera" method="post" action="funzioni/mail.php">
+                    <div>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" name="email">
+                    </div>
+                    <div>
+                        <button type="submit" id="bOk" class="btn btn-primary">OK</button>
+                    </div>
+                </form>
+            </fieldset>
         </div>
-        <fieldset id="dRecupera">
-            <legend>Recupera il tuo account</legend>
-            <form id="fRecupera" method="post" action="funzioni/mail.php">
-                <div>
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" name="email">
-                </div>
-                <div>
-                    <button type="submit" id="bOk" class="btn btn-primary">OK</button>
-                </div>
-            </form>
-        </fieldset>
+        
     </body>
 </html>
 <?php
