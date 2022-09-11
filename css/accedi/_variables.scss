@@ -12,7 +12,8 @@ $single-selectors: (
     'ids': (
         '#formLogin': (
             padding: 20px,
-            margin: '0 auto'
+            margin: '0 auto',
+            width: 65%
         )
     )
 );
@@ -24,6 +25,16 @@ $compound-selectors : (
         margin: '0 auto'
     ),
     '#formLogin * ': (
-        margin: 10px
+        margin: 10px,
+    ),
+    '#formLogin > div': (
+        width: 100%
+    ),
+    '#formLogin > div:nth-of-type(4)': (
+        display: flex,
+        justify-content: center,
+    ),
+    '#formLogin > div:nth-of-type(4) *': (
+        margin: 0px 20px
     )
 );

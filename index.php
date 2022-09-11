@@ -46,10 +46,10 @@ else
                 </div>
             </form>
             <div class="after-form ">
-                Non hai ancora un account? <a href="registrati.php">Registrati</a>
+                Non hai ancora un account? <a class="ps-1" href="registrati.php">Registrati</a>
             </div>
             <div class="after-form">
-                Hai dimenticato la password? <a href="recupera.php">Clicca qui</a>
+                Hai dimenticato la password? <a class="ps-1" href="recupera.php">Clicca qui</a>
             </div>
         </div>
     </body>
