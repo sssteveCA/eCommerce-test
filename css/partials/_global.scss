@@ -1,4 +1,6 @@
 //This patials is used in some of scss files
+$container-class: unquote(".my-container");
+$initial-container-top: 30px;
 
 @mixin animation($map){
     animation-name: map-get($map, "name");
