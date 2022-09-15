@@ -85,8 +85,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     </div>
     <div id="qt" class="info">
         <!-- numero di prodotti che l'utente vuole comprare -->
-        <label for="iQt">Quantità</label>
-        <input type="number" id="iQt" name="qt" value="1">
+        <label for="iQt" class="form-label me-2">Quantità</label>
+        <input type="number" id="iQt" class="form-control" name="qt" value="1">
     </div>
     <div id="prezzo" class="info">
         <!-- Prezzo in euro -->
@@ -98,7 +98,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     </div>
     <div id="dCompra" class="info">
         <input type="hidden" id="idp" name ="idp" value="{$prodotto->getId()}">
-        <input type="submit" id="bCompra" value="COMPRA">
+        <button type="submit" id="bCompra" class="btn btn-primary">COMPRA</button>
         </div>
 </form>
 HTML;
@@ -124,7 +124,7 @@ HTML;
     </div>
     <div id="dCompra" class="info">
         <input type="hidden" id="idp" name ="idp" value="{$prodotto->getId()}">
-        <input type="submit" id="bElimina" value="ELIMINA">
+        <button type="submit" id="bElimina" class="btn btn-danger">ELIMINA</button>
     </div>
 </form>
 HTML;
@@ -167,18 +167,18 @@ HTML;
                 <legend>Contatta il venditore</legend>
                 <form id="formMail" method="post" action="funzioni/mail.php">
                     <div>
-                        <label for="oggetto">Oggetto </label>
-                        <input type="text" id="oggetto" name="pOggetto">
+                        <label for="oggetto" class="form-label me-2">Oggetto </label>
+                        <input type="text" id="oggetto" class="form-control" name="pOggetto">
                     </div>
                     <div>
-                        <label for="messaggio">Messaggio</label>
-                        <textarea id="messaggio" name="pMessaggio"></textarea>
+                        <label for="messaggio" class="form-label me-2">Messaggio</label>
+                        <textarea id="messaggio" class="form-control" name="pMessaggio"></textarea>
                     </div>
                     <!--Indica il blocco di istruzioni che dovrà eseguire lo script php -->
                     <input type="hidden" name="oper" value="<?php echo '3'; ?>">
                     <!-- Destinatario mail -->
                     <input type="hidden" id="emailTo" name="emailTo" value="<?php echo $venditore->getEmail(); ?>">
-                    <input type="submit" value="CONTATTA">
+                    <button type="submit" class="btn btn-primary">CONTATTA</button>
                 </form>
             </fieldset>
         </div>
