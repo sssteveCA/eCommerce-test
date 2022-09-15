@@ -166,35 +166,36 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     if($listaId !== null){
         if(!empty($listaId)){
             $prodotti = array();
-            echo '<table border="1">';
+            $table = '<table class="table table-striped">';
             foreach($listaId as $id){
                 try{
                     $prodotti[$id] = new Prodotto(array('id' => $id));
-                    echo '<tr>';
-                    //nome del prodotto
-                    echo '<td class="nome">'.$prodotti[$id]->getNome().'</td>';
-                    //immagine prodotto, mostrata con la codifica base64
-                    echo '<td class="timg"><img src="'.$prodotti[$id]->getImmagine().'"></td>';
-                    //categoria del prodotto
-                    echo '<td class="tipo">'.$prodotti[$id]->getTipo().'</td>';
-                    //prezzo in Euro
-                    echo '<td class="prezzo">';
-                    printf("%.2f€",$prodotti[$id]->getPrezzo());
-                    echo '</td>';
-                    echo '<td class="dettagli">';
-                    //form che consente all'utente di aprire la scheda del prodotto selezionato
-                    echo '<form method="get" action="prodotto.php"><input type="hidden" name="id" value="'.$id.'">';
-                    echo '<input type="submit" value="DETTAGLI"></form>';
-                    echo '</td>';
-                    echo '</tr>';
-    
+                    $name = $prodotti[$id]->getNome();
+                    $image = $prodotti[$id]->getImmagine();
+                    $type = $prodotti[$id]->getTipo();
+                    $price = sprintf("%.2f",$prodotti[$id]->getPrezzo());
+                    $tr = <<<HTML
+<tr>
+    <td class="nome">{$name}</td>
+    <td class="timg"><img src="{$image}"></td>
+    <td class="tipo">{$type}</td>
+    <td class="prezzo">{$price}€</td>
+    <td class="dettagli">
+        <form method="get" action="prodotto.php"><input type="hidden" name="id" value="{$id}">
+            <button type="submit" class="btn btn-success">DETTAGLI</button>
+        </form>    
+    </td>
+</tr>
+HTML;
+                    $table .= $tr;
                 }
                 catch(Exception $e){
                     echo $e->getMessage().'<br>';  
                     echo ' Linea n. '.__LINE__;          
                 }
             }
-            echo '</table>';
+            $table .= '</table>';
+            echo $table;
         }
         else{
             echo '<p id="null">La ricerca non ha prodotto alcun risultato</p>';
