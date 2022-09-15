@@ -12,6 +12,9 @@ function menu($welcome){
         </button>
         <div id="navbar-content" class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
+                <li id="home" class="nav-item flex-fill text-center">
+                    <a class="nav-link" href="benvenuto.php">Home</a>
+                </li>
                 <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-profile" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-profile">

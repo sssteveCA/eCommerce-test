@@ -27,23 +27,61 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $dati['cap'] = $utente->getCap();
     $dati['email'] = $utente->getEmail();
     $dati['paypalMail'] = ($utente->getPaypalMail() !== null)? $utente->getPaypalMail() : '(Account non associato a nessuna mail business)';
+        $cId = $utente->getClientId();
+        $clientId = "";
+        if($cId != null && preg_match(Utente::$regex['clientId'],$cId)){
+            $clientId = <<<HTML
+<tr>
+    <th scope="row">ID Venditore</th>
+    <td>{$cId}</td>
+</tr>
+HTML;
+        }
         $output = <<<HTML
 <div id="dati">
-        <p id="nome">Nome: {$dati['nome']}</p>
-        <p id="cognome">Cognome: {$dati['cognome']}</p>
-        <p id="nascita">Nascita: {$dati['nascita']}</p>
-        <p id="sesso">Sesso: {$dati['sesso']}</p>
-        <p id="indirizzo">Indirizzo: {$dati['indirizzo']}, {$dati['numero']}</p>
-        <p id="citta">Città: {$dati['citta']}</p>
-        <p id="cap">CAP: {$dati['cap']}</p>
-        <p id="email">Indirizzo email: {$dati['email']}</p>
-        <p id="emailBusiness">Email business: {$dati['paypalMail']}</p>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th scope="row">Nome</th>
+                <td>{$dati['nascita']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Cognome</th>
+                <td>{$dati['cognome']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nascita</th>
+                <td>{$dati['nascita']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Sesso</th>
+                <td>{$dati['numero']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Indirizzo</th>
+                <td>{$dati['indirizzo']}, {$dati['numero']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Città</th>
+                <td>{$dati['citta']}</td>
+            </tr>
+            <tr>
+                <th scope="row">CAP</th>
+                <td>{$dati['cap']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Indirizzo email</th>
+                <td>{$dati['email']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email business</th>
+                <td>{$dati['paypalMail']}</td>
+            </tr>
+            {$clientId}
+        </tbody>
+    </table>
+</div>
 HTML;
-    $cId = $utente->getClientId();
-    if($cId != null && preg_match(Utente::$regex['clientId'],$cId)){
-        $output .= '<p id="clientId">ID venditore: '.$cId.'</p>';
-    }
-    $output .= '</div>';
 
 ?>
 <!DOCTYPE html>
