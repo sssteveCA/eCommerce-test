@@ -12,7 +12,7 @@ $initial-container-top: 30px;
     animation-timing-function: map-get($map, "timing-function");
 }
 
-@mixin fade-opacity-animation($class, $initial-top){
+@mixin move-appareance-animation($class, $initial-top){
     @keyframes fadeOpacity {
         0%{opacity: 0; top: $initial-top;}
         100%{opacity: 1; top: 0px;}

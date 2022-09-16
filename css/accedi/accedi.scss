@@ -2,6 +2,6 @@
 @import 'mixins';
 @import '../partials/global';
 
-@include fade-opacity-animation($container-class, $initial-container-top);
+@include move-appareance-animation($container-class, $initial-container-top);
 @include single-selectors-loop($single-selectors);
 @include compound-selectors-loop($compound-selectors);

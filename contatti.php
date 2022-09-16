@@ -31,7 +31,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
-        <div id="d1">
+        <div id="d1" class="contacts-div">
             <fieldset id="f1">
                 <legend>Scrivi il tuo messaggio</legend>
                 <div>
