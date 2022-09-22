@@ -64,6 +64,7 @@ else {
     <head>
         <title>Recupera password</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href={$css}>
     </head>
     <body>
     {$mess}

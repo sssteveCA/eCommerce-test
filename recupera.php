@@ -5,6 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 session_start();
 
 require_once('interfaces/paths.php');
+require('footer.php');
 
 if(isset($_SESSION['mail'],$_SESSION['user'],$_SESSION['logged']) && $_SESSION['mail'] != '' && $_SESSION['user'] != '' && $_SESSION['logged'] === true){
     header('location: benvenuto.php');
@@ -21,6 +22,7 @@ else{
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
@@ -47,7 +49,7 @@ else{
                 </form>
             </fieldset>
         </div>
-        
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php
