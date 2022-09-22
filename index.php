@@ -3,6 +3,7 @@
 use EcommerceTest\Interfaces\Paths as P;
 
 require_once('interfaces/paths.php');
+require('footer.php');
 
 session_start();
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
@@ -52,6 +53,7 @@ else
                 Hai dimenticato la password? <a class="ps-1" href="recupera.php">Clicca qui</a>
             </div>
         </div>
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php
