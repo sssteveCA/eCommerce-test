@@ -18,6 +18,7 @@ else
         <title>Accedi</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href=<?php echo P::REL_LOGINTO_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
@@ -27,6 +28,9 @@ else
     <body>
         <!-- < ?php echo password_hash('123456',PASSWORD_DEFAULT); ?><br> -->
         <div class="my-container d-flex flex-column">
+            <div class="header d-flex align-items-center py-2">
+                <h1 class="w-100 text-center">Accedi</h1>
+            </div>
             <form id="formLogin" method="post" action="funzioni/login.php">
                 <div class="mb-1">
                     <label for="nome" class="form-label">Email</label>

@@ -18,6 +18,7 @@ require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
+require('footer.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
@@ -26,6 +27,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         'bootstrap_css' => P::REL_BOOTSTRAP_CSS,
         'jquery_css' => P::REL_JQUERY_CSS,
         'jquerytheme_css' => P::REL_JQUERYTHEME_CSS,
+        'footer_css' => P::REL_FOOTER_CSS,
         'jquery_js' => P::REL_JQUERY_JS,
         'jqueryUi_js' => P::REL_JQUERYUI_JS,
         'bootstrap_js' => P::REL_BOOTSTRAP_JS,
@@ -38,6 +40,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $page_data['result'] = result($utente);
     $page = html_page($page_data);
     echo $page;
+    echo footer();
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else
     echo M::ERR_LOGIN1;
@@ -54,6 +57,7 @@ function html_page(array $data): string{
         <link rel="stylesheet" href="{$data['bootstrap_css']}">
         <link rel="stylesheet" href="{$data['jquery_css']}">
         <link rel="stylesheet" href="{$data['jquerytheme_css']}" >
+        <link rel="stylesheet" href="{$data['footer_css']}" >
         <script src="{$data['jquery_js']}"></script>
         <script src="{$data['jqueryUi_js']}"></script>
         <script src="{$data['popper_js']}"></script>

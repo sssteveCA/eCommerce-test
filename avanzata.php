@@ -7,6 +7,7 @@ require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
+require('footer.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 ?>
@@ -20,6 +21,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_POPPER_JS; ?>></script>
@@ -128,6 +130,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
             </div>
         </form>
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php

@@ -5,6 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 session_start();
 
 require_once('interfaces/paths.php');
+require('footer.php');
 
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
     echo '<a href="logout.php">Esci </a> dall\' account per registrarti';
@@ -18,6 +19,7 @@ else{
         <meta charset="utf-8">
         <link rel="stylesheet" href="<?php echo P::REL_SUBSCRIBE_CSS; ?>">
         <link rel="stylesheet" href="<?php echo P::REL_BOOTSTRAP_CSS; ?>">
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <link rel="stylesheet" href="<?php echo P::REL_JQUERY_CSS; ?>" >
         <link rel="stylesheet" href="<?php echo P::REL_JQUERYTHEME_CSS; ?>" >
         <script src="<?php echo P::REL_JQUERY_JS; ?>"></script>
@@ -28,6 +30,9 @@ else{
     </head>
     <body>
         <div class="my-container">
+            <div class="header d-flex align-items-center py-2">
+                <h1 class="w-100 text-center">Registrati</h1>
+            </div>
             <div id="indietro">
                 <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
                 <a href="index.php">Indietro</a>
@@ -104,13 +109,14 @@ else{
                     <input type="checkbox" id="show" class="form-check-input">
                     <label for="show" class="form-check-label">Mostra password</label>
                 </div>
-                <div class="buttons">
+                <div class="buttons d-flex justify-content-evenly">
                     <button type="submit" id="submit" class="btn btn-primary">REGISTRATI</button>
                     <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
                 </div>
                 <p>*Richiesti quando l'utente deve caricare le inserzioni</p>
             </form>
         </div>
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php

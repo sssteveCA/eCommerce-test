@@ -12,6 +12,7 @@ require_once('interfaces/userErrors.php');
 require_once('objects/utente.php');
 require_once('funzioni/config.php');
 require_once("funzioni/const.php");
+require('footer.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -93,6 +94,7 @@ HTML;
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_POPPER_JS; ?>></script>
@@ -107,6 +109,7 @@ HTML;
             <legend>Informazioni utente</legend>
             <?php echo $output; ?>
         </fieldset>
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php

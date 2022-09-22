@@ -2,6 +2,7 @@
 @mixin footer-style(){
     #{$footer-class}{
         background: $gradient;
+        margin: $margin;
         padding: $padding;
         width: $width;
     }

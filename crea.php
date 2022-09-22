@@ -11,6 +11,7 @@ require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
+require('footer.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
@@ -24,6 +25,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_POPPER_JS; ?>></script>
@@ -137,6 +139,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 </fieldset>
             </form>
         </div>
+        <?php echo footer(); ?>
 <?php
     }
     else{

@@ -8,6 +8,7 @@ require_once('navbar.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
 
+
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
