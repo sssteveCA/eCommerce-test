@@ -2,6 +2,8 @@
 
 namespace EcommerceTest\Objects;
 
+use EcommerceTest\Exceptions\IncorrectUserInstanceFormatException;
+use EcommerceTest\Exceptions\NoUserInstanceException;
 use EcommerceTest\Traits\SearchQueryBuilder;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 
@@ -22,8 +24,11 @@ class AdvancedSearch{
     public function getTable(){return $this->table;}
 
     private function assignValues(array $data){
+        if(!$data['user']) throw new NoUserInstanceException;
+        if(!$data['user'] instanceof Utente) throw new IncorrectUserInstanceFormatException;
         $this->table = isset($data['table']) ? $data['table'] : Mv::TABPROD;
         $this->sqlQuery = "SELECT `id` FROM `{$this->table}` ";
+        $this->sqlQuery .= "ORDER BY `data` DESC LIMIT 30";
     }
 }
 ?>
