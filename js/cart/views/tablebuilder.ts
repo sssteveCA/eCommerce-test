@@ -25,7 +25,9 @@ export default class TableBuilder{
     get confirm_params(){return this._confirm_params;}
     get cart_data(){return this._cart_data;}
     get cart_data_length():number{
-        return Object.keys(this._cart_data).length;
+        if(this._cart_data)
+            return Object.keys(this._cart_data).length;
+        else return 0;
     }
     get table(){return this._table;}
     get errno(){return this._errno;}
