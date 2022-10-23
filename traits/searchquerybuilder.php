@@ -46,5 +46,29 @@ trait SearchQueryBuilder{
         }//if(isset($data['cPrezzo'])){
         return $query;
     }
+
+    private function conditionFields(array $data): string{
+        $query = "";
+        if(isset($data['cN']) && $data['cN'] == '1') $new = true;
+        else $new = false;
+        if(isset($data['cU']) && $data['cU'] == '1')$used = true;
+        else $used = false;
+        if(isset($data['cNs']) && $data['cNs'] == '1')$notSpecified = true;
+        else $notSpecified = false;
+        if($new || $used || $notSpecified){
+            $query .= "AND `condizione` IN (";
+            if($new) $query .= "'Nuovo' ";
+            if($used){
+                if($new) $query .= ", ";
+                $query .= "'Usato' ";
+            }
+            if($notSpecified){
+                if($new || $used) $query .= ", ";
+                $query .= "'' ";
+            }//if($notSpecified){
+            $query .= ") OR `condizione` IS NULL ";
+        }//if($new || $used || $notSpecified){
+        return $query;
+    }
 }
 ?>
