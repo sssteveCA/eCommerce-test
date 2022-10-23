@@ -36,7 +36,8 @@ $compound-selectors: (
         width: 100%
     ),
     'td, th': (
-        padding: 5px
+        padding: 5px,
+        vertical-align: middle
     )
 );
 
