@@ -6,7 +6,6 @@ prodotti.json
 *.txt
 funzioni/*.txt
 tabelle
-bootstrap
 node_modules
 css/*/*.css
 js/*/*.js
