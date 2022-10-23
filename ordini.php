@@ -7,6 +7,7 @@ require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
+require_once("footer.php");
 
 
 //se un'utente ha effettuato il login
@@ -22,6 +23,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?> >
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_POPPER_JS; ?>></script>
@@ -41,6 +43,7 @@ if($ordini !== false){
 }*/
 ?>
         </div>
+        <?php echo footer(); ?>
     </body>
 </html>
 <?php

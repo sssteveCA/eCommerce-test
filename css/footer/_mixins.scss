@@ -5,5 +5,11 @@
         margin: $margin;
         padding: $padding;
         width: $width;
+        div.container{
+            div.row{
+                text-align: center;
+                margin: 10px 0px;
+            }
+        }
     }
 }
