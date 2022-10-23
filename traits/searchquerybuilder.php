@@ -9,42 +9,14 @@ use EcommerceTest\Exceptions\InvalidValueException;
  */
 trait SearchQueryBuilder{
 
-
-    private function searchField(array $data): string{
-        if(isset($data['ricerca']) && $data['ricerca'] != ''){
-            $search = $data['ricerca'];
-            return "AND `nome` REGEXP '$search' ";
-        }
+    private function cityField(array $data): string{
+        if(isset($data['cCitta']) && $data['cCitta'] == '1'){
+            if(isset($data['citta']) && $data['citta'] != ''){
+                $city = $data['citta'];
+                return "AND `citta` = '$city' ";
+            }
+        }//if(isset($data['cCitta']) && $data['cCitta'] == '1'){
         return "";
-    }
-
-    private function selCatField(array $data): string{
-        if(isset($data['selCat']) && $data['selCat'] != '' && $data['selCat'] != 'Tutte le categorie'){
-            $type = $data['selCat'];
-            return "AND `tipo` = '$type' ";
-        }
-        return "";
-    }
-
-    private function selPriceFields(array $data): string{
-        $query = "";
-        if(isset($data['cPrezzo'])){
-            if(isset($data['minP']) && $data['minP'] != ''){
-                if(is_numeric($data['minP'])){
-                    $minP = $data['minP'];
-                    $query .= "AND `prezzo` >= '$minP' ";
-                }
-                else throw new InvalidValueException("Il prezzo minimo inserito non è valido");
-            }//if(isset($data['minP']) && $data['minP'] != ''){
-            if(isset($data['maxP']) && $data['maxP'] != ''){
-                if(is_numeric($data['maxP'])){
-                    $maxP = $data['maxP'];
-                    $query .= "AND `prezzo` <= '$maxP' ";
-                }
-                else throw new InvalidValueException("Il prezzo massimo inserito non è valido");
-            }//if(isset($data['maxP']) && $data['maxP'] != ''){
-        }//if(isset($data['cPrezzo'])){
-        return $query;
     }
 
     private function conditionFields(array $data): string{
@@ -96,6 +68,55 @@ trait SearchQueryBuilder{
                 else throw new InvalidValueException("Data più recente non valida");
             }
         }
+        return "";
+    }
+
+    private function searchField(array $data): string{
+        if(isset($data['ricerca']) && $data['ricerca'] != ''){
+            $search = $data['ricerca'];
+            return "AND `nome` REGEXP '$search' ";
+        }
+        return "";
+    }
+
+    private function selCatField(array $data): string{
+        if(isset($data['selCat']) && $data['selCat'] != '' && $data['selCat'] != 'Tutte le categorie'){
+            $type = $data['selCat'];
+            return "AND `tipo` = '$type' ";
+        }
+        return "";
+    }
+
+    private function selPriceFields(array $data): string{
+        $query = "";
+        if(isset($data['cPrezzo'])){
+            if(isset($data['minP']) && $data['minP'] != ''){
+                if(is_numeric($data['minP'])){
+                    $minP = $data['minP'];
+                    $query .= "AND `prezzo` >= '$minP' ";
+                }
+                else throw new InvalidValueException("Il prezzo minimo inserito non è valido");
+            }//if(isset($data['minP']) && $data['minP'] != ''){
+            if(isset($data['maxP']) && $data['maxP'] != ''){
+                if(is_numeric($data['maxP'])){
+                    $maxP = $data['maxP'];
+                    $query .= "AND `prezzo` <= '$maxP' ";
+                }
+                else throw new InvalidValueException("Il prezzo massimo inserito non è valido");
+            }//if(isset($data['maxP']) && $data['maxP'] != ''){
+        }//if(isset($data['cPrezzo'])){
+        return $query;
+    }
+
+   
+
+    private function stateField(array $data): string{
+        if(isset($data['cStato']) && $data['cStato'] == '1'){
+            if(isset($data['stato']) && $data['stato'] != ''){
+                $state = $data['stato'];
+                return "AND `stato` = '$state' ";
+            }
+        }//if(isset($data['cStato']) && $data['cStato'] == '1'){
         return "";
     }
 }

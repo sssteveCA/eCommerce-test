@@ -38,6 +38,8 @@ class AdvancedSearch{
         $this->sqlQuery .= $this->conditionFields($data);
         $this->sqlQuery .= $this->oldDateField($data);
         $this->sqlQuery .= $this->recentDateField($data);
+        $this->sqlQuery .= $this->stateField($data);
+        $this->sqlQuery .= $this->cityField($data);
         $this->sqlQuery .= "ORDER BY `data` DESC LIMIT 30";
     }
 
