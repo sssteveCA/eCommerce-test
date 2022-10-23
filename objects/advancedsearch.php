@@ -27,8 +27,16 @@ class AdvancedSearch{
         if(!$data['user']) throw new NoUserInstanceException;
         if(!$data['user'] instanceof Utente) throw new IncorrectUserInstanceFormatException;
         $this->table = isset($data['table']) ? $data['table'] : Mv::TABPROD;
+        $this->setQuery($data);
+    }
+
+    private function setQuery(array $data){
         $this->sqlQuery = "SELECT `id` FROM `{$this->table}` ";
+        $this->sqlQuery .= $this->searchField($data);
+        $this->sqlQuery .= $this->selCatField($data);
         $this->sqlQuery .= "ORDER BY `data` DESC LIMIT 30";
     }
+
+
 }
 ?>
