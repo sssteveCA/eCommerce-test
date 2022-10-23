@@ -32,6 +32,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         'jqueryUi_js' => P::REL_JQUERYUI_JS,
         'bootstrap_js' => P::REL_BOOTSTRAP_JS,
         'dialog_message_js' => P::REL_DIALOG_MESSAGE_JS,
+        'footer_js' => P::REL_FOOTER_JS,
         'logout_js' => P::REL_LOGOUT_JS,
         'insertions_js' => P::REL_INSERTIONS_JS,
         'menu' => menu($_SESSION['welcome']),
@@ -62,6 +63,7 @@ function html_page(array $data): string{
         <script src="{$data['jqueryUi_js']}"></script>
         <script src="{$data['popper_js']}"></script>
         <script src="{$data['bootstrap_js']}"></script>
+        <script src="{$data['footer_js']}"></script>
         <script type="module" src="{$data['dialog_message_js']}"></script>
         <script type="module" src="{$data['logout_js']}"></script>
         <script src="{$data['insertions_js']}"></script>

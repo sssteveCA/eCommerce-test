@@ -23,9 +23,11 @@ require_once('funzioni/config.php');
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
+        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?> >
         <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script src=<?php echo P::REL_RESET_JS; ?>></script>
     <head>
@@ -66,5 +68,6 @@ if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
 }
 else echo 'Formato codice non corretto';
 ?>
+        <?php echo footer(); ?>
     </body>
 </html>

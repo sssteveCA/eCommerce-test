@@ -33,6 +33,7 @@ interface Paths{
     const REL_EDIT_JS = "js/edit/edit.js";
     const REL_EDIT_MODEL_JS = "js/edit/edit.model.js";
     const REL_FOOTER_CSS = "css/footer/footer.min.css";
+    const REL_FOOTER_JS = "js/footer/footer.js";
     const REL_INFO_CSS = "css/info.css";
     const REL_INFO_JS = "js/info.js";
     const REL_INSERTIONS_CSS = "css/insertions/insertions.min.css";

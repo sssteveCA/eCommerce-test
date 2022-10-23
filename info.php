@@ -99,6 +99,7 @@ HTML;
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_POPPER_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
+        <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src=<?php echo P::REL_INFO_JS; ?>></script>
