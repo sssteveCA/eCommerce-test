@@ -36,6 +36,8 @@ class AdvancedSearch{
         $this->sqlQuery .= $this->selCatField($data);
         $this->sqlQuery .= $this->selPriceFields($data);
         $this->sqlQuery .= $this->conditionFields($data);
+        $this->sqlQuery .= $this->oldDateField($data);
+        $this->sqlQuery .= $this->recentDateField($data);
         $this->sqlQuery .= "ORDER BY `data` DESC LIMIT 30";
     }
 

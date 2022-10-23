@@ -70,5 +70,33 @@ trait SearchQueryBuilder{
         }//if($new || $used || $notSpecified){
         return $query;
     }
+
+    private function oldDateField(array $data): string{
+        if(isset($data['dataI'])){
+            if(isset($data['oDate']) && $data['oDate'] != ''){
+                $dateA = explode('-',$data['oDate']);
+                if(checkdate($dateA[1],$dateA[2],$dateA[0])){
+                    $date = $data['oDate'];
+                    return "AND `data` >= '$date' ";
+                }
+                else throw new InvalidValueException("Data più vecchia non valida");
+            }
+        }
+        return "";
+    }
+
+    private function recentDateField(array $data): string{
+        if(isset($data['dataF'])){
+            if(isset($data['rDate']) && $data['rDate'] != ''){
+                $dateA = explode('-',$data['rDate']);
+                if(checkdate($dateA[1],$dateA[2],$dateA[0])){
+                    $date = $data['rDate'];
+                    return "AND `data` <= '$date' ";
+                }
+                else throw new InvalidValueException("Data più recente non valida");
+            }
+        }
+        return "";
+    }
 }
 ?>
