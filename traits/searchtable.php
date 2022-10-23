@@ -25,10 +25,30 @@ HTML;
 </table>
 HTML;
             }//if(!empty($idProductsList)){
-            else $table .= '<p id="null">'.M::ADVANCEDSEARCHEMPTY.'</p>';
+            else{
+                $message = M::ADVANCEDSEARCHEMPTY;
+                $table .=<<<HTML
+<div id="null" class="alert alert-danger" role="alert">{$message}</div>
+HTML;
+            } 
         }//if($idProductsList != null){
-        else $table .= '<p id="null">'.M::ERR_ADVANCEDSEARCH.'</p>';
+        else{
+            $message = M::ERR_ADVANCEDSEARCH;
+            $table .= <<<HTML
+<div id="null" class="alert alert-danger" role="alert">{$message}</div>
+HTML;
+
+        }
         $this->htmlTable = $table;
+    }
+
+    /**
+     * Single product table row
+     * @param int $idP product id
+     * @return string product table row content
+     */
+    private function tableRow(int $idP){
+
     }
 
 }
