@@ -17,7 +17,9 @@ require_once('interfaces/productErrors.php');
 require_once('interfaces/productsVals.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
+require_once('traits/error.php');
 require_once('traits/searchquerybuilder.php');
+require_once('traits/searchtable.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
 require_once('objects/advancedsearch.php');
@@ -27,7 +29,6 @@ require_once('funzioni/const.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $utente = unserialize($_SESSION['utente']);
-}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -51,17 +52,37 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <?php echo menu($_SESSION['welcome']);?>
         <div id="risultato">
 <?php
+    $output = "";
     $asData = [
         'user' => $utente
     ];
     $asData = array_merge($asData,$_GET);
     try{
         $advancedSearch = new AdvancedSearch($asData);
-        
+        $output .= $advancedSearch->getHtmlTable();
     }catch(InvalidValueException $ive){
-
+        http_response_code(400);
+        $message = $ive->getMessage();
+        $output .= <<<HTML
+<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
+HTML;
     }catch(Exception $e){
-
-    }
-    
+        http_response_code(500);
+        $message = $e->getMessage();
+        $output .= <<<HTML
+<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
+HTML;
+    } finally{
+        echo $output;
+    }  
+?>
+        </div>
+        <?php echo footer(); ?>
+    </body>
+</html>
+<?php
+}//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+else{
+    echo ACCEDI1;
+}
 ?>

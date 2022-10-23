@@ -31,14 +31,14 @@ HTML;
             else{
                 $message = M::ADVANCEDSEARCHEMPTY;
                 $table .=<<<HTML
-<div id="null" class="alert alert-danger" role="alert">{$message}</div>
+<div id="null" class="alert alert-warning text-center my-5" role="alert">{$message}</div>
 HTML;
             } 
         }//if($idProductsList != null){
         else{
             $message = M::ERR_ADVANCEDSEARCH;
             $table .= <<<HTML
-<div id="null" class="alert alert-danger" role="alert">{$message}</div>
+<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
 HTML;
 
         }
