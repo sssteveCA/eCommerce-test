@@ -38,7 +38,8 @@ trait SearchQueryBuilder{
                 if($new || $used) $query .= ", ";
                 $query .= "'' ";
             }//if($notSpecified){
-            $query .= ") OR `condizione` IS NULL ";
+            $query .= ") ";
+            if($notSpecified) $query .= "OR `condizione` IS NULL ";
         }//if($new || $used || $notSpecified){
         return $query;
     }
