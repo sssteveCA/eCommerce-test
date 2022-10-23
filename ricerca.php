@@ -4,6 +4,7 @@ use EcommerceTest\Exceptions\InvalidValueException;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Objects\AdvancedSearch;
+use EcommerceTest\Interfaces\Messages as M;
 
 session_start();
 
@@ -70,7 +71,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 HTML;
     }catch(Exception $e){
         http_response_code(500);
-        $message = $e->getMessage();
+        echo "\r\n".$e->getMessage()."\r\n";
+        $message = M::ERR_ADVANCEDSEARCH;
         $output .= <<<HTML
 <div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
 HTML;

@@ -46,7 +46,7 @@ class AdvancedSearch{
     private function setQuery(array $data){
         $this->sqlQuery = "SELECT `id` FROM `{$this->table}` ";
         $idC = $this->user->getId();
-        $this->sqlQuery = "WHERE `idU` <> '{$idC}' ";
+        $this->sqlQuery .= "WHERE `idU` <> '{$idC}' ";
         $this->sqlQuery .= $this->searchField($data);
         $this->sqlQuery .= $this->selCatField($data);
         $this->sqlQuery .= $this->selPriceFields($data);
