@@ -20,6 +20,9 @@ trait SearchTable{
 <table class="table table-striped">
     <tbody>
 HTML;
+                foreach($idProductsList as $idP){
+                    $table .= $this->tableRow($idP);
+                }//foreach($idProductsList as $idP){
                 $table .= <<<HTML
     </tbody>
 </table>

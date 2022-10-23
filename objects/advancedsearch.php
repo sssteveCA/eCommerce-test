@@ -6,6 +6,7 @@ use EcommerceTest\Exceptions\IncorrectUserInstanceFormatException;
 use EcommerceTest\Exceptions\NoUserInstanceException;
 use EcommerceTest\Traits\SearchQueryBuilder;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
+use EcommerceTest\Traits\Error;
 use EcommerceTest\Traits\SearchTable;
 
 class AdvancedSearch{
@@ -15,17 +16,25 @@ class AdvancedSearch{
     private string $table;
     private Utente $user;
 
-    use SearchQueryBuilder,SearchTable;
+    use Error,SearchQueryBuilder,SearchTable;
 
     public function __construct(array $data)
     {
         $this->assignValues($data);
         $this->setQuery($data);
+        $this->table();
     }
     
     public function getHtmlTable(){return $this->htmlTable;}
     public function getSqlQuery(){return $this->sqlQuery;}
     public function getTable(){return $this->table;}
+    public function getError(){
+        switch($this->errno){
+            default:
+                $this->error = null;
+        }
+        return $this->error;
+    }
 
     private function assignValues(array $data){
         if(!$data['user']) throw new NoUserInstanceException;
