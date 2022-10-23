@@ -1,7 +1,9 @@
 <?php
 
+use EcommerceTest\Exceptions\InvalidValueException;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\Paths as P;
+use EcommerceTest\Objects\AdvancedSearch;
 
 session_start();
 
@@ -49,4 +51,17 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <?php echo menu($_SESSION['welcome']);?>
         <div id="risultato">
 <?php
+    $asData = [
+        'user' => $utente
+    ];
+    $asData = array_merge($asData,$_GET);
+    try{
+        $advancedSearch = new AdvancedSearch($asData);
+        
+    }catch(InvalidValueException $ive){
+
+    }catch(Exception $e){
+
+    }
+    
 ?>
