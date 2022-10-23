@@ -7,5 +7,9 @@ namespace EcommerceTest\Traits;
  */
 trait SearchQueryBuilder{
 
+
+    private function searchField(array $data): string{
+        return "";
+    }
 }
 ?>
