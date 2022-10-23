@@ -5,7 +5,7 @@ namespace EcommerceTest\Exceptions;
 use Exception;
 use Throwable;
 
-class NoUserInstanceException extends Exception{
+class IncorrectUserInstanceFormatException extends Exception{
      // Redefine the exception so message isn't optional
      public function __construct($message = "", $code = 0, Throwable $previous = null) {
         // some code
@@ -18,6 +18,5 @@ class NoUserInstanceException extends Exception{
     public function __toString() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
-
 }
 ?>
