@@ -10,6 +10,7 @@ use EcommerceTest\Traits\SearchTable;
 
 class AdvancedSearch{
 
+    private string $htmlTable = "";
     private string $sqlQuery;
     private string $table;
     private Utente $user;
@@ -21,7 +22,8 @@ class AdvancedSearch{
         $this->assignValues($data);
         $this->setQuery($data);
     }
-
+    
+    public function getHtmlTable(){return $this->htmlTable;}
     public function getSqlQuery(){return $this->sqlQuery;}
     public function getTable(){return $this->table;}
 

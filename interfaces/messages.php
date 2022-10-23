@@ -6,6 +6,7 @@ namespace EcommerceTest\Interfaces;
 interface Messages{
 
     //success messages
+    const ADVANCEDSEARCHEMPTY = 'La ricerca non ha prodotto alcun risultato';
     const CARTEMPTY = 'Il carrello è vuoto';
     const EMAILRECOVERY = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
     const EMAILSENT1 = 'La mail è stata inviata correttamente al venditore';
@@ -24,6 +25,7 @@ interface Messages{
    
     //error messages
     const ERR_ACTIVEACCOUNT = 'Attiva l\'account per poter accedere';
+    const ERR_ADVANCEDSEARCH = 'Errore durante l\'esecuione delle operazioni di ricerca';
     const ERR_ALREALDYCART = 'Il prodotto selezionato è già presente nel carrello';
     const ERR_CODEINVALD = 'Codice non valido';
     const ERR_DATEINVALID = 'La data inserita non è valida';
