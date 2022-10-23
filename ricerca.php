@@ -38,7 +38,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Ricerca</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_ADVSEARCH_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_SEARCH_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >

@@ -13,32 +13,17 @@ $single-selectors: (
             margin-top: 20px
         ),
         '#fAvanzata':(
-            margin-left: 10px
-        ),
-        '#risultato': (
-            width: 80%,
-            min-width: 450px,
-            overflow: auto,
+            //margin-left: 10px,
             position: relative,
-            margin: 0 auto,      
-        )
+            margin: 0 auto,
+            min-width: 400px
+        ),
     ),
     'tags': (
     )
 );
 
 $compound-selectors: (
-    'td.timg': (
-        height: 200px,
-        width: 200px
-    ),
-    'td.timg img': (
-        width: 100%
-    ),
-    'td, th': (
-        padding: 5px,
-        vertical-align: middle
-    )
 );
 
 $breakpoint-xsm: 575px;

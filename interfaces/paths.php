@@ -55,7 +55,7 @@ interface Paths{
     const REL_RECOVERY_JS = "js/recupera.js";
     const REL_RESET_CSS = "css/reset.css";
     const REL_RESET_JS = "js/reset.js";
-    const REL_SEARCH_CSS = "css/ricerca.css";
+    const REL_SEARCH_CSS = "css/search/search.min.css";
     const REL_SUBSCRIBE_CSS = "css/subscribe/subscribe.min.css";
     const REL_SUBSCRIBE_CONTROLLER_JS = "js/subscribe/subscriber.controller.js";
     const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
