@@ -10,9 +10,11 @@ session_start();
 require_once('config.php');
 require_once('interfaces/paths.php');
 require_once('navbar.php');
+require_once('footer.php');
 require_once('exceptions/nouserinstance.php');
 require_once('exceptions/incorrectuserinstanceformat.php');
 require_once('exceptions/invalidvalue.php');
+require_once('interfaces/messages.php');
 require_once('interfaces/productErrors.php');
 require_once('interfaces/productsVals.php');
 require_once('interfaces/userErrors.php');
@@ -35,7 +37,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Ricerca</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_SEARCH_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_ADVSEARCH_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >

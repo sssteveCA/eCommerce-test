@@ -9,6 +9,13 @@ $single-selectors: (
         ),
         '#fAvanzata':(
             margin-left: 10px
+        ),
+        '#risultato': (
+            width: 80%,
+            min-width: 450px,
+            overflow: auto,
+            position: relative,
+            margin: 0 auto,      
         )
     ),
     'tags': (
