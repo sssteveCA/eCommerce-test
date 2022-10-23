@@ -53,7 +53,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
-        <div id="risultato">
+        <div id="risultato" class="my-5">
 <?php
     $output = "";
     $asData = [

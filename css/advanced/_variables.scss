@@ -2,6 +2,11 @@ $single-selectors: (
     'classes': (
     ),
     'ids': (
+        '#back':(
+            margin-top: 70px,
+            margin-left: 100px,
+            font-size: 25px
+        ),
         '#divButtons': (
             display: flex,
             justify-content: space-evenly,
@@ -19,11 +24,21 @@ $single-selectors: (
         )
     ),
     'tags': (
-
     )
 );
 
-$compound-selectors: ();
+$compound-selectors: (
+    'td.timg': (
+        height: 200px,
+        width: 200px
+    ),
+    'td.timg img': (
+        width: 100%
+    ),
+    'td, th': (
+        padding: 5px
+    )
+);
 
 $breakpoint-xsm: 575px;
 $breakpoint-sm: 767px;

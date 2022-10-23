@@ -19,6 +19,13 @@ trait SearchTable{
             if(!empty($idProductsList)){
                 $table =<<< HTML
 <table class="table table-striped">
+    <thead>
+        <th scope="col">Nome</th>
+        <th scope="col">Immagine</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Prezzo</th>
+        <th scope="col">Dettagli</th>
+    </thead>
     <tbody>
 HTML;
                 foreach($idProductsList as $idP){
