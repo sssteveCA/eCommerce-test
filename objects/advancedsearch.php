@@ -34,6 +34,7 @@ class AdvancedSearch{
         $this->sqlQuery = "SELECT `id` FROM `{$this->table}` ";
         $this->sqlQuery .= $this->searchField($data);
         $this->sqlQuery .= $this->selCatField($data);
+        $this->sqlQuery .= $this->selPriceFields($data);
         $this->sqlQuery .= "ORDER BY `data` DESC LIMIT 30";
     }
 
