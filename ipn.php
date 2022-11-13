@@ -1,5 +1,8 @@
 <?php
 //https://www.codexworld.com/paypal-standard-payment-gateway-integration-php/
+
+use Dotenv\Dotenv;
+
 session_start();
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');
@@ -59,12 +62,14 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         $res = trim(end($tokens));
         fwrite($file,"$res\n");
         if(strcasecmp($res, "VERIFIED") == 0){
+            $dotenv = Dotenv::createImmutable(__DIR__."../");
+            $dotenv->safeLoad();
             $item_number = $_POST['item_number']; 
             $txn_id = $_POST['txn_id']; 
             $payment_gross = $_POST['mc_gross']; 
             $currency_code = $_POST['mc_currency']; 
             $payment_status = $_POST['payment_status']; 
-            $mysqli = new mysqli($mysqlHost,$mySqlUser,$mysqlPass,$mysqlDb);
+            $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_PASSWORD']);
             if($mysqli->connect_errno == 0){
                 $mysqli->set_charset("utf8mb4");
                 $ido = $_SESSION['ido'];

@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
@@ -15,6 +16,7 @@ require_once('interfaces/orderErrors.php');
 require_once('interfaces/productErrors.php');
 require_once('interfaces/productsVals.php');
 require_once('interfaces/userErrors.php');
+require_once('vendor/autoload.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');
@@ -61,7 +63,9 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 if($uVenditore->getNumError() == 0 || $uVenditore->getNumError() == 1){
                     $pOrdinato = false; //true se esiste già un ordine del cliente dello stesso prodotto
                     //var_dump($prodotto);
-                    $idOrdini = Ordine::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$utente->getUsername());
+                    $dotenv = Dotenv::createImmutable(__DIR__);
+                    $dotenv->safeLoad();
+                    $idOrdini = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_PASSWORD'],$_ENV['TABORD'],$_ENV['TABACC'],$utente->getUsername());
                     if($idOrdini != null){
                         foreach($idOrdini as $idOrdine){
                             try{

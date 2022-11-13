@@ -9,6 +9,7 @@ require_once('interfaces/paths.php');
 require_once('navbar.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/mysqlVals.php');
+require_once('vendor/autoload.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
 require('footer.php');

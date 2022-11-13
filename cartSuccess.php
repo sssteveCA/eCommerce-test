@@ -10,6 +10,7 @@ require_once('config.php');
 require_once('interfaces/mysqlVals.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/orderErrors.php');
+require_once('vendor/autoload.php');
 require_once('objects/utente.php');
 require_once('objects/carrello.php');
 require_once('objects/ordine.php');

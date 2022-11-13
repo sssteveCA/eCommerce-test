@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
@@ -80,9 +81,11 @@ else{
 
 //Orders list of logged user
 function getOrders(array &$risposta){
-    global $mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$nomeUtente;
+    global $nomeUtente;
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $done = true;
-    $ordiniCliente = Ordine::getIdList($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$ordiniTable,$accountsTable,$nomeUtente);
+    $ordiniCliente = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$_ENV['TABORD'],$_ENV['TABACC'],$nomeUtente);
     $risposta['i'] = count($ordiniCliente);
     $risposta['tab'] = '1'; //se verrà creata la tabella con gli ordini
     $risposta['orders'] = array();
