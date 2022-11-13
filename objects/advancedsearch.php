@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Objects;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Exceptions\IncorrectUserInstanceFormatException;
 use EcommerceTest\Exceptions\NoUserInstanceException;
 use EcommerceTest\Traits\SearchQueryBuilder;
@@ -39,8 +40,10 @@ class AdvancedSearch{
     private function assignValues(array $data){
         if(!$data['user']) throw new NoUserInstanceException;
         if(!$data['user'] instanceof Utente) throw new IncorrectUserInstanceFormatException;
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
         $this->user = $data['user'];
-        $this->table = isset($data['table']) ? $data['table'] : Mv::TABPROD;
+        $this->table = isset($data['table']) ? $data['table'] : $_ENV['TABPROD'];
     }
 
     private function setQuery(array $data){

@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Traits;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as M;
@@ -13,8 +14,10 @@ trait SearchTable{
 
     private function table(){
         //echo "\r\n{$this->sqlQuery}\r\n";
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
         $table = "";
-        $idProductsList = Prodotto::getIdList(Mv::HOSTNAME,Mv::USERNAME,Mv::PASSWORD,Mv::DATABASE,$this->sqlQuery);
+        $idProductsList = Prodotto::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$this->sqlQuery);
         if($idProductsList != null){
             if(!empty($idProductsList)){
                 $table =<<< HTML

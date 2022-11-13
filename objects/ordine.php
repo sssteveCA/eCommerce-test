@@ -54,8 +54,8 @@ class Ordine implements Oe,Mv{
         $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
         $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
         $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABORD;
-        $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:Mv::TABACC;
+        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:$_ENV['TABORD'];
+        $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:$_ENV['TABACC'];
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){
             throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);

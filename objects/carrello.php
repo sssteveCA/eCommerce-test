@@ -28,8 +28,8 @@ class Carrello implements Mv{
         $h = new \mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
         if($h->connect_errno === 0){
             $h->set_charset("utf8mb4");
-            $oTable = Mv::TABORD;
-            $aTable = Mv::TABACC;
+            $oTable = $_ENV['TABORD'];
+            $aTable = $_ENV['TABACC'];
             $query = <<<SQL
 SELECT `id`, `idv` FROM `{$oTable}` WHERE `idc` = (
     SELECT `id` FROM `{$aTable}` WHERE `username` = '$user'
