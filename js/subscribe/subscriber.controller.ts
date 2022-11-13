@@ -110,8 +110,8 @@ export default class SubscriberController{
                 confPass: this.subscriber.confPass,
                 ajax: this.subscriber.isAjax
             };
-            console.log("subscribePromise  data");
-            console.log(data);
+            /* console.log("subscribePromise  data");
+            console.log(data); */
             const params = {
                 method: 'POST',
                 body: JSON.stringify(data),

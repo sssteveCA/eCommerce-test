@@ -22,9 +22,9 @@ $(function(){
                 });
             },
             error : function(xhr, stato, errore){
-                /* console.log(xhr);
+                console.log(xhr);
                 console.log(stato);
-                console.log(errore); */
+                console.log(errore);
                 var risp = JSON.parse(xhr.responseText);
                 message('Carrello','auto','400px',risp.msg,'close');
                 $('#dialog').on('dialogclose',function(){

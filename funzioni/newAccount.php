@@ -18,7 +18,8 @@ ob_start();
 $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 $hostname = $_ENV['HOSTNAME'];
-$post = json_decode(file_get_contents('php://input'),true);
+$input = file_get_contents("php://input");
+$post = json_decode($input,true);
 $response = array();
 $response['msg'] = '';
 
@@ -154,10 +155,10 @@ function checkMails($email,$paypalMail){
 }
 
 function msg_headers(){
-    global $hostname;
+    $hostname = $_ENV['HOSTNAME'];
     $headers = <<<HEADER
-From: Admin <noreply@{{$hostname}}.lan>
-Reply-to: <noreply@{{$hostname}}.lan>
+From: Admin <noreply@{$hostname}.lan>
+Reply-to: <noreply@{$hostname}.lan>
 Content-type: text/html
 MIME-Version: 1.0
 HEADER;

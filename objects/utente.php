@@ -609,7 +609,6 @@ SQL;
     //l'utente invia una mail agli amministratori del sito
     public function sendMail($to,$subject,$body,$headers){
         $this->numError = 0;
-        $from = $this->getEmail();
         $send = mail($to,$subject,$body,$headers);
         if(!$send) $this->numError = Ue::MAILNOTSENT; //email non inviata
         return $send;
