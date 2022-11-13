@@ -14,6 +14,7 @@ require_once('vendor/autoload.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('funzioni/config.php');
+require_once('footer.php');
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -53,16 +54,16 @@ if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
     <h2>Inserisci la nuova password</h2>
     <form action="funzioni/pRecovery.php" method="post" id="fRecupera">
         <div>
-            <label for="nuova">Nuova password</label>
-            <input type="password" id="nuova" name="nuova">
+            <label for="nuova" class="form-label">Nuova password</label>
+            <input type="password" id="nuova" class="form-control" name="nuova">
         </div>
         <div>
-            <label for="confNuova">Conferma nuova password</label>
-            <input type="password" id="confNuova" name="confNuova">
+            <label for="confNuova" class="form-label">Conferma nuova password</label>
+            <input type="password" id="confNuova" class="form-control" name="confNuova">
         </div>
         <div>
             <input type="hidden" id="chiave" name="chiave" value="<?php echo $_REQUEST['codReset']; ?>">
-            <input type="submit" id="conferma" value="CONFERMA">
+            <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
         </div>
     </form>
 </fieldset>

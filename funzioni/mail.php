@@ -107,8 +107,8 @@ else{
             $indResetCod = $indReset.'?codReset='.$utente->getCambioPwd();
             //inserisce $codReset in 'cambioPwd nel campo 'email' che ha $email
             $headers = <<<HEADER
-From: Admin <noreply@{{$hostname}}.lan>
-Reply-to: noreply@{{$hostname}}.lan
+From: Admin <noreply@{$hostname}.lan>
+Reply-to: noreply@{$hostname}.lan
 Content-type: text/html
 MIME-Version: 1.0
 HEADER;
