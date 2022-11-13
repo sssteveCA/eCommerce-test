@@ -27,9 +27,9 @@ else{
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
-        <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
-        <script src="js/dialog/dialog.js"></script> 
-        <script src=<?php echo P::REL_RECOVERY_JS; ?>></script>
+        <!-- <script type="module" src=<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
+        <script src="js/dialog/dialog.js"></script> -->
+        <script type="module" src=<?php echo P::REL_RECOVERY_JS; ?>></script>
     </head>
     <body>
         <div id="indietro">

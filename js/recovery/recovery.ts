@@ -1,6 +1,6 @@
-import DialogMessage from "../dialog/dialogmessage";
+import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import RecoveryController from "./recovery.controller";
+import RecoveryController from "./recovery.controller.js";
 import RecoveryInterface from "./recovery.interface";
 
 $(()=>{
