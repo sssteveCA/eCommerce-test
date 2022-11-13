@@ -1,5 +1,6 @@
 import Contact from './contact.model.js';
 import DialogMessage from './../dialog/dialogmessage.js';
+import DialogMessageInterface from '../dialog/dialogmessage.interface.js';
 
 //Do the HTTP request passing Contact object
 export default class ContactController{
@@ -57,7 +58,7 @@ export default class ContactController{
     private sendEmail(): void {
         if(this.contact != null){
             if(this.validateContact()){ 
-                let dm,dmData,msgDialog: JQuery<HTMLElement>;
+                let dm: DialogMessage,dmData: DialogMessageInterface,msgDialog: JQuery<HTMLElement>;
                 this.sendEmailPromise().then(res => {
                     //console.log(res);
                     let jsonRes = JSON.parse(res);
@@ -67,7 +68,7 @@ export default class ContactController{
                     };
                     dm = new DialogMessage(dmData);
                     msgDialog = $('#'+dm.id);
-                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+                    dm.btOk.on('click',()=>{
                         //User press OK button
                         msgDialog.dialog('destroy');
                         msgDialog.remove();
@@ -80,7 +81,7 @@ export default class ContactController{
                     };
                     dm = new DialogMessage(dmData);
                     msgDialog = $('#'+dm.id);
-                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
+                    dm.btOk.on('click',()=>{
                         //User press OK button
                         msgDialog.dialog('destroy');
                         msgDialog.remove();
