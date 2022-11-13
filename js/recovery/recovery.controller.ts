@@ -35,7 +35,7 @@ export default class RecoveryController{
         let response: object = {};
         try{
             await this.sendRecoveryMailPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
             }).catch(err => {
                 throw err;
@@ -61,7 +61,7 @@ export default class RecoveryController{
                 resolve(r.text());
             }).catch(err => {
                 console.warn(err);
-                reject(RecoveryController.ERR_REQUEST_MSG);
+                reject(err);
             });
         });
     }

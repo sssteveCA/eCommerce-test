@@ -7,6 +7,8 @@ export default class ResetController{
     private _errno: number = 0;
     private _error: string|null = null;
 
+    private static RESET_URL:string = "funzioni/pRecovery.php";
+
     public static ERR_REQUEST:number = 1;
 
     private static ERR_REQUEST_MSG: string = "Si è verificato un errore durante la reimpostazione della passord";
@@ -30,5 +32,41 @@ export default class ResetController{
                 break;
         }
         return this._error;
+    }
+
+    public async resetPassword(): Promise<object>{
+        this._errno = 0;
+        let response: object = {};
+        try{
+            await this.resetPasswordPromise().then(res => {
+                console.log(res);
+                response = JSON.parse(res);
+            }).catch(err => {
+                throw err;
+            });
+        }catch(e){
+            this._errno = ResetController.ERR_REQUEST;
+            response = { msg: this.error };
+        }
+        return response;
+    }
+
+    private async resetPasswordPromise(): Promise<string>{
+        return await new Promise<string>((resolve, reject) => {
+            let params: object = {
+                method: 'POST',
+                body: `ajax=1&chiave=${this._key}&nuova=${this._newPassword}&confNuova=${this._confPassword}`,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+            const response = fetch(ResetController.RESET_URL,params);
+            response.then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                console.warn(err);
+                reject(err);
+            });
+        });
     }
 }
