@@ -17,6 +17,7 @@ $(function(){
                 });
             },
             error : function(xhr, stato, errore){
+                console.log(xhr);
                 console.error(errore);
             },
             complete : function(xhr, stato){
