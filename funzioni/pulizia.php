@@ -1,7 +1,7 @@
 <?php
 
 use Dotenv\Dotenv;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Config as Cf;
 
@@ -10,7 +10,7 @@ ob_start();
 require_once('config.php');
 require_once('../config.php');
 require_once('../interfaces/messages.php');
-require_once('../interfaces/mysqlVals.php');
+//require_once('../interfaces/mysqlVals.php');
 
 $regex = '/^[a-z0-9]{1,64}$/i';
 $time = time();

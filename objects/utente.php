@@ -4,7 +4,7 @@ namespace EcommerceTest\Objects;
 
 use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\UserErrors as Ue;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\UserErrors;
 use EcommerceTest\Config as Cf;
 
@@ -32,7 +32,7 @@ if (! function_exists("array_key_last")) {
     }
 }
 
-class Utente implements Ue,Mv{
+class Utente implements Ue/* ,Mv */{
     private $h; //handle connessione MySQL
     private $mysqlHost;
     private $mysqlUser;

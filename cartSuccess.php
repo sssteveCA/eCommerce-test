@@ -7,7 +7,7 @@ use EcommerceTest\Interfaces\UserErrors as Ue;
 
 session_start();
 require_once('config.php');
-require_once('interfaces/mysqlVals.php');
+//require_once('interfaces/mysqlVals.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/orderErrors.php');
 require_once('vendor/autoload.php');

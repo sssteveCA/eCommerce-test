@@ -4,7 +4,7 @@ namespace EcommerceTest\Objects;
 
 use Dotenv\Dotenv;
 use EcommerceTest\interfaces\OrderErrors as Oe;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
 
 define("ORDINEERR_INFONOTGETTED","1");
@@ -25,7 +25,7 @@ if (! function_exists("array_key_last")) {
     }
 }
 
-class Ordine implements Oe,Mv{
+class Ordine implements Oe/* ,Mv */{
     private $mysqlTable;
     private $mysqlTableAcc; //Accounts mysql table
     private $h;

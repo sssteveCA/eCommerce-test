@@ -11,7 +11,7 @@ session_start();
 require_once('config.php');
 require_once('interfaces/paths.php');
 require_once('navbar.php');
-require_once('interfaces/mysqlVals.php');
+//require_once('interfaces/mysqlVals.php');
 require_once('interfaces/orderErrors.php');
 require_once('interfaces/productErrors.php');
 require_once('interfaces/productsVals.php');

@@ -4,7 +4,7 @@ namespace EcommerceTest\Traits;
 
 use Dotenv\Dotenv;
 use EcommerceTest\Objects\Prodotto;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as M;
 
 /**

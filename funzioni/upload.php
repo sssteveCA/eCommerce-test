@@ -3,7 +3,7 @@ session_start();
 
 require_once('../config.php');
 require_once("../interfaces/messages.php");
-require_once("../interfaces/mysqlVals.php");
+//require_once("../interfaces/mysqlVals.php");
 require_once("../interfaces/productErrors.php");
 require_once("../interfaces/productsVals.php");
 require_once("../vendor/autoload.php");

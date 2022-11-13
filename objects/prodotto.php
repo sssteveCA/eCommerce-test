@@ -5,7 +5,7 @@ namespace EcommerceTest\Objects;
 use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\ProductErrors as Pe;
 use EcommerceTest\Interfaces\ProductVals as Pv;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
 
 define("PRODOTTOERR_INFONOTGETTED","1");
@@ -15,7 +15,7 @@ define("PRODOTTOERR_DATANOTDELETED","4");
 define("PRODOTTOERR_DATANOTINSERTED","5");
 define("PRODOTTOERR_IDNOTEXIST","6");
 
-class Prodotto implements Pe,Pv,Mv{
+class Prodotto implements Pe,Pv/* ,Mv */{
     private $h;
     public $connesso;
     private $mysqlTable;

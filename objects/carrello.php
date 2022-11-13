@@ -4,10 +4,10 @@
 namespace EcommerceTest\Objects;
 
 use Dotenv\Dotenv;
-use EcommerceTest\Interfaces\MySqlVals as Mv;
+//use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
 
-class Carrello implements Mv{
+class Carrello /* implements Mv */{
     /* const HOST = 'localhost';
     const USERNAME = 'root';
     const PASSWORD = '';
