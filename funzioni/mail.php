@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Config as Cf;
@@ -21,7 +22,9 @@ $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
 $ajax = true;
 $risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
 $risultato['post'] = $_POST;
-$hostname = Cf::HOSTNAME;
+$dotenv = Dotenv::createImmutable(__DIR__."../");
+$dotenv->safeLoad();
+$hostname = $_ENV['HOSTNAME'];
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

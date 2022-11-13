@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Objects;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\ProductErrors as Pe;
 use EcommerceTest\Interfaces\ProductVals as Pv;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
@@ -41,11 +42,13 @@ class Prodotto implements Pe,Pv,Mv{
     //contiene la lista degli id ottenuti dalla query di ricerca
     private static $idList = array(); 
     public function __construct($ingresso){
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
         $this->connesso = false;
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Cf::MYSQL_HOSTNAME;
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Cf::MYSQL_USERNAME;
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
+        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
+        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
+        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABPROD;
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
         if($this->h->connect_errno !== 0){

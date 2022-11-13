@@ -3,6 +3,7 @@
 
 namespace EcommerceTest\Objects;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
 
@@ -20,9 +21,11 @@ class Carrello implements Mv{
      * Get an array of user (order id & seller id) by username
      */
     public static function getCartIdos($user){
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
-        $h = new \mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+        $h = new \mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
         if($h->connect_errno === 0){
             $h->set_charset("utf8mb4");
             $oTable = Mv::TABORD;

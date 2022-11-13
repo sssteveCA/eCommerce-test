@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Config as Cf;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as Msg;
@@ -7,9 +8,11 @@ use EcommerceTest\Interfaces\Messages as Msg;
 require_once('config.php');
 //dato l'id dell'ordine, lo cancella
 function cancOrdine($id,$user){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $ordine = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         $ordine['msg'] = 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -50,7 +53,9 @@ function casuale($ls, $c = 'ABCDEFGHIJKLMNOPQRSTUVWXYzabcdefghijklmnopqrstuvwxyz
 //inserisce i dati dell'ordine nella tabella MySql 'ordini', true se li ha inseriti
 function creaOrdine($idc,$idp,$np,$tot){
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -91,7 +96,9 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists($campo,$campoW,$str){
-    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
+    $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         $query = "SELECT `".$campo."` from `accounts` WHERE `".$campoW."` = '$str'";
@@ -121,7 +128,9 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists2($where){
-    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
+    $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         $query = "SELECT * from `accounts` WHERE {$where};";
@@ -146,9 +155,11 @@ function ddmmyyyy($data){
 
 //ottieni l'ID più grande di una tabella
 function getMaxId($table){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $id = -1;
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno == 0){
         $h->set_charset("utf8mb4");
@@ -172,9 +183,11 @@ SQL;
 
 //mostra tutti gli ordini effettuati da un utente
 function getOrdini($user){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $ordini = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -216,9 +229,11 @@ SQL;
 
 //restituisce la password fornendo l'indirizzo mail
 function getPassword($email){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $result = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -250,8 +265,10 @@ SQL;
 
 //restituisce tutte le informazioni su un prodotto specifico con id = $idp
 function getProdotto($idp){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $prodotto = array();
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($h->connect_errno){
         $prodotto["msg"] =  'Connessione a MySQL fallita: '.$h->connect_error;
         $prodotto["done"] = '0';
@@ -292,9 +309,11 @@ SQL;
 
 //ottieni tutte le informazioni dell'utente $user
 function getUserData($user){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $info = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -326,8 +345,10 @@ SQL;
 
 //inserisce i dati passati nel form se sono validi nel database MySql
 function InsertData($nome,$cognome,$nascita,$sesso,$ind,$num,$citta,$cap,$email,$user,$password,&$codAut){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     //echo "$nome,$cognome,$nascita,$sesso,$email,$user,$password<br>";
-    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
         //consente di trasformare caratteri speciali in caratteri inseribili in una stringa
@@ -370,9 +391,11 @@ SQL;
 }
 
 function insertProduct($nome,$imgPath,$tipo,$prezzo,$condizione,$stato,$citta,$descrizione){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $insert = -1;
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno == 0){
         $h->set_charset("utf8mb4");
@@ -417,8 +440,10 @@ SQL;
   0 se l'utente è femmina
  -1 in caso di errore*/
  function isMaschio($user){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //exit('Connessione a MySQL fallita: '.$h->connect_error);
@@ -455,9 +480,11 @@ SQL;
 
 //modifica la password dell'account con indirizzo mail $email
 function setPassword($email){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     $result = array();
     //apro la connessione al server MySQL
-    $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$h->connect_error;
@@ -494,8 +521,10 @@ $valW = valore del campo da controllare
 $campo = campo da modificare
 $valore = valore del campo da modificare */
 function update($campoW,$valW,$campo,$valore){
+    $dotenv = Dotenv::createImmutable(__DIR__."../");
+    $dotenv->safeLoad();
     //apro la connessione al server MySQL
-    $mysqli = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+    $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($mysqli->connect_errno){
         //echo 'Connessione a MySQL fallita: '.$mysqli->connect_error.'<br>';

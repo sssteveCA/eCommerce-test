@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Objects;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\UserErrors;
@@ -73,22 +74,24 @@ class Utente implements Ue,Mv{
         'cambioPwd' => '/^[a-z0-9]{64}$/i'
     );
     public function __construct($ingresso){
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
         $this->connesso = false;
         $this->querySql = null;
         $this->queries = array();
         $this->numError = 0;
         $this->strError = null;
         $this->login = false;
-        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Cf::MYSQL_HOSTNAME;
-        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Cf::MYSQL_USERNAME;
-        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
+        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
+        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
+        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
         $this->h = new \mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
         if($this->h->connect_errno != 0){
             throw new \Exception(Ue::EXC_MYSQLCONN);
         }
         $this->connesso = true;
         $this->h->set_charset("utf8mb4");
-        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
+        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
         $this->createDb(); //crea il database se non esiste
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABACC;
         if($this->createTab() === false){ //crea la tabella se non esiste

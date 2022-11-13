@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Config as Cf;
@@ -16,7 +17,9 @@ $time = time();
 if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
     if($_REQUEST['password'] == $passwordPulizia){
         //apro la connessione al server MySQL
-        $h = new mysqli(Cf::MYSQL_HOSTNAME,Cf::MYSQL_USERNAME,Cf::MYSQL_PASSWORD,Cf::MYSQL_DATABASE);
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
+        $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
         //errore
         if($h->connect_errno){
             $mess = Msg::ERR_MYSQLCONN;

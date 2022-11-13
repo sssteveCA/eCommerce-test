@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Objects;
 
+use Dotenv\Dotenv;
 use EcommerceTest\interfaces\OrderErrors as Oe;
 use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
@@ -47,10 +48,12 @@ class Ordine implements Oe,Mv{
     private $mysqlError;
     private static $idList = array();
     public function __construct($ingresso){
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:Cf::MYSQL_HOSTNAME;
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:Cf::MYSQL_USERNAME;
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:Cf::MYSQL_PASSWORD;
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:Cf::MYSQL_DATABASE;
+        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv->safeLoad();
+        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
+        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
+        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:Mv::TABORD;
         $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:Mv::TABACC;
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
