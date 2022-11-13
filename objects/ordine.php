@@ -78,9 +78,9 @@ class Ordine implements Oe/* ,Mv */{
                 $this->idc = isset($ingresso['idc'])? $ingresso['idc']:'';
                 $this->idp = isset($ingresso['idp'])? $ingresso['idp']:'';
                 $this->idv = isset($ingresso['idv'])? $ingresso['idv']:'';
-                $this->data = date('Y-m-d H:i:s');
                 $this->quantita = isset($ingresso['quantita'])? $ingresso['quantita']:'';
                 $this->totale = isset($ingresso['totale'])? $ingresso['totale']:'';
+                $this->data = date('Y-m-d H:i:s');
                 $this->tnxId = null;
                 $this->pagato = '0';
                 $this->carrello = '0'; //non aggiunto al carrello
@@ -409,11 +409,11 @@ SQL;
     //controllo dei dati prima dell'inserimento nella tabella MySql
     private function valida($ingresso){
         $ok = true;
-        if(!is_numeric($ingresso['idc']))$ok = false;
-        if(!is_numeric($ingresso['idp']))$ok = false;
-        if(!is_numeric($ingresso['idv']))$ok = false;
-        if(!is_numeric($ingresso['quantita']))$ok = false;
-        if(!is_numeric($ingresso['totale']))$ok = false;
+        if(!isset($ingresso['idc']) || !is_numeric($ingresso['idc']))$ok = false;
+        if(!isset($ingresso['idp']) || !is_numeric($ingresso['idp']))$ok = false;
+        if(!isset($ingresso['idv']) || !is_numeric($ingresso['idv']))$ok = false;
+        if(!isset($ingresso['quantita']) || !is_numeric($ingresso['quantita']))$ok = false;
+        if(!isset($ingresso['totale']) || !is_numeric($ingresso['totale']))$ok = false;
         return $ok;
     }
 }

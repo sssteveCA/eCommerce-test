@@ -88,11 +88,11 @@ HTML;
 function result(Utente $user): string{
     $result = '';
     $idA = $user->getId();
-    $tabProd = Msv::TABPROD;
+    $tabProd = $_ENV['TABPROD'];
     $query = <<<SQL
 SELECT `id` FROM `{$tabProd}` WHERE `idU`='{$idA}' ORDER BY `data` DESC LIMIT 30;
 SQL;
-    $idList = Prodotto::getIdList(Msv::HOSTNAME,Msv::USERNAME,Msv::PASSWORD,Msv::DATABASE,$query);
+    $idList = Prodotto::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$query);
     if($idList !== null){
         //Connected to MySql
         if(!empty($idList)){

@@ -23,7 +23,8 @@ require_once('objects/prodotto.php');
 require_once('objects/ordine.php');
 require_once('funzioni/config.php');
 require_once('funzioni/paypalConfig.php');
-require_once("funzioni/const.php");
+require_once('funzioni/const.php');
+require_once('footer.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

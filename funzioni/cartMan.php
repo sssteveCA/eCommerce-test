@@ -34,6 +34,8 @@ $response = [
     'post' => $post
 ];
 
+//var_dump($response);
+
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
