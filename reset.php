@@ -57,11 +57,15 @@ if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
             <label for="nuova" class="form-label">Nuova password</label>
             <input type="password" id="nuova" class="form-control" name="nuova">
         </div>
-        <div>
+        <div class="my-3">
             <label for="confNuova" class="form-label">Conferma nuova password</label>
             <input type="password" id="confNuova" class="form-control" name="confNuova">
         </div>
-        <div>
+        <div class="my-3">
+            <input type="checkbox" id="showPass" class="form-check-input">
+            <label for="showPass" class="ms-2">Mostra password</label>
+        </div>
+        <div class="my-3">
             <input type="hidden" id="chiave" name="chiave" value="<?php echo $_REQUEST['codReset']; ?>">
             <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
         </div>

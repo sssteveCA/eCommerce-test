@@ -39,7 +39,7 @@ export default class ResetController{
         let response: object = {};
         try{
             await this.resetPasswordPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
             }).catch(err => {
                 throw err;

@@ -4,6 +4,17 @@ import ResetController from "./reset.controller.js";
 import ResetInterface from "./reset.interface";
 
 $(()=>{
+    $('#showPass').on('change',(e)=>{
+        let thisCb:JQuery<HTMLInputElement> = $(e.currentTarget) as JQuery<HTMLInputElement>;
+        if(thisCb.is(":checked")){
+            $('#nuova').attr('type','text');
+            $('#confNuova').attr('type','text');
+        }
+        else{
+            $('#nuova').attr('type','password');
+            $('#confNuova').attr('type','password');
+        }
+    });
     $('#fRecupera').on('submit',(e)=>{
         e.preventDefault();
         let data: ResetInterface = {
