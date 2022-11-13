@@ -12,6 +12,7 @@ require_once('../interfaces/productsVals.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
+require_once("../vendor/autoload.php");
 require_once('../objects/prodotto.php');
 //require_once('../objects/utente.php');
 
