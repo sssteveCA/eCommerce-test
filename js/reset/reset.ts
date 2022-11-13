@@ -1,6 +1,6 @@
-import DialogMessage from "../dialog/dialogmessage";
+import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import ResetController from "./reset.controller";
+import ResetController from "./reset.controller.js";
 import ResetInterface from "./reset.interface";
 
 $(()=>{
