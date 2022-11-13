@@ -43,10 +43,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         !preg_match($regex,$post["city"]) && !preg_match($regex,$post["zip"]) && $post["pers"] == "1"){
             updatePersonalData();
         }
+        else http_response_code(400);
     }//if(isset($post['name'],$post["surname"],$post["address"],$post["number"],$post["city"],$post["zip"],$post["pers"])){isset($_POST["cap"])){
+    else http_response_code(400);
     echo json_encode($response);
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
+    http_response_code(401);
     echo '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 
@@ -79,13 +82,18 @@ function updateUsername(){
                 $response["user"] = $utente->getUsername(); 
                 $_SESSION['utente'] = serialize($utente);
             }
-            else $response["msg"] = Msg::ERR_USERNOTUPDATED;
+            else{
+                http_response_code(500);
+                $response["msg"] = Msg::ERR_USERNOTUPDATED;
+            } 
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
         else{
+            http_response_code(400);
             $response['msg'] = $utente->getStrError();
         }
     }
     catch(Exception $e){
+        http_response_code(500);
         $response['msg'] = $e->getMessage();
     }
     
@@ -119,11 +127,20 @@ function updatePassword(){
                         $response["msg"] = Msg::PWDUPDATED;
                         $_SESSION['utente'] = serialize($utente);
                     }
-                    else $response["msg"] = Msg::ERR_PWDNOTUPDATED;
-                    }//if($_POST["nPwd"] == $_POST["confPwd"]){
-                else $response["msg"] = Msg::ERR_PWDCONFDIFFERENT;
+                    else {
+                        http_response_code(500);
+                        $response["msg"] = Msg::ERR_PWDNOTUPDATED;
+                    } 
+                }//if($_POST["nPwd"] == $_POST["confPwd"]){
+                else {
+                    http_response_code(400);
+                    $response["msg"] = Msg::ERR_PWDCONFDIFFERENT;
+                }   
             }//if(password_verify($_POST["oPwd"],$passwordC)){
-            else $response["msg"] = Msg::ERR_PWDCURRENTWRONG;
+            else {
+                http_response_code(401);
+                $response["msg"] = Msg::ERR_PWDCURRENTWRONG;
+            }
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
     }
     catch(Exception $e){

@@ -37,18 +37,22 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
             header('location: ../benvenuto.php');
         }
         else if($err == 1){
+            http_response_code(401);
             echo Msg::ERR_USERPWDWRONG.'<br>';
             header('refresh:7;url=../index.php');
         }
         else if($err == 2){
+            http_response_code(401);
             echo Msg::ERR_ACTIVEACCOUNT.'<br>';
             header('refresh:10;url=../index.php');
         }
         else{
+            http_response_code(500);
             echo Msg::ERR_UNKNOWN.'<br>';
         }
     }
     catch(Exception $e){
+        http_response_code(500);
         echo $e->getMessage();
     } 
 }//if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST['password'] != ''){

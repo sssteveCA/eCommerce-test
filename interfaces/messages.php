@@ -29,8 +29,8 @@ interface Messages{
     const ERR_ALREALDYCART = 'Il prodotto selezionato è già presente nel carrello';
     const ERR_CODEINVALD = 'Codice non valido';
     const ERR_DATEINVALID = 'La data inserita non è valida';
-    const ERR_EMAILBUSINESSINVALID = 'La mail business non è valida';
-    const ERR_EMAILINVALID = 'La mail che hai inserito non è valida';
+    const ERR_EMAILBUSINESSINVALID = 'L\'indirizzo email business business non è valido';
+    const ERR_EMAILINVALID = 'L\' indirizzo email che hai inserito non è valido';
     const ERR_EMAILINSERT = 'Inserisci un indirizzo mail';
     const ERR_EMAILSENDING1 = 'Errore durante l\' invio della mail';
     const ERR_EMAILSENDING2 = 'C\'è stato un errore durante l\'invio della mail. Riprova più tardi';

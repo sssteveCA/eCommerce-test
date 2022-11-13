@@ -67,7 +67,7 @@ class Prodotto implements Pe,Pv,Mv{
         if(isset($this->id)){
             $ok = $this->getProduct();
             if($ok)$this->numError = 0;
-            else $this->numError = PRODOTTOERR_INFONOTGETTED; //impossibile ottenere le informazioni sul prodotto dal database MySql
+            else $this->numError = Pe::INFONOTGETTED; //impossibile ottenere le informazioni sul prodotto dal database MySql
         }
         //inserimento di un nuovo prodotto
         else{

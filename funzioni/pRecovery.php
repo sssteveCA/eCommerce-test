@@ -37,19 +37,23 @@ if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
                 $mess = 'Password modificata';
             }
             else{
+                http_response_code(400);
                  $mess = $utente->getStrError().'<br>';
                  $mess .= ' Linea n. '.__LINE__;
             }
         }//if($nuova == $conf){
         else{
+            http_response_code(400);
             $mess = Msg::ERR_PWDNOTEQUAL;
         }
     }//if(isset($_POST['nuova'],$_POST['confNuova']) && $_POST['nuova'] != '' && $_POST['confNuova'] != ''){
     else{
+        http_response_code(400);
         $mess = Msg::ERR_PWDNOTSETTED;
     }
 }//if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
 else{
+    http_response_code(400);
     $mess = Msg::ERR_CODEINVALD;
 }
 if($ajax){

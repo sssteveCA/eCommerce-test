@@ -41,9 +41,15 @@ HEADER;
         if($send){
             $risultato['msg'] = Msg::EMAILSENT2;
         }
-        else $risultato['msg'] = Msg::ERR_EMAILSENDING2;
+        else {
+            http_response_code(500);
+           $risultato['msg'] = Msg::ERR_EMAILSENDING2; 
+        }
     }//if(isset($_POST['oggetto'],$_POST['messaggio']) && $_POST['oggetto'] != '' && $_POST['messaggio'] != ''){
-    else $risultato['msg'] = Msg::ERR_UNKNOWN;
+    else {
+        http_response_code(500);
+        $risultato['msg'] = Msg::ERR_UNKNOWN;
+    } 
     //se l'utente vuole contattare il venditore del prodotto visualizzato
     if(isset($_POST['oper']) && $_POST['oper'] == '3'){
         if(isset($_POST['emailTo'],$_POST['pOggetto'],$_POST['pMessaggio']) && preg_match(Utente::$regex['email'],$_POST['emailTo'])){
@@ -59,9 +65,15 @@ HEADER;
             if($send){
                 $risultato['msg'] = Msg::EMAILSENT1;
             }
-            else $risposta['msg'] = Msg::ERR_EMAILSENDING1;
+            else {
+                http_response_code(500);
+                $risposta['msg'] = Msg::ERR_EMAILSENDING1;
+            }
         }
-        else $risultato['msg'] = Msg::ERR_INVALIDDATA;
+        else {
+            http_response_code(400);
+            $risultato['msg'] = Msg::ERR_INVALIDDATA;
+        }
     }//if(isset($_POST['oper']) && $_POST['oper'] == '3'){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
@@ -141,14 +153,17 @@ HTML;
                 $risultato['msg'] = Msg::EMAILRECOVERY;
             }
             else{
+                http_response_code(500);
                 $risultato['msg'] = Msg::ERR_EMAILSENDING1;
             }
         }//if($mod){
         else{
+            http_response_code(500);
             $risultato['msg'] = $utente->getStrError();
         } 
     }
     else{
+        http_response_code(400);
         $risultato['msg'] = Msg::ERR_EMAILINSERT;
     }
 }//else di if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

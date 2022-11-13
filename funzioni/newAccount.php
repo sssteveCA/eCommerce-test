@@ -48,33 +48,48 @@ if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['addre
                                 if(!$ajax)
                                     header('referesh:10;url=../index.php');
                             }//if($send){
-                            else $response['msg'] = $utente->getStrError();
+                            else {
+                                http_response_code(500);
+                                $response['msg'] = $utente->getStrError();
+                            }
                         }//if($utente->getNumError() == 0){
                         else{
-                            $response['queries'] = $utente->getQueries();
+                            http_response_code(400);
+                            //$response['queries'] = $utente->getQueries();
                             $response['msg'] = $utente->getStrError();
                         }
-                }
+                    }
                     catch(Exception $e){
+                        http_response_code(500);
                         $response['msg'] = $e->getMessage();
                     }
                 }//if($okMails == 1){
                 else{
-                    if($okMails == -1)
+                    if($okMails == -1){
+                        http_response_code(400);
                         $response['msg'] = Msg::ERR_EMAILINVALID;
-                    else if($okMails == -2)
+                    }  
+                    else if($okMails == -2){
+                        http_response_code(400);
                         $response['msg'] = Msg::ERR_EMAILBUSINESSINVALID;
+                    }       
                 }
             }//if($sex != null){
-            else
+            else{
+                http_response_code(400);
                 $response['msg'] = Msg::ERR_GENDERINVALID;
+            }   
         }//if($validDate){
         $regOk = false; //true if subscribe is done successfully
     }//if($data['password'] == $data['confPass']){
-    else
+    else{
+        http_response_code(400);
         $response['msg'] = Msg::ERR_PWDNOTEQUAL;
+    }
+        
 }//if(isset($data['nome'],$data['cognome'],$data['nascita'],$data['sesso'],$data['indirizzo'],$data['numero'],$data['citta'],$data['cap'],$data['email'],$data['user'],$data['password'],$data['confPass'])){
 else{
+    http_response_code(400);
     if($ajax)$response['msg'] = Msg::ERR_REQUIREDFIELDSNOTFILLED;
     else{
         $response['msg'] = 'Compila correttamente il form alla pagina <a href="../registrati.php">form</a> per eseguire questo script';

@@ -50,6 +50,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 try{
                     addOrderToCart($response,$idp,$user);
                 }catch(Exception $e){
+                    http_response_code(500);
                     $response['msg'] = $e->getMessage();
                     //$response['msg'] .= ' Linea n. '.__LINE__;
                 }
@@ -64,17 +65,23 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 try{
                     delOrderFromCart($response, $oData, $user);
                 }catch(Exception $e){
+                    http_response_code(500);
                     $risposta['msg'] = $e->getMessage();
                     //$risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
             }//if(isset($post['ido']) && is_numeric($post['ido'])){
-            else
-                $response['msg'] = Msg::ERR_ORDERDELETEINVALIDID;
+            else{
+                http_response_code(400);
+               $response['msg'] = Msg::ERR_ORDERDELETEINVALIDID; 
+            }          
         }//else if($post['oper'] == '3'){
     }//if(isset($post['oper'])){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-else
+else{
+    http_response_code(401);
     $response['msg'] = Msg::ERR_NOTLOGGED;
+}
+    
 
 if($ajax)
     echo json_encode($response);
@@ -139,15 +146,18 @@ function addOrderToCart(array $oData, string|int $idp, Utente $user){
                 $response['msg'] = Msg::ORDERADDEDCART;
             }
             else{
+                http_response_code(400);
                 $response['msg'] = $order->getStrError();
                 //$response['msg'] .= ' Linea n. '.__LINE__;
             }
         }//if(!$already_in){
         else{
+            http_response_code(400);
             $response['msg'] = Msg::ERR_ALREALDYCART;   
         }
     }//if($ordine->getNumError() == 0){
     else{
+        http_response_code(400);
         $response['msg'] = $order->getStrError();
         //$response['msg'] .= ' Linea n. '.__LINE__;
     } 
@@ -166,11 +176,13 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
             $response['done'] = true;
         }
         else{
+            http_response_code(400);
             $response['msg'] = $order->getStrError();
             //$response['msg'] .= ' Linea n. '.__LINE__;
         }
     }//if($order->getNumError() == 0){
     else{ 
+        http_response_code(400);
         $response['msg'] = $order->getStrError();
         //$risposta['msg'] .= ' Linea n. '.__LINE__;
     }

@@ -62,15 +62,17 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                             $carrello[$ido]['totale'] = $ordine->getTotale();
                             //$risposta['msg'] .= $prodotto->getNome().'<br>';
                         }
+                        else http_response_code(400);
                     }
-
                 }
                 else{
+                    http_response_code(400);
                     $risposta['msg'] = $ordine->getStrError();
                     break;
                 } 
             }
             catch(Exception $e){
+                http_response_code(500);
                 $risposta['msg'] = $e->getMessage();
             }
         }
@@ -83,6 +85,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     }
 }
 else{
+    http_response_code(401);
     $risposta['msg'] = '<a href="../accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 if($ajax){}

@@ -32,24 +32,29 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $risposta['ok'] = '1';
                 }
                 else{
+                    http_response_code(500);
                     $risposta['msg'] = Msg::ERR_PRODNOTDELETED;
                 }
             }//if($prodotto->getNumError() == 0){
             else{
+                http_response_code(500);
                 $risposta['msg'] = $prodotto->getStrError().'<br>';
                 $risposta['msg'] .= ' Linea n. '.__LINE__;
             }
         }
         catch(Exception $e){
+            http_response_code(500);
             $risposta['msg'] = $e->getMessage().'<br>';
             $risposta['msg'] .= ' Linea n. '.__LINE__;
         }
     }//if(isset($_POST['idp']) && is_numeric($_POST['idp'])){
     else{
+        http_response_code(400);
         $risposta['msg'] = Msg::ERR_PRODINVALID;
     }
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
+    http_response_code(401);
     $risposta['msg'] = Msg::ERR_NOTLOGGED;
 }
 if($ajax)json_encode($risposta);

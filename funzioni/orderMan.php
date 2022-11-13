@@ -62,10 +62,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             payOrder($risposta);
         }//else if($_GET['oper'] == '5' && isset($_GET['idOrd'])){
         else{
+            http_response_code(400);
             $risposta['msg'] = Msg::ERR_INVALIDOPERATION1;
         }
     }//if(isset($_GET['oper'])){
     else{
+        http_response_code(400);
         $risposta['msg'] = Msg::ERR_NOOPERATION;
     }
     echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
@@ -106,6 +108,7 @@ function getOrders(array &$risposta){
                     $i++;
                 }//if($ordine->getNumError() == 0){
                 else{
+                        http_response_code(400);
                         $risposta['msg'] = $ordine->getStrError().'<br>';
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
                         $done = false;
@@ -113,6 +116,7 @@ function getOrders(array &$risposta){
                 }
             }
             catch(Exception $e){
+                http_response_code(500);
                 $risposta['msg'] = $e->getMessage();
                 $risposta['msg'] .= ' Linea n. '.__LINE__;
                 $done = false;
@@ -156,21 +160,25 @@ function getOrder(array &$risposta){
                         $risposta['done'] = true;
                     }//if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                     else{
+                        http_response_code(400);
                         $risposta['msg'] = $venditore->getStrError().'<br>';
                         //$risposta['msg'] .= ' Linea n. '.__LINE__;
                     }
                 }//if($prodotto->getNumError() == 0){
                 else{
+                    http_response_code(400);
                     $risposta['msg'] = $prodotto->getStrError().'<br>';
                     //$risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
             }//if($ordine->getNumError() == 0){
             else{
+                http_response_code(400);
                 $risposta['msg'] = $ordine->getStrError().'<br>';
                 //$risposta['msg'] .= ' Linea n. '.__LINE__;
             }              
         }
         catch(Exception $e){
+            http_response_code(500);
             $risposta['msg'] = $e->getMessage().'<br>';
             //$risposta['msg'] .= ' Linea n. '.__LINE__;
         }
@@ -179,7 +187,6 @@ function getOrder(array &$risposta){
 
 //User wants delete an order
 function deleteOrder(array &$risposta,Utente $utente){
-
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
         //echo 'esiste ordini';
         try{
@@ -192,11 +199,13 @@ function deleteOrder(array &$risposta,Utente $utente){
                 unset($_SESSION['ordini']);
             }
             else{
+                http_response_code(500);
                 $risposta['msg'] = $ordine->getStrError().'<br>';
                 $risposta['msg'] .= ' Linea n. '.__LINE__;
             }
         }
         catch(Exception $e){
+            http_response_code(500);
             $risposta['msg'] = $e->getMessage().'<br>';
             $risposta['msg'] .= ' Linea n. '.__LINE__;
         }
@@ -228,30 +237,35 @@ function editOrderQuantity(array &$risposta){
                             $risposta['done'] = true;
                         }
                         else{
+                            http_response_code(500);
                             $risposta['msg'] = Msg::ERR_ORDERAMOUNTNOTPDATED;
                         }
                     }//if($prodotto->getNumError() == 0){
                     else{
+                        http_response_code(400);
                         $risposta['msg'] = $prodotto->getStrError().'<br>';
                         $risposta['msg'] .= ' Linea n. '.__LINE__;
                     }
                 }//if($ordine->getNumError() == 0){
                 else{
+                    http_response_code(400);
                     $risposta['msg'] = $ordine->getStrError().'<br>';
                     $risposta['msg'] .= ' Linea n. '.__LINE__;
                 }
-
             }
             catch(Exception $e){
+                http_response_code(500);
                 $risposta['msg'] = $e->getMessage().'<br>';
                 $risposta['msg'] .= ' Linea n. '.__LINE__;
             }
         }//if(is_numeric($quantita) && $quantita > 0){
         else{
+            http_response_code(400);
             $risposta['msg'] = Msg::ERR_ORDERINVALIDAMOUNT;
         }
     }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
     else{
+        http_response_code(400);
         $risposta['msg'] = Msg::ERR_ORDERINVALID;
     }
 }
@@ -297,6 +311,7 @@ function payOrder(array &$risposta){
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
     }
     else{
+        http_response_code(400);
         $risposta['msg'] = Msg::ERR_ORDERINVALID;
     }
 }

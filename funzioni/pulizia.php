@@ -32,16 +32,19 @@ SQL;
                 $mess = $h->affected_rows.' righe pulite';
             }
             else{
+                http_response_code(500);
                 $mess = Msg::ERR_MYSQLQUERY;
             }
             $h->close();
         }//else di if($h->connect_errno){
     }//if($_REQUEST['password'] == $passwordPulizia){
     else{
+        http_response_code(401);
         $mess = Msg::ERR_PWDWRONG;
     }
 }//if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
 else{
+    http_response_code(400);
     $mess = Msg::ERR_CODEINVALD;
 }
 $f=fopen('log.txt', 'a');

@@ -28,13 +28,20 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             //Image file uploaded to the server
             create_insertion($_POST,$_FILES,$response);
         }//if($_FILES['image']['error'] == 0){
-        else
+        else{
+            http_response_code(400);
             $response['msg'] = M::ERR_INSERTIONFILENOTUPLOADED;
+        }
+            
     }//if(isset($_POST['idu'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
-    else
+    else{
+        http_response_code(400);
         $response['msg'] = M::ERR_REQUIREDFIELDSNOTFILLED;
+    }
+        
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{  
+    http_response_code(401);
     if($ajax)$response['msg'] = M::ERR_NOTLOGGED;
     else echo M::ERR_LOGIN2;
 }
@@ -84,14 +91,21 @@ function create_insertion($post,$files,&$response): bool{
                 $response['done'] = true;
                 $ok = true;
             }//if($errno == 0){
-            else
+            else{
+                http_response_code(400);
                 $response['msg'] = $product->getStrError();
+            }
+                
         }catch(Exception $e){
+            http_response_code(500);
             $response['msg'] = $e->getMessage();
         }
     }//if(exif_imagetype($files['image']['tmp_name']) == IMAGETYPE_JPEG){
-    else
+    else{
+        http_response_code(400);
         $response['msg'] = M::ERR_INSERTIONNOTIMAGE;
+    }
+        
     return $ok;
 }
 
