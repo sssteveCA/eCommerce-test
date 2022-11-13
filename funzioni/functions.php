@@ -8,8 +8,6 @@ use EcommerceTest\Interfaces\Messages as Msg;
 require_once('config.php');
 //dato l'id dell'ordine, lo cancella
 function cancOrdine($id,$user){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $ordine = array();
     //apro la connessione al server MySQL
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
@@ -53,8 +51,6 @@ function casuale($ls, $c = 'ABCDEFGHIJKLMNOPQRSTUVWXYzabcdefghijklmnopqrstuvwxyz
 //inserisce i dati dell'ordine nella tabella MySql 'ordini', true se li ha inseriti
 function creaOrdine($idc,$idp,$np,$tot){
     //apro la connessione al server MySQL
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     //errore
     if($h->connect_errno){
@@ -96,8 +92,6 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists($campo,$campoW,$str){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
@@ -128,8 +122,6 @@ function ddmmyyyy($data){
   0 = non ci sono campi con lo stesso valore già esstenti
   -1 = la query non è stata eseguita */
   function Exists2($where){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $mysqli = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($mysqli !== FALSE){
         $mysqli->set_charset("utf8mb4");
@@ -155,8 +147,6 @@ function ddmmyyyy($data){
 
 //ottieni l'ID più grande di una tabella
 function getMaxId($table){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $id = -1;
     //apro la connessione al server MySQL
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
@@ -183,8 +173,6 @@ SQL;
 
 //mostra tutti gli ordini effettuati da un utente
 function getOrdini($user){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $ordini = array();
     //apro la connessione al server MySQL
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
@@ -229,8 +217,6 @@ SQL;
 
 //restituisce la password fornendo l'indirizzo mail
 function getPassword($email){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $result = array();
     //apro la connessione al server MySQL
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
@@ -265,8 +251,6 @@ SQL;
 
 //restituisce tutte le informazioni su un prodotto specifico con id = $idp
 function getProdotto($idp){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $prodotto = array();
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
     if($h->connect_errno){
@@ -309,8 +293,6 @@ SQL;
 
 //ottieni tutte le informazioni dell'utente $user
 function getUserData($user){
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $info = array();
     //apro la connessione al server MySQL
     $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);

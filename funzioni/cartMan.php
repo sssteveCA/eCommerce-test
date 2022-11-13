@@ -16,6 +16,7 @@ require_once('paypalConfig.php');
 require_once('config.php');
 require_once('const.php');
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Ordine;
@@ -36,6 +37,8 @@ $response = [
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $user = unserialize($_SESSION['utente']);
     $oData = [];
     if(isset($post['oper'])){

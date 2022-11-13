@@ -15,7 +15,7 @@ require_once('functions.php');
 require_once('../objects/utente.php');
 ob_start();
 
-$dotenv = Dotenv::createImmutable(__DIR__."../");
+$dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 $hostname = $_ENV['HOSTNAME'];
 $post = json_decode(file_get_contents('php://input'),true);

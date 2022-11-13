@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Carrello;
 use EcommerceTest\Objects\Utente;
@@ -23,6 +24,8 @@ $risposta['done'] = false;
 $successo = false;
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     $idc = $utente->getId();
     if(!$ajax){

@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
@@ -26,6 +27,8 @@ $risposta['msg'] = '';
 $ajax =  (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     $returnUrl = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/cartSuccess.php';
     $cancelUrl = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/cartCancel.php';

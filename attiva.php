@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 
 require_once('config.php');
@@ -43,6 +44,8 @@ require_once('objects/utente.php');
 <?php
     $regex = '/^[a-z0-9]{64}$/i';
     if(isset($_REQUEST['codAut']) && preg_match($regex,$_REQUEST['codAut'])){
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
         $dati = array();
         $dati['campo'] = 'codAut';
         $dati['codAut'] = $_REQUEST['codAut'];

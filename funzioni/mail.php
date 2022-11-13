@@ -22,7 +22,7 @@ $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
 $ajax = true;
 $risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
 $risultato['post'] = $_POST;
-$dotenv = Dotenv::createImmutable(__DIR__."../");
+$dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 $hostname = $_ENV['HOSTNAME'];
 

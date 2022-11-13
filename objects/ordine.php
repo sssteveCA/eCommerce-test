@@ -48,8 +48,6 @@ class Ordine implements Oe/* ,Mv */{
     private $mysqlError;
     private static $idList = array();
     public function __construct($ingresso){
-        $dotenv = Dotenv::createImmutable(__DIR__."../");
-        $dotenv->safeLoad();
         $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
         $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
         $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];

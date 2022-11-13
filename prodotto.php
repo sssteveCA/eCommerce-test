@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Paths as P;
@@ -21,6 +22,8 @@ require_once('objects/utente.php');
 require_once('funzioni/const.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     if(isset($_GET['id']) && is_numeric($_GET['id'])){
         $dati = array();

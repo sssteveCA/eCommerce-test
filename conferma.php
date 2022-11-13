@@ -27,6 +27,8 @@ require_once("funzioni/const.php");
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     //se il prodotto è una variabile di sessione oppure esiste l'ID di quel prodotto
     $datiOk = false;
     //se i dati del form della pagina compra.php esistono
@@ -63,8 +65,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 if($uVenditore->getNumError() == 0 || $uVenditore->getNumError() == 1){
                     $pOrdinato = false; //true se esiste già un ordine del cliente dello stesso prodotto
                     //var_dump($prodotto);
-                    $dotenv = Dotenv::createImmutable(__DIR__);
-                    $dotenv->safeLoad();
                     $idOrdini = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_PASSWORD'],$_ENV['TABORD'],$_ENV['TABACC'],$utente->getUsername());
                     if($idOrdini != null){
                         foreach($idOrdini as $idOrdine){

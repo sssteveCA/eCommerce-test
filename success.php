@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Ordine;
 
 session_start();
@@ -21,6 +22,8 @@ $risposta = array();
 $msg = '';
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     if(!$ajax){
         ?>

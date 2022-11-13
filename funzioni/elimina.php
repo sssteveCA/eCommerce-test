@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\Messages as Msg;
 
@@ -19,6 +20,8 @@ require_once('../objects/prodotto.php');
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $risposta = array();
     $utente = unserialize($_SESSION['utente']);
     $id = $utente->getId();

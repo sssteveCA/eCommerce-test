@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\Messages as Msg;
@@ -21,6 +22,8 @@ $response['msg'] = '';
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $response['post'] = $post;
     $utente = unserialize($_SESSION['utente']);
     $regex = '/(^$|^\s+$)/';

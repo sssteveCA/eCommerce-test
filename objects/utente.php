@@ -74,8 +74,6 @@ class Utente implements Ue/* ,Mv */{
         'cambioPwd' => '/^[a-z0-9]{64}$/i'
     );
     public function __construct($ingresso){
-        $dotenv = Dotenv::createImmutable(__DIR__."../");
-        $dotenv->safeLoad();
         $this->connesso = false;
         $this->querySql = null;
         $this->queries = array();

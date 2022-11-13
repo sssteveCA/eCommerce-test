@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Messages as Msg;
 
@@ -18,6 +19,8 @@ require_once('const.php');
 //ob_start();
 $_SESSION['logged'] = false;
 if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST['password'] != ''){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $dati = array();
     $dati['campo'] = 'email';
     $dati['email'] = $_POST['email'];

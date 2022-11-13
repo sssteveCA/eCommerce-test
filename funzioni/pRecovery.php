@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Messages as Msg;
 
@@ -19,6 +20,8 @@ $regex = '/^[a-z0-9]{64}$/i';
 $messaggio = array();
 if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
     if(isset($_POST['nuova'],$_POST['confNuova']) && $_POST['nuova'] != '' && $_POST['confNuova'] != ''){
+        $dotenv = Dotenv::createImmutable(__DIR__."/../");
+        $dotenv->safeLoad();
         //$ajax = true se è stata effettuata una chiamata AJAX per eseguire lo script
         $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
         $nuova = $_POST['nuova']; //nuova password

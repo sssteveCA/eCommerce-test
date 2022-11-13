@@ -42,8 +42,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
     //contiene la lista degli id ottenuti dalla query di ricerca
     private static $idList = array(); 
     public function __construct($ingresso){
-        $dotenv = Dotenv::createImmutable(__DIR__."../");
-        $dotenv->safeLoad();
         $this->connesso = false;
         $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
         $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];

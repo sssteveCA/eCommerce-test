@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Exceptions\InvalidValueException;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\Paths as P;
@@ -32,6 +33,8 @@ require_once('funzioni/paypalConfig.php');
 require_once('funzioni/const.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
 ?>
 <!DOCTYPE html>

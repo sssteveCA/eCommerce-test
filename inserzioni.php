@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as M;
 use EcommerceTest\Interfaces\MySqlVals as Msv;
 use EcommerceTest\Interfaces\Paths as P;
@@ -22,6 +23,8 @@ require_once('objects/utente.php');
 require('footer.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     $page_data = [
         'insertions_css' => P::REL_INSERTIONS_CSS,

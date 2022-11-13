@@ -21,8 +21,6 @@ class Carrello /* implements Mv */{
      * Get an array of user (order id & seller id) by username
      */
     public static function getCartIdos($user){
-        $dotenv = Dotenv::createImmutable(__DIR__."../");
-        $dotenv->safeLoad();
         Carrello::$cartIdos = array();
         Carrello::$nProdotti = 0;
         $h = new \mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);

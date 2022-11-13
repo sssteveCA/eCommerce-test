@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Paths as P;
 
@@ -17,6 +18,8 @@ require('footer.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
     $dati = array();
     $dati['nome'] = $utente->getNome();

@@ -62,7 +62,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         $res = trim(end($tokens));
         fwrite($file,"$res\n");
         if(strcasecmp($res, "VERIFIED") == 0){
-            $dotenv = Dotenv::createImmutable(__DIR__."../");
+            $dotenv = Dotenv::createImmutable(__DIR__);
             $dotenv->safeLoad();
             $item_number = $_POST['item_number']; 
             $txn_id = $_POST['txn_id']; 

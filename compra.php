@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
@@ -19,6 +20,8 @@ require_once("funzioni/const.php");
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     //echo "Collegato<br>";
     if(isset($_SESSION['prodotto'],$_SESSION['venditore'],$_POST['qt']) && is_numeric($_POST['qt'])){
         $cliente = unserialize($_SESSION['utente']);

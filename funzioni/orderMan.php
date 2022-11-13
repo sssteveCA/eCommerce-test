@@ -31,6 +31,8 @@ $risposta = array(
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+    $dotenv->safeLoad();
     $p = array(); //array da passare alla classe prodotto
     $v = array(); //array da passare alla classe utente(venditore)
     $utente = unserialize($_SESSION['utente']);
@@ -82,8 +84,6 @@ else{
 //Orders list of logged user
 function getOrders(array &$risposta){
     global $nomeUtente;
-    $dotenv = Dotenv::createImmutable(__DIR__."../");
-    $dotenv->safeLoad();
     $done = true;
     $ordiniCliente = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$_ENV['TABORD'],$_ENV['TABACC'],$nomeUtente);
     $risposta['i'] = count($ordiniCliente);

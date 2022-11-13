@@ -9,6 +9,7 @@ require_once("../interfaces/productsVals.php");
 require_once("../vendor/autoload.php");
 require_once("../objects/prodotto.php");
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as M;
 use EcommerceTest\Objects\Prodotto;
 
@@ -26,6 +27,8 @@ $ajax = $_POST['ajax'];
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     if(isset($_POST['idU'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
         if($_FILES['image']['error'] == 0){
+            $dotenv = Dotenv::createImmutable(__DIR__."/../");
+            $dotenv->safeLoad();
             //Image file uploaded to the server
             create_insertion($_POST,$_FILES,$response);
         }//if($_FILES['image']['error'] == 0){

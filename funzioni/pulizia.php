@@ -10,6 +10,7 @@ ob_start();
 require_once('config.php');
 require_once('../config.php');
 require_once('../interfaces/messages.php');
+require_once('../vendor/autoload.php');
 //require_once('../interfaces/mysqlVals.php');
 
 $regex = '/^[a-z0-9]{1,64}$/i';
@@ -17,7 +18,7 @@ $time = time();
 if(isset($_REQUEST['password']) && preg_match($regex,$_REQUEST['password'])){
     if($_REQUEST['password'] == $passwordPulizia){
         //apro la connessione al server MySQL
-        $dotenv = Dotenv::createImmutable(__DIR__."../");
+        $dotenv = Dotenv::createImmutable(__DIR__."/../");
         $dotenv->safeLoad();
         $h = new mysqli($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE']);
         //errore

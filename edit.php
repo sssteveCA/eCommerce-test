@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
@@ -16,6 +17,8 @@ require('footer.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $oUtente = unserialize($_SESSION['utente']);
     //file_put_contents("log.txt","edit.php oUtente => ".var_export($oUtente,true)."\r\n",FILE_APPEND);
     //informazioni complete sull'utente $_SESSION['user']

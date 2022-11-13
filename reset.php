@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente; 
 use EcommerceTest\Interfaces\Paths as P;
 
@@ -37,6 +38,8 @@ require_once('funzioni/config.php');
 $regex = '/^[a-z0-9]{64}$/i';
 //se esiste il codice di recupero e se ha fatto il match con $regex
 if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     $codReset = $_REQUEST['codReset'];
     $time = time()-$attesa;
     $dati = array();
