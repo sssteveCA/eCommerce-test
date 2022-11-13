@@ -7,6 +7,7 @@ prodotti.json
 funzioni/*.txt
 tabelle
 node_modules
+vendor/
 css/*/*.css
 js/*/*.js
 js/*/*/*.js
