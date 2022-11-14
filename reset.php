@@ -53,22 +53,36 @@ if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
     <legend>Recupero password</legend>
     <h2>Inserisci la nuova password</h2>
     <form action="funzioni/pRecovery.php" method="post" id="fRecupera">
-        <div>
-            <label for="nuova" class="form-label">Nuova password</label>
-            <input type="password" id="nuova" class="form-control" name="nuova">
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-12 col-md-5 col-lg-3">
+                    <label for="nuova" class="form-label">Nuova password</label>
+                </div>
+                <div class="col-12 col-md-7 col-lg-9 mt-2 mt-md-0">
+                    <input type="password" id="nuova" class="form-control" name="nuova">
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12 col-md-5 col-lg-3">
+                    <label for="confNuova" class="form-label">Conferma nuova password</label>
+                </div>
+                <div class="col-12 col-md-7 col-lg-9 mt-2 mt-md-0">
+                    <input type="password" id="confNuova" class="form-control" name="confNuova">
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12">
+                    <input type="checkbox" id="showPass" class="form-check-input">
+                    <label for="showPass" class="ms-2">Mostra password</label>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12 text-center">
+                    <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
+                </div>
+            </div>
         </div>
-        <div class="my-3">
-            <label for="confNuova" class="form-label">Conferma nuova password</label>
-            <input type="password" id="confNuova" class="form-control" name="confNuova">
-        </div>
-        <div class="my-3">
-            <input type="checkbox" id="showPass" class="form-check-input">
-            <label for="showPass" class="ms-2">Mostra password</label>
-        </div>
-        <div class="my-3">
-            <input type="hidden" id="chiave" name="chiave" value="<?php echo $_REQUEST['codReset']; ?>">
-            <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
-        </div>
+        <input type="hidden" id="chiave" name="chiave" value="<?php echo $_REQUEST['codReset']; ?>">
     </form>
 </fieldset>
 <?php
