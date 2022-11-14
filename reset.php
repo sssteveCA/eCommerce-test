@@ -22,7 +22,6 @@ require_once('footer.php');
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recupera password</title>
-        <link rel="stylesheet" href=<?php echo P::REL_RESET_CSS; ?> type="text/css">
         <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
