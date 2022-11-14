@@ -111,8 +111,15 @@ else{
                     <label for="show" class="form-check-label">Mostra password</label>
                 </div>
                 <div class="buttons d-flex justify-content-evenly">
-                    <button type="submit" id="submit" class="btn btn-primary">REGISTRATI</button>
-                    <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
+                    <div class="d-flex align-items-center">
+                        <button type="submit" id="submit" class="btn btn-primary">REGISTRATI</button>
+                        <div id="spinner" class="spinner-border ms-2 invisible" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" id="reset" class="btn btn-danger">ANNULLA</button>
+                    </div>
                 </div>
                 <p>*Richiesti quando l'utente deve caricare le inserzioni</p>
             </form>

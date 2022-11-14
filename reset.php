@@ -76,8 +76,11 @@ if(isset($_REQUEST['codReset']) && preg_match($regex,$_REQUEST['codReset'])){
                 </div>
             </div>
             <div class="row my-5">
-                <div class="col-12 text-center">
+                <div class="col-12 d-flex justify-content-center align-items-center">
                     <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
+                    <div id="spinner" class="spinner-border ms-2 invisible" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -44,8 +44,11 @@ else{
                         <label for="email" class="form-label me-3">Email</label>
                         <input type="email" id="email" class="form-control" name="email">
                     </div>
-                    <div class="pt-4">
+                    <div class="pt-4 d-flex justify-content-center align-items-center">
                         <button type="submit" id="bOk" class="btn btn-primary">OK</button>
+                        <div id="spinner" class="spinner-border ms-2 invisible" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 </form>
             </fieldset>
