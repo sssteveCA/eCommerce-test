@@ -1,14 +1,15 @@
 import Subscriber from "./subscriber.model.js";
-import DialogMessage from "../dialog/dialogmessage.js";
 
 //Do the HTTP request passing Subscriber object
 export default class SubscriberController{
 
     public static ERR_NOSUBSCRIBEROBJECT = 1; //Subscriber object is null
     public static ERR_DATAMISSED = 2; //One or more properties of Subscriber object missed
+    public static ERR_REQUEST = 3;
 
     private static ERR_MSG_NOSUBSCRIBEROBJECT = "L'oggetto Subscriber non è stato definito";
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
+    private static ERR_MSG_REQUEST = "Errore durante l'esecuzione della richeista";
 
     private static SUBSCRIBE_URL = 'funzioni/newAccount.php';
 
@@ -22,7 +23,6 @@ export default class SubscriberController{
         this._subscriber = subscriber;
         this._errno = 0;
         this._error = null;
-        this.subscribeRequest();
     }
 
     get subscriber(){return this._subscriber;}
@@ -34,6 +34,9 @@ export default class SubscriberController{
                 break;
             case SubscriberController.ERR_DATAMISSED:
                 this._error = SubscriberController.ERR_MSG_DATAMISSED;
+                break;
+            case SubscriberController.ERR_REQUEST:
+                this._error = SubscriberController.ERR_MSG_REQUEST;
                 break;
             default:
                 this._error = null;
@@ -51,44 +54,33 @@ export default class SubscriberController{
         return ok;
     }
 
-    //Do the subscribe request
-    private subscribeRequest(): void{
-        if(this.subscriber != null){
+    public async subscribeRequest(): Promise<object>{
+        this._errno = 0;
+        let response: object = {};
+        if(this._subscriber != null){
             if(this.validateSubscriber()){
-                let dm,dmData,msgDialog: JQuery<HTMLElement>, resJson;
-                this.subscribePromise().then(res => {
-                    //console.log(res);
-                    resJson = JSON.parse(res);
-                    dmData = {
-                        title: 'Registrazione',
-                        message: resJson.msg
-                    }
-                    dm = new DialogMessage(dmData);
-                    msgDialog = $('#'+dm.id);
-                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
-                        //User press OK button
-                        msgDialog.dialog('destroy');
-                        msgDialog.remove();
+                try{
+                    await this.subscribePromise().then(res => {
+                        //console.log(res)
+                        response = JSON.parse(res);
+                    }).catch(err => {
+                        throw err;
                     });
-                }).catch(err => {
-                    console.warn(err);
-                    dmData = {
-                        title: 'Registrazione',
-                        message: err
-                    };
-                    dm = new DialogMessage(dmData);
-                    msgDialog = $('#'+dm.id);
-                    $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
-                        //User press OK button
-                        msgDialog.dialog('destroy');
-                        msgDialog.remove();
-                    });
-                });
+                }catch(e){
+                    this._errno = SubscriberController.ERR_REQUEST;
+                    response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+                }
             }//if(this.validateSubscriber()){
-            else this._errno = SubscriberController.ERR_DATAMISSED;
-        }//if(this.subscriber != null){
-        else this._errno = SubscriberController.ERR_NOSUBSCRIBEROBJECT;
-
+            else{
+                this._errno = SubscriberController.ERR_DATAMISSED;
+                response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+            }
+        }//if(this._subscriber != null){
+        else{
+            this._errno = SubscriberController.ERR_NOSUBSCRIBEROBJECT;
+            response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+        }
+        return response;
     }
 
     private async subscribePromise(): Promise<any>{

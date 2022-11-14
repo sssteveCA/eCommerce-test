@@ -5,7 +5,7 @@ import ResetInterface from "./reset.interface";
 
 $(()=>{
     $('#showPass').on('change',(e)=>{
-        let thisCb:JQuery<HTMLInputElement> = $(e.currentTarget) as JQuery<HTMLInputElement>;
+        let thisCb: JQuery<HTMLInputElement> = $(e.currentTarget) as JQuery<HTMLInputElement>;
         if(thisCb.is(":checked")){
             $('#nuova').attr('type','text');
             $('#confNuova').attr('type','text');
@@ -17,13 +17,16 @@ $(()=>{
     });
     $('#fRecupera').on('submit',(e)=>{
         e.preventDefault();
+        let spinner: JQuery<HTMLDivElement> = $('#spinner') as JQuery<HTMLDivElement>;
         let data: ResetInterface = {
             key: $('#chiave').val() as string,
             newPassword: $('#nuova').val() as string,
             confPassword: $('#confNuova').val() as string
         };
         let reset: ResetController = new ResetController(data);
+        spinner.toggleClass("invisible");
         reset.resetPassword().then(obj => {
+            spinner.toggleClass("invisible");
             let dmData: DialogMessageInterface = {
                 title: 'Reimpostazione password',
                 message: obj["msg"]
