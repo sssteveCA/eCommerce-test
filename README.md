@@ -36,6 +36,12 @@ It contains:
   <li>Contact form</li>
   <li>Pay orders with Paypal</li>
 </ul>
-
+<div>
+NOTE:
+  <ul>
+    <li>I compiled the .css and .min.css files in the same directory of .scss files</li>
+    <li>I compiled the .js files in the same directory of .ts files</li>
+  </ul>
+</div>
 
 
