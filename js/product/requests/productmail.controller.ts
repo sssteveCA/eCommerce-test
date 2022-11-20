@@ -7,7 +7,7 @@ export default class ProductMailController{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static RECOVERY_URL: string = "funzioni/mail.php";
+    private static SENDMAIL_URL: string = "funzioni/mail.php";
 
     public static ERR_REQUEST:number = 1;
 
@@ -33,5 +33,36 @@ export default class ProductMailController{
                 break;
         }
         return this._error;
+    }
+
+    public async sendMail(): Promise<object>{
+        this._errno = 0;
+        let response: object = {};
+        try{
+            await this.sendMailPromise().then(res => {
+                console.log(res);
+                response = JSON.parse(res);
+            }).catch(err => {
+                throw err;
+            });
+        }catch(e){
+            this._errno = ProductMailController.ERR_REQUEST;
+            response = { msg: this.error };
+        }
+        return response;
+    }
+
+    private async sendMailPromise(): Promise<string>{
+        return await new Promise<string>((resolve, reject)=>{
+            fetch(ProductMailController.SENDMAIL_URL,{
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `ajax=1&oper=3&emailTo=${this._email}&pOggetto=${this._subject}&pMessaggio=${this._message}`
+            }).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            })
+        });
     }
 }
