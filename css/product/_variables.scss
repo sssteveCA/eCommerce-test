@@ -18,6 +18,10 @@ $single-selectors: (
             display: flex,
             justify-content: space-between
         ),
+        '#descrizione': (
+            display: flex,
+            flex-direction: column
+        ),
         '#immagine': (
             height: 300px
         ),
@@ -37,9 +41,6 @@ $compound-selectors: (
     ),
     'fieldset div': (
         margin: 10px
-    ),
-    '#formMail, #formMail>div': (
-        width: 100%
     ),
     '#immagine, #dInfo1': (
         width: 49%,
