@@ -50,7 +50,7 @@ interface Paths{
     const REL_ORDERS_JS = "js/orders/orders.js";
     const REL_POPPER_JS = "node_modules/@popperjs/core/dist/umd/popper.min.js";
     const REL_PRODUCT_CSS = "css/prodotto.css";
-    const REL_PRODUCT_JS = "js/prodotto.js";
+    const REL_PRODUCT_JS = "js/product/product.js";
     const REL_RECOVERY_CSS = "css/recovery/recovery.min.css";
     const REL_RECOVERY_JS = "js/recovery/recovery.js";
     const REL_RESET_CSS = "css/reset.css";

@@ -6,7 +6,7 @@ paypal.json
 prodotti.json
 *.txt
 funzioni/*.txt
-tabelle
+tables
 node_modules
 vendor/
 css/*/*.css
