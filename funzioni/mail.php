@@ -171,7 +171,7 @@ HTML;
         $risultato['msg'] = Msg::ERR_EMAILINSERT;
     }
 }//else di if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE);
+if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 else{
     $html = <<<HTML
 <!DOCTYPE html>

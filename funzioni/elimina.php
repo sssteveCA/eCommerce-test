@@ -62,7 +62,7 @@ else{
     http_response_code(401);
     $risposta['msg'] = Msg::ERR_NOTLOGGED;
 }
-if($ajax)json_encode($risposta);
+if($ajax)json_encode($risposta,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 else{
     echo htmlResponse($risposta['msg']);
 }
