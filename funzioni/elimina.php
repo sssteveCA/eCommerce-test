@@ -17,7 +17,10 @@ require_once("../vendor/autoload.php");
 require_once('../objects/prodotto.php');
 //require_once('../objects/utente.php');
 
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
+$input = file_get_contents("php://input");
+$post = json_decode($input,true);
+
+$ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__."/../");
@@ -25,9 +28,9 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $risposta = array();
     $utente = unserialize($_SESSION['utente']);
     $id = $utente->getId();
-    if(isset($_POST['idp']) && is_numeric($_POST['idp'])){
+    if(isset($post['idp']) && is_numeric($post['idp'])){
         $dati = array();
-        $dati['id'] = $_POST['idp'];
+        $dati['id'] = $post['idp'];
         try{
             $prodotto = new Prodotto($dati);
             if($prodotto->getNumError() == 0){
@@ -43,15 +46,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             else{
                 http_response_code(500);
                 $risposta['msg'] = $prodotto->getStrError().'<br>';
-                $risposta['msg'] .= ' Linea n. '.__LINE__;
             }
         }
         catch(Exception $e){
             http_response_code(500);
             $risposta['msg'] = $e->getMessage().'<br>';
-            $risposta['msg'] .= ' Linea n. '.__LINE__;
         }
-    }//if(isset($_POST['idp']) && is_numeric($_POST['idp'])){
+    }//if(isset($post['idp']) && is_numeric($post['idp'])){
     else{
         http_response_code(400);
         $risposta['msg'] = Msg::ERR_PRODINVALID;
@@ -83,7 +84,6 @@ function htmlResponse(string $message): string{
                 display: flex;
                 align-items: center;
             }
-
             img{
                 width: 60px;
                 height: 60px;
@@ -99,6 +99,5 @@ function htmlResponse(string $message): string{
     </body>
 </html>
 HTML;
-
 }
 ?>
