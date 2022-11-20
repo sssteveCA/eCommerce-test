@@ -34,8 +34,11 @@ export default class DeleteProductController{
         let response: object = {};
         try{
             await this.deleteProductPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
+            }).catch(err => {
+                console.warn(err);
+                throw err;
             });
         }catch(e){
             this._errno = DeleteProductController.ERR_REQUEST;

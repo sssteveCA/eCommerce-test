@@ -1,9 +1,9 @@
 import ProductMailInterface from "./interfaces/productmail.interface";
-import ProductMailController from "./requests/productmail.controller";
+import ProductMailController from "./requests/productmail.controller.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import DialogMessage from "../dialog/dialogmessage";
+import DialogMessage from "../dialog/dialogmessage.js";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
-import DeleteProductController from "./requests/deleteproduct.controller";
+import DeleteProductController from "./requests/deleteproduct.controller.js";
 
 $(()=>{
     $('#formMail').on('submit',(e)=>{

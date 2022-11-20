@@ -15,7 +15,7 @@ require_once('../interfaces/userErrors.php');
 require_once('config.php');
 require_once("../vendor/autoload.php");
 require_once('../objects/prodotto.php');
-//require_once('../objects/utente.php');
+require_once('../objects/utente.php');
 
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
@@ -46,12 +46,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             }//if($prodotto->getNumError() == 0){
             else{
                 http_response_code(500);
-                $response['msg'] = $prodotto->getStrError().'<br>';
+                $response['msg'] = $prodotto->getStrError();
             }
         }
         catch(Exception $e){
             http_response_code(500);
-            $response['msg'] = $e->getMessage().'<br>';
+            $response['msg'] = $e->getMessage();
         }
     }//if(isset($post['idp']) && is_numeric($post['idp'])){
     else{
@@ -63,7 +63,7 @@ else{
     http_response_code(401);
     $response['msg'] = Msg::ERR_NOTLOGGED;
 }
-if($ajax)json_encode($response,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+if($ajax)echo json_encode($response,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 else{
     echo htmlResponse($response['msg']);
 }
