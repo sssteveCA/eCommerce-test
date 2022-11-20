@@ -43,6 +43,7 @@ export default class ProductMailController{
                 console.log(res);
                 response = JSON.parse(res);
             }).catch(err => {
+                console.warn(err);
                 throw err;
             });
         }catch(e){

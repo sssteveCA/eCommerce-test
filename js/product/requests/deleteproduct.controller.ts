@@ -29,4 +29,37 @@ export default class DeleteProductController{
         return this._error;
     }
 
+    public async deleteProduct(): Promise<object>{
+        this._errno = 0;
+        let response: object = {};
+        try{
+            await this.deleteProductPromise().then(res => {
+                console.log(res);
+                response = JSON.parse(res);
+            });
+        }catch(e){
+            this._errno = DeleteProductController.ERR_REQUEST;
+            response = {done: false, msg: this.error };
+        }
+        return response;
+    }
+
+    private async deleteProductPromise(): Promise<string>{
+        return await new Promise<string>((resolve, reject)=>{
+            fetch(DeleteProductController.DELETE_PRODUCT_URL,{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ajax: 1, idp: this._productId
+                })
+            }).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            })
+        });
+    }
+
 }

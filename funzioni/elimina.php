@@ -20,12 +20,13 @@ require_once('../objects/prodotto.php');
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 
+$response = [ 'done' => false, 'msg' => '' ];
+
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__."/../");
     $dotenv->safeLoad();
-    $risposta = array();
     $utente = unserialize($_SESSION['utente']);
     $id = $utente->getId();
     if(isset($post['idp']) && is_numeric($post['idp'])){
@@ -35,36 +36,36 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $prodotto = new Prodotto($dati);
             if($prodotto->getNumError() == 0){
                 if($prodotto->cancella($id)){
-                    $risposta['msg'] = Msg::PRODDELETED;
-                    $risposta['ok'] = '1';
+                    $response['msg'] = Msg::PRODDELETED;
+                    $response['done'] = true;
                 }
                 else{
                     http_response_code(500);
-                    $risposta['msg'] = Msg::ERR_PRODNOTDELETED;
+                    $response['msg'] = Msg::ERR_PRODNOTDELETED;
                 }
             }//if($prodotto->getNumError() == 0){
             else{
                 http_response_code(500);
-                $risposta['msg'] = $prodotto->getStrError().'<br>';
+                $response['msg'] = $prodotto->getStrError().'<br>';
             }
         }
         catch(Exception $e){
             http_response_code(500);
-            $risposta['msg'] = $e->getMessage().'<br>';
+            $response['msg'] = $e->getMessage().'<br>';
         }
     }//if(isset($post['idp']) && is_numeric($post['idp'])){
     else{
         http_response_code(400);
-        $risposta['msg'] = Msg::ERR_PRODINVALID;
+        $response['msg'] = Msg::ERR_PRODINVALID;
     }
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     http_response_code(401);
-    $risposta['msg'] = Msg::ERR_NOTLOGGED;
+    $response['msg'] = Msg::ERR_NOTLOGGED;
 }
-if($ajax)json_encode($risposta,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+if($ajax)json_encode($response,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 else{
-    echo htmlResponse($risposta['msg']);
+    echo htmlResponse($response['msg']);
 }
 
 function htmlResponse(string $message): string{
