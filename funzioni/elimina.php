@@ -63,37 +63,42 @@ else{
 }
 if($ajax)json_encode($risposta);
 else{
-?>
+    echo htmlResponse($risposta['msg']);
+}
+
+function htmlResponse(string $message): string{
+    return <<<HTML
 <!DOCTYPE html>
 <html lang="IT">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cancellazione prodotto</title>
-    <style>
-        div#indietro{
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            display: flex;
-            align-items: center;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cancellazione prodotto</title>
+        <style>
+            div#indietro{
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                display: flex;
+                align-items: center;
+            }
 
-        img{
-            width: 60px;
-            height: 60px;
-        }
-    </style>
-</head>
-<body>
-<div id="indietro">
+            img{
+                width: 60px;
+                height: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="indietro">
             <a href="../inserzioni.php"><img src="../img/altre/indietro.png" alt="indietro" title="indietro"></a>
             <a href="../inserzioni.php">Indietro</a>
         </div>
-    <?php echo $risposta['msg']; ?>
-</body>
+        {$message}
+    </body>
 </html>
-<?php
+HTML;
+
 }
 ?>
