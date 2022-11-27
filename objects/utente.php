@@ -607,11 +607,21 @@ SQL;
         return $ok;
     }
     //l'utente invia una mail agli amministratori del sito
-    public function sendMail($to,$subject,$body,$headers){
+    public function sendMail($to,$subject,$body,$headers,$from = ''){
         $this->numError = 0;
-        $send = mail($to,$subject,$body,$headers);
+        $emData = [
+            'to' => $to, 'subject' => $subject, 'body' => $body
+        ];
+        if($from != '') $emData['from'] = $from;
+        $em = new EmailManager($emData);
+        if($em->getErrno() != 0){
+            $this->numError = Ue::MAILNOTSENT;
+            return false;
+        }
+        return true;
+        /* $send = mail($to,$subject,$body,$headers);
         if(!$send) $this->numError = Ue::MAILNOTSENT; //email non inviata
-        return $send;
+        return $send; */
     }
 
     //inserisce i valori contenuti nell'array $ingresso in ciascuna proprietà(aggiornamento di dati già esistenti)

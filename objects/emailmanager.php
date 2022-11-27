@@ -62,7 +62,8 @@ class EmailManager extends PHPMailer implements Eme{
     private function sendMessage(){
         $this->errno = 0;
         try{
-            $this->setFrom($this->fromEmail,$this->fromEmail);
+            if(isset($this->fromEmail))
+                $this->setFrom($this->fromEmail,$this->fromEmail);
             $this->addAddress($this->toEmail,$this->toEmail);
             $this->Subject = $this->subject;
             $this->Body = $this->body;
@@ -70,7 +71,8 @@ class EmailManager extends PHPMailer implements Eme{
             $this->send();
         }catch(Exception $e){
             $this->errno = Eme::ERR_EMAIL_SEND;
-            //echo "Errore invio mail ".$this->ErrorInfo;
+            echo "EmailManager sendMessage exception => ".$e->getMessage()."\r\n";
+            echo "Errore invio mail ".$this->ErrorInfo."\r\n";
         }
     }
 

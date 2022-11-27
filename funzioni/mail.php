@@ -41,7 +41,7 @@ From: <{$from}>
 Reply-to: <{$from}>
 HEADER;
         //invio la mail all'amministratore del sito
-        $send = $utente->sendMail($to,$oggetto,$messaggio,$headers);
+        $send = $utente->sendMail($to,$oggetto,$messaggio,$headers,$from);
         if($send){
             $risultato['msg'] = Msg::EMAILSENT2;
         }
@@ -65,7 +65,7 @@ To: <{$to}>
 From: <{$from}>
 Reply-to: <{$from}>
 HEADER;
-            $send = $utente->sendMail($to,$oggetto,$messaggio,$headers);
+            $send = $utente->sendMail($to,$oggetto,$messaggio,$headers,$from);
             if($send){
                 $risultato['msg'] = Msg::EMAILSENT1;
             }
@@ -152,7 +152,7 @@ HEADER;
     </body>
 </html>
 HTML;
-            $send = $utente->sendMail($utente->getEmail(),'Recupero password',$body,$headers);
+            $send = $utente->sendMail($utente->getEmail(),'Recupero password',$body,$headers,"noreply@{$hostname}.lan");
             if($send){
                 $risultato['msg'] = Msg::EMAILRECOVERY;
             }

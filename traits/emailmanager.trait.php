@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\SMTP;
 trait EmailManagerTrait{
 
     private function assignValues(array $data){
-        $this->fromEmail = $data['from'];
+        $this->fromEmail = isset($data['from']) ? $data['from'] : null;
         $this->toEmail = $data['to'];
         $this->subject = $data['subject'];
         $this->body = $data['body'];
@@ -20,7 +20,6 @@ trait EmailManagerTrait{
      * Check if the needed values exist
      */
     private function checkExists(array $data): bool{
-        if(!isset($data['from']))return false;
         if(!isset($data['to']))return false;
         if(!isset($data['subject']))return false;
         if(!isset($data['body']))return false;

@@ -46,6 +46,7 @@ if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['addre
                             $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
                             $headers = msg_headers();
                             $message = msg_body($params);
+                            $from = "noreply@{$_ENV['HOSTNAME']}.lan";
                             //send activation email
                             $send = $utente->sendMail($utente->getEmail(),'Attivazione account',$message,$headers);
                             if($send){
