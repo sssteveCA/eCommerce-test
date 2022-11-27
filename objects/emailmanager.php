@@ -8,6 +8,7 @@ use EcommerceTest\Traits\Error;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use EcommerceTest\Interfaces\EmailManagerErrors as Eme;
+use Exception;
 
 class EmailManager extends PHPMailer implements Eme{
 
@@ -40,6 +41,7 @@ class EmailManager extends PHPMailer implements Eme{
         $this->assignValues($data);
         $this->setServerSettings($data);
         $this->setEncoding();
+        $this->sendMessage();
     }
 
     public function getFromEmail(){ return $this->fromEmail; }
@@ -54,6 +56,21 @@ class EmailManager extends PHPMailer implements Eme{
             default:
                 $this->error = null;
                 break;
+        }
+    }
+
+    private function sendMessage(){
+        $this->errno = 0;
+        try{
+            $this->setFrom($this->fromEmail,$this->fromEmail);
+            $this->addAddress($this->toEmail,$this->toEmail);
+            $this->Subject = $this->subject;
+            $this->Body = $this->body;
+            $this->AltBody = $this->body;
+            $this->send();
+        }catch(Exception $e){
+            $this->errno = Eme::ERR_EMAIL_SEND;
+            //echo "Errore invio mail ".$this->ErrorInfo;
         }
     }
 

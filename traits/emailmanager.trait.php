@@ -41,6 +41,7 @@ trait EmailManagerTrait{
         $this->Password = isset($data['MAIL_PASSWORD']) ? $data['MAIL_PASSWORD'] : $_ENV['MAIL_PASSWORD'];
         $this->SMTPSecure = false;
         $this->Port = isset($data['MAIL_PORT']) ? $data['MAIL_PORT'] : $_ENV['MAIL_PORT'];
+        $this->isHTML(true);
     }
 
 }
