@@ -185,7 +185,12 @@ HTML;
                     <input type="hidden" name="oper" value="<?php echo '3'; ?>">
                     <!-- Destinatario mail -->
                     <input type="hidden" id="emailTo" name="emailTo" value="<?php echo $venditore->getEmail(); ?>">
-                    <button type="submit" class="btn btn-primary">CONTATTA</button>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-primary">CONTATTA</button>
+                        <div id="contacts-spinner" class="spinner-border ms-2 invisible" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 </form>
             </fieldset>
         </div>

@@ -6,6 +6,7 @@ import DeleteProductInterface from "./interfaces/deleteproduct.interface";
 import DeleteProductController from "./requests/deleteproduct.controller.js";
 
 $(()=>{
+    let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');
     $('#formMail').on('submit',(e)=>{
        e.preventDefault();
        let pmData: ProductMailInterface = {
@@ -14,7 +15,9 @@ $(()=>{
         message: $('#messaggio').val() as string
        };
        let pmc: ProductMailController = new ProductMailController(pmData);
+       spinner.toggleClass("invisible");
        pmc.sendMail().then(obj => {
+        spinner.toggleClass("invisible");
         let dmData: DialogMessageInterface = {
             title: 'Mail al venditore', message: obj["msg"]
         };

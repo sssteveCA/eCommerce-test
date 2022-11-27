@@ -40,7 +40,7 @@ export default class ProductMailController{
         let response: object = {};
         try{
             await this.sendMailPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
             }).catch(err => {
                 console.warn(err);
