@@ -7,8 +7,9 @@ use EcommerceTest\Traits\EmailManagerTrait;
 use EcommerceTest\Traits\Error;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+use EcommerceTest\Interfaces\EmailManagerErrors as Eme;
 
-class EmailManager extends PHPMailer{
+class EmailManager extends PHPMailer implements Eme{
 
     use EmailManagerTrait, Error;
 
@@ -45,8 +46,17 @@ class EmailManager extends PHPMailer{
     public function getToEmail(){ return $this->toEmail; }
     public function getSubject(){ return $this->subject; }
     public function getBody(){ return $this->body; }
+    public function getError(){
+        switch($this->errno){
+            case Eme::ERR_EMAIL_SEND:
+                $this->error = Eme::ERR_EMAIL_SEND_MSG;
+                break;
+            default:
+                $this->error = null;
+                break;
+        }
+    }
 
-    
 
     
 }
