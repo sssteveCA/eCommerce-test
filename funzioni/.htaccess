@@ -1,0 +1,4 @@
+<FilesMatch "config.php|const.php|functions.php|pulizia.php">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
