@@ -17,7 +17,7 @@ class EmailManager extends PHPMailer implements Eme{
     /**
      * Sender email
      */
-    private string $fromEmail;
+    private ?string $fromEmail;
 
     /**
      * Receiver email
@@ -71,8 +71,8 @@ class EmailManager extends PHPMailer implements Eme{
             $this->send();
         }catch(Exception $e){
             $this->errno = Eme::ERR_EMAIL_SEND;
-            echo "EmailManager sendMessage exception => ".$e->getMessage()."\r\n";
-            echo "Errore invio mail ".$this->ErrorInfo."\r\n";
+            /* echo "EmailManager sendMessage exception => ".$e->getMessage()."\r\n";
+            echo "Errore invio mail ".$this->ErrorInfo."\r\n"; */
         }
     }
 

@@ -60,7 +60,7 @@ export default class ContactController{
             if(this.validateContact()){ 
                 let dm: DialogMessage,dmData: DialogMessageInterface,msgDialog: JQuery<HTMLElement>;
                 this.sendEmailPromise().then(res => {
-                    //console.log(res);
+                    console.log(res);
                     let jsonRes = JSON.parse(res);
                     dmData = {
                         title: 'Contatti',

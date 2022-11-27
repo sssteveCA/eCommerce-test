@@ -9,9 +9,14 @@ require_once('config.php');
 require_once('../config.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
+require_once('../interfaces/emailmanagerErrors.php');
+require_once('../exceptions/notsetted.php');
 //require_once('../interfaces/mysqlVals.php');
-require_once("../vendor/autoload.php");
+require_once('../vendor/autoload.php');
+require_once('../traits/error.php');
+require_once('../traits/emailmanager.trait.php');
 require_once('functions.php');
+require_once('../objects/emailmanager.php');
 require_once('../objects/utente.php');
 ob_start();
 
@@ -188,8 +193,8 @@ function msg_body($params){
     <body>
         <div id="linkAtt">
 Gentile utente, per completare l'attivazione dell'account clicca nel link sottostante:
-<p><a href="{$params['indAttCod']}">{{$params['indAttCod']}</a></p>
-oppure vai all'indirizzo <p><a href="{$params['indAtt']}">{{$params['indAtt']}}</a></p> e incolla il seguente codice: 
+<p><a href="{$params['indAttCod']}">{$params['indAttCod']}</a></p>
+oppure vai all'indirizzo <p><a href="{$params['indAtt']}">{$params['indAtt']}</a></p> e incolla il seguente codice: 
 <p>{$params['codAut']}</p>
         </div>
     </body>
