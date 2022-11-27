@@ -51,6 +51,11 @@ class EmailManager extends PHPMailer{
         return true;
     }
 
+    private function setEncoding(){
+        $this->CharSet = 'UTF-8';
+        $this->Encoding = 'base64';
+    }
+
     private function setServerSettings(array $data){
         $this->SMTPDebug = SMTP::DEBUG_OFF;
         $this->isSMTP();
