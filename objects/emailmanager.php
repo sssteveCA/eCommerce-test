@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Objects;
 
+use EcommerceTest\Exceptions\NotSettedException;
 use EcommerceTest\Traits\EmailManagerTrait;
 use EcommerceTest\Traits\Error;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -33,13 +34,19 @@ class EmailManager extends PHPMailer{
 
     public function __construct(array $data)
     {
-        
+        if(!$this->checkExists($data))
+            throw new NotSettedException("");
+        $this->assignValues($data);
+        $this->setServerSettings($data);
+        $this->setEncoding();
     }
 
     public function getFromEmail(){ return $this->fromEmail; }
     public function getToEmail(){ return $this->toEmail; }
     public function getSubject(){ return $this->subject; }
     public function getBody(){ return $this->body; }
+
+    
 
     
 }

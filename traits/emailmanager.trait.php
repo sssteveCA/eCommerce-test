@@ -5,9 +5,16 @@ namespace EcommerceTest\Traits;
 use PHPMailer\PHPMailer\SMTP;
 
 /**
- * This trait contains private methods of EmailManager class
+ * This trait contains some setter private methods of EmailManager class
  */
 trait EmailManagerTrait{
+
+    private function assignValues(array $data){
+        $this->fromEmail = $data['from'];
+        $this->toEmail = $data['to'];
+        $this->subject = $data['subject'];
+        $this->body = $data['body'];
+    }
 
     /**
      * Check if the needed values exist
@@ -19,8 +26,6 @@ trait EmailManagerTrait{
         if(!isset($data['body']))return false;
         return true;
     }
-
-    
 
     private function setEncoding(){
         $this->CharSet = 'UTF-8';
