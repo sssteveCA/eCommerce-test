@@ -58,8 +58,11 @@ export default class ContactController{
     private sendEmail(): void {
         if(this.contact != null){
             if(this.validateContact()){ 
+                let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');
                 let dm: DialogMessage,dmData: DialogMessageInterface,msgDialog: JQuery<HTMLElement>;
+                spinner.toggleClass("invisible");
                 this.sendEmailPromise().then(res => {
+                    spinner.toggleClass("invisible");
                     //console.log(res);
                     let jsonRes = JSON.parse(res);
                     dmData = {

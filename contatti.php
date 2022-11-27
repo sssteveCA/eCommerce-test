@@ -49,8 +49,13 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         <label class="form-label" for="messaggio">Messaggio </label>
                         <textarea class="form-control" id="messaggio" class="form-control" name="messaggio"></textarea>
                     </div>
-                    <div>
-                        <button type="submit" id="invia" class="btn btn-primary">INVIA</button>
+                    <div class="d-flex justify-content-between justify-content-md-around">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button type="submit" id="invia" class="btn btn-primary">INVIA</button>
+                            <div id="contacts-spinner" class="spinner-border ms-2 invisible" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <button type="reset" id="annulla" class="btn btn-danger">ANNULLA</button>
                     </div>
                 </form>
