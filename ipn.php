@@ -4,6 +4,12 @@
 use Dotenv\Dotenv;
 
 session_start();
+require_once('interfaces/emailmanagerErrors.php');
+require_once('exceptions/notsetted.php');
+require_once('vendor/autoload.php');
+require_once('traits/error.php');
+require_once('traits/emailmanager.trait.php');
+require_once('objects/emailmanager.php');
 require_once('objects/utente.php');
 require_once('objects/prodotto.php');
 require_once('objects/ordine.php');

@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Traits;
 
+use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
 /**
@@ -39,7 +40,8 @@ trait EmailManagerTrait{
         $this->SMTPAuth = true;
         $this->Username = isset($data['MAIL_USERNAME']) ? $data['MAIL_USERNAME'] : $_ENV['MAIL_USERNAME'];
         $this->Password = isset($data['MAIL_PASSWORD']) ? $data['MAIL_PASSWORD'] : $_ENV['MAIL_PASSWORD'];
-        $this->SMTPSecure = false;
+        //$this->SMTPSecure = false;
+        $this->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $this->Port = isset($data['MAIL_PORT']) ? $data['MAIL_PORT'] : $_ENV['MAIL_PORT'];
         $this->isHTML(true);
     }
