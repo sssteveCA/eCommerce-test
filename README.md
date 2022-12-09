@@ -1,6 +1,6 @@
 # eCommerce-test
 <div>
-  Application deployed at <a href="https://simplecommerce-123456.herokuapp.com/">https://simplecommerce-123456.herokuapp.com/</a>
+  Site published at <a href="http://ecommerceshoptest.altervista.org/">http://ecommerceshoptest.altervista.org/</a>
 <div>
 <br>
 <div>
