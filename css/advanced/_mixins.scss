@@ -22,18 +22,18 @@
 }
 
 @mixin responsive-rules(){
-    @media only screen and(max-width: #{$breakpoint-xsm}){
+    @media only screen and (max-width: #{$breakpoint-xsm}){
         #fAvanzata{
             width: 95% !important;
             min-width: 150px !important;
         }
     }
-    @media only screen and(min-width: #{$breakpoint-xsm + 1}) and(max-width: #{$breakpoint-sm}){
+    @media only screen and (min-width: #{$breakpoint-xsm + 1}) and (max-width: #{$breakpoint-sm}){
         #fAvanzata{
             width: 75% !important;
         }
     }
-    @media only screen and(min-width: #{$breakpoint-gt}){
+    @media only screen and (min-width: #{$breakpoint-gt}){
         #fAvanzata{
             width: 50% !important;
             max-width: 750px !important;
