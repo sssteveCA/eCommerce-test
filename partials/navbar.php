@@ -40,6 +40,22 @@ function menu($welcome){
                 <li id="contatti" class="nav-item flex-fill text-center">
                     <a class="nav-link" href="contatti.php">Contatti</a>
                 </li>
+HTML;
+                $exist = (file_exists(__DIR__."/../privacy_policy.php") && file_exists(__DIR__."/../cookie_policy.php") && file_exists(__DIR__."/../terms.php"));
+                $areFiles = (is_file(__DIR__."/../privacy_policy.php") && is_file(__DIR__."/../cookie_policy.php") && is_file(__DIR__."/../terms.php"));
+                if($exist && $areFiles){
+                    $menu .= <<<HTML
+                        <li class="nav-item dropdown flex-fill text-center">
+                            <a id="navbar-orders" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Informativa</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbar-orders">
+                                <li><a class="dropdown-item" href="privacy_policy.php">Privacy Policy</a></li>
+                                <li><a class="dropdown-item" href="cookie_policy.php">Cookie Policy</a></li>
+                                <li><a class="dropdown-item" href="terms.php">Termini del servizio</a></li>
+                            </ul>
+                        </li>
+HTML;
+                }//if($exist && $areFiles){
+                $menu .= <<<HTML
                 <li id="logout" class="nav-item flex-fill text-center">
                     <a class="nav-link" href="funzioni/logout.php">Esci</a>
                 </li>
