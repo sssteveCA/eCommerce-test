@@ -3,6 +3,7 @@ Options -Indexes
 RedirectMatch 403 "/exceptions/.*"
 RedirectMatch 403 "/interfaces/.*"
 RedirectMatch 403 "/objects/.*"
+RedirectMatch 403 "/partials/.*"
 RedirectMatch 403 "/traits/.*"
 RedirectMatch 403 "/vendor/.*"
 
