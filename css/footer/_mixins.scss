@@ -24,11 +24,12 @@
         $xs-breakpoint: globals.breakpoint-pixels('xs');
         $md-breakpoint: globals.breakpoint-pixels('md');
         @debug $md-breakpoint;
-        @media only screen and (min-width: #{$md-breakpoint}){
-            justify-content: space-evenly;
-        }
         @media only screen and (min-width: #{$xs-breakpoint}){
             flex-direction: column;
+        }
+        @media only screen and (min-width: #{$md-breakpoint}){
+            flex-direction: row;
+            justify-content: space-evenly;
         }
         >div{
             padding: 10px 5px;

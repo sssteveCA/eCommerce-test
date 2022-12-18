@@ -34,7 +34,6 @@ else
          ?>
     </head>
     <body>
-        <!-- < ?php echo password_hash('123456',PASSWORD_DEFAULT); ?><br> -->
         <div class="my-container d-flex flex-column">
             <div class="header d-flex align-items-center py-2">
                 <h1 class="w-100 text-center">Accedi</h1>
