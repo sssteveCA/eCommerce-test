@@ -11,7 +11,7 @@ session_start();
 
 require_once('config.php');
 require_once('interfaces/paths.php');
-require_once('navbar.php');
+require_once('partials/navbar.php');
 require_once('footer.php');
 require_once('exceptions/nouserinstance.php');
 require_once('exceptions/incorrectuserinstanceformat.php');

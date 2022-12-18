@@ -8,7 +8,7 @@ require_once('interfaces/paths.php');
 /* require_once('objects/utente.php');
 require_once('objects/prodotto.php');
 require_once('objects/ordine.php'); */
-require_once('navbar.php');
+require_once('partials/navbar.php');
 require_once("funzioni/const.php");
 require_once('footer.php');
 

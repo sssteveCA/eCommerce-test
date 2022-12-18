@@ -4,7 +4,7 @@ session_start();
 use EcommerceTest\Interfaces\Paths as P;
 
 require_once('interfaces/paths.php');
-require_once('navbar.php');
+require_once('partials/navbar.php');
 require_once('vendor/autoload.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
