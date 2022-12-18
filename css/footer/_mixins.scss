@@ -1,3 +1,4 @@
+@use "../modules/globals";
 
 @mixin footer-style(){
     #{$footer-class}{
@@ -20,7 +21,15 @@
 @mixin policy-container(){
     div#{$policy-container}{
         display: flex;
-        justify-content: space-evenly;
+        $xs-breakpoint: globals.breakpoint-pixels('xs');
+        $md-breakpoint: globals.breakpoint-pixels('md');
+        @debug $md-breakpoint;
+        @media only screen and (min-width: #{$md-breakpoint}){
+            justify-content: space-evenly;
+        }
+        @media only screen and (min-width: #{$xs-breakpoint}){
+            flex-direction: column;
+        }
         >div{
             padding: 10px 5px;
             text-align: center;

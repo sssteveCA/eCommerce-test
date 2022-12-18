@@ -28,6 +28,15 @@ HTML;
     if($exist && $areFiles){
         $html .= <<<HTML
     <div class="privacy-links">
+        <div>
+            <a href="//privacy_policy.php">Privacy Policy</a>
+        </div>
+        <div>
+            <a href="//cookie_policy.php">Cookie Policy</a>
+        </div>
+        <div>
+            <a href="//terms.php">Termini e condizioni</a>
+        </div>
     </div>
 HTML;
     }

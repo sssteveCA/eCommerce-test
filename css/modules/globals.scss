@@ -4,11 +4,11 @@ $bs-breakpoints: (
     'xs': 0px, 'sm': 576px, 'md': 768px, 'lg': 992px, 'xl': 1200px, 'xxl': 1400px
 );
 
-@function breakpoint-pixel($breakpoint){
+@function breakpoint-pixels($breakpoint){
     @if map.has-key($bs-breakpoints,$breakpoint){
         @return map.get($bs-breakpoints,$breakpoint);
     }
     @else{
-        @return null;
+        @return 0px;
     }
 }
