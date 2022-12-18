@@ -15,4 +15,6 @@ js/*/*.js
 js/*/*/*.js
 !js/dialog/dialog.js
 partials/privacy*
+*policy*
+terms.php
 
