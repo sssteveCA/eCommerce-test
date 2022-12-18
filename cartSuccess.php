@@ -21,6 +21,7 @@ require_once('objects/utente.php');
 require_once('objects/carrello.php');
 require_once('objects/ordine.php');
 require_once("funzioni/const.php");
+@include_once('partials/privacy.php');
 
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 $risposta = array();
@@ -40,6 +41,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <head>
         <title>Pagamento ordini carrello</title>
         <meta charset="utf-8">
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
 <?php

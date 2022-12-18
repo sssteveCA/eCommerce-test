@@ -20,6 +20,7 @@ require_once('objects/utente.php');
 require_once('funzioni/config.php');
 require_once("funzioni/const.php");
 require('footer.php');
+@include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -112,6 +113,11 @@ HTML;
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src=<?php echo P::REL_INFO_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

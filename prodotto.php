@@ -26,6 +26,7 @@ require_once('objects/prodotto.php');
 require_once('objects/utente.php');
 require_once('funzioni/const.php');
 require_once('footer.php');
+@include_once('partials/privacy.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
@@ -65,6 +66,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <!-- <script type="module" src=<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>></script> -->
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script type="module" src=<?php echo P::REL_PRODUCT_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

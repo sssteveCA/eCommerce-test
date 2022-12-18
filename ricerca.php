@@ -36,6 +36,7 @@ require_once('objects/advancedsearch.php');
 require_once('funzioni/config.php');
 require_once('funzioni/paypalConfig.php');
 require_once('funzioni/const.php');
+@include_once('partials/privacy.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
@@ -59,6 +60,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

@@ -5,6 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 session_start();
 
 require_once('interfaces/paths.php');
+@include_once('partials/privacy.php');
 require('footer.php');
 
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
@@ -28,6 +29,11 @@ else{
         <script src="<?php echo P::REL_FOOTER_JS; ?>"></script>
         <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
         <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <div class="my-container">

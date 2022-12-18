@@ -26,6 +26,7 @@ require_once('objects/emailmanager.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
 require('footer.php');
+@include_once('partials/privacy.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
@@ -76,7 +77,11 @@ function html_page(array $data): string{
         <script type="module" src="{$data['dialog_message_js']}"></script>
         <script type="module" src="{$data['logout_js']}"></script>
         <script src="{$data['insertions_js']}"></script>
-    </head>
+HTML;
+    if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+        $html .= call_user_func('cookieBanner');
+    }
+    $html .= <<<HTML
     </head>
     <body>
         {$data['menu']}

@@ -19,6 +19,7 @@ require_once('objects/ordine.php');
 require_once('funzioni/config.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
+@include_once('partials/privacy.php');
 
 //file_put_contents("log.txt","success.php => ".var_export($_POST,true)."\r\n",FILE_APPEND);
 
@@ -37,6 +38,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             <head>
                 <title>Pagamento completato</title>
                 <meta charset="utf-8">
+                <?php 
+                    if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                        echo call_user_func('cookieBanner');
+                    }
+                ?>
             </head>
             <body>
         Il prodotto è stato acquistato<br>

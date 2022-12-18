@@ -13,6 +13,7 @@ require_once('traits/error.php');
 require_once('traits/emailmanager.trait.php');
 require_once('objects/emailmanager.php');
 require_once('objects/utente.php');
+@include_once('partials/privacy.php');
 
 ?>
 <!DOCTYPE html>
@@ -43,6 +44,11 @@ require_once('objects/utente.php');
             padding: 5px;
         }
     </style>
+    <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
 </head>
 <body>
  

@@ -19,6 +19,7 @@ require_once('objects/emailmanager.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
 require('footer.php');
+@include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -61,6 +62,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src="js/dialog/dialog.js"></script> <!-- temporary -->
         <script type="module" src=<?php echo P::REL_EDIT_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
     <div id="container">

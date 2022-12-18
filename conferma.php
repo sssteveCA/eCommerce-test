@@ -30,6 +30,7 @@ require_once('funzioni/config.php');
 require_once('funzioni/paypalConfig.php');
 require_once('funzioni/const.php');
 require_once('footer.php');
+@include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -144,7 +145,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <title>Conferma ordine</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href=<?php echo P::REL_CONFIRM_CSS; ?>>
-        <<link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
+        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
         <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
         <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?> >
@@ -157,6 +158,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src="js/dialog/dialog.js"></script> <!-- temporary -->
         <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>

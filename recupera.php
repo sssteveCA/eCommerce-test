@@ -5,6 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 session_start();
 
 require_once('interfaces/paths.php');
+@include_once('partials/privacy.php');
 require('footer.php');
 
 if(isset($_SESSION['mail'],$_SESSION['user'],$_SESSION['logged']) && $_SESSION['mail'] != '' && $_SESSION['user'] != '' && $_SESSION['logged'] === true){
@@ -30,6 +31,11 @@ else{
         <!-- <script type="module" src=<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script src="js/dialog/dialog.js"></script> -->
         <script type="module" src=<?php echo P::REL_RECOVERY_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <div id="indietro">

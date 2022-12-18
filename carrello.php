@@ -11,6 +11,7 @@ require_once('objects/ordine.php'); */
 require_once('partials/navbar.php');
 require_once("funzioni/const.php");
 require_once('footer.php');
+@include_once('partials/privacy.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 ?>

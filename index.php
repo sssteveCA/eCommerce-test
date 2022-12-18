@@ -3,6 +3,7 @@
 use EcommerceTest\Interfaces\Paths as P;
 
 require_once('interfaces/paths.php');
+@include_once('partials/privacy.php');
 require('footer.php');
 
 session_start();
@@ -26,6 +27,11 @@ else
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <script src=<?php echo P::REL_LOGINTO_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     </head>
     <body>
         <!-- < ?php echo password_hash('123456',PASSWORD_DEFAULT); ?><br> -->

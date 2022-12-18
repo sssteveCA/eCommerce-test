@@ -20,6 +20,8 @@ require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('funzioni/config.php');
 require_once('footer.php');
+@include_once('partials/privacy.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -37,6 +39,11 @@ require_once('footer.php');
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <!-- <script type="module" src=<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>></script> -->
         <script type="module" src=<?php echo P::REL_RESET_JS; ?>></script>
+        <?php 
+            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                echo call_user_func('cookieBanner');
+            }
+         ?>
     <head>
     <body>
 <?php
