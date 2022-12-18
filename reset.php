@@ -19,7 +19,7 @@ require_once('objects/emailmanager.php');
 require_once('funzioni/functions.php');
 require_once('objects/utente.php');
 require_once('funzioni/config.php');
-require_once('footer.php');
+require_once('partials/footer.php');
 @include_once('partials/privacy.php');
 
 ?>

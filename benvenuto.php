@@ -6,7 +6,7 @@ session_start();
 require_once('interfaces/paths.php');
 require_once("funzioni/const.php");
 require_once('partials/navbar.php');
-require('footer.php');
+require('partials/footer.php');
 @include_once('partials/privacy.php');
 
 

@@ -4,7 +4,7 @@ use EcommerceTest\Interfaces\Paths as P;
 
 require_once('interfaces/paths.php');
 @include_once('partials/privacy.php');
-require('footer.php');
+require('partials/footer.php');
 
 session_start();
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){

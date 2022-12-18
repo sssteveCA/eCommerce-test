@@ -8,7 +8,7 @@ require_once('interfaces/paths.php');
 //require_once('objects/utente.php');
 require_once('partials/navbar.php');
 require_once("funzioni/const.php");
-require('footer.php');
+require('partials/footer.php');
 @include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login

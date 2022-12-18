@@ -29,7 +29,7 @@ require_once('objects/ordine.php');
 require_once('funzioni/config.php');
 require_once('funzioni/paypalConfig.php');
 require_once('funzioni/const.php');
-require_once('footer.php');
+require_once('partials/footer.php');
 @include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login

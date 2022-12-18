@@ -6,7 +6,7 @@ session_start();
 
 require_once('interfaces/paths.php');
 @include_once('partials/privacy.php');
-require('footer.php');
+require('partials/footer.php');
 
 if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
     echo '<a href="logout.php">Esci </a> dall\' account per registrarti';

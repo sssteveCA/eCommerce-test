@@ -8,7 +8,7 @@ require_once('partials/navbar.php');
 require_once('vendor/autoload.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
-require('footer.php');
+require('partials/footer.php');
 @include_once('partials/privacy.php');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

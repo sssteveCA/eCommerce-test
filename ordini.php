@@ -7,7 +7,7 @@ require_once('interfaces/paths.php');
 require_once('partials/navbar.php');
 require_once('funzioni/functions.php');
 require_once("funzioni/const.php");
-require_once("footer.php");
+require_once("partials/footer.php");
 @include_once('partials/privacy.php');
 
 

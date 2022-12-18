@@ -18,7 +18,7 @@ require_once('traits/emailmanager.trait.php');
 require_once('objects/emailmanager.php');
 require_once('objects/utente.php');
 require_once("funzioni/const.php");
-require('footer.php');
+require('partials/footer.php');
 @include_once('partials/privacy.php');
 
 //se un'utente ha effettuato il login
