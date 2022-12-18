@@ -5,11 +5,26 @@
         margin: $margin;
         padding: $padding;
         width: $width;
+        display: flex;
+        flex-direction: column;
         div.container{
             div.row{
                 text-align: center;
                 margin: 10px 0px;
             }
         }
+        @include policy-container();
     }
 }
+
+@mixin policy-container(){
+    div#{$policy-container}{
+        display: flex;
+        justify-content: space-evenly;
+        >div{
+            padding: 10px 5px;
+            text-align: center;
+        }
+    }
+}
+
