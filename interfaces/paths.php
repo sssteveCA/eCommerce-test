@@ -43,8 +43,8 @@ interface Paths{
     const REL_JQUERY_CSS = "node_modules/jquery-ui-dist/jquery-ui.min.css";
     const REL_JQUERYTHEME_CSS = "node_modules/jquery-ui-dist/jquery-ui.theme.min.css";
     const REL_JQUERYUI_JS = "node_modules/jquery-ui-dist/jquery-ui.min.js";
-    const REL_LOGINTO_CSS = "css/accedi/accedi.min.css";
-    const REL_LOGINTO_JS = "js/accedi.js";
+    const REL_LOGINTO_CSS = "css/log_into/log_into.min.css";
+    const REL_LOGINTO_JS = "js/log_into/log_into.js";
     const REL_LOGOUT_JS = "js/logout/logout.js";
     const REL_ORDERS_CSS = "css/orders/orders.min.css";
     const REL_ORDERS_JS = "js/orders/orders.js";

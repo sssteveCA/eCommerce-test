@@ -4,6 +4,8 @@ $bs-breakpoints: (
     'xs': 0px, 'sm': 576px, 'md': 768px, 'lg': 992px, 'xl': 1200px, 'xxl': 1400px
 );
 
+$selector-types-list: ('classes','ids','tags');
+
 @function breakpoint-pixels($breakpoint){
     @if map.has-key($bs-breakpoints,$breakpoint){
         @return map.get($bs-breakpoints,$breakpoint);
