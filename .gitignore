@@ -14,7 +14,8 @@ css/*/*.map
 js/*/*.js
 js/*/*/*.js
 !js/dialog/dialog.js
-partials/privacy*
-*policy*
+partials/privacy.php
+cookie_policy.php
+privacy_policy.php
 terms.php
 
