@@ -23,7 +23,7 @@
         display: flex;
         $xs-breakpoint: globals.breakpoint-pixels('xs');
         $md-breakpoint: globals.breakpoint-pixels('md');
-        @debug $md-breakpoint;
+        //@debug $md-breakpoint;
         @media only screen and (min-width: #{$xs-breakpoint}){
             flex-direction: column;
         }
