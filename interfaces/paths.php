@@ -61,6 +61,6 @@ interface Paths{
     const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
     const REL_SUBSCRIBE_MODEL_JS = "js/subscribe/subscriber.model.js";
     const REL_WELCOME_CSS = "css/welcome/welcome.min.css";
-    const REL_WELCOME_JS = "js/benvenuto.js";
+    const REL_WELCOME_JS = "js/welcome/welcome.js";
 }
 ?>
