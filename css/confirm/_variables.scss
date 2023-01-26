@@ -1,0 +1,27 @@
+@use "sass:list";
+@use "../modules/globals";
+
+$single-selectors: (
+    list.nth(globals.$selector-types-list,1): (
+    ),
+    list.nth(globals.$selector-types-list,2): (
+        '#divButtons': (
+            display: flex
+        ),
+        '#f1': (
+            margin-top: 70px,
+            margin-left: 10px
+        )
+    ),
+    list.nth(globals.$selector-types-list,3): (
+        'form': (
+            margin: 10px
+        )
+    )
+);
+
+$compound-selectors: (
+    'form input': (
+        padding: 10px
+    )
+);
