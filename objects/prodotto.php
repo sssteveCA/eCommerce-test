@@ -54,7 +54,7 @@ class Prodotto implements Pe,Pv/* ,Mv */{
         }
         $this->h->set_charset("utf8mb4");
         $this->connesso = true;
-        $this->createDb();
+        $this->createDb($mysqlDb);
         if($this->createTab() === false){
             throw new \Exception(Pe::EXC_TABLECREATION);
         }
@@ -184,15 +184,15 @@ class Prodotto implements Pe,Pv/* ,Mv */{
         return $this->strError;
     }
 
-    private function createDb(){
+    private function createDb(string $mysqlDb){
         $ok = true;
         $this->numError = 0;
         $this->querySql = <<<SQL
-CREATE DATABASE IF NOT EXISTS `{$this->mysqlDb}`;
+CREATE DATABASE IF NOT EXISTS `{$mysqlDb}`;
 SQL;
         $this->queries[] = $this->querySql;
         $this->h->query($this->querySql);
-        $this->h->select_db($this->mysqlDb);
+        $this->h->select_db($mysqlDb);
         return $ok;
     }
 
