@@ -14,7 +14,7 @@ interface Paths{
     const REL_BOOTSTRAP_CSS = "node_modules/bootstrap/dist/css/bootstrap.min.css";
     const REL_BOOTSTRAP_JS = "node_modules/bootstrap/dist/js/bootstrap.min.js";
     const REL_BUY_CSS = "css/compra.css";
-    const REL_BUY_JS = "js/compra.js";
+    const REL_BUY_JS = "js/buy/buy.js";
     const REL_CART_CSS = "css/cart/cart.min.css";
     const REL_CART_JS = "js/cart/cart.js";
     const REL_CONFIRM_CSS = "css/confirm/confirm.min.css";
