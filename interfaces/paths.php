@@ -17,7 +17,7 @@ interface Paths{
     const REL_BUY_JS = "js/compra.js";
     const REL_CART_CSS = "css/cart/cart.min.css";
     const REL_CART_JS = "js/cart/cart.js";
-    const REL_CONFIRM_CSS = "css/conferma.css";
+    const REL_CONFIRM_CSS = "css/confirm/confirm.min.css";
     const REL_CONFIRM_JS = "js/conferma.js";
     const REL_CONTACTS_CSS = "css/contacts/contacts.min.css";
     const REL_CONTACTS_CONTROLLER_JS = "js/contacts/contact.controller.js";
@@ -60,7 +60,7 @@ interface Paths{
     const REL_SUBSCRIBE_CONTROLLER_JS = "js/subscribe/subscriber.controller.js";
     const REL_SUBSCRIBE_JS = "js/subscribe/subscribe.js";
     const REL_SUBSCRIBE_MODEL_JS = "js/subscribe/subscriber.model.js";
-    const REL_WELCOME_CSS = "css/benvenuto/benvenuto.min.css";
+    const REL_WELCOME_CSS = "css/welcome/welcome.min.css";
     const REL_WELCOME_JS = "js/benvenuto.js";
 }
 ?>
