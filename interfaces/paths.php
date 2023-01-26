@@ -38,7 +38,7 @@ interface Paths{
     const REL_INFO_CSS = "css/info/info.min.css";
     const REL_INFO_JS = "js/info/info.js";
     const REL_INSERTIONS_CSS = "css/insertions/insertions.min.css";
-    const REL_INSERTIONS_JS = "js/inserzioni.js";
+    const REL_INSERTIONS_JS = "js/insertions/insertions.js";
     const REL_JQUERY_JS = "js/jquery-3.5.1.min.js";
     const REL_JQUERY_CSS = "node_modules/jquery-ui-dist/jquery-ui.min.css";
     const REL_JQUERYTHEME_CSS = "node_modules/jquery-ui-dist/jquery-ui.theme.min.css";
