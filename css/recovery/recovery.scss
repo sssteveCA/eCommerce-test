@@ -1,10 +1,11 @@
+@use '../modules/globals';
 @import '../extendSelectors';
-@import 'variables';
-@import 'mixins';
+@import './variables';
+//@import './mixins';
 @import '../partials/global';
 
 @include back();
 @include move-appareance-animation($container-class,$initial-container-top);
-@include single-selectors-loop($single-selectors);
-@include compound-selectors-loop($compound-selectors);
+@include globals.single-selectors-loop($single-selectors);
+@include globals.compound-selectors-loop($compound-selectors);
 

@@ -2,15 +2,15 @@
 @use '../modules/globals';
 
 $single-selectors: (
-    list.nth(globals.$selector-types-list,1): (),
-    list.nth(globals.$selector-types-list,2): (
+    'classes': (),
+    'ids': (
         '#f1': (
             margin-top: 70px,
             margin-left: 10px,
             justify-content: center
         )
     ),
-    list.nth(globals.$selector-types-list,3): ()
+    'tags': ()
 );
 
 $compound-selectors: (

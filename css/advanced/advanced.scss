@@ -1,7 +1,8 @@
-@import 'variables';
-@import 'mixins';
+@use '../modules/globals';
+@import './variables';
+@import './mixins';
 
-@include single-selectors-loop($single-selectors);
-@include compound-selectors-loop($compound-selectors);
+@include globals.single-selectors-loop($single-selectors);
+@include globals.compound-selectors-loop($compound-selectors);
 @include responsive-rules();
 @include form-loop();
