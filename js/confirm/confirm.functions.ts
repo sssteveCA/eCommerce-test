@@ -1,7 +1,7 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions";
 
-export function afterPaymentGet(data: any, actions: any, handleResponse: (result: any)=> void){
+function afterPaymentGet(data: any, actions: any, handleResponse: (result: any)=> void){
     var currentShippingVal = data.transactions[0].amount.details.shipping;
       currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
       currentShippingVal = parseFloat(currentShippingVal);
@@ -48,24 +48,19 @@ export function afterPaymentGet(data: any, actions: any, handleResponse: (result
         }).then(handleResponse);
 
         })      
-
     // return actions.payment.execute().then(handleResponse);
     }
 
 export function handleResponse(result: any) {
-
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
-
     var resultDOM = JSON.stringify(result, null, 2);
     console.log(resultDOM);
     //var parseDOM = JSON.parse(resultDOM);
     //console.log(parseDOM);
-
     //$json_response = result;
     // console.log(result['id']);
     var payID = result['id'];
-
     var paymentState = result['state'];
     var finalAmount = result['transactions'][0]['amount']['total'];
     var currency = result['transactions'][0]['amount']['currency'];
@@ -115,7 +110,7 @@ export function handleResponse(result: any) {
     });
 }
 
-export function paypalButton(paypal: any, clientId: string){
+export function paypalButton(paypal: any, clientId: string, handleResponse: (result: any)=> void){
     paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -132,7 +127,23 @@ export function paypalButton(paypal: any, clientId: string){
 
         payment: function(actions) {
 
-            var currency = (<HTMLInputElement> document.getElementById('currency')).value;
+            return paypalPayment(actions);
+        },
+
+        // Wait for the payment to be authorized by the customer
+
+        onAuthorize: function(data: any, actions: any) {
+
+     return actions.payment.get().then(function(data) {       
+        afterPaymentGet(data,actions,handleResponse);
+         })   
+       } 
+
+    }, '#paypalArea');
+}
+
+function paypalPayment(actions: any){
+    var currency = (<HTMLInputElement> document.getElementById('currency')).value;
             var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
             shipping_amt = parseFloat(shipping_amt).toFixed(2);
             shipping_amt = parseFloat(shipping_amt);
@@ -175,75 +186,4 @@ export function paypalButton(paypal: any, clientId: string){
                  ]
              }
             });
-        },
-
-        // Wait for the payment to be authorized by the customer
-
-        onAuthorize: function(data, actions) {
-
-     return actions.payment.get().then(function(data) {       
-
-      var currentShippingVal = data.transactions[0].amount.details.shipping;
-      currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
-      currentShippingVal = parseFloat(currentShippingVal);
-      var shipping = data.payer.payer_info.shipping_address;
-
-      var currentTotal = data.transactions[0].amount.total;
-      currentTotal = parseFloat(currentTotal).toFixed(2);
-      currentTotal = parseFloat(currentTotal);
-
-                console.log(shipping.recipient_name);
-                console.log(shipping.line1);
-                console.log(shipping.city);
-                console.log(shipping.state);
-                console.log(shipping.postal_code);
-                console.log(shipping.country_code);
-
-                 console.log(currentShippingVal);
-
-                //total_amt =+ total_amt + shipping_amt_updated;
-
-                (<HTMLElement>document.querySelector('#paypalArea')).style.display = 'none';
-                (<HTMLElement>document.querySelector('#confirm')).style.display = 'block';
-
-                // Listen for click on confirm button
-
-                (<HTMLButtonElement>document.querySelector('#confirmButton')).addEventListener('click', function() {
-
-                    // Disable the button and show a loading message
-
-                    (<HTMLElement>document.querySelector('#confirm')).innerText = 'Loading...';
-                    (<HTMLInputElement>document.querySelector('#confirm')).disabled = true;
-
-                    // Execute the payment
-                    var currency = (<HTMLInputElement>document.getElementById('currency'))?.value;
-                  var subtotal = currentTotal - currentShippingVal;
-
-                    return actions.payment.execute(
-                    {
-                     transactions: [
-                        {
-                            amount: {
-                                //total: 1000.12,
-                                total: currentTotal,
-                                currency: currency,
-                                details: 
-                                {
-                                  subtotal: subtotal,
-                                  //subtotal: 990.12,
-                                  shipping: currentShippingVal,
-                                  //shipping: 10,
-                                }
-                            }
-                        }
-                    ]    
-                }).then(handleResponse);
-
-              })      
-
-            // return actions.payment.execute().then(handleResponse);
-         })   
-       } 
-
-    }, '#paypalArea');
 }
