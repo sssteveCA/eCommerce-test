@@ -1,4 +1,4 @@
-import EditUserInterface from "./data.interface";
+import EditUserInterface from "./edituser.interface";
 
 //Model used to change user profile data
 export default class EditUser{

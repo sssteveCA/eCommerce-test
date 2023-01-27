@@ -3,7 +3,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 
 //Create the Insertion in DB passing the Insertion object
-export default class InsertionController{
+export default class InsertionRequest{
 
     //constants
     private static INSERTION_URL = 'funzioni/upload.php';
@@ -32,11 +32,11 @@ export default class InsertionController{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
-            case InsertionController.ERR_INVALIDDATA:
-                this._error = InsertionController.ERR_MSG_INVALIDDATA;
+            case InsertionRequest.ERR_INVALIDDATA:
+                this._error = InsertionRequest.ERR_MSG_INVALIDDATA;
                 break;
-            case InsertionController.ERR_NOINSERTIONOBJECT:
-                this._error = InsertionController.ERR_MSG_NOINSERTIONOBJECT;
+            case InsertionRequest.ERR_NOINSERTIONOBJECT:
+                this._error = InsertionRequest.ERR_MSG_NOINSERTIONOBJECT;
                 break;
             default:
                 this._error = null;
@@ -63,14 +63,14 @@ export default class InsertionController{
             fd.append('city',this._insertion.city);
             fd.append('description',this._insertion.description);
             fd.append('ajax',this._insertion.ajax.toString());
-            const request = fetch(InsertionController.INSERTION_URL,{
+            const request = fetch(InsertionRequest.INSERTION_URL,{
                 method: 'POST',
                 body: fd
             });
             request.then(r => {
                 resolve(r.text());
             }).catch(err => {
-                reject(InsertionController.ERR_MSG_INSERTIONEERROR);
+                reject(InsertionRequest.ERR_MSG_INSERTIONEERROR);
             });
         });
     }
@@ -113,10 +113,10 @@ export default class InsertionController{
                 });
             }//if(this.validateInsertion()){
             else
-                this._errno = InsertionController.ERR_INVALIDDATA;
+                this._errno = InsertionRequest.ERR_INVALIDDATA;
         }//if(this._insertion != null){
         else
-            this._errno = InsertionController.ERR_NOINSERTIONOBJECT;
+            this._errno = InsertionRequest.ERR_NOINSERTIONOBJECT;
     }
 
     //Check if Insertion model has required properties

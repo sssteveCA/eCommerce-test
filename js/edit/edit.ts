@@ -1,5 +1,5 @@
 import EditUser from "./edituser.model.js";
-import EditUserController from "./edituser.controller.js";
+import EditUserRequest from "./edituser.request.js";
 
 $(function(){
     let post: any = {};
@@ -12,7 +12,7 @@ $(function(){
         post['ajax'] = true;
         try{
             let editUser = new EditUser(post);
-            let editUserCtr = new EditUserController(editUser);
+            let editUserCtr = new EditUserRequest(editUser);
         }catch(e){
             console.warn(e);
         }
@@ -29,7 +29,7 @@ $(function(){
         post['ajax'] = true;
         try{
             let editUser = new EditUser(post);
-            let editUserCtr = new EditUserController(editUser);
+            let editUserCtr = new EditUserRequest(editUser);
         }catch(e){
             console.warn(e);
         }
@@ -50,7 +50,7 @@ $(function(){
         console.log(post);
         try{
             let editUser = new EditUser(post);
-            let editUserCtr = new EditUserController(editUser);
+            let editUserCtr = new EditUserRequest(editUser);
         }catch(e){
             console.warn(e);
         }

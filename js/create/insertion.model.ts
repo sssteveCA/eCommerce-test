@@ -1,4 +1,4 @@
-import InsertionInterface from "./data.interface";
+import InsertionInterface from "./insertion.interface";
 
 //Insert this model in DB
 export default class Insertion{

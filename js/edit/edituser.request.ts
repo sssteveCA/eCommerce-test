@@ -1,7 +1,7 @@
 import EditUser from "./edituser.model.js";
 import DialogMessage from "../dialog/dialogmessage.js";
 
-export default class EditUserController{
+export default class EditUserRequest{
     //constants
     private static EDITPROFILE_URL = 'funzioni/editProfile.php';
 
@@ -38,25 +38,25 @@ export default class EditUserController{
                     this.editPersonalData();
                     break;
                 default:
-                    this._errno = EditUserController.ERR_INVALIDACTION;
+                    this._errno = EditUserRequest.ERR_INVALIDACTION;
                     break;
             }
         }
-        else this._errno = EditUserController.ERR_NOEDITUSEROBJECT;
+        else this._errno = EditUserRequest.ERR_NOEDITUSEROBJECT;
     }
 
     get editUser(){return this._editUser;}
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
-            case EditUserController.ERR_NOEDITUSEROBJECT:
-                this._error = EditUserController.ERR_MSG_NOEDITUSEROBJECT;
+            case EditUserRequest.ERR_NOEDITUSEROBJECT:
+                this._error = EditUserRequest.ERR_MSG_NOEDITUSEROBJECT;
                 break;
-            case EditUserController.ERR_DATAMISSED:
-                this._error = EditUserController.ERR_MSG_DATAMISSED;
+            case EditUserRequest.ERR_DATAMISSED:
+                this._error = EditUserRequest.ERR_MSG_DATAMISSED;
                 break;
-            case EditUserController.ERR_INVALIDACTION:
-                this._error = EditUserController.ERR_MSG_INVALIDACTION;
+            case EditUserRequest.ERR_INVALIDACTION:
+                this._error = EditUserRequest.ERR_MSG_INVALIDACTION;
                 break;
             default:
                 this._error = null;
@@ -86,7 +86,7 @@ export default class EditUserController{
                 this.printDialog('Modifica nome utente',err);
             });
         }
-        else EditUserController.ERR_DATAMISSED;
+        else EditUserRequest.ERR_DATAMISSED;
     }
 
     //Do the edit Username action
@@ -104,12 +104,12 @@ export default class EditUserController{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(EditUserController.EDITPROFILE_URL,params);
+            const response = fetch(EditUserRequest.EDITPROFILE_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {
                 console.warn(err);
-                reject(EditUserController.ERR_MSG_EDITUSERNAME);
+                reject(EditUserRequest.ERR_MSG_EDITUSERNAME);
             });
         });
     }
@@ -137,7 +137,7 @@ export default class EditUserController{
             });
 
         }//if(this.validateEditPassword()){
-        else this._errno = EditUserController.ERR_DATAMISSED;
+        else this._errno = EditUserRequest.ERR_DATAMISSED;
     }
 
     private async editPasswordPromise(): Promise<string>{
@@ -156,12 +156,12 @@ export default class EditUserController{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(EditUserController.EDITPROFILE_URL,params);
+            const response = fetch(EditUserRequest.EDITPROFILE_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {
                 console.warn(err);
-                reject(EditUserController.ERR_MSG_EDITPASSWORD);
+                reject(EditUserRequest.ERR_MSG_EDITPASSWORD);
             });
         });
     }
@@ -187,7 +187,7 @@ export default class EditUserController{
                 this.printDialog('Modifica dati personali',err);
             });
         }//if(this.validatePersonalData()){
-        else EditUserController.ERR_DATAMISSED;
+        else EditUserRequest.ERR_DATAMISSED;
     }
 
     //Do the edit personal data action
@@ -212,12 +212,12 @@ export default class EditUserController{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(EditUserController.EDITPROFILE_URL,params);
+            const response = fetch(EditUserRequest.EDITPROFILE_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {
                 console.warn(err);
-                reject(EditUserController.ERR_MSG_EDITPERSONALDATA);
+                reject(EditUserRequest.ERR_MSG_EDITPERSONALDATA);
             })
         });
     }

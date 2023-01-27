@@ -1,7 +1,7 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface.js";
 import DialogMessage from "../dialog/dialogmessage.js";
-import SubsciberInterface from "./data.interface.js";
-import SubscriberController from "./subscriber.controller.js";
+import SubsciberInterface from "./subscriber.interface.js";
+import SubscriberRequest from "./subscriber.request.js";
 import Subscriber from "./subscriber.model.js";
 
 $(function(){
@@ -39,9 +39,9 @@ $(function(){
             confPass: $('#confPass').val() as string
         };
         let subscriber = new Subscriber(dati);
-        let subscriberController = new SubscriberController(subscriber);
+        let sr = new SubscriberRequest(subscriber);
         spinner.toggleClass("invisible");
-        subscriberController.subscribeRequest().then(obj => {
+        sr.subscribeRequest().then(obj => {
             spinner.toggleClass("invisible");
             let dmData: DialogMessageInterface = {
                 title: "Registrazione", message: obj["msg"]

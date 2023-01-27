@@ -1,4 +1,4 @@
-import ContactInterface from './data.interface';
+import ContactInterface from './contact.interface';
 
 //Data passed in HTTP request
 export default class Contact{

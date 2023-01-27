@@ -1,6 +1,6 @@
 import DeleteProductInterface from "../interfaces/deleteproduct.interface";
 
-export default class DeleteProductController{
+export default class DeleteProduct{
     private _productId: string;
     private _errno: number = 0;
     private _error: string|null = null;
@@ -19,8 +19,8 @@ export default class DeleteProductController{
     get errno(){ return this._errno; }
     get error(){ 
         switch(this._errno){
-            case DeleteProductController.ERR_REQUEST:
-                this._error = DeleteProductController.ERR_REQUEST_MSG;
+            case DeleteProduct.ERR_REQUEST:
+                this._error = DeleteProduct.ERR_REQUEST_MSG;
                 break;
             default:
                 this._error = null;
@@ -41,7 +41,7 @@ export default class DeleteProductController{
                 throw err;
             });
         }catch(e){
-            this._errno = DeleteProductController.ERR_REQUEST;
+            this._errno = DeleteProduct.ERR_REQUEST;
             response = {done: false, msg: this.error };
         }
         return response;
@@ -49,7 +49,7 @@ export default class DeleteProductController{
 
     private async deleteProductPromise(): Promise<string>{
         return await new Promise<string>((resolve, reject)=>{
-            fetch(DeleteProductController.DELETE_PRODUCT_URL,{
+            fetch(DeleteProduct.DELETE_PRODUCT_URL,{
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json', 'Content-Type': 'application/json'

@@ -1,9 +1,9 @@
 import Contact from './contact.model.js';
-import DialogMessage from './../dialog/dialogmessage.js';
+import DialogMessage from '../dialog/dialogmessage.js';
 import DialogMessageInterface from '../dialog/dialogmessage.interface.js';
 
 //Do the HTTP request passing Contact object
-export default class ContactController{
+export default class ContactRequest{
 
     //constants
     private static CONTACT_URL = 'funzioni/mail.php';
@@ -31,11 +31,11 @@ export default class ContactController{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
-            case ContactController.ERR_NOCONTACTOBJECT:
-                this._error = ContactController.ERR_MSG_NOCONTACTOBJECT;
+            case ContactRequest.ERR_NOCONTACTOBJECT:
+                this._error = ContactRequest.ERR_MSG_NOCONTACTOBJECT;
                 break;
-            case ContactController.ERR_DATAMISSED:
-                this._error = ContactController.ERR_MSG_DATAMISSED;
+            case ContactRequest.ERR_DATAMISSED:
+                this._error = ContactRequest.ERR_MSG_DATAMISSED;
                 break;
             default:
                 this._error = null;
@@ -92,10 +92,10 @@ export default class ContactController{
                 });
             }//if(this.validateContact()){
             else
-                this._errno = ContactController.ERR_DATAMISSED;
+                this._errno = ContactRequest.ERR_DATAMISSED;
         }//if(this.contact != null){
         else
-            this._errno = ContactController.ERR_NOCONTACTOBJECT;
+            this._errno = ContactRequest.ERR_NOCONTACTOBJECT;
     }
 
     //send support email Promise
@@ -109,12 +109,12 @@ export default class ContactController{
                 }
             };
             console.log(param);
-            const response = fetch(ContactController.CONTACT_URL,param);
+            const response = fetch(ContactRequest.CONTACT_URL,param);
             response.then(r => {
                 resolve(r.text());
             }).catch(err => {
                 console.warn(err);
-                reject(ContactController.ERR_MSG_MAILNOTSENT);
+                reject(ContactRequest.ERR_MSG_MAILNOTSENT);
             });
         });
     }

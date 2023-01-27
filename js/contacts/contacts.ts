@@ -1,5 +1,5 @@
 import Contact from './contact.model.js';
-import ContactController from './contact.controller.js'
+import ContactRequest from './contact.request.js'
 
 $(function () {
     $('#fContatti').on('submit', function (ev) {
@@ -10,6 +10,6 @@ $(function () {
             ajax: true
         };
         let contact = new Contact(mess);
-        let contactCtr = new ContactController(contact);
+        let contactCtr = new ContactRequest(contact);
     });
 });

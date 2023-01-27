@@ -1,6 +1,6 @@
 import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import ResetController from "./reset.controller.js";
+import ResetRequest from "./reset.request.js";
 import ResetInterface from "./reset.interface";
 
 $(()=>{
@@ -23,7 +23,7 @@ $(()=>{
             newPassword: $('#nuova').val() as string,
             confPassword: $('#confNuova').val() as string
         };
-        let reset: ResetController = new ResetController(data);
+        let reset: ResetRequest = new ResetRequest(data);
         spinner.toggleClass("invisible");
         reset.resetPassword().then(obj => {
             spinner.toggleClass("invisible");

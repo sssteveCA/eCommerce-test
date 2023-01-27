@@ -1,6 +1,6 @@
 import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import RecoveryController from "./recovery.controller.js";
+import RecoveryRequest from "./recovery.request.js";
 import RecoveryInterface from "./recovery.interface";
 
 $(()=>{
@@ -10,7 +10,7 @@ $(()=>{
         let recoveryData: RecoveryInterface = {
             email: $('#email').val() as string
         };
-        let rc: RecoveryController = new RecoveryController(recoveryData);
+        let rc: RecoveryRequest = new RecoveryRequest(recoveryData);
         spinner.toggleClass("invisible");
         rc.sendRecoveryMail().then(obj => {
             spinner.toggleClass("invisible");

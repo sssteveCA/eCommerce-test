@@ -1,6 +1,6 @@
 import RecoveryInterface from "./recovery.interface";
 
-export default class RecoveryController{
+export default class Recovery{
 
     private _email: string;
     private _errno: number = 0;
@@ -20,8 +20,8 @@ export default class RecoveryController{
     get errno(){ return this._errno; }
     get error(){ 
         switch(this._errno){
-            case RecoveryController.ERR_REQUEST:
-                this._error = RecoveryController.ERR_REQUEST_MSG;
+            case Recovery.ERR_REQUEST:
+                this._error = Recovery.ERR_REQUEST_MSG;
                 break;
             default:
                 this._error = null;
@@ -41,7 +41,7 @@ export default class RecoveryController{
                 throw err;
             });
         }catch(e){
-            this._errno = RecoveryController.ERR_REQUEST;
+            this._errno = Recovery.ERR_REQUEST;
             response = { msg: this.error };
         }
         return response;
@@ -56,7 +56,7 @@ export default class RecoveryController{
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             };
-            const response = fetch(RecoveryController.RECOVERY_URL,params);
+            const response = fetch(Recovery.RECOVERY_URL,params);
             response.then(r => {
                 resolve(r.text());
             }).catch(err => {

@@ -1,9 +1,9 @@
 import ProductMailInterface from "./interfaces/productmail.interface";
-import ProductMailController from "./requests/productmail.controller.js";
+import ProductMail from "./requests/productmail.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import DialogMessage from "../dialog/dialogmessage.js";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
-import DeleteProductController from "./requests/deleteproduct.controller.js";
+import DeleteProduct from "./requests/deleteproduct.js";
 
 $(()=>{
     let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');
@@ -14,7 +14,7 @@ $(()=>{
         subject: $('#oggetto').val() as string,
         message: $('#messaggio').val() as string
        };
-       let pmc: ProductMailController = new ProductMailController(pmData);
+       let pmc: ProductMail = new ProductMail(pmData);
        spinner.toggleClass("invisible");
        pmc.sendMail().then(obj => {
         spinner.toggleClass("invisible");
@@ -33,7 +33,7 @@ $(()=>{
         let dpData: DeleteProductInterface = {
             productId: $('#idp').val() as string
         }
-        let dpc: DeleteProductController = new DeleteProductController(dpData);
+        let dpc: DeleteProduct = new DeleteProduct(dpData);
         dpc.deleteProduct().then(obj => {
             let dmData: DialogMessageInterface = {
                 title: 'Inserzione prodotto', message: obj["msg"]

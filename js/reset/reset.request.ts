@@ -1,6 +1,6 @@
 import ResetInterface from "./reset.interface";
 
-export default class ResetController{
+export default class ResetRequest{
     private _key: string;
     private _newPassword: string;
     private _confPassword: string;
@@ -24,8 +24,8 @@ export default class ResetController{
     get confPassword(){ return this._confPassword; }
     get error(){ 
         switch(this._errno){
-            case ResetController.ERR_REQUEST:
-                this._error = ResetController.ERR_REQUEST_MSG;
+            case ResetRequest.ERR_REQUEST:
+                this._error = ResetRequest.ERR_REQUEST_MSG;
                 break;
             default:
                 this._error = null;
@@ -45,7 +45,7 @@ export default class ResetController{
                 throw err;
             });
         }catch(e){
-            this._errno = ResetController.ERR_REQUEST;
+            this._errno = ResetRequest.ERR_REQUEST;
             response = { msg: this.error };
         }
         return response;
@@ -60,7 +60,7 @@ export default class ResetController{
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }
-            const response = fetch(ResetController.RESET_URL,params);
+            const response = fetch(ResetRequest.RESET_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {

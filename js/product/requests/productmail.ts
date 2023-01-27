@@ -1,6 +1,6 @@
 import ProductMailInterface from "../interfaces/productmail.interface";
 
-export default class ProductMailController{
+export default class ProductMail{
     private _email: string;
     private _subject: string;
     private _message: string;
@@ -25,8 +25,8 @@ export default class ProductMailController{
     get errno(){ return this._errno; }
     get error(){ 
         switch(this._errno){
-            case ProductMailController.ERR_REQUEST:
-                this._error = ProductMailController.ERR_REQUEST_MSG;
+            case ProductMail.ERR_REQUEST:
+                this._error = ProductMail.ERR_REQUEST_MSG;
                 break;
             default:
                 this._error = null;
@@ -47,7 +47,7 @@ export default class ProductMailController{
                 throw err;
             });
         }catch(e){
-            this._errno = ProductMailController.ERR_REQUEST;
+            this._errno = ProductMail.ERR_REQUEST;
             response = { msg: this.error };
         }
         return response;
@@ -55,7 +55,7 @@ export default class ProductMailController{
 
     private async sendMailPromise(): Promise<string>{
         return await new Promise<string>((resolve, reject)=>{
-            fetch(ProductMailController.SENDMAIL_URL,{
+            fetch(ProductMail.SENDMAIL_URL,{
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `ajax=1&oper=3&emailTo=${this._email}&pOggetto=${this._subject}&pMessaggio=${this._message}`

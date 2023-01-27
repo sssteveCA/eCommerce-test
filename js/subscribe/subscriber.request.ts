@@ -1,7 +1,7 @@
 import Subscriber from "./subscriber.model.js";
 
 //Do the HTTP request passing Subscriber object
-export default class SubscriberController{
+export default class SubscriberRequest{
 
     public static ERR_NOSUBSCRIBEROBJECT = 1; //Subscriber object is null
     public static ERR_DATAMISSED = 2; //One or more properties of Subscriber object missed
@@ -29,14 +29,14 @@ export default class SubscriberController{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
-            case SubscriberController.ERR_NOSUBSCRIBEROBJECT:
-                this._error = SubscriberController.ERR_MSG_NOSUBSCRIBEROBJECT;
+            case SubscriberRequest.ERR_NOSUBSCRIBEROBJECT:
+                this._error = SubscriberRequest.ERR_MSG_NOSUBSCRIBEROBJECT;
                 break;
-            case SubscriberController.ERR_DATAMISSED:
-                this._error = SubscriberController.ERR_MSG_DATAMISSED;
+            case SubscriberRequest.ERR_DATAMISSED:
+                this._error = SubscriberRequest.ERR_MSG_DATAMISSED;
                 break;
-            case SubscriberController.ERR_REQUEST:
-                this._error = SubscriberController.ERR_MSG_REQUEST;
+            case SubscriberRequest.ERR_REQUEST:
+                this._error = SubscriberRequest.ERR_MSG_REQUEST;
                 break;
             default:
                 this._error = null;
@@ -67,18 +67,18 @@ export default class SubscriberController{
                         throw err;
                     });
                 }catch(e){
-                    this._errno = SubscriberController.ERR_REQUEST;
-                    response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+                    this._errno = SubscriberRequest.ERR_REQUEST;
+                    response = { msg: SubscriberRequest.ERR_MSG_SUBSCRIBEERROR };
                 }
             }//if(this.validateSubscriber()){
             else{
-                this._errno = SubscriberController.ERR_DATAMISSED;
-                response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+                this._errno = SubscriberRequest.ERR_DATAMISSED;
+                response = { msg: SubscriberRequest.ERR_MSG_SUBSCRIBEERROR };
             }
         }//if(this._subscriber != null){
         else{
-            this._errno = SubscriberController.ERR_NOSUBSCRIBEROBJECT;
-            response = { msg: SubscriberController.ERR_MSG_SUBSCRIBEERROR };
+            this._errno = SubscriberRequest.ERR_NOSUBSCRIBEROBJECT;
+            response = { msg: SubscriberRequest.ERR_MSG_SUBSCRIBEERROR };
         }
         return response;
     }
@@ -112,12 +112,12 @@ export default class SubscriberController{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(SubscriberController.SUBSCRIBE_URL,params);
+            const response = fetch(SubscriberRequest.SUBSCRIBE_URL,params);
             response.then(r => {
                 resolve(r.text());
             }).catch(err => {
                 console.warn(err);
-                reject(SubscriberController.ERR_MSG_SUBSCRIBEERROR);
+                reject(SubscriberRequest.ERR_MSG_SUBSCRIBEERROR);
             });
 
         });

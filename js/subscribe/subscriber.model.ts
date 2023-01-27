@@ -1,4 +1,4 @@
-import SubsciberInterface from "./data.interface";
+import SubsciberInterface from "./subscriber.interface";
 
 //This class contains data to pass when user subscribes
 export default class Subscriber{

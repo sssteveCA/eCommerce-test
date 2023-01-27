@@ -1,6 +1,6 @@
 import Insertion from "./insertion.model.js";
-import InsertionController from "./insertion.controller.js";
-import InsertionInterface from "./data.interface.js";
+import InsertionRequest from "./insertion.request.js";
+import InsertionInterface from "./insertion.interface.js";
 import DialogConfirmInterface from "../dialog/dialogconfirm.interface.js";
 import DialogConfirm from "../dialog/dialogconfirm.js";
 
@@ -40,7 +40,7 @@ $(function(){
                     };
                     //console.log(data);
                     let insertion = new Insertion(data);
-                    let insertionController = new InsertionController(insertion);
+                    let ir = new InsertionRequest(insertion);
                 }//if(imageFileList){
             }//if(image != null){ 
         });
