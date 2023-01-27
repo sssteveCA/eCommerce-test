@@ -1,6 +1,57 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions";
 
+export function afterPaymentGet(data: any, actions: any, handleResponse: (result: any)=> void){
+    var currentShippingVal = data.transactions[0].amount.details.shipping;
+      currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
+      currentShippingVal = parseFloat(currentShippingVal);
+      var shipping = data.payer.payer_info.shipping_address;
+      var currentTotal = data.transactions[0].amount.total;
+      currentTotal = parseFloat(currentTotal).toFixed(2);
+      currentTotal = parseFloat(currentTotal);
+        console.log(shipping.recipient_name);
+        console.log(shipping.line1);
+        console.log(shipping.city);
+        console.log(shipping.state);
+        console.log(shipping.postal_code);
+        console.log(shipping.country_code);
+        console.log(currentShippingVal);
+        //total_amt =+ total_amt + shipping_amt_updated;
+        (<HTMLElement>document.querySelector('#paypalArea')).style.display = 'none';
+        (<HTMLElement>document.querySelector('#confirm')).style.display = 'block';
+        // Listen for click on confirm button
+        (<HTMLButtonElement>document.querySelector('#confirmButton')).addEventListener('click', function() {
+        // Disable the button and show a loading message
+        (<HTMLElement>document.querySelector('#confirm')).innerText = 'Loading...';
+        (<HTMLInputElement>document.querySelector('#confirm')).disabled = true;
+        // Execute the payment
+        var currency = (<HTMLInputElement>document.getElementById('currency'))?.value;
+        var subtotal = currentTotal - currentShippingVal;
+        return actions.payment.execute(
+        {
+            transactions: [
+            {
+                amount: {
+                    //total: 1000.12,
+                    total: currentTotal,
+                    currency: currency,
+                    details: 
+                    {
+                        subtotal: subtotal,
+                        //subtotal: 990.12,
+                        shipping: currentShippingVal,
+                        //shipping: 10,
+                    }
+                }
+            }
+            ]    
+        }).then(handleResponse);
+
+        })      
+
+    // return actions.payment.execute().then(handleResponse);
+    }
+
 export function handleResponse(result: any) {
 
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
@@ -66,18 +117,10 @@ export function handleResponse(result: any) {
 
 export function paypalButton(paypal: any, clientId: string){
     paypal.Button.render({
-
         // Set your environment
-
         env: 'sandbox', // sandbox | production
-        funding: {
-              allowed: [ paypal.FUNDING.CREDIT ]
-        },
-
-        client: {
-            sandbox: clientId
-        },
-        
+        funding: { allowed: [ paypal.FUNDING.CREDIT ] },
+        client: { sandbox: clientId },
         style: {
               label: 'credit',
               size:  'medium', // small | medium | large | responsive
