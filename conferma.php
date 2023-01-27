@@ -168,66 +168,82 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     </head>
     <body>
         <?php echo menu($_SESSION['welcome']);?>
-        <fieldset id="f1">
+        <div id="formContainer">
+            <fieldset id="f1">
             <legend>Ordine</legend>
             <p>Fai click su 'PAGA' per acquistare il prodotto</p>
             <div id="divButtons">
                 <!-- Form per l'accesso alla pagina Paypal apposita -->
-                <?php
-                    $paymentFormData = [
-                        'paypalPage' => $paypalPage, 'paypalMail' => $uVenditore->getPaypalMail(),
-                        'returnUrl' => $return_url, 'cancelUrl' => $cancel_url, 'notifyUrl' => $notify_url,
-                        'rm' => $rm, 'currency' => $currency, 'lc' => $lc, 'shipping' => $prodotto->getSpedizione(),
-                        'productName' => addslashes($prodotto->getNome()), 'productId' => $prodotto->getId(),
-                        'orderAmout' => $ordine->getTotale()
-                    ];
-                    echo ConfirmTemplates::paypalForm($paymentFormData);
-                    $addToCartFormData = [
-                        'cartAction' => 'funzioni/cartMan.php', 'orderId' => $ordine->getId(), 'productId' => $prodotto->getId()
-                    ];
-                    echo ConfirmTemplates::addToCartForm($addToCartFormData);
-                    $goBackFormData = [
-                        'backAction' => 'compra.php', 'idp' => $dati['idp'], 'qt' => $dati['quantita']
-                    ];
-                    echo ConfirmTemplates::goBackForm($goBackFormData);
-                ?>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-4 col-lg-3">
+                            <?php
+                            $paymentFormData = [
+                            'paypalPage' => $paypalPage, 'paypalMail' => $uVenditore->getPaypalMail(),
+                            'returnUrl' => $return_url, 'cancelUrl' => $cancel_url, 'notifyUrl' => $notify_url,
+                            'rm' => $rm, 'currency' => $currency, 'lc' => $lc, 'shipping' => $prodotto->getSpedizione(),
+                            'productName' => addslashes($prodotto->getNome()), 'productId' => $prodotto->getId(),
+                            'orderAmout' => $ordine->getTotale()
+                        ];
+                        echo ConfirmTemplates::paypalForm($paymentFormData);
+                            ?>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3">
+                            <?php
+                            $addToCartFormData = [
+                                'cartAction' => 'funzioni/cartMan.php', 'orderId' => $ordine->getId(), 'productId' => $prodotto->getId()
+                            ];
+                            echo ConfirmTemplates::addToCartForm($addToCartFormData);
+                            ?>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3">
+                            <?php
+                            $goBackFormData = [
+                                'backAction' => 'compra.php', 'idp' => $dati['idp'], 'qt' => $dati['quantita']
+                            ];
+                            echo ConfirmTemplates::goBackForm($goBackFormData);
+                            ?>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </fieldset>
+            </fieldset>
 <?php
-                        //se l'acquirente e il venditore hanno un app Paypal collegata
-                        if($utente->getClientId() != null && $uVenditore->getClientId() != null){
+            //se l'acquirente e il venditore hanno un app Paypal collegata
+            if($utente->getClientId() != null && $uVenditore->getClientId() != null){
 
 ?>
-        <div id="paypalArea"></div>
-        <div id="confirm" style="display:none;">
-            <button id="confirmButton">Conferma</button>
+            <div id="paypalArea"></div>
+            <div id="confirm" style="display:none;">
+                <button id="confirmButton">Conferma</button>
+            </div>
         </div>
         <script src="//www.paypalobjects.com/api/checkout.js"></script>
-    <!-- PayPal In-Context Checkout script -->
-    <script type="module">
-        import {paypalButton} from './js/confirm/confirm.functions.js';
-        var clientId = '<?php echo $uVenditore->getClientId(); ?>';
-        var sbn_code = '<?php echo(SBN_CODE)?>';
-        console.log("clientId = "+clientId);
-        var client = {
-            sandbox:  clientId
-        };
-        var environment = 'sandbox';
-        /*var transaction = {
-            transactions: [
-                {
-                    amount: {
-                        total:    '15.00',
-                        currency: 'USD'
-                    }
-                }
-            ]
-        };*/
-
-        paypalButton(paypal,clientId,sbn_code);
-     </script>
-<?php
+        <!-- PayPal In-Context Checkout script -->
+        <script type="module">
+            import {paypalButton} from './js/confirm/confirm.functions.js';
+            var clientId = '<?php echo $uVenditore->getClientId(); ?>';
+            var sbn_code = '<?php echo(SBN_CODE)?>';
+            console.log("clientId = "+clientId);
+            var client = {
+                sandbox:  clientId
+            };
+            var environment = 'sandbox';
+            /*var transaction = {
+                transactions: [
+                    {
+                        amount: {
+                            total:    '15.00',
+                            currency: 'USD'
                         }
+                    }
+                ]
+            };*/
+
+            paypalButton(paypal,clientId,sbn_code);
+        </script>
+<?php
+            }//if($utente->getClientId() != null && $uVenditore->getClientId() != null){
 ?>
         <?php echo footer(); ?>
     </body>

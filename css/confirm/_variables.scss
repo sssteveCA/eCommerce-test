@@ -10,7 +10,12 @@ $single-selectors: (
         ),
         '#f1': (
             margin-top: 70px,
-            margin-left: 10px
+            margin-left: 10px,
+            text-align: center
+        ),
+        '#paypalArea': (
+            margin-top: 50px,
+            text-align: center
         )
     ),
     'tags': (
