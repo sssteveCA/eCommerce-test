@@ -9,7 +9,7 @@ class ConfirmTemplates{
      * @param array $data the values used in the form
      * @return string the HTML of the form 
      */
-    public static function addToCart(array $data): string{
+    public static function addToCartForm(array $data): string{
         return <<<HTML
 <form id="cart" method="post" action="{$data['cartAction']}">
     <!-- oper = 1, aggiunge il prodotto al carrello -->
@@ -18,6 +18,21 @@ class ConfirmTemplates{
     <input type="hidden" id="ido" name="ido" value="{$data['orderId']}">
     <input type="hidden" id="idp" name="idp" value="{$data['productId']}">
     <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
+</form>
+HTML;
+    }
+
+    /**
+     * Get the form used in conferma.php to go to previous page
+     * @param array $data the values used in the form
+     * @return string the HTML of the form 
+     */
+    public static function goBackForm(array $data): string{
+        return <<<HTML
+<form id="back" method="post" action="{$data['backAction']}">
+    <input type="hidden" id="idp" name="idp" value="{$data['idp']}">
+    <input type="hidden" id="qt" name="qt" value="{$data['qt']}">
+    <button type="submit" id="bInd" class="btn btn-warning">INDIETRO</button>
 </form>
 HTML;
     }
@@ -57,12 +72,6 @@ HTML;
 
 
     <button type="submit" id="bOk" class="btn btn-primary">PAGA</button>
-</form>
-
-<form id="back" method="post" action="{$data['buyAction']}">
-    <input type="hidden" id="idp" name="idp" value="{$data['idp']}">
-    <input type="hidden" id="qt" name="qt" value="{$data['qt']}">
-    <button type="submit" id="bInd" class="btn btn-warning">INDIETRO</button>
 </form>
 HTML;
     }
