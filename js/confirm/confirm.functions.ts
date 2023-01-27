@@ -1,7 +1,8 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import { showDialogMessage } from "../functions/functions";
+import { showDialogMessage } from "../functions/functions.js";
 
 function afterPaymentGet(data: any, actions: any){
+    console.log("afterPaymentGet");
     var currentShippingVal = data.transactions[0].amount.details.shipping;
       currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
       currentShippingVal = parseFloat(currentShippingVal);
@@ -52,6 +53,7 @@ function afterPaymentGet(data: any, actions: any){
     }
 
 function handleResponse(result: any) {
+    console.log("handleResponse");
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
     var resultDOM = JSON.stringify(result, null, 2);
@@ -111,6 +113,7 @@ function handleResponse(result: any) {
 }
 
 export function paypalButton(paypal: any, clientId: string, sbn_code: string){
+    console.log("paypalButton");
     paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -136,6 +139,7 @@ export function paypalButton(paypal: any, clientId: string, sbn_code: string){
 }
 
 function paypalPayment(actions: any, sbn_code: string){
+    console.log("paypalPayment");
     var currency = (<HTMLInputElement> document.getElementById('currency')).value;
     var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
     shipping_amt = parseFloat(shipping_amt).toFixed(2);

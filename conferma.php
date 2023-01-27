@@ -236,10 +236,11 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         </div>
         <script src="//www.paypalobjects.com/api/checkout.js"></script>
     <!-- PayPal In-Context Checkout script -->
-    <script type="text/javascript">
+    <script type="module">
+        import {paypalButton} from './js/confirm/confirm.functions.js';
         var clientId = '<?php echo $uVenditore->getClientId(); ?>';
         var sbn_code = '<?php echo(SBN_CODE)?>';
-        //console.log("clientId = "+clientId);
+        console.log("clientId = "+clientId);
         var client = {
             sandbox:  clientId
         };
@@ -255,7 +256,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             ]
         };*/
 
-        paypalButton(paypal,clientId,sbn_code,handleResponse);
+        paypalButton(paypal,clientId,sbn_code);
      </script>
 <?php
                         }
