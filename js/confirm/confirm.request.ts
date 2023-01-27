@@ -7,7 +7,11 @@ export default class ConfirmRequest{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static CONFIRM_URL: string = "";
+    public static ERR_CONFIRM: number = 1;
+
+    private static ERR_CONFIRM_MSG: string = "Errore durante l'esecuzione della richiesta";
+
+    private static CONFIRM_URL: string = "/funzioni/cartMan.php";
 
     constructor(data: ConfirmInterface){
         this._oper = data.oper;
@@ -20,11 +24,51 @@ export default class ConfirmRequest{
     get errno(){return this._errno;}
     get error(){
         switch(this._errno){
+            case ConfirmRequest.ERR_CONFIRM:
+                this._error = ConfirmRequest.ERR_CONFIRM_MSG;
+                break;
             default:
                 this._error = null;
                 break;
         }
         return this._error;
+    }
+
+    public async confirmRequest(): Promise<object>{
+        let response: object = {};
+        try{
+            await this.confirmRequestPromise().then(res => {
+                console.log(res);
+                response = JSON.parse(res);
+            }).catch(err => {
+                console.warn("ConfirmRequest promise catch");
+                throw err;
+            });
+        }catch(e){
+            console.warn("Second catch");
+            this._errno = ConfirmRequest.ERR_CONFIRM;
+            response = {done: false, msg: this.error};
+        }
+        return response;
+    }
+
+    private async confirmRequestPromise(): Promise<string>{
+        return await new Promise((resolve,reject)=>{
+            fetch(ConfirmRequest.CONFIRM_URL,{
+                method: 'POST',
+                body: JSON.stringify({
+                   ajax: 1, oper: this._oper, ido: this._ido, idp: this._idp
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
 
 
