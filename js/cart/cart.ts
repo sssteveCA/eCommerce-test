@@ -37,7 +37,7 @@ export function cartCheckout(sbn, clientId, currency,seller,seller_id): void{
 export function deleteOrderFromCart(dco_data: DeleteCartOrderInterface): void{
     let dco: DeleteCartOrder = new DeleteCartOrder(dco_data);
     dco.deleteCartOrder().then(obj => {
-        console.log(obj);
+        //console.log(obj);
         let dm_data: DialogMessageInterface = {
             title: 'Rimuovi dal carrello',
             message: obj['msg']

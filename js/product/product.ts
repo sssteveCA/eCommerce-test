@@ -4,7 +4,7 @@ import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import DialogMessage from "../dialog/dialogmessage.js";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
 import DeleteProduct from "./requests/deleteproduct.js";
-import { showDialogMessage } from "../functions/functions";
+import { showDialogMessage } from "../functions/functions.js";
 
 $(()=>{
     let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');

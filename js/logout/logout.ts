@@ -15,7 +15,7 @@ $(function(){
         let dcDialog = $('#'+dc.id);
         dc.btYes.on('click',() =>{
             //User press YES button
-            console.log("Sì");
+            //console.log("Sì");
             dcDialog.dialog('destroy');
             dcDialog.remove();
             window.location.href = 'funzioni/logout.php';
@@ -23,7 +23,7 @@ $(function(){
         });
         dc.btNo.on('click',() =>{
             //User press NO button
-            console.log("No");
+            //console.log("No");
             dcDialog.dialog('destroy');
             dcDialog.remove();
         });

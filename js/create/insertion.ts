@@ -16,7 +16,7 @@ $(function(){
         let image = <HTMLInputElement>$('#image')[0];
         $('div.ui-dialog-buttonpane div.ui-dialog-buttonset > button:first-child').on('click',()=>{
             //User press YES button
-            console.log("Sì");
+            //console.log("Sì");
             dcDialog.dialog('destroy');
             dcDialog.remove();
             if(image != null){
@@ -46,7 +46,7 @@ $(function(){
         });
         $('div.ui-dialog-buttonpane div.ui-dialog-buttonset > button:last-child').on('click',()=>{
             //User press NO button
-            console.log("No");
+            //console.log("No");
             dcDialog.dialog('destroy');
             dcDialog.remove();
         }); 

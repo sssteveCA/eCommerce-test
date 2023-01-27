@@ -11,7 +11,7 @@ export default class ConfirmRequest{
 
     private static ERR_CONFIRM_MSG: string = "Errore durante l'esecuzione della richiesta";
 
-    private static CONFIRM_URL: string = "/funzioni/cartMan.php";
+    private static CONFIRM_URL: string = "./funzioni/cartMan.php";
 
     constructor(data: ConfirmInterface){
         this._oper = data.oper;
@@ -38,14 +38,12 @@ export default class ConfirmRequest{
         let response: object = {};
         try{
             await this.confirmRequestPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 response = JSON.parse(res);
             }).catch(err => {
-                console.warn("ConfirmRequest promise catch");
                 throw err;
             });
         }catch(e){
-            console.warn("Second catch");
             this._errno = ConfirmRequest.ERR_CONFIRM;
             response = {done: false, msg: this.error};
         }

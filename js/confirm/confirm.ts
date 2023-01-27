@@ -11,6 +11,8 @@ $(()=>{
             ido: $('#ido').val() as number,
             idp: $('#idp').val() as number
         }
+       /*  console.log("confirmData => ");
+        console.log(confirmData); */
         let confirmReq: ConfirmRequest = new ConfirmRequest(confirmData);
         confirmReq.confirmRequest().then(obj => {
             let dmData: DialogMessageInterface = {

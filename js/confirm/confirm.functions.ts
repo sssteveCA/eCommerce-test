@@ -10,13 +10,13 @@ function afterPaymentGet(data: any, actions: any){
       var currentTotal = data.transactions[0].amount.total;
       currentTotal = parseFloat(currentTotal).toFixed(2);
       currentTotal = parseFloat(currentTotal);
-        console.log(shipping.recipient_name);
+        /* console.log(shipping.recipient_name);
         console.log(shipping.line1);
         console.log(shipping.city);
         console.log(shipping.state);
         console.log(shipping.postal_code);
         console.log(shipping.country_code);
-        console.log(currentShippingVal);
+        console.log(currentShippingVal); */
         //total_amt =+ total_amt + shipping_amt_updated;
         (<HTMLElement>document.querySelector('#paypalArea')).style.display = 'none';
         (<HTMLElement>document.querySelector('#confirm')).style.display = 'block';
@@ -53,11 +53,11 @@ function afterPaymentGet(data: any, actions: any){
     }
 
 function handleResponse(result: any) {
-    console.log("handleResponse");
+    //console.log("handleResponse");
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
     var resultDOM = JSON.stringify(result, null, 2);
-    console.log(resultDOM);
+    //console.log(resultDOM);
     //var parseDOM = JSON.parse(resultDOM);
     //console.log(parseDOM);
     //$json_response = result;
@@ -98,7 +98,7 @@ function handleResponse(result: any) {
         method : 'post',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
             let dmData: DialogMessageInterface = {
                 title: 'Pagamento', message: risp['msg']
@@ -113,7 +113,7 @@ function handleResponse(result: any) {
 }
 
 export function paypalButton(paypal: any, clientId: string, sbn_code: string){
-    console.log("paypalButton");
+    //console.log("paypalButton");
     paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -139,7 +139,7 @@ export function paypalButton(paypal: any, clientId: string, sbn_code: string){
 }
 
 function paypalPayment(actions: any, sbn_code: string){
-    console.log("paypalPayment");
+    //console.log("paypalPayment");
     var currency = (<HTMLInputElement> document.getElementById('currency')).value;
     var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
     shipping_amt = parseFloat(shipping_amt).toFixed(2);
@@ -150,10 +150,10 @@ function paypalPayment(actions: any, sbn_code: string){
     var total_amt: any = subtotal + shipping_amt;
     total_amt = parseFloat(total_amt).toFixed(2);
     total_amt = parseFloat(total_amt);
-    console.log("currency "+currency);
+    /* console.log("currency "+currency);
     console.log("shipping_amt "+shipping_amt);
     console.log("subtotal "+subtotal);
-    console.log("total_amt "+total_amt);
+    console.log("total_amt "+total_amt); */
     return actions.payment.create({
         meta: { partner_attribution_id: sbn_code },
         payment: {

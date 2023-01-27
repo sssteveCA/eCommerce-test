@@ -98,7 +98,7 @@ export default class ContactRequest{
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             };
-            console.log(param);
+            //console.log(param);
             const response = fetch(ContactRequest.CONTACT_URL,param);
             response.then(r => {
                 resolve(r.text());

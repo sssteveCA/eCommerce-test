@@ -24,9 +24,9 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
         prodotti[i].currency = currency;
     }
     var prJSON = JSON.stringify(prodotti);
-    console.log(prodotti);
+    //console.log(prodotti);
     var clientId = cId;
-        console.log("clientId = "+clientId);
+        //console.log("clientId = "+clientId);
         var client = {
             sandbox:  clientId
         };
@@ -70,10 +70,10 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
             var total_amt:any = subtotal + shipping_amt;
             total_amt = parseFloat(total_amt).toFixed(2);
             total_amt = parseFloat(total_amt);
-            console.log("currency "+currency);
+            /* console.log("currency "+currency);
             console.log("shipping_amt "+shipping_amt);
             console.log("subtotal "+subtotal);
-            console.log("total_amt "+total_amt);
+            console.log("total_amt "+total_amt); */
             return actions.payment.create({
              meta: {
                  partner_attribution_id: sbn
@@ -116,7 +116,7 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
 
             return actions.payment.get().then(function(data) {       
        
-            console.log($('#confirmButton'+idVend));
+            //console.log($('#confirmButton'+idVend));
             $('#confirmButton'+idVend).css({
                 padding: '10px',
                 'font-size' : '20px'
@@ -135,7 +135,7 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
              currentTotal = parseFloat(currentTotal).toFixed(2);
              currentTotal = parseFloat(currentTotal);
        
-                       console.log(shipping.recipient_name);
+                       /* console.log(shipping.recipient_name);
                        console.log(shipping.line1);
                        console.log(shipping.city);
                        console.log(shipping.state);
@@ -146,7 +146,7 @@ export default function paypalCheckout(sbn,cId,currency,venditore,idVend){
        
                        //total_amt =+ total_amt + shipping_amt_updated;
                         console.log(document.querySelector('#paypalArea'+idVend));
-                        console.log(document.querySelector('#confirm'+idVend));
+                        console.log(document.querySelector('#confirm'+idVend)); */
                         let current_pa: HTMLElement|null = document.querySelector('#paypalArea'+idVend);
                         if(current_pa != null)
                             current_pa.style.display = 'none';

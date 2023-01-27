@@ -47,7 +47,7 @@ $(function(){
         post['zip'] = $('#cap').val();
         post['paypalMail'] = $('#paypalMail').val();
         post['clientId'] = $('#clientId').val();
-        console.log(post);
+        //console.log(post);
         try{
             let editUser = new EditUser(post);
             let editUserCtr = new EditUserRequest(editUser);

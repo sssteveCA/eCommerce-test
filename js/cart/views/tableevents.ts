@@ -17,8 +17,8 @@ export default class TableEvents{
     constructor(data: TableEventsInterface){
         this._button_classes = data.button_classes;
         this._confirm_params = data.confirm_params;
-        console.log("tableevents.ts confirm params");
-        console.log(this._confirm_params);
+        /* console.log("tableevents.ts confirm params");
+        console.log(this._confirm_params); */
         this._form_classes = data.form_classes;
         this._operations = data.operations;
         this.setEvents();

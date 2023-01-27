@@ -44,7 +44,7 @@ export default class GetOrder{
             await this.getOrderPromise().then(res =>{
                 //console.log(res);
                 let json: object = JSON.parse(res);
-                console.log(json);
+                //console.log(json);
                 if(json['done'] == true){
                     message = this.setOrderMessage(json['order']);
                 }//if(json['done'] == true){

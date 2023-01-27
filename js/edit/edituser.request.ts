@@ -130,7 +130,7 @@ export default class EditUserRequest{
         if(this.validateEditPassword()){
             let jsonRes;
             this.editPasswordPromise().then(res => {
-                console.log(res);
+                //console.log(res);
                 jsonRes = JSON.parse(res);
                 this.printDialog('Modifica password',jsonRes.msg);
             }).catch(err => {

@@ -59,7 +59,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 $oData['id'] = $post['ido'];
                 $idp = $post['idp'];
                 try{
-                    addOrderToCart($response,$idp,$user);
+                    addOrderToCart($response,$oData,$idp,$user);
                 }catch(Exception $e){
                     http_response_code(500);
                     $response['msg'] = $e->getMessage();
@@ -134,7 +134,7 @@ function addItemToCart(array &$response, Prodotto $product,Ordine $order){
 /**
  * Add order to the cart
  */
-function addOrderToCart(array $oData, string|int $idp, Utente $user){
+function addOrderToCart(array &$response,array $oData, string|int $idp, Utente $user){
     $order = new Ordine($oData);
     if($order->getNumError() == 0){
         //Id of orders inside the cart

@@ -9,8 +9,8 @@ export function handleResponse(result, clientId, idVend) {
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
 
     var resultDOM = JSON.stringify(result, null, 2);
-    console.log("resultDOM = ");
-    console.log(resultDOM);
+    /* console.log("resultDOM = ");
+    console.log(resultDOM); */
     //var parseDOM = JSON.parse(resultDOM);
     //console.log(parseDOM);
 
@@ -40,15 +40,15 @@ export function handleResponse(result, clientId, idVend) {
     dati['payer_status'] = status;
     dati['txn_id'] = transactionID;
     dati['clientId'] = clientId;
-    console.log(dati);
+    //console.log(dati);
     $.ajax({
         url : 'cartSuccess.php',
         method : 'post',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
-            console.log(risp);
+            //console.log(risp);
             let dm_data: DialogMessageInterface = {
                 title: 'Pagamento ordini',
                 message: risp['msg']
