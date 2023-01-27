@@ -1,7 +1,7 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions";
 
-function afterPaymentGet(data: any, actions: any, handleResponse: (result: any)=> void){
+function afterPaymentGet(data: any, actions: any){
     var currentShippingVal = data.transactions[0].amount.details.shipping;
       currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
       currentShippingVal = parseFloat(currentShippingVal);
@@ -51,7 +51,7 @@ function afterPaymentGet(data: any, actions: any, handleResponse: (result: any)=
     // return actions.payment.execute().then(handleResponse);
     }
 
-export function handleResponse(result: any) {
+function handleResponse(result: any) {
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
     var resultDOM = JSON.stringify(result, null, 2);
@@ -110,7 +110,7 @@ export function handleResponse(result: any) {
     });
 }
 
-export function paypalButton(paypal: any, clientId: string, handleResponse: (result: any)=> void){
+export function paypalButton(paypal: any, clientId: string, sbn_code: string){
     paypal.Button.render({
         // Set your environment
         env: 'sandbox', // sandbox | production
@@ -121,69 +121,51 @@ export function paypalButton(paypal: any, clientId: string, handleResponse: (res
               size:  'medium', // small | medium | large | responsive
               shape: 'pill',  // pill | rect
         },
-
-
         // Wait for the PayPal button to be clicked
-
-        payment: function(actions) {
-
-            return paypalPayment(actions);
+        payment: function(actions: any) {
+            return paypalPayment(actions,sbn_code);
         },
-
         // Wait for the payment to be authorized by the customer
-
         onAuthorize: function(data: any, actions: any) {
-
-     return actions.payment.get().then(function(data) {       
-        afterPaymentGet(data,actions,handleResponse);
-         })   
+            return actions.payment.get().then(function(data: any) {       
+                afterPaymentGet(data,actions);
+            })   
        } 
 
     }, '#paypalArea');
 }
 
-function paypalPayment(actions: any){
+function paypalPayment(actions: any, sbn_code: string){
     var currency = (<HTMLInputElement> document.getElementById('currency')).value;
-            var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
-            shipping_amt = parseFloat(shipping_amt).toFixed(2);
-            shipping_amt = parseFloat(shipping_amt);
-
-            var subtotal: string|number = (<HTMLInputElement>document.getElementById('amount')).value;
-            subtotal = parseFloat(subtotal).toFixed(2);
-            subtotal = parseFloat(subtotal);
-
-            var total_amt: any = subtotal + shipping_amt;
-            total_amt = parseFloat(total_amt).toFixed(2);
-            total_amt = parseFloat(total_amt);
-            console.log("currency "+currency);
-            console.log("shipping_amt "+shipping_amt);
-            console.log("subtotal "+subtotal);
-            console.log("total_amt "+total_amt);
-            return actions.payment.create({
-             meta: {
-                 partner_attribution_id: '<?php echo(SBN_CODE)?>'
-             },
-             payment: {
-                 payer: {
-                        payment_method: 'paypal',
-                        external_selected_funding_instrument_type: 'PAY_UPON_INVOICE'
-                    },
-                 transactions: [
-                     {
-                         amount: {
-                             total: total_amt ,
-                             //total: 1000.12 ,
-                             currency: currency,
-                             details:
-                             {
-                                 subtotal: subtotal,
-                                 //subtotal: 990.12,
-                                 shipping: shipping_amt,
-                                 //shipping: 10,
-                             }
-                         }
-                     }
-                 ]
-             }
-            });
+    var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
+    shipping_amt = parseFloat(shipping_amt).toFixed(2);
+    shipping_amt = parseFloat(shipping_amt);
+    var subtotal: string|number = (<HTMLInputElement>document.getElementById('amount')).value;
+    subtotal = parseFloat(subtotal).toFixed(2);
+    subtotal = parseFloat(subtotal);
+    var total_amt: any = subtotal + shipping_amt;
+    total_amt = parseFloat(total_amt).toFixed(2);
+    total_amt = parseFloat(total_amt);
+    console.log("currency "+currency);
+    console.log("shipping_amt "+shipping_amt);
+    console.log("subtotal "+subtotal);
+    console.log("total_amt "+total_amt);
+    return actions.payment.create({
+        meta: { partner_attribution_id: sbn_code },
+        payment: {
+            payer: {
+                payment_method: 'paypal', external_selected_funding_instrument_type: 'PAY_UPON_INVOICE'
+            },
+            transactions: [
+                {
+                    amount: { total: total_amt, currency: currency,
+                        details:
+                        {
+                            subtotal: subtotal, shipping: shipping_amt,
+                        }
+                    }
+                }
+            ]
+        }
+    });
 }

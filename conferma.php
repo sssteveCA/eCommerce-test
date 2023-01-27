@@ -238,6 +238,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     <!-- PayPal In-Context Checkout script -->
     <script type="text/javascript">
         var clientId = '<?php echo $uVenditore->getClientId(); ?>';
+        var sbn_code = '<?php echo(SBN_CODE)?>';
         //console.log("clientId = "+clientId);
         var client = {
             sandbox:  clientId
@@ -254,7 +255,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             ]
         };*/
 
-        paypalButton(paypal,clientId);
+        paypalButton(paypal,clientId,sbn_code,handleResponse);
      </script>
 <?php
                         }
