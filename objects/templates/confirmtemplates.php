@@ -5,7 +5,27 @@ namespace EcommerceTest\Objects\Templates;
 class ConfirmTemplates{
 
     /**
+     * Get the form used in conferma.php to add a product to cart
+     * @param array $data the values used in the form
+     * @return string the HTML of the form 
+     */
+    public static function addToCart(array $data): string{
+        return <<<HTML
+<form id="cart" method="post" action="{$data['cartAction']}">
+    <!-- oper = 1, aggiunge il prodotto al carrello -->
+    <input type="hidden" id="oper" name="oper" value="2">
+    <!-- ID dell'ordine -->
+    <input type="hidden" id="ido" name="ido" value="{$data['orderId']}">
+    <input type="hidden" id="idp" name="idp" value="{$data['productId']}">
+    <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
+</form>
+HTML;
+    }
+
+    /**
      * Get the form used in conferma.php to make the payment
+     * @param array $data the values used in the form
+     * @return string the HTML of the form
      */
     public static function paypalForm(array $data): string{
         return <<<HTML
@@ -38,14 +58,7 @@ class ConfirmTemplates{
 
     <button type="submit" id="bOk" class="btn btn-primary">PAGA</button>
 </form>
-<form id="cart" method="post" action="{$data['cartAction']}">
-    <!-- oper = 1, aggiunge il prodotto al carrello -->
-    <input type="hidden" id="oper" name="oper" value="2">
-    <!-- ID dell'ordine -->
-    <input type="hidden" id="ido" name="ido" value="{$data['orderId']}">
-    <input type="hidden" id="idp" name="idp" value="{$data['productId']}">
-    <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
-</form>
+
 <form id="back" method="post" action="{$data['buyAction']}">
     <input type="hidden" id="idp" name="idp" value="{$data['idp']}">
     <input type="hidden" id="qt" name="qt" value="{$data['qt']}">
