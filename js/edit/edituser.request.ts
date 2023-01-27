@@ -1,5 +1,7 @@
 import EditUser from "./edituser.model.js";
 import DialogMessage from "../dialog/dialogmessage.js";
+import { showDialogMessage } from "../functions/functions.js";
+import DialogMessageInterface from "../dialog/dialogmessage.interface.js";
 
 export default class EditUserRequest{
     //constants
@@ -224,18 +226,11 @@ export default class EditUserRequest{
 
     //Show dialog with message
     private printDialog(title: string, message: string): void{
-        let dm, dmData, msgDialog: JQuery<HTMLElement>;
-        dmData = {
+        let dmData: DialogMessageInterface = {
             title: title,
             message: message
         };
-        dm = new DialogMessage(dmData);
-        msgDialog = $('#'+dm.id);
-        $('div.ui-dialog-buttonpane div.ui-dialog-buttonset button:first-child').on('click',()=>{
-            //User press OK button
-            msgDialog.dialog('destroy');
-            msgDialog.remove();
-        });  
+        showDialogMessage(dmData);  
 
     }
 

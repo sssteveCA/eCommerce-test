@@ -1,4 +1,5 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
+import { showDialogMessage } from "../functions/functions";
 import ConfirmInterface from "./confirm.interface";
 import ConfirmRequest from "./confirm.request";
 
@@ -16,6 +17,7 @@ $(()=>{
                 title: '',
                 message: obj["msg"]
             }
+            showDialogMessage(dmData);
         });
     });
 });

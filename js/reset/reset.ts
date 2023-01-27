@@ -2,6 +2,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import ResetRequest from "./reset.request.js";
 import ResetInterface from "./reset.interface";
+import { showDialogMessage } from "../functions/functions.js";
 
 $(()=>{
     $('#showPass').on('change',(e)=>{
@@ -31,11 +32,7 @@ $(()=>{
                 title: 'Reimpostazione password',
                 message: obj["msg"]
             };
-            let dm: DialogMessage = new DialogMessage(dmData);
-            dm.btOk.on('click',()=>{
-                dm.dialog.dialog('destroy');
-                dm.dialog.remove();
-            });
+            showDialogMessage(dmData);
         });
     });
 });

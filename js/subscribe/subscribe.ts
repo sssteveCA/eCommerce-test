@@ -3,6 +3,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import SubsciberInterface from "./subscriber.interface.js";
 import SubscriberRequest from "./subscriber.request.js";
 import Subscriber from "./subscriber.model.js";
+import { showDialogMessage } from "../functions/functions.js";
 
 $(function(){
     $('#show').on('change',function(){
@@ -46,11 +47,7 @@ $(function(){
             let dmData: DialogMessageInterface = {
                 title: "Registrazione", message: obj["msg"]
             };
-            let dm: DialogMessage = new DialogMessage(dmData);
-            dm.btOk.on('click',()=>{
-                dm.dialog.dialog('destroy');
-                dm.dialog.remove();
-            });
+            showDialogMessage(dmData);
         });
     });//$('#formReg').on('submit',function(e){
 });//$(function(){

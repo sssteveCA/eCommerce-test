@@ -1,6 +1,7 @@
 import Contact from './contact.model.js';
 import DialogMessage from '../dialog/dialogmessage.js';
 import DialogMessageInterface from '../dialog/dialogmessage.interface.js';
+import { showDialogMessage } from '../functions/functions.js';
 
 //Do the HTTP request passing Contact object
 export default class ContactRequest{
@@ -69,13 +70,7 @@ export default class ContactRequest{
                         title: 'Contatti',
                         message: jsonRes.msg
                     };
-                    dm = new DialogMessage(dmData);
-                    msgDialog = $('#'+dm.id);
-                    dm.btOk.on('click',()=>{
-                        //User press OK button
-                        msgDialog.dialog('destroy');
-                        msgDialog.remove();
-                    });
+                    showDialogMessage(dmData);
                 }).catch(err => {
                     //console.warn(err);
                     dmData = {
@@ -83,12 +78,7 @@ export default class ContactRequest{
                         message: err
                     };
                     dm = new DialogMessage(dmData);
-                    msgDialog = $('#'+dm.id);
-                    dm.btOk.on('click',()=>{
-                        //User press OK button
-                        msgDialog.dialog('destroy');
-                        msgDialog.remove();
-                    });
+                    showDialogMessage(dmData);
                 });
             }//if(this.validateContact()){
             else

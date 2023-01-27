@@ -13,6 +13,7 @@ import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
 import { Constants } from "../../constants/constants.js";
 import DialogConfirm from "../../dialog/dialogconfirm.js";
 import * as ordersMain from "../orders.js";
+import { showDialogMessage } from "../../functions/functions.js";
 
 //Set the events for the orders table
 export default class TableEvents{
@@ -94,15 +95,11 @@ export default class TableEvents{
         };
         let go: GetOrder = new GetOrder(go_data);
         go.getOrder().then(msg => {
-            let dm_data: DialogMessageInterface = {
+            let dmData: DialogMessageInterface = {
                 title: "Informazioni sull' ordine",
                 message: msg
             };
-            let dm: DialogMessage = new DialogMessage(dm_data);
-            dm.btOk.on('click',()=>{
-                dm.dialog.dialog('destroy');
-                dm.dialog.remove();
-            });
+            showDialogMessage(dmData)
         });
     }
 

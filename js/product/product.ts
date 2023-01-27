@@ -4,6 +4,7 @@ import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import DialogMessage from "../dialog/dialogmessage.js";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
 import DeleteProduct from "./requests/deleteproduct.js";
+import { showDialogMessage } from "../functions/functions";
 
 $(()=>{
     let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');
@@ -21,11 +22,7 @@ $(()=>{
         let dmData: DialogMessageInterface = {
             title: 'Mail al venditore', message: obj["msg"]
         };
-        let dm: DialogMessage = new DialogMessage(dmData);
-        dm.btOk.on('click',()=>{
-            dm.dialog.dialog('destroy');
-            dm.dialog.remove();
-        });
+        showDialogMessage(dmData);
        });//pmc.sendMail().then(obj => {
     });//$('#formMail').on('submit',(e)=>{
     $('#elimina').on('submit',(e)=>{
