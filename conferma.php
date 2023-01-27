@@ -5,6 +5,7 @@ use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Paths as P;
+use EcommerceTest\Objects\Templates\ConfirmTemplates;
 
 session_start();
 
@@ -171,58 +172,24 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             <p>Fai click su 'PAGA' per acquistare il prodotto</p>
             <div id="divButtons">
                 <!-- Form per l'accesso alla pagina Paypal apposita -->
-                <form id="paga" method="post" action="<?php echo $paypalPage; ?>">
-                    <input type="hidden" name="business" value="<?php echo $uVenditore->getPaypalMail(); ?>">
-                    <input type="hidden" name="cmd" value="_xclick">
-
-                    <!-- informazioni sulla transazione -->
-                    <input type="hidden" id="return" name="return" value="<?php echo $return_url; ?>">
-                    <input type="hidden" id="cancel_return" name="cancel_return" value="<?php echo $cancel_url; ?>">
-                    <input type="hidden" id="notify_url" name="notify_url" value="<?php echo $notify_url; ?>">
-                    <input type="hidden" id="rm" name="rm" value="<?php echo $rm; ?>">
-                    <input type="hidden" id="currency" name="currency_code" value="<?php echo $currency; ?>">
-                    <input type="hidden" id="lc" name="lc" value="<?php echo $lc; ?>">
-                    <input type="hidden" id="cbt" name="cbt" value="Continua">
-
-                    <!-- informazioni sul pagamento -->
-                    <input type="hidden" id="shipping" name="shipping" value="<?php echo $prodotto->getSpedizione(); ?>">
-                    <!-- colore di sfondo della pagina di pagamento: 0 = bianco, 1 = nero -->
-                    <input type="hidden" id="cs" name="cs" value="1">
-
-                    <!-- informazioni sul prodotto -->
-                    <input type="hidden" id="item_name" name="item_name" value="<?php echo addslashes($prodotto->getNome()); ?>"> 
-                     <input type="hidden" id="item_number" name="item_number" value="<?php echo $prodotto->getId(); ?>"> 
-                    <input type="hidden" id="amount" name="amount" value="<?php echo printf("%.2f",$ordine->getTotale()); ?>">
-                    <!-- <input type="hidden" name="quantity" value="<?php //$ordine->getQuantita(); ?>"> -->
-
-                    <!-- informazioni sulla vendita -->
-                    <input type="hidden" id="custom" name="custom" value="<?php echo $prodotto->getId(); ?>">
-
-                    <!-- informazioni sull'acquirente -->
-                    <!-- <input type="hidden" name="first_name" value="<?php //echo $utente->getNome(); ?>">
-                    <input type="hidden" name="last_name" value="<?php //echo $utente->getCognome(); ?>">
-                    <input type="hidden" name="state" value="<?php //echo 'Italia' ?>">
-                    <input type="hidden" name="city" value="<?php //echo $utente->getCitta(); ?>">
-                    <input type="hidden" name="address1" value="<?php //echo $utente->getIndirizzo().','.$utente->getNumero(); ?>">
-                    <input type="hidden" name="zip" value="<?php //echo $utente->getCap(); ?>"> -->
-                    <!-- <input type="hidden" name="email" value="<?php //echo $utente->getEmail(); ?>"> -->
-                    <!-- <input type="hidden" name="email" value="<?php //echo $emailPersonal; ?>"> -->
-
-                    <button type="submit" id="bOk" class="btn btn-primary">PAGA</button>
-                </form>
-                <form id="cart" method="post" action="funzioni/cartMan.php">
-                    <!-- oper = 1, aggiunge il prodotto al carrello -->
-                    <input type="hidden" id="oper" name="oper" value="2">
-                    <!-- ID dell'ordine -->
-                    <input type="hidden" id="ido" name="ido" value="<?php echo $ordine->getId(); ?>">
-                    <input type="hidden" id="idp" name="idp" value="<?php echo $prodotto->getId(); ?>">
-                    <button type="submit" id="bCart" class="btn btn-secondary">AGGIUNGI AL CARRELLO</button>
-                </form>
-                <form id="back" method="post" action="compra.php">
-                    <input type="hidden" id="idp" name="idp" value="<?php echo $dati['idp']; ?>">
-                    <input type="hidden" id="qt" name="qt" value="<?php echo $dati['quantita']; ?>">
-                    <button type="submit" id="bInd" class="btn btn-warning">INDIETRO</button>
-                </form>
+                <?php
+                    $paymentFormData = [
+                        'paypalPage' => $paypalPage, 'paypalMail' => $uVenditore->getPaypalMail(),
+                        'returnUrl' => $return_url, 'cancelUrl' => $cancel_url, 'notifyUrl' => $notify_url,
+                        'rm' => $rm, 'currency' => $currency, 'lc' => $lc, 'shipping' => $prodotto->getSpedizione(),
+                        'productName' => addslashes($prodotto->getNome()), 'productId' => $prodotto->getId(),
+                        'orderAmout' => $ordine->getTotale()
+                    ];
+                    echo ConfirmTemplates::paypalForm($paymentFormData);
+                    $addToCartFormData = [
+                        'cartAction' => 'funzioni/cartMan.php', 'orderId' => $ordine->getId(), 'productId' => $prodotto->getId()
+                    ];
+                    echo ConfirmTemplates::addToCartForm($addToCartFormData);
+                    $goBackFormData = [
+                        'backAction' => 'compra.php', 'idp' => $dati['idp'], 'qt' => $dati['quantita']
+                    ];
+                    echo ConfirmTemplates::goBackForm($goBackFormData);
+                ?>
             </div>
         </fieldset>
 <?php
