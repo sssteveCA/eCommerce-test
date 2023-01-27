@@ -1,7 +1,7 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions";
 
-function handleResponse(result: any) {
+export function handleResponse(result: any) {
 
     // var resultDOM = document.getElementById('paypal-execute-details').textContent;
     // document.getElementById('paypal-execute-details').textContent = JSON.stringify(result, null, 2);
@@ -62,4 +62,145 @@ function handleResponse(result: any) {
         complete : function(xhr, stato){
         }
     });
+}
+
+export function paypalButton(paypal: any, clientId: string){
+    paypal.Button.render({
+
+        // Set your environment
+
+        env: 'sandbox', // sandbox | production
+        funding: {
+              allowed: [ paypal.FUNDING.CREDIT ]
+        },
+
+        client: {
+            sandbox: clientId
+        },
+        
+        style: {
+              label: 'credit',
+              size:  'medium', // small | medium | large | responsive
+              shape: 'pill',  // pill | rect
+        },
+
+
+        // Wait for the PayPal button to be clicked
+
+        payment: function(actions) {
+
+            var currency = (<HTMLInputElement> document.getElementById('currency')).value;
+            var shipping_amt: string|number = (<HTMLInputElement>document.getElementById('shipping')).value;
+            shipping_amt = parseFloat(shipping_amt).toFixed(2);
+            shipping_amt = parseFloat(shipping_amt);
+
+            var subtotal: string|number = (<HTMLInputElement>document.getElementById('amount')).value;
+            subtotal = parseFloat(subtotal).toFixed(2);
+            subtotal = parseFloat(subtotal);
+
+            var total_amt: any = subtotal + shipping_amt;
+            total_amt = parseFloat(total_amt).toFixed(2);
+            total_amt = parseFloat(total_amt);
+            console.log("currency "+currency);
+            console.log("shipping_amt "+shipping_amt);
+            console.log("subtotal "+subtotal);
+            console.log("total_amt "+total_amt);
+            return actions.payment.create({
+             meta: {
+                 partner_attribution_id: '<?php echo(SBN_CODE)?>'
+             },
+             payment: {
+                 payer: {
+                        payment_method: 'paypal',
+                        external_selected_funding_instrument_type: 'PAY_UPON_INVOICE'
+                    },
+                 transactions: [
+                     {
+                         amount: {
+                             total: total_amt ,
+                             //total: 1000.12 ,
+                             currency: currency,
+                             details:
+                             {
+                                 subtotal: subtotal,
+                                 //subtotal: 990.12,
+                                 shipping: shipping_amt,
+                                 //shipping: 10,
+                             }
+                         }
+                     }
+                 ]
+             }
+            });
+        },
+
+        // Wait for the payment to be authorized by the customer
+
+        onAuthorize: function(data, actions) {
+
+     return actions.payment.get().then(function(data) {       
+
+      var currentShippingVal = data.transactions[0].amount.details.shipping;
+      currentShippingVal = parseFloat(currentShippingVal).toFixed(2);
+      currentShippingVal = parseFloat(currentShippingVal);
+      var shipping = data.payer.payer_info.shipping_address;
+
+      var currentTotal = data.transactions[0].amount.total;
+      currentTotal = parseFloat(currentTotal).toFixed(2);
+      currentTotal = parseFloat(currentTotal);
+
+                console.log(shipping.recipient_name);
+                console.log(shipping.line1);
+                console.log(shipping.city);
+                console.log(shipping.state);
+                console.log(shipping.postal_code);
+                console.log(shipping.country_code);
+
+                 console.log(currentShippingVal);
+
+                //total_amt =+ total_amt + shipping_amt_updated;
+
+                (<HTMLElement>document.querySelector('#paypalArea')).style.display = 'none';
+                (<HTMLElement>document.querySelector('#confirm')).style.display = 'block';
+
+                // Listen for click on confirm button
+
+                (<HTMLButtonElement>document.querySelector('#confirmButton')).addEventListener('click', function() {
+
+                    // Disable the button and show a loading message
+
+                    (<HTMLElement>document.querySelector('#confirm')).innerText = 'Loading...';
+                    (<HTMLInputElement>document.querySelector('#confirm')).disabled = true;
+
+                    // Execute the payment
+                    var currency = (<HTMLInputElement>document.getElementById('currency'))?.value;
+                  var subtotal = currentTotal - currentShippingVal;
+
+                    return actions.payment.execute(
+                    {
+                     transactions: [
+                        {
+                            amount: {
+                                //total: 1000.12,
+                                total: currentTotal,
+                                currency: currency,
+                                details: 
+                                {
+                                  subtotal: subtotal,
+                                  //subtotal: 990.12,
+                                  shipping: currentShippingVal,
+                                  //shipping: 10,
+                                }
+                            }
+                        }
+                    ]    
+                }).then(handleResponse);
+
+              })      
+
+            // return actions.payment.execute().then(handleResponse);
+         })   
+       } 
+
+    }, '#paypalArea');
 }
