@@ -44,7 +44,7 @@ HTML;
      */
     public static function paypalForm(array $data): string{
         return <<<HTML
-<form id="paga" method="post" action="{$data['paypalPge']}">
+<form id="paga" method="post" action="{$data['paypalPage']}">
     <input type="hidden" name="business" value="{$data['paypalMail']}">
     <input type="hidden" name="cmd" value="_xclick">
 
