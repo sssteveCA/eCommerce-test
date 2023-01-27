@@ -1,7 +1,7 @@
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import { showDialogMessage } from "../functions/functions";
+import { showDialogMessage } from "../functions/functions.js";
 import ConfirmInterface from "./confirm.interface";
-import ConfirmRequest from "./confirm.request";
+import ConfirmRequest from "./confirm.request.js";
 
 $(()=>{
     $('#cart').on('submit',(ev)=>{

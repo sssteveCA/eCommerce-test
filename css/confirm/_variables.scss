@@ -2,9 +2,9 @@
 @use "../modules/globals";
 
 $single-selectors: (
-    list.nth(globals.$selector-types-list,1): (
+    'classes': (
     ),
-    list.nth(globals.$selector-types-list,2): (
+    'ids': (
         '#divButtons': (
             display: flex
         ),
@@ -13,7 +13,7 @@ $single-selectors: (
             margin-left: 10px
         )
     ),
-    list.nth(globals.$selector-types-list,3): (
+    'tags': (
         'form': (
             margin: 10px
         )

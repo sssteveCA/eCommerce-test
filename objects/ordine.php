@@ -51,7 +51,7 @@ class Ordine implements Oe/* ,Mv */{
         $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
         $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
         $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
+        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];   
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:$_ENV['TABORD'];
         $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:$_ENV['TABACC'];
         $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
@@ -60,7 +60,7 @@ class Ordine implements Oe/* ,Mv */{
         }
         $this->h->set_charset("utf8mb4");
         $this->connesso = true;
-        $this->createDb();
+        $this->createDb($mysqlDb);
         if($this->createTab() === false){
             throw new \Exception(Oe::EXC_TABLECREATION);
         }
@@ -156,15 +156,15 @@ class Ordine implements Oe/* ,Mv */{
     }
     public function getMysqlError(){return $this->mysqlError;}
 
-    private function createDb(){
+    private function createDb(string $mysqlDb){
         $ok = true;
         $this->numError = 0;
         $this->querySql = <<<SQL
-CREATE DATABASE IF NOT EXISTS `{$this->mysqlDb}`;
+CREATE DATABASE IF NOT EXISTS `{$mysqlDb}`;
 SQL;
         $this->queries[] = $this->querySql;
         $this->h->query($this->querySql);
-        $this->h->select_db($this->mysqlDb);
+        $this->h->select_db($mysqlDb);
         return $ok;
     }
 

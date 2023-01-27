@@ -72,7 +72,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 if($uVenditore->getNumError() == 0 || $uVenditore->getNumError() == 1){
                     $pOrdinato = false; //true se esiste già un ordine del cliente dello stesso prodotto
                     //var_dump($prodotto);
-                    $idOrdini = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_PASSWORD'],$_ENV['TABORD'],$_ENV['TABACC'],$utente->getUsername());
+                    $idOrdini = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$_ENV['TABORD'],$_ENV['TABACC'],$utente->getUsername());
                     if($idOrdini != null){
                         foreach($idOrdini as $idOrdine){
                             try{
@@ -157,7 +157,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src="js/dialog/dialog.js"></script> <!-- temporary -->
-        <script src=<?php echo P::REL_CONFIRM_JS; ?>></script>
+        <script type="module" src=<?php echo P::REL_CONFIRM_JS; ?>></script>
         <?php 
             if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
                 echo call_user_func('cookieBanner');
