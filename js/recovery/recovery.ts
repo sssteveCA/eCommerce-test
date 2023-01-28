@@ -2,6 +2,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import RecoveryRequest from "./recovery.request.js";
 import RecoveryInterface from "./recovery.interface";
+import { Constants } from "../constants/constants.js";
 
 $(()=>{
     $('#fRecupera').on('submit',(ev)=>{
@@ -16,7 +17,7 @@ $(()=>{
             spinner.toggleClass("invisible");
             let dmData: DialogMessageInterface = {
                 title: 'Recupero account',
-                message: obj["msg"]
+                message: obj[Constants.KEY_MESSAGE]
             }
             let dm: DialogMessage = new DialogMessage(dmData);
             dm.btOk.on('click',()=>{

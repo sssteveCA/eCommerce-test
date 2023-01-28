@@ -9,6 +9,7 @@ import GetCartOrders from "./requests/getcartorders.js";
 import TableBuilder from "./views/tablebuilder.js";
 import TableEvents from "./views/tableevents.js";
 import paypalCheckout from "./checkout/paypalcheckout.js";
+import { Constants } from "../constants/constants.js";
 
 $(()=>{
     let gco_data: GetCartOrdersInterface = {
@@ -40,18 +41,18 @@ export function deleteOrderFromCart(dco_data: DeleteCartOrderInterface): void{
         //console.log(obj);
         let dm_data: DialogMessageInterface = {
             title: 'Rimuovi dal carrello',
-            message: obj['msg']
+            message: obj[Constants.KEY_MESSAGE]
         };
         let dm: DialogMessage = new DialogMessage(dm_data);
         dm.btOk.on('click',()=>{
             dm.dialog.dialog('destroy');
             dm.dialog.remove();
-            if(obj['done'] === true){
+            if(obj[Constants.KEY_DONE] === true){
                 let gco_data: GetCartOrdersInterface = {
                     operation: 1
                 };
                 fGetCartOrders(gco_data);
-            }//if(obj['done'] === true){
+            }//if(obj[Constants.KEY_DONE] === true){
         });
     });
 }

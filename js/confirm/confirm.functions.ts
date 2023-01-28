@@ -1,3 +1,4 @@
+import { Constants } from "../constants/constants";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions.js";
 
@@ -90,7 +91,7 @@ function handleResponse(result: any) {
         });*/
     $('#confirm').remove();
     var dati = {};
-    dati['ajax'] = '1';
+    dati[Constants.KEY_AJAX] = '1';
     dati['payer_status'] = status;
     dati['txn_id'] = transactionID;
     $.ajax({
@@ -101,7 +102,7 @@ function handleResponse(result: any) {
             //console.log(risposta);
             var risp = JSON.parse(risposta);
             let dmData: DialogMessageInterface = {
-                title: 'Pagamento', message: risp['msg']
+                title: 'Pagamento', message: risp[Constants.KEY_MESSAGE]
             }
             showDialogMessage(dmData);
         },

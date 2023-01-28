@@ -1,3 +1,4 @@
+import { Constants } from "../../constants/constants";
 import DeleteCartOrderInterface from "../interfaces/deletecartorder.interface";
 
 export default class DeleteCartOrder{
@@ -31,8 +32,8 @@ export default class DeleteCartOrder{
                 //console.log(res);
                 let json: object = JSON.parse(res);
                 message = {
-                    done: json['done'],
-                    msg: json['msg']
+                    done: json[Constants.KEY_DONE],
+                    msg: json[Constants.KEY_MESSAGE]
                 }
             }).catch(err => {
                 throw err;

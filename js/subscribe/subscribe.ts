@@ -4,6 +4,7 @@ import SubsciberInterface from "./subscriber.interface.js";
 import SubscriberRequest from "./subscriber.request.js";
 import Subscriber from "./subscriber.model.js";
 import { showDialogMessage } from "../functions/functions.js";
+import { Constants } from "../constants/constants.js";
 
 $(function(){
     $('#show').on('change',function(){
@@ -45,7 +46,7 @@ $(function(){
         sr.subscribeRequest().then(obj => {
             spinner.toggleClass("invisible");
             let dmData: DialogMessageInterface = {
-                title: "Registrazione", message: obj["msg"]
+                title: "Registrazione", message: obj[Constants.KEY_MESSAGE]
             };
             showDialogMessage(dmData);
         });

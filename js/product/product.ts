@@ -5,6 +5,7 @@ import DialogMessage from "../dialog/dialogmessage.js";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
 import DeleteProduct from "./requests/deleteproduct.js";
 import { showDialogMessage } from "../functions/functions.js";
+import { Constants } from "../constants/constants";
 
 $(()=>{
     let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');
@@ -20,7 +21,7 @@ $(()=>{
        pmc.sendMail().then(obj => {
         spinner.toggleClass("invisible");
         let dmData: DialogMessageInterface = {
-            title: 'Mail al venditore', message: obj["msg"]
+            title: 'Mail al venditore', message: obj[Constants.KEY_MESSAGE]
         };
         showDialogMessage(dmData);
        });//pmc.sendMail().then(obj => {
@@ -33,7 +34,7 @@ $(()=>{
         let dpc: DeleteProduct = new DeleteProduct(dpData);
         dpc.deleteProduct().then(obj => {
             let dmData: DialogMessageInterface = {
-                title: 'Inserzione prodotto', message: obj["msg"]
+                title: 'Inserzione prodotto', message: obj[Constants.KEY_MESSAGE]
             };
             let dm: DialogMessage = new DialogMessage(dmData);
             dm.btOk.on('click',()=>{

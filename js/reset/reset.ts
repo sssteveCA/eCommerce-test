@@ -3,6 +3,7 @@ import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import ResetRequest from "./reset.request.js";
 import ResetInterface from "./reset.interface";
 import { showDialogMessage } from "../functions/functions.js";
+import { Constants } from "../constants/constants.js";
 
 $(()=>{
     $('#showPass').on('change',(e)=>{
@@ -30,7 +31,7 @@ $(()=>{
             spinner.toggleClass("invisible");
             let dmData: DialogMessageInterface = {
                 title: 'Reimpostazione password',
-                message: obj["msg"]
+                message: obj[Constants.KEY_MESSAGE]
             };
             showDialogMessage(dmData);
         });

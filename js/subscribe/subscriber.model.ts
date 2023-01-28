@@ -1,3 +1,4 @@
+import { Constants } from "../constants/constants";
 import SubsciberInterface from "./subscriber.interface";
 
 //This class contains data to pass when user subscribes
@@ -36,7 +37,7 @@ export default class Subscriber{
         this._email = data.email;
         this._password = data.password;
         this._confPass = data.confPass;
-        if(data.hasOwnProperty('ajax'))this._ajax = data.ajax as boolean;
+        if(data.hasOwnProperty(Constants.KEY_AJAX))this._ajax = data.ajax as boolean;
         else this._ajax = false;
     }
 

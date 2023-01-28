@@ -1,3 +1,4 @@
+import { Constants } from "../constants/constants";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions.js";
 import ConfirmInterface from "./confirm.interface";
@@ -17,7 +18,7 @@ $(()=>{
         confirmReq.confirmRequest().then(obj => {
             let dmData: DialogMessageInterface = {
                 title: '',
-                message: obj["msg"]
+                message: obj[Constants.KEY_MESSAGE]
             }
             showDialogMessage(dmData);
         });

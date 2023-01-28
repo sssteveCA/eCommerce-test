@@ -1,3 +1,4 @@
+import { Constants } from "../../constants/constants";
 import GetOrderInterface from "../interfaces/getorder.interface";
 import OrderInterface from "../interfaces/order.interface";
 import Order from "../models/order.model";
@@ -45,11 +46,11 @@ export default class GetOrder{
                 //console.log(res);
                 let json: object = JSON.parse(res);
                 //console.log(json);
-                if(json['done'] == true){
+                if(json[Constants.KEY_DONE] == true){
                     message = this.setOrderMessage(json['order']);
-                }//if(json['done'] == true){
+                }//if(json[Constants.KEY_DONE] == true){
                 else{
-                    message = json['msg'];
+                    message = json[Constants.KEY_MESSAGE];
                 }
             }).catch(err => {
                 throw err;

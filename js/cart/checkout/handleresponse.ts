@@ -2,6 +2,7 @@ import DialogMessage from "../../dialog/dialogmessage.js";
 import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
 import { fGetCartOrders } from "../cart.js";
+import { Constants } from "../../constants/constants.js";
 
 export function handleResponse(result, clientId, idVend) {
 
@@ -36,7 +37,7 @@ export function handleResponse(result, clientId, idVend) {
     //elimino la scritta 'Aspetta...' una volta che il pagamento è stato completato
     $('#confirm'+idVend).remove();
     var dati = {};
-    dati['ajax'] = '1';
+    dati[Constants.KEY_AJAX] = '1';
     dati['payer_status'] = status;
     dati['txn_id'] = transactionID;
     dati['clientId'] = clientId;
@@ -51,19 +52,19 @@ export function handleResponse(result, clientId, idVend) {
             //console.log(risp);
             let dm_data: DialogMessageInterface = {
                 title: 'Pagamento ordini',
-                message: risp['msg']
+                message: risp[Constants.KEY_MESSAGE]
             }
             let dm: DialogMessage = new DialogMessage(dm_data);
             dm.btOk.on('click', ()=>{
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
-                if(risp['done'] === true){
+                if(risp[Constants.KEY_DONE] === true){
                     //Refresh cart orders if payment was done successfully
                     let gco_data: GetCartOrdersInterface = {
                         operation: 1
                     }
                     fGetCartOrders(gco_data);
-                }//if(risp['done'] === true){
+                }//if(risp[Constants.KEY_DONE] === true){
             });
         },
         error : function(xhr, stato, errore){

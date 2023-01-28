@@ -74,13 +74,13 @@ export default class TableEvents{
         eq.editQuantity().then(obj => {
             let dm_data: DialogMessageInterface = {
                 title: 'Modifica Quantità',
-                message: obj['msg']
+                message: obj[Constants.KEY_MESSAGE]
             };
             let dm: DialogMessage = new DialogMessage(dm_data);
             dm.btOk.on('click',()=>{
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
-                if(obj['done'] == true){
+                if(obj[Constants.KEY_DONE] == true){
                     //Reload orders table only if edit quantity operation was done successfully
                     ordersMain.getOrders();
                 }
@@ -120,13 +120,13 @@ export default class TableEvents{
             del_ord.deleteOrder().then(obj => {
                 let dm_data: DialogMessageInterface = {
                     title: 'Elimina ordine',
-                    message: obj['msg']
+                    message: obj[Constants.KEY_MESSAGE]
                 };
                 let dm: DialogMessage = new DialogMessage(dm_data);
                 dm.btOk.on('click',()=>{
                     dm.dialog.dialog('destroy');
                     dm.dialog.remove();
-                    if(obj['done'] == true){
+                    if(obj[Constants.KEY_DONE] == true){
                         //Reload orders table only if delete operation was done successfully
                         ordersMain.getOrders();
                     }
@@ -149,13 +149,13 @@ export default class TableEvents{
         ac.AddToCart().then(obj => {
             let dm_data: DialogMessageInterface = {
                 title: 'Aggiungi al carrello',
-                message: obj['msg']
+                message: obj[Constants.KEY_MESSAGE]
             };
             let dm: DialogMessage = new DialogMessage(dm_data);
             dm.btOk.on('click',()=>{
                 dm.dialog.dialog('destroy');
                 dm.dialog.remove();
-                if(obj['done'] == true){
+                if(obj[Constants.KEY_DONE] == true){
                     //Reload orders table only if add to cart operation was done successfully
                     ordersMain.getOrders();
                 }

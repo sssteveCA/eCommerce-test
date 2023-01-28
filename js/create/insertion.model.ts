@@ -1,3 +1,4 @@
+import { Constants } from "../constants/constants";
 import InsertionInterface from "./insertion.interface";
 
 //Insert this model in DB
@@ -25,7 +26,7 @@ export default class Insertion{
     this._state = data.state;
     this._city = data.city;
     this._description = data.description;
-    if(data.hasOwnProperty('ajax')){
+    if(data.hasOwnProperty(Constants.KEY_AJAX)){
         this._ajax = data.ajax as boolean;
     }
     else

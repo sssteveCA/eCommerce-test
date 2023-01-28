@@ -18,7 +18,7 @@ use EcommerceTest\Interfaces\Constants as C;
 
 $response = array(
     C::KEY_DONE => false,
-    'msg' => ''
+    C::KEY_MESSAGE => ''
 );
 $input = file_get_contents('php://input');
 $post = json_decode($input,true);
@@ -37,19 +37,19 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }//if($_FILES['image']['error'] == 0){
         else{
             http_response_code(400);
-            $response['msg'] = M::ERR_INSERTIONFILENOTUPLOADED;
+            $response[C::KEY_MESSAGE] = M::ERR_INSERTIONFILENOTUPLOADED;
         }
             
     }//if(isset($_POST['idu'],$_POST['name'],$_POST['type'],$_POST['price'],$_POST['shipping'],$_POST['condition'],$_POST['state'],$_POST['city'],$_POST['description'])){
     else{
         http_response_code(400);
-        $response['msg'] = M::ERR_REQUIREDFIELDSNOTFILLED;
+        $response[C::KEY_MESSAGE] = M::ERR_REQUIREDFIELDSNOTFILLED;
     }
         
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{  
     http_response_code(401);
-    if($ajax)$response['msg'] = M::ERR_NOTLOGGED;
+    if($ajax)$response[C::KEY_MESSAGE] = M::ERR_NOTLOGGED;
     else echo M::ERR_LOGIN2;
 }
 
@@ -65,7 +65,7 @@ else{
         <meta charset="utf-8">
     </head>
     <body>
-    {$response['msg']}
+    {$response[C::KEY_MESSAGE]}
     </body>
 </html>
 HTML;
@@ -94,23 +94,23 @@ function create_insertion($post,$files,&$response): bool{
             $errno = $product->getNumError();
             if($errno == 0){
                 //Insertion operation completed
-                $response['msg'] = M::INSERTIONUPLOADED;
+                $response[C::KEY_MESSAGE] = M::INSERTIONUPLOADED;
                 $response[C::KEY_DONE] = true;
                 $ok = true;
             }//if($errno == 0){
             else{
                 http_response_code(400);
-                $response['msg'] = $product->getStrError();
+                $response[C::KEY_MESSAGE] = $product->getStrError();
             }
                 
         }catch(Exception $e){
             http_response_code(500);
-            $response['msg'] = $e->getMessage();
+            $response[C::KEY_MESSAGE] = $e->getMessage();
         }
     }//if(exif_imagetype($files['image']['tmp_name']) == IMAGETYPE_JPEG){
     else{
         http_response_code(400);
-        $response['msg'] = M::ERR_INSERTIONNOTIMAGE;
+        $response[C::KEY_MESSAGE] = M::ERR_INSERTIONNOTIMAGE;
     }
         
     return $ok;

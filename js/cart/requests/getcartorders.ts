@@ -1,3 +1,4 @@
+import { Constants } from "../../constants/constants";
 import CartOrderInterface from "../interfaces/cartorder.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
 import CartOrder from "../models/cartorder.model.js";
@@ -84,7 +85,7 @@ export default class GetCartOrders{
 
     //Insert the retrieve cart orders in the orders property array
     private insertCartOrders(response: object): void{
-        if(response['done'] === true){
+        if(response[Constants.KEY_DONE] === true){
             response['carrello'].forEach(item => {
                 let co_data: CartOrderInterface = {
                     ido: item.ido,
@@ -101,7 +102,7 @@ export default class GetCartOrders{
                 let cartOrder = new CartOrder(co_data);
                 this._cart_orders.push(cartOrder);
             });//response['carrello'].forEach(item => {
-        }//if(response['done'] === true){
+        }//if(response[Constants.KEY_DONE] === true){
         this._length = response['n_orders'] as number;
         
     }

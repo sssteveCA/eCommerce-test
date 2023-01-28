@@ -1,3 +1,4 @@
+import { Constants } from '../constants/constants';
 import ContactInterface from './contact.interface';
 
 //Data passed in HTTP request
@@ -9,7 +10,7 @@ export default class Contact{
     constructor(data: ContactInterface){
         this._subject = data.subject;
         this._message = data.message;
-        if(data.hasOwnProperty('ajax'))
+        if(data.hasOwnProperty(Constants.KEY_AJAX))
             this._ajax = data.ajax as boolean;
         else
             this._ajax = false;

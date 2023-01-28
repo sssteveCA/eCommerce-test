@@ -1,6 +1,7 @@
 import Insertion from "./insertion.model";
 import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
+import { Constants } from "../constants/constants";
 
 //Create the Insertion in DB passing the Insertion object
 export default class InsertionRequest{
@@ -62,7 +63,7 @@ export default class InsertionRequest{
             fd.append('state',this._insertion.state);
             fd.append('city',this._insertion.city);
             fd.append('description',this._insertion.description);
-            fd.append('ajax',this._insertion.ajax.toString());
+            fd.append(Constants.KEY_AJAX,this._insertion.ajax.toString());
             const request = fetch(InsertionRequest.INSERTION_URL,{
                 method: 'POST',
                 body: fd

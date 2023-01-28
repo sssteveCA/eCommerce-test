@@ -1,3 +1,4 @@
+import { Constants } from "../../constants/constants";
 import AddToCartInterface from "../interfaces/addtocart.interface";
 
 export default class AddToCart{
@@ -42,8 +43,8 @@ export default class AddToCart{
                 //console.log(res);
                 let json:object = JSON.parse(res);
                 message = {
-                    done: json['done'],
-                    msg: json['msg']
+                    done: json[Constants.KEY_DONE],
+                    msg: json[Constants.KEY_MESSAGE]
                 };
             }).catch(err => {
                 throw err;

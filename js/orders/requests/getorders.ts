@@ -1,6 +1,7 @@
 import Order from "../models/order.model.js";
 import GetOrdersInterface from "../interfaces/getorders.interface";
 import OrderInterface from "../interfaces/order.interface";
+import { Constants } from "../../constants/constants.js";
 
 //Get all user orders
 export default class GetOrders{
@@ -74,7 +75,7 @@ export default class GetOrders{
     //Insert the retrieve orders in the orders property array
     private insertOrders(response: object): void{
         this._length = response['i'] as number;
-        if(response['done'] === true && this._length > 0){
+        if(response[Constants.KEY_DONE] === true && this._length > 0){
             response['orders'].forEach(element => {
                 let payed: boolean = false;
                 let cart: boolean = false;
@@ -100,7 +101,7 @@ export default class GetOrders{
                 let order: Order = new Order(o_data);
                 this._orders.push(order);
             });
-        }//if(response['done'] === true && response['i'] > 0){
+        }//if(response[Constants.KEY_DONE] === true && response['i'] > 0){
 
     }
 

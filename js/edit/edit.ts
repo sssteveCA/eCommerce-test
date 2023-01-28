@@ -1,3 +1,4 @@
+import { Constants } from "../constants/constants.js";
 import EditUser from "./edituser.model.js";
 import EditUserRequest from "./edituser.request.js";
 
@@ -9,7 +10,7 @@ $(function(){
         post['action'] = 1;
         post['user'] = $('#user').val();
         post['username'] = $('#newUser').val();
-        post['ajax'] = true;
+        post[Constants.KEY_AJAX] = true;
         try{
             let editUser = new EditUser(post);
             let editUserCtr = new EditUserRequest(editUser);
@@ -26,7 +27,7 @@ $(function(){
         post['oldPassword'] = $('#oldPwd').val();
         post['newPassword'] = $('#newPwd').val();
         post['confPassword'] = $('#confPwd').val();
-        post['ajax'] = true;
+        post[Constants.KEY_AJAX] = true;
         try{
             let editUser = new EditUser(post);
             let editUserCtr = new EditUserRequest(editUser);
