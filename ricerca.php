@@ -30,6 +30,7 @@ require_once('objects/emailmanager.php');
 require_once('traits/error.php');
 require_once('traits/searchquerybuilder.php');
 require_once('traits/searchtable.php');
+require_once('traits/sql.trait.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
 require_once('objects/advancedsearch.php');

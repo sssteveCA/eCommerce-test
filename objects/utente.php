@@ -94,7 +94,7 @@ class Utente implements Ue/* ,Mv */{
         $this->connesso = true;
         $this->h->set_charset("utf8mb4");
         $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
-        $this->createDb(); //crea il database se non esiste
+        $this->createDb($this->mysqlDb); //crea il database se non esiste
         $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:$_ENV['TABACC'];
         if($this->createTab() === false){ //crea la tabella se non esiste
             throw new \Exception(Ue::EXC_TABLECREATION);

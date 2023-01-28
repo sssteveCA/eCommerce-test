@@ -22,6 +22,7 @@ require_once('config.php');
 require_once("../vendor/autoload.php");
 require_once('../traits/error.php');
 require_once('../traits/emailmanager.trait.php');
+require_once('../traits/sql.trait.php');
 require_once('../objects/emailmanager.php');
 require_once('functions.php');
 require_once('../objects/utente.php');
