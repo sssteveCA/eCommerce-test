@@ -31,9 +31,9 @@ use EcommerceTest\Interfaces\Constants as C;
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 
-$response = [ C::KEY_DONE => false, 'msg' => '' ];
+$response = [ C::KEY_DONE => false, C::KEY_MESSAGE => '' ];
 
-$ajax = (isset($post['ajax']) && $post['ajax'] == '1');
+$ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__."/../");
@@ -47,36 +47,36 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             $prodotto = new Prodotto($dati);
             if($prodotto->getNumError() == 0){
                 if($prodotto->cancella($id)){
-                    $response['msg'] = Msg::PRODDELETED;
+                    $response[C::KEY_MESSAGE] = Msg::PRODDELETED;
                     $response[C::KEY_DONE] = true;
                 }
                 else{
                     http_response_code(500);
-                    $response['msg'] = Msg::ERR_PRODNOTDELETED;
+                    $response[C::KEY_MESSAGE] = Msg::ERR_PRODNOTDELETED;
                 }
             }//if($prodotto->getNumError() == 0){
             else{
                 http_response_code(500);
-                $response['msg'] = $prodotto->getStrError();
+                $response[C::KEY_MESSAGE] = $prodotto->getStrError();
             }
         }
         catch(Exception $e){
             http_response_code(500);
-            $response['msg'] = $e->getMessage();
+            $response[C::KEY_MESSAGE] = $e->getMessage();
         }
     }//if(isset($post['idp']) && is_numeric($post['idp'])){
     else{
         http_response_code(400);
-        $response['msg'] = Msg::ERR_PRODINVALID;
+        $response[C::KEY_MESSAGE] = Msg::ERR_PRODINVALID;
     }
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     http_response_code(401);
-    $response['msg'] = Msg::ERR_NOTLOGGED;
+    $response[C::KEY_MESSAGE] = Msg::ERR_NOTLOGGED;
 }
 if($ajax)echo json_encode($response,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 else{
-    echo htmlResponse($response['msg']);
+    echo htmlResponse($response[C::KEY_MESSAGE]);
 }
 
 function htmlResponse(string $message): string{

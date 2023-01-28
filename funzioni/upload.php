@@ -24,7 +24,7 @@ $input = file_get_contents('php://input');
 $post = json_decode($input,true);
 $response['post'] = $_POST;
 $response['files'] = $_FILES;
-$ajax = $_POST['ajax'];
+$ajax = $_POST[C::KEY_AJAX];
 
 //if an user is logged
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

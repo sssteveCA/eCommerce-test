@@ -21,7 +21,7 @@ require_once('../interfaces/emailmanagerErrors.php');
 require_once('../exceptions/notsetted.php');
 //require_once('../interfaces/mysqlVals.php');
 require_once('config.php');
-require_once("../vendor/autoload.php");
+require_once('../vendor/autoload.php');
 require_once('../traits/error.php');
 require_once('../traits/emailmanager.trait.php');
 require_once('../traits/sql.trait.php');
@@ -33,11 +33,11 @@ require_once('functions.php');
 require_once('../objects/utente.php');
 require_once('../objects/prodotto.php');
 require_once('../objects/ordine.php');
-require_once("const.php");
+require_once('const.php');
 
 $response = array(
     C::KEY_DONE => false,
-    'msg' => ''
+    C::KEY_MESSAGE => ''
 );
 
 //se un'utente ha effettuato il login
@@ -78,12 +78,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         }//else if($_GET['oper'] == '5' && isset($_GET['idOrd'])){
         else{
             http_response_code(400);
-            $response['msg'] = Msg::ERR_INVALIDOPERATION1;
+            $response[C::KEY_MESSAGE] = Msg::ERR_INVALIDOPERATION1;
         }
     }//if(isset($_GET['oper'])){
     else{
         http_response_code(400);
-        $response['msg'] = Msg::ERR_NOOPERATION;
+        $response[C::KEY_MESSAGE] = Msg::ERR_NOOPERATION;
     }
     echo json_encode($response,JSON_UNESCAPED_UNICODE);
 
@@ -124,16 +124,16 @@ function getOrders(array &$response){
                 }//if($ordine->getNumError() == 0){
                 else{
                         http_response_code(400);
-                        $response['msg'] = $ordine->getStrError().'<br>';
-                        $response['msg'] .= ' Linea n. '.__LINE__;
+                        $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                        $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                         $done = false;
                         break;
                 }
             }
             catch(Exception $e){
                 http_response_code(500);
-                $response['msg'] = $e->getMessage();
-                $response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $e->getMessage();
+                $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 $done = false;
                 break;
             }
@@ -176,26 +176,26 @@ function getOrder(array &$response){
                     }//if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
                     else{
                         http_response_code(400);
-                        $response['msg'] = $venditore->getStrError().'<br>';
-                        //$response['msg'] .= ' Linea n. '.__LINE__;
+                        $response[C::KEY_MESSAGE] = $venditore->getStrError().'<br>';
+                        //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                     }
                 }//if($prodotto->getNumError() == 0){
                 else{
                     http_response_code(400);
-                    $response['msg'] = $prodotto->getStrError().'<br>';
-                    //$response['msg'] .= ' Linea n. '.__LINE__;
+                    $response[C::KEY_MESSAGE] = $prodotto->getStrError().'<br>';
+                    //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 }
             }//if($ordine->getNumError() == 0){
             else{
                 http_response_code(400);
-                $response['msg'] = $ordine->getStrError().'<br>';
-                //$response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }              
         }
         catch(Exception $e){
             http_response_code(500);
-            $response['msg'] = $e->getMessage().'<br>';
-            //$response['msg'] .= ' Linea n. '.__LINE__;
+            $response[C::KEY_MESSAGE] = $e->getMessage().'<br>';
+            //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
         }
     }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
 }
@@ -209,20 +209,20 @@ function deleteOrder(array &$response,Utente $utente){
             $ok = $ordine->cancOrdine($utente->getUsername());
             if($ok){
                 $response[C::KEY_DONE] = true;
-                $response['msg'] = Msg::ORDERDELETED;
+                $response[C::KEY_MESSAGE] = Msg::ORDERDELETED;
                 $response['aggiorna'] = '1';
                 unset($_SESSION['ordini']);
             }
             else{
                 http_response_code(500);
-                $response['msg'] = $ordine->getStrError().'<br>';
-                $response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }
         }
         catch(Exception $e){
             http_response_code(500);
-            $response['msg'] = $e->getMessage().'<br>';
-            $response['msg'] .= ' Linea n. '.__LINE__;
+            $response[C::KEY_MESSAGE] = $e->getMessage().'<br>';
+            $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
         }
     }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
 }
@@ -247,41 +247,41 @@ function editOrderQuantity(array &$response){
                         $aQt['totale'] = sprintf("%.2f",$aQt['totale']);
                         $update = $ordine->update($aQt);
                         if($update){
-                            $response['msg'] = Msg::ORDERAMOUNTUPDATED;
+                            $response[C::KEY_MESSAGE] = Msg::ORDERAMOUNTUPDATED;
                             $response['aggiorna'] = '1';
                             $response[C::KEY_DONE] = true;
                         }
                         else{
                             http_response_code(500);
-                            $response['msg'] = Msg::ERR_ORDERAMOUNTNOTPDATED;
+                            $response[C::KEY_MESSAGE] = Msg::ERR_ORDERAMOUNTNOTPDATED;
                         }
                     }//if($prodotto->getNumError() == 0){
                     else{
                         http_response_code(400);
-                        $response['msg'] = $prodotto->getStrError().'<br>';
-                        $response['msg'] .= ' Linea n. '.__LINE__;
+                        $response[C::KEY_MESSAGE] = $prodotto->getStrError().'<br>';
+                        $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                     }
                 }//if($ordine->getNumError() == 0){
                 else{
                     http_response_code(400);
-                    $response['msg'] = $ordine->getStrError().'<br>';
-                    $response['msg'] .= ' Linea n. '.__LINE__;
+                    $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                    $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 }
             }
             catch(Exception $e){
                 http_response_code(500);
-                $response['msg'] = $e->getMessage().'<br>';
-                $response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $e->getMessage().'<br>';
+                $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }
         }//if(is_numeric($quantita) && $quantita > 0){
         else{
             http_response_code(400);
-            $response['msg'] = Msg::ERR_ORDERINVALIDAMOUNT;
+            $response[C::KEY_MESSAGE] = Msg::ERR_ORDERINVALIDAMOUNT;
         }
     }//if(isset($_SESSION['ordini'][$_GET['idOrd']])){
     else{
         http_response_code(400);
-        $response['msg'] = Msg::ERR_ORDERINVALID;
+        $response[C::KEY_MESSAGE] = Msg::ERR_ORDERINVALID;
     }
 }
 
@@ -296,28 +296,28 @@ function addOrderToCart(array &$response, Utente $utente){
                     $aggiungi = $ordine->addToCart($utente->getUsername());
                     if($aggiungi){
                         $response[C::KEY_DONE] = true;
-                        $response['msg'] = Msg::ORDERINSERTEDCART;
+                        $response[C::KEY_MESSAGE] = Msg::ORDERINSERTEDCART;
                         $response['aggiorna'] = '1';
                     }
                     else{                           
-                        $response['msg'] = $ordine->getStrError().'<br>';
-                        $response['msg'] .= ' Linea n. '.__LINE__;
+                        $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                        $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                     }
                 }//if(!$carrello){
-                else $response['msg'] = Msg::ERR_ORDERALREALDYCART;
+                else $response[C::KEY_MESSAGE] = Msg::ERR_ORDERALREALDYCART;
             }//if($ordine->getNumError() == 0){
             else{
-                $response['msg'] = $ordine->getStrError().'<br>';
-                $response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }
         }
         catch(Exception $e){
-            $response['msg'] = $e->getMessage().'<br>';
-            $response['msg'] .= ' Linea n. '.__LINE__;
+            $response[C::KEY_MESSAGE] = $e->getMessage().'<br>';
+            $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
         }
     }// if(isset($_SESSION['ordini'][$_GET['idOrd']])){
     else{
-        $response['msg'] = Msg::ERR_ORDERINVALID;
+        $response[C::KEY_MESSAGE] = Msg::ERR_ORDERINVALID;
     }
 }
 
@@ -327,7 +327,7 @@ function payOrder(array &$response){
     }
     else{
         http_response_code(400);
-        $response['msg'] = Msg::ERR_ORDERINVALID;
+        $response[C::KEY_MESSAGE] = Msg::ERR_ORDERINVALID;
     }
 }
 ?>

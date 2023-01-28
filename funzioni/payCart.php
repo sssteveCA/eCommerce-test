@@ -6,18 +6,20 @@ use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Objects\Carrello;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Interfaces\Constants as C;
 
 ob_start();
 session_start();
 require_once('../config.php');
 //require_once('../interfaces/mysqlVals.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/orderErrors.php');
 require_once('../interfaces/productErrors.php');
-require_once("../interfaces/userErrors.php");
+require_once('../interfaces/userErrors.php');
 require_once('../interfaces/emailmanagerErrors.php');
 require_once('../exceptions/notsetted.php');
-require_once("../vendor/autoload.php");
+require_once('../vendor/autoload.php');
 require_once('../traits/error.php');
 require_once('../traits/emailmanager.trait.php');
 require_once('../traits/sql.trait.php');
@@ -30,9 +32,8 @@ require_once('../objects/prodotto.php');
 require_once('../objects/utente.php');
 require_once('const.php');
 
-$risposta = array();
-$risposta['msg'] = '';
-$ajax =  (isset($_POST['ajax']) && $_POST['ajax'] == '1');
+$response = [ C::KEY_MESSAGE => ''];
+$ajax =  (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__."/../");
@@ -45,7 +46,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     if(Carrello::nProdotti() > 0){
         $carrello = array();
         foreach($ordiniCarr as $v){
-            //$risposta['msg'] .= "v = {$v}<br>";
+            //$response[C::KEY_MESSAGE] .= "v = {$v}<br>";
             try{
                 $ordine = new Ordine(array('id' => $v));
                 if($ordine->getNumError() == 0){
@@ -53,7 +54,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $idv = $ordine->getIdv();
                     //id dell'ordine
                     $ido = $ordine->getId(); 
-                    //$risposta['msg'] .= "idv = {$idv}<br>";
+                    //$response[C::KEY_MESSAGE] .= "idv = {$idv}<br>";
                     //array per ottenere le informazioni del venditore
                     $vArray = array();
                     $vArray['id'] = $idv;
@@ -62,7 +63,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     if($venditore->getNumError() == 0 || $venditore->getNumError() == 1){
                         //Id del prodotto
                         $idp = $ordine->getIdp();
-                        //$risposta['msg'] .= "idp = {$idp}<br>";
+                        //$response[C::KEY_MESSAGE] .= "idp = {$idp}<br>";
                         $prodotto = new Prodotto(array('id' => $idp));
                         if($prodotto->getNumError() == 0){
                             //Inserisco le informazioni sugli ordini nell'array $carrello
@@ -72,25 +73,25 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                             $carrello[$ido]['prezzo'] = $prodotto->getPrezzo();
                             $carrello[$ido]['quantita'] = $ordine->getQuantita();
                             $carrello[$ido]['totale'] = $ordine->getTotale();
-                            //$risposta['msg'] .= $prodotto->getNome().'<br>';
+                            //$response[C::KEY_MESSAGE] .= $prodotto->getNome().'<br>';
                         }
                         else http_response_code(400);
                     }
                 }
                 else{
                     http_response_code(400);
-                    $risposta['msg'] = $ordine->getStrError();
+                    $response[C::KEY_MESSAGE] = $ordine->getStrError();
                     break;
                 } 
             }
             catch(Exception $e){
                 http_response_code(500);
-                $risposta['msg'] = $e->getMessage();
+                $response[C::KEY_MESSAGE] = $e->getMessage();
             }
         }
     }
     else{
-        $risposta['msg'] = Msg::CARTEMPTY;
+        $response[C::KEY_MESSAGE] = Msg::CARTEMPTY;
     }
     if(!empty($carrello)){
         //API Paypal
@@ -98,7 +99,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 }
 else{
     http_response_code(401);
-    $risposta['msg'] = '<a href="../accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    $response[C::KEY_MESSAGE] = '<a href="../accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 if($ajax){}
 else{
@@ -124,7 +125,7 @@ else{
             <a href="../carrello.php">Indietro</a>
         </div>
          <div>
-            <?php echo $risposta['msg']; ?>
+            <?php echo $response[C::KEY_MESSAGE]; ?>
          </div>
     </body>
 <?php

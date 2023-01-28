@@ -6,6 +6,7 @@ use EcommerceTest\Objects\Ordine;
 session_start();
 
 require_once('config.php');
+require_once('interfaces/constants.php');
 require_once('interfaces/orderErrors.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/emailmanagerErrors.php');
@@ -26,11 +27,13 @@ require_once('funzioni/const.php');
 require_once('partials/navbar.php');
 require_once('partials/footer.php');
 
+use EcommerceTest\Interfaces\Constants as C;
+
 //file_put_contents("log.txt","success.php => ".var_export($_POST,true)."\r\n",FILE_APPEND);
 
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
+$ajax = (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == '1');
 $response = [
-    'msg' => ''
+    C::KEY_MESSAGE => ''
 ];
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -58,35 +61,35 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         ];
                         $ordine->update($valori);
                         if($ordine->getNumError() == 0){
-                            $response['msg'] = 'Pagamento effettuato con successo';
+                            $response[C::KEY_MESSAGE] = 'Pagamento effettuato con successo';
                         }
                         else{
-                            $response['msg'] = $ordine->getStrError().'<br>';
-                            $response['msg'] .= ' Linea n. '.__LINE__;
+                            $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                            $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                         } 
                     }
                     else{
-                        $response['msg'] = $ordine->getStrError().'<br>';
-                        $response['msg'] .= ' Linea n. '.__LINE__;
+                        $response[C::KEY_MESSAGE] = $ordine->getStrError().'<br>';
+                        $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                     }
                 }//if($ordine->isCarrello() === true){
                 else{
-                    $response['msg'] = 'Aggiungi al carrello il prodotto e riprova';
+                    $response[C::KEY_MESSAGE] = 'Aggiungi al carrello il prodotto e riprova';
                 }
             }
             catch(Exception $e){
-                $response['msg'] = $e->getMessage().'<br>';
-                $response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $e->getMessage().'<br>';
+                $response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }
         }
         else{
-            $response['msg'] = 'Id ordine inesistente';
+            $response[C::KEY_MESSAGE] = 'Id ordine inesistente';
         } 
     }//if($_POST["payer_status"] == 'VERIFIED'){
 }
 else{
-    if(!$ajax)$response['msg'] = ACCEDI1;
-    else $response['msg'] = 'ERRORE: l\' utente è stato disconnesso';
+    if(!$ajax)$response[C::KEY_MESSAGE] = ACCEDI1;
+    else $response[C::KEY_MESSAGE] = 'ERRORE: l\' utente è stato disconnesso';
 }
 
 
@@ -94,7 +97,7 @@ if(!$ajax){
     $pageData = [
         'cookieBanner' => '',
         'menu' => menu($_SESSION['welcome']),
-        'message' => $response['msg'],
+        'message' => $response[C::KEY_MESSAGE],
         'footer' => footer()
     ];
     if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){

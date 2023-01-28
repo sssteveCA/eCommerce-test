@@ -1,17 +1,20 @@
 <?php
 session_start();
-require_once("funzioni/const.php");
+require_once('interfaces/constants.php');
+require_once('funzioni/const.php');
 @include_once('partials/privacy.php');
+
+use EcommerceTest\Interfaces\Constants as C;
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $risposta['title'] = 'Pagamento cancellato';
-    $risposta['msg'] = 'La tua transazione Paypal è stata cancellata<br><a href="benvenuto.php">Torna alla pagina principale</a>;'
+    $risposta[C::KEY_MESSAGE] = 'La tua transazione Paypal è stata cancellata<br><a href="benvenuto.php">Torna alla pagina principale</a>;'
 ?>
 <?php
 }
 else{
     $risposta['title'] = 'Login';
-    $risposta['msg'] = ACCEDI1;
+    $risposta[C::KEY_MESSAGE] = ACCEDI1;
 }
 ?>
 <!DOCTYPE html>
@@ -26,6 +29,6 @@ else{
          ?>
     </head>
     <body>
-<?php echo $risposta['msg']; ?>
+<?php echo $risposta[C::KEY_MESSAGE]; ?>
     </body>
 </html>

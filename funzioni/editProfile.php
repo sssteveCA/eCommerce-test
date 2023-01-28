@@ -4,16 +4,18 @@ use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\UserErrors as Ue;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Interfaces\Constants as C;
 
 session_start();
 
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/emailmanagerErrors.php');
 require_once('../exceptions/notsetted.php');
 //require_once('../interfaces/mysqlVals.php');
-require_once("../vendor/autoload.php");
+require_once('../vendor/autoload.php');
 require_once('../traits/error.php');
 require_once('../traits/emailmanager.trait.php');
 require_once('../traits/sql.trait.php');
@@ -25,7 +27,7 @@ require_once('const.php');
 $input = file_get_contents('php://input');
 $post = json_decode($input,true);
 $response = array();
-$response['msg'] = '';
+$response[C::KEY_MESSAGE] = '';
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -77,11 +79,11 @@ function updateUsername(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $response["msg"] = Msg::ERR_FORMINVALIDVALUE; 
+            $response[C::KEY_MESSAGE] = Msg::ERR_FORMINVALIDVALUE; 
             $data = array('username' => $post['username']);
             $aggiorna = $utente->update($data,$where);
             if($aggiorna){
-                $response["msg"] = Msg::USERUPDATED;
+                $response[C::KEY_MESSAGE] = Msg::USERUPDATED;
                 $_SESSION['welcome'] = '';
                 if($utente->getSesso() == 'Maschio'){
                     $_SESSION['welcome'] = 'Benvenuto ';
@@ -95,17 +97,17 @@ function updateUsername(){
             }
             else{
                 http_response_code(500);
-                $response["msg"] = Msg::ERR_USERNOTUPDATED;
+                $response[C::KEY_MESSAGE] = Msg::ERR_USERNOTUPDATED;
             } 
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
         else{
             http_response_code(400);
-            $response['msg'] = $utente->getStrError();
+            $response[C::KEY_MESSAGE] = $utente->getStrError();
         }
     }
     catch(Exception $e){
         http_response_code(500);
-        $response['msg'] = $e->getMessage();
+        $response[C::KEY_MESSAGE] = $e->getMessage();
     }
     
 }
@@ -123,7 +125,7 @@ function updatePassword(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $response["msg"] = Msg::ERR_FORMINVALIDVALUE;  
+            $response[C::KEY_MESSAGE] = Msg::ERR_FORMINVALIDVALUE;  
             $passwordC = $utente->getPassword();
             /* file_put_contents("log.txt","PasswordC => ".var_export($passwordC,true)."\r\n",FILE_APPEND);
             file_put_contents("log.txt","POST => ".var_export($_POST,true)."\r\n",FILE_APPEND); */
@@ -135,27 +137,27 @@ function updatePassword(){
                     $new['password'] = $post['nPwd'];
                     $aggiorna = $utente->update($new,$where);
                     if($aggiorna){
-                        $response["msg"] = Msg::PWDUPDATED;
+                        $response[C::KEY_MESSAGE] = Msg::PWDUPDATED;
                         $_SESSION['utente'] = serialize($utente);
                     }
                     else {
                         http_response_code(500);
-                        $response["msg"] = Msg::ERR_PWDNOTUPDATED;
+                        $response[C::KEY_MESSAGE] = Msg::ERR_PWDNOTUPDATED;
                     } 
                 }//if($_POST["nPwd"] == $_POST["confPwd"]){
                 else {
                     http_response_code(400);
-                    $response["msg"] = Msg::ERR_PWDCONFDIFFERENT;
+                    $response[C::KEY_MESSAGE] = Msg::ERR_PWDCONFDIFFERENT;
                 }   
             }//if(password_verify($_POST["oPwd"],$passwordC)){
             else {
                 http_response_code(401);
-                $response["msg"] = Msg::ERR_PWDCURRENTWRONG;
+                $response[C::KEY_MESSAGE] = Msg::ERR_PWDCURRENTWRONG;
             }
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
     }
     catch(Exception $e){
-        $response['msg'] = $e->getMessage();
+        $response[C::KEY_MESSAGE] = $e->getMessage();
     } 
 }
 
@@ -172,7 +174,7 @@ function updatePersonalData(){
         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
             $where = array();
             $where['username'] = $utente->getUsername();
-            $response["msg"] = Msg::ERR_FORMINVALIDVALUE; 
+            $response[C::KEY_MESSAGE] = Msg::ERR_FORMINVALIDVALUE; 
             $update = false;
             $data = array(
                 'nome' => $post['name'],
@@ -188,14 +190,14 @@ function updatePersonalData(){
                 $update = $utente->update($data,$where);
                 $_SESSION['utente'] = serialize($utente);
                 if($update){
-                    $response["msg"] = Msg::PERSONALDATAUPDATED;
+                    $response[C::KEY_MESSAGE] = Msg::PERSONALDATAUPDATED;
                 }
                 else {
-                    $response["msg"] = Msg::ERR_PERSONALDATANOTUPDATED;
+                    $response[C::KEY_MESSAGE] = Msg::ERR_PERSONALDATANOTUPDATED;
                 }
             }//if($utente->valida($dati)){
             else{
-                $response['msg'] = Ue::INVALIDDATAFORMAT;
+                $response[C::KEY_MESSAGE] = Ue::INVALIDDATAFORMAT;
             }
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
         $response["errore"] = $utente->getNumError();
@@ -203,7 +205,7 @@ function updatePersonalData(){
         $response["queries"] = $utente->getQueries();
     }
     catch(Exception $e){
-        $response['msg'] = $e->getMessage();
+        $response[C::KEY_MESSAGE] = $e->getMessage();
     }
 }
 ?>

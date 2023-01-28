@@ -4,9 +4,11 @@ use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Interfaces\Constants as C;
 
 require_once('config.php');
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/emailmanagerErrors.php');
@@ -28,9 +30,9 @@ $hostname = $_ENV['HOSTNAME'];
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 $response = array();
-$response['msg'] = '';
+$response[C::KEY_MESSAGE] = '';
 
-$ajax = (isset($post['ajax']) && $post['ajax'] == true);
+$ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == true);
 
 if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['address'],$post['number'],$post['city'],$post['zip'],$post['email'],$post['username'],$post['password'],$post['confPass'])){
     if($post['password'] == $post['confPass']){
@@ -57,60 +59,60 @@ if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['addre
                             //send activation email
                             $send = $utente->sendMail($utente->getEmail(),'Attivazione account',$message,$headers);
                             if($send){
-                                $response['msg'] = Msg::SUBSCRIBECOMPLETED;
+                                $response[C::KEY_MESSAGE] = Msg::SUBSCRIBECOMPLETED;
                                 if(!$ajax)
                                     header('referesh:10;url=../index.php');
                             }//if($send){
                             else {
                                 http_response_code(500);
-                                $response['msg'] = $utente->getStrError();
+                                $response[C::KEY_MESSAGE] = $utente->getStrError();
                             }
                         }//if($utente->getNumError() == 0){
                         else{
                             http_response_code(400);
                             //$response['queries'] = $utente->getQueries();
-                            $response['msg'] = $utente->getStrError();
+                            $response[C::KEY_MESSAGE] = $utente->getStrError();
                         }
                     }
                     catch(Exception $e){
                         http_response_code(500);
-                        $response['msg'] = $e->getMessage();
+                        $response[C::KEY_MESSAGE] = $e->getMessage();
                     }
                 }//if($okMails == 1){
                 else{
                     if($okMails == -1){
                         http_response_code(400);
-                        $response['msg'] = Msg::ERR_EMAILINVALID;
+                        $response[C::KEY_MESSAGE] = Msg::ERR_EMAILINVALID;
                     }  
                     else if($okMails == -2){
                         http_response_code(400);
-                        $response['msg'] = Msg::ERR_EMAILBUSINESSINVALID;
+                        $response[C::KEY_MESSAGE] = Msg::ERR_EMAILBUSINESSINVALID;
                     }       
                 }
             }//if($sex != null){
             else{
                 http_response_code(400);
-                $response['msg'] = Msg::ERR_GENDERINVALID;
+                $response[C::KEY_MESSAGE] = Msg::ERR_GENDERINVALID;
             }   
         }//if($validDate){
         $regOk = false; //true if subscribe is done successfully
     }//if($data['password'] == $data['confPass']){
     else{
         http_response_code(400);
-        $response['msg'] = Msg::ERR_PWDNOTEQUAL;
+        $response[C::KEY_MESSAGE] = Msg::ERR_PWDNOTEQUAL;
     }
         
 }//if(isset($data['nome'],$data['cognome'],$data['nascita'],$data['sesso'],$data['indirizzo'],$data['numero'],$data['citta'],$data['cap'],$data['email'],$data['user'],$data['password'],$data['confPass'])){
 else{
     http_response_code(400);
-    if($ajax)$response['msg'] = Msg::ERR_REQUIREDFIELDSNOTFILLED;
+    if($ajax)$response[C::KEY_MESSAGE] = Msg::ERR_REQUIREDFIELDSNOTFILLED;
     else{
-        $response['msg'] = 'Compila correttamente il form alla pagina <a href="../registrati.php">form</a> per eseguire questo script';
+        $response[C::KEY_MESSAGE] = 'Compila correttamente il form alla pagina <a href="../registrati.php">form</a> per eseguire questo script';
     }
 }
 
 if($ajax)echo json_encode($response,JSON_UNESCAPED_UNICODE);
-else echo $response['msg'];
+else echo $response[C::KEY_MESSAGE];
 
 function assign(){
     global $post;

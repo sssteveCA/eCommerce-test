@@ -40,14 +40,14 @@ $post = json_decode($input,true);
 
 $response = [
     C::KEY_DONE => false,
-    'msg' => '',
+    C::KEY_MESSAGE => '',
     'sbn_code' => SBN_CODE,
     'post' => $post
 ];
 
 //var_dump($response);
 
-$ajax = (isset($post['ajax']) && $post['ajax'] == '1');
+$ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == '1');
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__."/../");
@@ -68,12 +68,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     addOrderToCart($response,$oData,$idp,$user);
                 }catch(Exception $e){
                     http_response_code(500);
-                    $response['msg'] = $e->getMessage();
-                    //$response['msg'] .= ' Linea n. '.__LINE__;
+                    $response[C::KEY_MESSAGE] = $e->getMessage();
+                    //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 }
             }//if(isset($post['ido'],$post['idp']) && is_numeric($post['ido']) && is_numeric($post['idp'])){
             else
-                $response['msg'] = Msg::ERR_ORDERINVALIDDATA;
+                $response[C::KEY_MESSAGE] = Msg::ERR_ORDERINVALIDDATA;
         }//else if($post['oper'] == '2'){
         else if($post['oper'] == '3'){
             //Delete an order fron cart
@@ -83,20 +83,20 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     delOrderFromCart($response, $oData, $user);
                 }catch(Exception $e){
                     http_response_code(500);
-                    $risposta['msg'] = $e->getMessage();
-                    //$risposta['msg'] .= ' Linea n. '.__LINE__;
+                    $risposta[C::KEY_MESSAGE] = $e->getMessage();
+                    //$risposta[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 }
             }//if(isset($post['ido']) && is_numeric($post['ido'])){
             else{
                 http_response_code(400);
-               $response['msg'] = Msg::ERR_ORDERDELETEINVALIDID; 
+               $response[C::KEY_MESSAGE] = Msg::ERR_ORDERDELETEINVALIDID; 
             }          
         }//else if($post['oper'] == '3'){
     }//if(isset($post['oper'])){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     http_response_code(401);
-    $response['msg'] = Msg::ERR_NOTLOGGED;
+    $response[C::KEY_MESSAGE] = Msg::ERR_NOTLOGGED;
 }
     
 
@@ -160,23 +160,23 @@ function addOrderToCart(array &$response,array $oData, string|int $idp, Utente $
         if(!$already_in){
             $okAdd = $order->addToCart($user->getUsername());
             if($okAdd){
-                $response['msg'] = Msg::ORDERADDEDCART;
+                $response[C::KEY_MESSAGE] = Msg::ORDERADDEDCART;
             }
             else{
                 http_response_code(400);
-                $response['msg'] = $order->getStrError();
-                //$response['msg'] .= ' Linea n. '.__LINE__;
+                $response[C::KEY_MESSAGE] = $order->getStrError();
+                //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
             }
         }//if(!$already_in){
         else{
             http_response_code(400);
-            $response['msg'] = Msg::ERR_ALREALDYCART;   
+            $response[C::KEY_MESSAGE] = Msg::ERR_ALREALDYCART;   
         }
     }//if($ordine->getNumError() == 0){
     else{
         http_response_code(400);
-        $response['msg'] = $order->getStrError();
-        //$response['msg'] .= ' Linea n. '.__LINE__;
+        $response[C::KEY_MESSAGE] = $order->getStrError();
+        //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
     } 
 }
 
@@ -188,20 +188,20 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
     if($order->getNumError() == 0){
         $okDel = $order->delFromCart($user->getUsername());
         if($okDel){
-            $response['msg'] = Msg::ORDERDELETEDCART;
+            $response[C::KEY_MESSAGE] = Msg::ORDERDELETEDCART;
             $response['del'] = '1';
             $response[C::KEY_DONE] = true;
         }
         else{
             http_response_code(400);
-            $response['msg'] = $order->getStrError();
-            //$response['msg'] .= ' Linea n. '.__LINE__;
+            $response[C::KEY_MESSAGE] = $order->getStrError();
+            //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
         }
     }//if($order->getNumError() == 0){
     else{ 
         http_response_code(400);
-        $response['msg'] = $order->getStrError();
-        //$risposta['msg'] .= ' Linea n. '.__LINE__;
+        $response[C::KEY_MESSAGE] = $order->getStrError();
+        //$risposta[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
     }
 }
 
@@ -231,7 +231,7 @@ function printHtml(array $response): string {
             <a href="../carrello.php">Indietro</a>
         </div>
          <div>
-            {$response['msg']}
+            {$response[C::KEY_MESSAGE]}
          </div>
     </body>
 </html>
@@ -260,19 +260,19 @@ function showCart(array &$response, Utente $user){
                             $response['n_orders']++;
                         }//if($product->getNumError() == 0){
                         else{
-                            $response['msg'] = $product->getStrError();
-                            //$response['msg'] .= ' Linea n. '.__LINE__;
+                            $response[C::KEY_MESSAGE] = $product->getStrError();
+                            //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                             break;
                         }
                     }//if($order->getNumError() == 0){
                     else{
-                        $risposta['msg'] = $order->getStrError();
-                        //$risposta['msg'] .= ' Linea n. '.__LINE__;
+                        $risposta[C::KEY_MESSAGE] = $order->getStrError();
+                        //$risposta[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                         break;
                     } 
                 }catch(Exception $e){
-                    $response['msg'] = $e->getMessage();
-                    //$response['msg'] .= ' Linea n. '.__LINE__;
+                    $response[C::KEY_MESSAGE] = $e->getMessage();
+                    //$response[C::KEY_MESSAGE] .= ' Linea n. '.__LINE__;
                 }
             }//foreach($ordersArr as $idp) {
         }//foreach ($ordersCart as $idv=>$arrayOrd){

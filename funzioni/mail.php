@@ -4,11 +4,13 @@ use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Interfaces\Constants as C;
 
 session_start();
 
 require_once('config.php');
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/emailmanagerErrors.php');
@@ -25,9 +27,9 @@ require_once('../objects/utente.php');
 require('const.php');
 
 $risultato = array();
-$ajax = (isset($_POST['ajax']) && $_POST['ajax'] == 'true');
+$ajax = (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == 'true');
 $ajax = true;
-$risultato['msg'] = Msg::ERR_INVALIDOPERATION2;
+$risultato[C::KEY_MESSAGE] = Msg::ERR_INVALIDOPERATION2;
 //$risultato['post'] = $_POST;
 $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
@@ -50,16 +52,16 @@ HEADER;
         //invio la mail all'amministratore del sito
         $send = $utente->sendMail($to,$oggetto,$messaggio,$headers,$from);
         if($send){
-            $risultato['msg'] = Msg::EMAILSENT2;
+            $risultato[C::KEY_MESSAGE] = Msg::EMAILSENT2;
         }
         else {
             http_response_code(500);
-           $risultato['msg'] = Msg::ERR_EMAILSENDING2; 
+           $risultato[C::KEY_MESSAGE] = Msg::ERR_EMAILSENDING2; 
         }
     }//if(isset($_POST['oggetto'],$_POST['messaggio']) && $_POST['oggetto'] != '' && $_POST['messaggio'] != ''){
     else {
         http_response_code(500);
-        $risultato['msg'] = Msg::ERR_UNKNOWN;
+        $risultato[C::KEY_MESSAGE] = Msg::ERR_UNKNOWN;
     } 
     //se l'utente vuole contattare il venditore del prodotto visualizzato
     if(isset($_POST['oper']) && $_POST['oper'] == '3'){
@@ -74,16 +76,16 @@ Reply-to: <{$from}>
 HEADER;
             $send = $utente->sendMail($to,$oggetto,$messaggio,$headers,$from);
             if($send){
-                $risultato['msg'] = Msg::EMAILSENT1;
+                $risultato[C::KEY_MESSAGE] = Msg::EMAILSENT1;
             }
             else {
                 http_response_code(500);
-                $risposta['msg'] = Msg::ERR_EMAILSENDING1;
+                $risposta[C::KEY_MESSAGE] = Msg::ERR_EMAILSENDING1;
             }
         }
         else {
             http_response_code(400);
-            $risultato['msg'] = Msg::ERR_INVALIDDATA;
+            $risultato[C::KEY_MESSAGE] = Msg::ERR_INVALIDDATA;
         }
     }//if(isset($_POST['oper']) && $_POST['oper'] == '3'){
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -161,21 +163,21 @@ HEADER;
 HTML;
             $send = $utente->sendMail($utente->getEmail(),'Recupero password',$body,$headers,"noreply@{$hostname}.lan");
             if($send){
-                $risultato['msg'] = Msg::EMAILRECOVERY;
+                $risultato[C::KEY_MESSAGE] = Msg::EMAILRECOVERY;
             }
             else{
                 http_response_code(500);
-                $risultato['msg'] = Msg::ERR_EMAILSENDING1;
+                $risultato[C::KEY_MESSAGE] = Msg::ERR_EMAILSENDING1;
             }
         }//if($mod){
         else{
             http_response_code(500);
-            $risultato['msg'] = $utente->getStrError();
+            $risultato[C::KEY_MESSAGE] = $utente->getStrError();
         } 
     }
     else{
         http_response_code(400);
-        $risultato['msg'] = Msg::ERR_EMAILINSERT;
+        $risultato[C::KEY_MESSAGE] = Msg::ERR_EMAILINSERT;
     }
 }//else di if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
@@ -188,7 +190,7 @@ else{
         <meta charset="utf-8">
     </head>
     <body>
-{$risultato['msg']}
+{$risultato[C::KEY_MESSAGE]}
     </body>
 </html>
 HTML;
