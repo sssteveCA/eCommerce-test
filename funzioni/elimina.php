@@ -7,6 +7,7 @@ use EcommerceTest\Interfaces\Messages as Msg;
 session_start();
 
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/productErrors.php');
 require_once('../interfaces/productsVals.php');
@@ -25,10 +26,12 @@ require_once('../objects/emailmanager.php');
 require_once('../objects/prodotto.php');
 require_once('../objects/utente.php');
 
+use EcommerceTest\Interfaces\Constants as C;
+
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 
-$response = [ 'done' => false, 'msg' => '' ];
+$response = [ C::KEY_DONE => false, 'msg' => '' ];
 
 $ajax = (isset($post['ajax']) && $post['ajax'] == '1');
 
@@ -45,7 +48,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             if($prodotto->getNumError() == 0){
                 if($prodotto->cancella($id)){
                     $response['msg'] = Msg::PRODDELETED;
-                    $response['done'] = true;
+                    $response[C::KEY_DONE] = true;
                 }
                 else{
                     http_response_code(500);

@@ -9,6 +9,7 @@ use EcommerceTest\Interfaces\UserErrors as Ue;
 session_start();
 require_once('config.php');
 //require_once('interfaces/mysqlVals.php');
+require_once('interfaces/constants.php');
 require_once('interfaces/userErrors.php');
 require_once('interfaces/orderErrors.php');
 require_once('interfaces/emailmanagerErrors.php');
@@ -26,10 +27,12 @@ require_once('objects/ordine.php');
 require_once("funzioni/const.php");
 @include_once('partials/privacy.php');
 
+use EcommerceTest\Interfaces\Constants as C;
+
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
-$risposta = array();
-$risposta['msg'] = '';
-$risposta['done'] = false;
+$response = [
+    C::KEY_DONE => false, C::KEY_MESSAGE => ''
+];
 $successo = false;
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
@@ -68,7 +71,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
             try{
                 $venditore = new Utente($aV);
                 if($venditore->getNumError() == 0 || $venditore->getNumError() == Ue::INCORRECTLOGINDATA){
-                    //$risposta['idv'] = $venditore->getId();
+                    //$response['idv'] = $venditore->getId();
                     $idVend = $venditore->getId();
                     $ordiniCarr = Carrello::getCartIdos($utente->getUsername());
                     $successo = true; //tutte le operazioni sono andate a buon fine
@@ -92,68 +95,68 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                                             }
                                             else{
                                                 $successo = false;
-                                                $risposta['msg'] = $ordine->getStrError().'<br>';
-                                                $risposta['msg'] .= ' Linea n. '.__LINE__;
+                                                $response['msg'] = $ordine->getStrError().'<br>';
+                                                $response['msg'] .= ' Linea n. '.__LINE__;
                                             }
                                         }
                                         //se l'ordine esaminato non è stato cancellato dal carrello
                                         else{
                                             $successo = false;
-                                            $risposta['msg'] = $ordine->getStrError().'<br>';
-                                            $risposta['msg'] .= ' Linea n. '.__LINE__;
+                                            $response['msg'] = $ordine->getStrError().'<br>';
+                                            $response['msg'] .= ' Linea n. '.__LINE__;
                                         }
                                     }
                                     else{
-                                        $risposta['msg'] = $ordine->getStrError().'<br>';
-                                        $risposta['msg'] .= ' Linea n. '.__LINE__;
+                                        $response['msg'] = $ordine->getStrError().'<br>';
+                                        $response['msg'] .= ' Linea n. '.__LINE__;
                                         break;
                                     }
                                 }
                                 catch(Exception $e){
-                                    $risposta['msg'] = $e->getMessage().'<br>';
-                                    $risposta['msg'] .= ' Linea n. '.__LINE__;
+                                    $response['msg'] = $e->getMessage().'<br>';
+                                    $response['msg'] .= ' Linea n. '.__LINE__;
                                 }
                             }
                         } //fine operazioni sugli ordini dei prodotti del venditore con id 'idv'
                     } //fine foreach
                 } //errore non fatale nell'istanza venditore
                 else{
-                    $risposta['msg'] = $venditore->getStrError().'<br>';
-                    $risposta['msg'] .= ' Linea n. '.__LINE__;
+                    $response['msg'] = $venditore->getStrError().'<br>';
+                    $response['msg'] .= ' Linea n. '.__LINE__;
                 }
             } // try di new Utente venditore
             catch(Exception $e){
-                $risposta['msg'] = $e->getMessage().'<br>';
-                $risposta['msg'] .= ' Linea n. '.__LINE__;
+                $response['msg'] = $e->getMessage().'<br>';
+                $response['msg'] .= ' Linea n. '.__LINE__;
             }
 
         }//if(isset($_POST['clientId'],$_POST['txn_id']))
         else{
-            $risposta['msg'] = 'Uno o più dati richiesti non esistono';
+            $response['msg'] = 'Uno o più dati richiesti non esistono';
         }
     }
     if($successo){
-        $risposta['done'] = true;
-        $risposta['msg'] = 'Pagamento ordini nel carrello completato con successo';
+        $response[C::KEY_DONE] = true;
+        $response['msg'] = 'Pagamento ordini nel carrello completato con successo';
     }
 }
 else{
-    if(!$ajax)$risposta['msg'] = ACCEDI1;
-    else $risposta['msg'] = 'Sei stato disconnesso';
+    if(!$ajax)$response['msg'] = ACCEDI1;
+    else $response['msg'] = 'Sei stato disconnesso';
 }
 if(!$ajax){
-    echo $risposta['msg'].'<br>';
-     echo '<pre>';
+    echo $response['msg'].'<br>';
+     /* echo '<pre>';
     echo 'GET';
     var_dump($_GET);
     echo 'POST';
     var_dump($_POST);
-    echo '</pre>';
+    echo '</pre>'; */
 ?>
     </body>
 </html>
 <?php
 }
 else{
-    echo json_encode($risposta);
+    echo json_encode($response);
 }

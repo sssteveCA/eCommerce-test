@@ -2,20 +2,22 @@
 session_start();
 
 require_once('../config.php');
-require_once("../interfaces/messages.php");
-//require_once("../interfaces/mysqlVals.php");
-require_once("../interfaces/productErrors.php");
-require_once("../interfaces/productsVals.php");
+require_once('../interfaces/constants.php');
+require_once('../interfaces/messages.php');
+//require_once('../interfaces/mysqlVals.php');
+require_once('../interfaces/productErrors.php');
+require_once('../interfaces/productsVals.php');
 require_once('../traits/sql.trait.php');
-require_once("../vendor/autoload.php");
-require_once("../objects/prodotto.php");
+require_once('../vendor/autoload.php');
+require_once('../objects/prodotto.php');
 
 use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as M;
 use EcommerceTest\Objects\Prodotto;
+use EcommerceTest\Interfaces\Constants as C;
 
 $response = array(
-    'done' => false,
+    C::KEY_DONE => false,
     'msg' => ''
 );
 $input = file_get_contents('php://input');
@@ -93,7 +95,7 @@ function create_insertion($post,$files,&$response): bool{
             if($errno == 0){
                 //Insertion operation completed
                 $response['msg'] = M::INSERTIONUPLOADED;
-                $response['done'] = true;
+                $response[C::KEY_DONE] = true;
                 $ok = true;
             }//if($errno == 0){
             else{

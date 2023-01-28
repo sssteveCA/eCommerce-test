@@ -3,11 +3,13 @@
 use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Interfaces\Constants as C;
 
 //pagina che effettua la richiesta POST: reset.php
 ob_start();
 
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/userErrors.php');
 require_once('../interfaces/emailmanagerErrors.php');
@@ -44,7 +46,7 @@ if(isset($_REQUEST['chiave']) && preg_match($regex,$_REQUEST['chiave'])){
             $dati['dataCambioPwd'] = time()-$attesa;
             $utente = new Utente($dati);
             if($utente->getNumError() == 0){
-                $messaggio['done'] = '1';
+                $messaggio[C::KEY_DONE] = '1';
                 $mess = 'Password modificata';
             }
             else{

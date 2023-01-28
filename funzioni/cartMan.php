@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../config.php');
+require_once('../interfaces/constants.php');
 require_once('../interfaces/messages.php');
 require_once('../interfaces/orderErrors.php');
 require_once('../interfaces/productErrors.php');
@@ -32,12 +33,13 @@ use EcommerceTest\Objects\Ordine;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Objects\Carrello;
+use EcommerceTest\Interfaces\Constants as C;
 
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
 
 $response = [
-    'done' => false,
+    C::KEY_DONE => false,
     'msg' => '',
     'sbn_code' => SBN_CODE,
     'post' => $post
@@ -188,7 +190,7 @@ function delOrderFromCart(array &$response, array $oData, Utente $user){
         if($okDel){
             $response['msg'] = Msg::ORDERDELETEDCART;
             $response['del'] = '1';
-            $response['done'] = true;
+            $response[C::KEY_DONE] = true;
         }
         else{
             http_response_code(400);
@@ -243,7 +245,7 @@ HTML;
 function showCart(array &$response, Utente $user){
     //Orders id list added to cart
     $ordersCart = Carrello::getCartIdos($user->getUsername());
-    $response['done'] = true;
+    $response[C::KEY_DONE] = true;
     $response['n_orders'] = 0;
     if(Carrello::nProdotti() > 0){
         $response['vuoto'] = '0';
