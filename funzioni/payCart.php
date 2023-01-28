@@ -22,6 +22,7 @@ require_once('../traits/error.php');
 require_once('../traits/emailmanager.trait.php');
 require_once('../traits/sql.trait.php');
 require_once('../traits/prodotto.trait.php');
+require_once('../traits/utente.trait.php');
 require_once('../objects/emailmanager.php');
 require_once('../objects/carrello.php');
 require_once('../objects/ordine.php');

@@ -16,6 +16,7 @@ require_once('traits/error.php');
 require_once('traits/emailmanager.trait.php');
 require_once('traits/sql.trait.php');
 require_once('traits/ordine.trait.php');
+require_once('traits/utente.trait.php');
 require_once('objects/emailmanager.php');
 require_once('objects/ordine.php');
 require_once('funzioni/config.php');

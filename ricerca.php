@@ -32,6 +32,7 @@ require_once('traits/searchquerybuilder.php');
 require_once('traits/searchtable.php');
 require_once('traits/sql.trait.php');
 require_once('traits/prodotto.trait.php');
+require_once('traits/utente.trait.php');
 require_once('objects/prodotto.php');
 require_once('objects/utente.php');
 require_once('objects/advancedsearch.php');

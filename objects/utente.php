@@ -375,8 +375,10 @@ class Utente implements Ue/* ,Mv */{
     private function setDataCambioPwd($dataCambioPwd){$this->dataCambioPwd = $dataCambioPwd;}
 
 
-    /*ottengo tutti i dati dell'utente
-    $where: array che contiene i campi(le chiavi) e i valori da sottoporre alla clausola WHERE */
+    /**
+     * Get the rows from the user table that match with the provided WHERE clauses
+     * @param array $where
+     */
     private function getUserData($where){
         $this->numError = 0;
         $utente = false;
@@ -408,7 +410,10 @@ SQL;
         }
         return $utente;
     }
-    //inserisce tutti i dati nella tabella '$mysqlTable'
+
+    /**
+     * Insert the data in the table
+     */
     private function insertData($ingresso){
         $this->numError = 0;
         $ok = false;
@@ -437,7 +442,9 @@ SQL;
         return $ok;
     }
 
-    //l'utente invia una mail agli amministratori del sito
+    /**
+     * The user send an email
+     */
     public function sendMail($to,$subject,$body,$headers,$from = ''){
         $this->numError = 0;
         $emData = [
@@ -459,6 +466,12 @@ SQL;
     $valori = array che contiene i campi con i rispettivi valori aggiornati,
     $where = array che contiene i campi e i valori nella clausola WHERE
     $operatore = operatore logico da utilizzare nella WHERE*/
+    /**
+     * Update the user table with the provided values and filter
+     * @param array $valori the values to insert in the UPDATE statement
+     * @param array $where the filter to select the rows to update
+     * @param string $operatore the logical operator to join multiple WHERE clauses
+     */
     public function update($valori,$where,$operatore = 'AND'){
         $this->numError = 0;
         $ok = false;
