@@ -1,4 +1,4 @@
-import { Constants } from "../constants/constants";
+import { Constants } from "../constants/constants.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import { showDialogMessage } from "../functions/functions.js";
 import ConfirmInterface from "./confirm.interface";

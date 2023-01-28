@@ -1,7 +1,7 @@
 import Insertion from "./insertion.model";
 import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import { Constants } from "../constants/constants";
+import { Constants } from "../constants/constants.js";
 
 //Create the Insertion in DB passing the Insertion object
 export default class InsertionRequest{

@@ -1,4 +1,4 @@
-import { Constants } from '../constants/constants';
+import { Constants } from '../constants/constants.js';
 import ContactInterface from './contact.interface';
 
 //Data passed in HTTP request

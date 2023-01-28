@@ -1,4 +1,4 @@
-import { Constants } from "../../constants/constants";
+import { Constants } from "../../constants/constants.js";
 import EditQuantityInterface from "../interfaces/editquantity.interface";
 
 export default class EditQuantity{

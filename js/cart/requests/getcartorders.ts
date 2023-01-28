@@ -1,4 +1,4 @@
-import { Constants } from "../../constants/constants";
+import { Constants } from "../../constants/constants.js";
 import CartOrderInterface from "../interfaces/cartorder.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
 import CartOrder from "../models/cartorder.model.js";

@@ -1,4 +1,4 @@
-import { Constants } from "../constants/constants";
+import { Constants } from "../constants/constants.js";
 import InsertionInterface from "./insertion.interface";
 
 //Insert this model in DB

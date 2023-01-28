@@ -1,4 +1,4 @@
-import { Constants } from "../../constants/constants";
+import { Constants } from "../../constants/constants.js";
 import AddToCartInterface from "../interfaces/addtocart.interface";
 
 export default class AddToCart{
