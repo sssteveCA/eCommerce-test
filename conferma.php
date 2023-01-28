@@ -24,6 +24,7 @@ require_once('funzioni/functions.php');
 require_once('traits/sql.trait.php');
 require_once('traits/error.php');
 require_once('traits/emailmanager.trait.php');
+require_once('traits/ordine.trait.php');
 require_once('objects/templates/confirmtemplates.php');
 require_once('objects/emailmanager.php');
 require_once('objects/utente.php');
