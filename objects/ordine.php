@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use EcommerceTest\interfaces\OrderErrors as Oe;
 //use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Traits\OrdineTrait;
 use EcommerceTest\Traits\SqlTrait;
 
 define("ORDINEERR_INFONOTGETTED","1");
@@ -28,7 +29,7 @@ if (! function_exists("array_key_last")) {
 
 class Ordine implements Oe/* ,Mv */{
 
-    use SqlTrait;
+    use SqlTrait, OrdineTrait;
 
     private $mysqlTable;
     private $mysqlTableAcc; //Accounts mysql table
@@ -160,46 +161,7 @@ class Ordine implements Oe/* ,Mv */{
     }
     public function getMysqlError(){return $this->mysqlError;}
 
-    private function createTab(){
-        //crea la tabella se non esiste
-        $ok = true;
-        $this->numError = 0;
-        $this->querySql = <<<SQL
-SHOW TABLES LIKE '{$this->mysqlTable}'; 
-SQL;
-        $this->queries[] = $this->querySql;
-        $show = $this->h->query($this->querySql);
-        if($show){
-            if($show->num_rows == 0){
-                //se la tabella non esiste viene creata
-                $this->querySql = <<<SQL
-CREATE TABLE `ordini` (
-`id` int(4) NOT NULL AUTO_INCREMENT,
-`idc` int(4) NOT NULL,
-`idp` int(4) NOT NULL,
-`idv` int(11) NOT NULL COMMENT 'ID del venditore',
-`data` datetime NOT NULL,
-`quantita` tinyint(4) NOT NULL,
-`totale` float(30,2) unsigned NOT NULL,
-`pagato` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'se il pagamento dell''ordine è andato a buon fine',
-`tnx_id` varchar(300) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT 'Id della transazione',
-`carrello` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Se l''ordine è stato aggiunto al carrello',
-PRIMARY KEY (`id`),
-KEY `idc` (`idc`),
-KEY `idp` (`idp`),
-KEY `idv` (`idv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-SQL;
-                $this->queries[] = $this->querySql;
-                $this->h->query($this->querySql);
-            }//if($show->num_rows == 1){
-        }//if($show){  
-        else{
-            $this->numError = Oe::QUERYERROR;
-            $ok = false;
-        }  
-        return $ok;
-    }
+    
     
     /**
      * Put this order inside the cart 
@@ -224,7 +186,9 @@ SQL;
         return $ok;
     }
 
-    //cancello l'ordine
+    /**
+     * Delete an order of the specific user
+     */
     public function cancOrdine($user){
         $ok = false;
         $this->numError = 0;
@@ -281,10 +245,9 @@ SQL;
         return $conv;
     }
 
-    //tutti gli id degli ordini effettuati dal cliente
-    /*
-    $tabOrdini = tabella degli ordini di tutti gli accounts
-    $tabClienti = tabella con la lista delle persone registrate */
+   /**
+    * Get the IDs list of all orders made by the customer
+    */
     public static function getIdList($host,$username,$password,$database,$tabOrdini,$tabClienti,$user){
         Ordine::$idList = array();
         $handle = new \mysqli($host,$username,$password,$database);
@@ -316,7 +279,9 @@ SQL;
         return Ordine::$idList;
     }
 
-    //chiedo i dati dell'ordine alla tabella ordini di MySql
+    /**
+     * Get a specific order data
+     */
     private function getOrdine(){
         $this->numError = 0;
         $ok = false;
@@ -349,7 +314,9 @@ SQL;
         return $ok;
     }
 
-    //inserimento di un ordine nella tabella MySql
+    /**
+     * Insert an order in MySQL table
+     */
     private function insertOrdine(){
         $this->numError = 0;
         $ok = false;
@@ -375,6 +342,10 @@ SQL;
         return $ok;
     }
 
+    /**
+     * Update a specific order with the provided values
+     * @param array $valori
+     */
     public function update($valori){
         $this->numError = 0;
         $ok = false;
@@ -395,17 +366,6 @@ SQL;
             $this->numError = Oe::QUERYERROR; //Query errata
             $this->mysqlError = $this->h->error;
         }
-        return $ok;
-    }
-
-    //controllo dei dati prima dell'inserimento nella tabella MySql
-    private function valida($ingresso){
-        $ok = true;
-        if(!isset($ingresso['idc']) || !is_numeric($ingresso['idc']))$ok = false;
-        if(!isset($ingresso['idp']) || !is_numeric($ingresso['idp']))$ok = false;
-        if(!isset($ingresso['idv']) || !is_numeric($ingresso['idv']))$ok = false;
-        if(!isset($ingresso['quantita']) || !is_numeric($ingresso['quantita']))$ok = false;
-        if(!isset($ingresso['totale']) || !is_numeric($ingresso['totale']))$ok = false;
         return $ok;
     }
 }
