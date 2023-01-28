@@ -7,6 +7,7 @@ use EcommerceTest\Interfaces\UserErrors as Ue;
 //use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Interfaces\UserErrors;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Traits\SqlTrait;
 
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
 define("UTENTEERR_ACTIVEYOURACCOUNT", "2");
@@ -33,6 +34,9 @@ if (! function_exists("array_key_last")) {
 }
 
 class Utente implements Ue/* ,Mv */{
+
+    use SqlTrait;
+
     private $h; //handle connessione MySQL
     private $mysqlHost;
     private $mysqlUser;
@@ -404,18 +408,6 @@ SQL;
         }
         if($ordine == '0') return $codAut.$s;
         else return $s.$codAut;
-    }
-
-    private function createDb(){
-        $ok = true;
-        $this->numError = 0;
-        $this->querySql = <<<SQL
-CREATE DATABASE IF NOT EXISTS `{$this->mysqlDb}`;
-SQL;
-        $this->queries[] = $this->querySql;
-        $this->h->query($this->querySql);
-        $this->h->select_db($this->mysqlDb);
-        return $ok;
     }
 
     private function createTab(){

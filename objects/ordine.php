@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use EcommerceTest\interfaces\OrderErrors as Oe;
 //use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Traits\SqlTrait;
 
 define("ORDINEERR_INFONOTGETTED","1");
 define("ORDINEERR_QUERYERROR","2");
@@ -26,6 +27,9 @@ if (! function_exists("array_key_last")) {
 }
 
 class Ordine implements Oe/* ,Mv */{
+
+    use SqlTrait;
+
     private $mysqlTable;
     private $mysqlTableAcc; //Accounts mysql table
     private $h;
@@ -155,18 +159,6 @@ class Ordine implements Oe/* ,Mv */{
         return $this->strError;
     }
     public function getMysqlError(){return $this->mysqlError;}
-
-    private function createDb(string $mysqlDb){
-        $ok = true;
-        $this->numError = 0;
-        $this->querySql = <<<SQL
-CREATE DATABASE IF NOT EXISTS `{$mysqlDb}`;
-SQL;
-        $this->queries[] = $this->querySql;
-        $this->h->query($this->querySql);
-        $this->h->select_db($mysqlDb);
-        return $ok;
-    }
 
     private function createTab(){
         //crea la tabella se non esiste

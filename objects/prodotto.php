@@ -7,6 +7,7 @@ use EcommerceTest\Interfaces\ProductErrors as Pe;
 use EcommerceTest\Interfaces\ProductVals as Pv;
 //use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
+use EcommerceTest\Traits\SqlTrait;
 
 define("PRODOTTOERR_INFONOTGETTED","1");
 define("PRODOTTOERR_IMGNOTCOPIED","2");
@@ -16,6 +17,9 @@ define("PRODOTTOERR_DATANOTINSERTED","5");
 define("PRODOTTOERR_IDNOTEXIST","6");
 
 class Prodotto implements Pe,Pv/* ,Mv */{
+
+    use SqlTrait;
+
     private $h;
     public $connesso;
     private $mysqlTable;
@@ -182,18 +186,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
                 break;
         }
         return $this->strError;
-    }
-
-    private function createDb(string $mysqlDb){
-        $ok = true;
-        $this->numError = 0;
-        $this->querySql = <<<SQL
-CREATE DATABASE IF NOT EXISTS `{$mysqlDb}`;
-SQL;
-        $this->queries[] = $this->querySql;
-        $this->h->query($this->querySql);
-        $this->h->select_db($mysqlDb);
-        return $ok;
     }
 
     private function createTab(){
