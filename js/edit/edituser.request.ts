@@ -81,6 +81,7 @@ export default class EditUserRequest{
         if(this.validateEditUsername()){
             let jsonRes;
             this.editUsernamePromise().then(res => {
+                //console.log(res);
                 jsonRes = JSON.parse(res);
                 this.printDialog('Modifica nome utente',jsonRes.msg);
             }).catch(err => {
@@ -182,6 +183,7 @@ export default class EditUserRequest{
         if(this.validatePersonalData()){
             let jsonRes;
             this.editPersonalDataPromise().then(res => {
+                console.log(res);
                 jsonRes = JSON.parse(res);
                 this.printDialog('Modifica dati personali',jsonRes.msg);
             }).catch(err => {
@@ -194,7 +196,7 @@ export default class EditUserRequest{
 
     //Do the edit personal data action
     private async editPersonalDataPromise(): Promise<string>{
-        return await new Promise((resolve,reject) => {
+        return await new Promise<string>((resolve,reject) => {
             let data = {
                 pers: '1',
                 name: this._editUser.name,

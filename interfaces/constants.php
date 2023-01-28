@@ -7,6 +7,6 @@ interface Constants{
     //Keys
     const KEY_AJAX = 'ajax';
     const KEY_DONE = 'done';
-    CONST KEY_MESSAGE = 'message';
+    CONST KEY_MESSAGE = 'msg';
 }
 ?>

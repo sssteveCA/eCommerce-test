@@ -190,8 +190,8 @@ SQL;
         $this->cap=isset($ingresso['cap'])? $ingresso['cap']:$this->cap;
         $this->username=isset($ingresso['username'])? $ingresso['username']:$this->username;
         $this->password=isset($ingresso['password'])? password_hash($ingresso['password'],PASSWORD_DEFAULT):$this->password;
-        $this->paypalMail=isset($ingresso['paypalMail'])? $ingresso['paypalMail']:$this->password;
-        $this->clientId=isset($ingresso['clientId'])? $ingresso['clientId']:$this->password;
+        $this->paypalMail=isset($ingresso['paypalMail'])? $ingresso['paypalMail']:$this->paypalMail;
+        $this->clientId=isset($ingresso['clientId'])? $ingresso['clientId']:$this->clientId;
         $this->codAut=isset($ingresso['codAut'])? $ingresso['codAut']: $this->codAut;
         $this->cambioPwd=isset($ingresso['cambioPwd'])? $ingresso['cambioPwd']: $this->cambioPwd;
         $this->dataCambioPwd=isset($ingresso['dataCambioPwd'])? $ingresso['dataCambioPwd']:$this->dataCambioPwd;
@@ -202,6 +202,7 @@ SQL;
      * Validate the input data before the insertion
      */
     public function valida($ingresso){
+        //echo var_export($ingresso,true)."\r\n";
         $ok = true;
         $classname = __CLASS__;
         $this->errno = 0;

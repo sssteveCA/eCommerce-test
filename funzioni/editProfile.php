@@ -38,14 +38,14 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $regex = '/(^$|^\s+$)/';
     //se l'utente vuole modificare lo username
     if(isset($post["username"],$post["user"]) && !preg_match($regex,$post["username"]) && $post["user"] == "1"){
-        updateUsername();
+        updateUsername($response);
     }//if(isset($post["username"],$post["user"]) && !preg_match($regex,$post["username"]) && $post["user"] == "1"){
     //se l'utente vuole modificare la password
     if(isset($post["oPwd"],$post["nPwd"],$post["confPwd"],$post["pwd"])
     && !preg_match($regex,$post["oPwd"]) 
     && !preg_match($regex,$post["nPwd"])
     && !preg_match($regex,$post["confPwd"]) && $post["pwd"] == "1"){
-        updatePassword();
+        updatePassword($response);
     }/*if(isset($post["oPwd"],$post["nPwd"],$post["confPwd"],$post["pwd"])
     && !preg_match($regex,$post["oPwd"]) 
     && !preg_match($regex,$post["nPwd"])
@@ -54,12 +54,12 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     if(isset($post['name'],$post["surname"],$post["address"],$post["number"],$post["city"],$post["zip"],$post["pers"])){
         if(!preg_match($regex,$post["name"]) && !preg_match($regex,$post["surname"]) && !preg_match($regex,$post["address"]) &&
         !preg_match($regex,$post["city"]) && !preg_match($regex,$post["zip"]) && $post["pers"] == "1"){
-            updatePersonalData();
+            updatePersonalData($response);
         }
         else http_response_code(400);
     }//if(isset($post['name'],$post["surname"],$post["address"],$post["number"],$post["city"],$post["zip"],$post["pers"])){isset($_POST["cap"])){
     else http_response_code(400);
-    echo json_encode($response);
+    echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     http_response_code(401);
@@ -67,8 +67,8 @@ else{
 }
 
 //Update username field
-function updateUsername(){
-    global $post,$response,$utente;
+function updateUsername(array &$response){
+    global $post,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -113,8 +113,8 @@ function updateUsername(){
 }
 
 //Update password field
-function updatePassword(){
-    global $post,$response,$utente;
+function updatePassword(array &$response){
+    global $post,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -162,8 +162,8 @@ function updatePassword(){
 }
 
 //Update personal data
-function updatePersonalData(){
-    global $post,$response,$utente;
+function updatePersonalData(array &$response){
+    global $post,$utente;
     $data = array();
     $data['campo'] = 'username';
     $data['username'] = $utente->getUsername();
@@ -197,7 +197,7 @@ function updatePersonalData(){
                 }
             }//if($utente->valida($dati)){
             else{
-                $response[C::KEY_MESSAGE] = Ue::INVALIDDATAFORMAT;
+                $response[C::KEY_MESSAGE] = Ue::MSG_INVALIDDATAFORMAT;
             }
         }//if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
         $response["errore"] = $utente->getNumError();
