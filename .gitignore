@@ -18,4 +18,7 @@ partials/privacy.php
 cookie_policy.php
 privacy_policy.php
 terms.php
+objects/privacy/cookiepolicy.php
+objects/privacy/privacypolicy.php
+objects/privacy/termsandconditions.php
 
