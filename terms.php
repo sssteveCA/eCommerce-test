@@ -10,9 +10,13 @@ require_once("objects/privacy/termsandconditions.php");
 require_once("partials/footer.php");
 
 $bsCss = P::REL_BOOTSTRAP_CSS;
+$jQueryCss = P::REL_JQUERY_CSS;
+$jQueryUiCss = P::REL_JQUERYTHEME_CSS;
 $footerCss = P::REL_FOOTER_CSS;
 $popperJs = P::REL_POPPER_JS;
 $bsJs = P::REL_BOOTSTRAP_JS;
+$jQueryJs = P::REL_JQUERY_JS;
+$jQueryUiJs = P::REL_JQUERYUI_JS;
 $footerJs = P::REL_FOOTER_JS;
 $logoutJs = P::REL_LOGOUT_JS;
 
@@ -25,7 +29,11 @@ $html = <<<HTML
         <title>Termini e condizioni</title>
         <meta charset="utf-8">
 		<link rel="stylesheet" href="{$bsCss}">
+		<link rel="stylesheet" href="{$jQueryCss}">
+        <link rel="stylesheet" href="{$jQueryUiCss}">
 		<link rel="stylesheet" href="{$footerCss}">
+		<script src="{$jQueryJs}"></script>
+        <script src="{$jQueryUiJs}"></script>
 		<script src="{$popperJs}"></script>
         <script src="{$bsJs}"></script>
         <script src="{$footerJs}"></script>
