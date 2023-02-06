@@ -1,0 +1,18 @@
+<?php
+
+//This is an example of termsandconditions.php file
+
+namespace EcommerceTest\Objects\Privacy;
+
+class TermsAndConditions{
+
+    /**
+     * Get the full terms and conditions document
+     */
+    public static function getDocument(): string{
+        //Place your terms and condition document inside this HEREDOC
+        return <<<HTML
+HTML;
+    }
+}
+?>

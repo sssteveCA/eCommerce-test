@@ -1,0 +1,18 @@
+<?php
+
+//This is an example of cookiepolicy.php file
+
+namespace EcommerceTest\Objects\Privacy;
+
+class CookiePolicy{
+
+    /**
+     * Get the full cookie policy document
+     */
+    public static function getDocument(): string{
+        //Place your cookie policy document inside this HEREDOC
+        return <<<HTML
+HTML;
+    }
+}
+?>

@@ -1,0 +1,18 @@
+<?php
+
+//This is an example of privacypolicy.php file
+
+namespace EcommerceTest\Objects\Privacy;
+
+class PrivacyPolicy{
+
+    /**
+     * Get the full privacy policy document
+     */
+    public static function getDocument(): string{
+        //Place your privacy policy document inside this HEREDOC
+        return <<<HTML
+HTML;
+    }
+}
+?>
