@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use EcommerceTest\Objects\Privacy\PrivacyPolicy;
 use EcommerceTest\Interfaces\Paths as P;
 
