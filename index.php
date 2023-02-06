@@ -7,7 +7,7 @@ require_once('interfaces/paths.php');
 require('partials/footer.php');
 
 session_start();
-if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
+if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     header('location: benvenuto.php');
 }
 else

@@ -8,7 +8,7 @@ require_once('interfaces/paths.php');
 @include_once('partials/privacy.php');
 require('partials/footer.php');
 
-if(isset($_SESSION['user'],$_SESSION['logged']) && $_SESSION['user'] != '' && $_SESSION['logged']){
+if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     echo '<a href="logout.php">Esci </a> dall\' account per registrarti';
 }
 else{
