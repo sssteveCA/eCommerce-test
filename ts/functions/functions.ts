@@ -1,4 +1,4 @@
-import DialogMessage from "../dialog/dialogmessage.js";
+import DialogMessage from "../dialog/dialogmessage";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 
 /**

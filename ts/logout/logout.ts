@@ -1,6 +1,6 @@
-import { Constants } from "../constants/constants.js";
-import DialogConfirmInterface from "../dialog/dialogconfirm.interface.js";
-import DialogConfirm from "../dialog/dialogconfirm.js";
+import { Constants } from "../constants/constants";
+import DialogConfirmInterface from "../dialog/dialogconfirm.interface";
+import DialogConfirm from "../dialog/dialogconfirm";
 
 
 $(function(){

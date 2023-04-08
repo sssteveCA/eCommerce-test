@@ -1,6 +1,6 @@
-import { Constants } from "../constants/constants.js";
-import EditUser from "./edituser.model.js";
-import EditUserRequest from "./edituser.request.js";
+import { Constants } from "../constants/constants";
+import EditUser from "./edituser.model";
+import EditUserRequest from "./edituser.request";
 
 $(function(){
     let post: any = {};

@@ -1,7 +1,7 @@
-import Contact from './contact.model.js';
-import DialogMessage from '../dialog/dialogmessage.js';
-import DialogMessageInterface from '../dialog/dialogmessage.interface.js';
-import { showDialogMessage } from '../functions/functions.js';
+import Contact from './contact.model';
+import DialogMessage from '../dialog/dialogmessage';
+import DialogMessageInterface from '../dialog/dialogmessage.interface';
+import { showDialogMessage } from '../functions/functions';
 
 //Do the HTTP request passing Contact object
 export default class ContactRequest{

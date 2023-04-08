@@ -1,4 +1,4 @@
-import { Constants } from "../../constants/constants.js";
+import { Constants } from "../../constants/constants";
 import DeleteOrderInterface from "../interfaces/deleteorder.interface";
 
 export default class DeleteOrder{

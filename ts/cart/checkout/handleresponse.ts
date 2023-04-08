@@ -1,8 +1,8 @@
-import DialogMessage from "../../dialog/dialogmessage.js";
+import DialogMessage from "../../dialog/dialogmessage";
 import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
-import { fGetCartOrders } from "../cart.js";
-import { Constants } from "../../constants/constants.js";
+import { fGetCartOrders } from "../cart";
+import { Constants } from "../../constants/constants";
 
 export function handleResponse(result, clientId, idVend) {
 

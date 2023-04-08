@@ -1,8 +1,8 @@
-import Insertion from "./insertion.model.js";
-import InsertionRequest from "./insertion.request.js";
-import InsertionInterface from "./insertion.interface.js";
-import DialogConfirmInterface from "../dialog/dialogconfirm.interface.js";
-import DialogConfirm from "../dialog/dialogconfirm.js";
+import Insertion from "./insertion.model";
+import InsertionRequest from "./insertion.request";
+import InsertionInterface from "./insertion.interface";
+import DialogConfirmInterface from "../dialog/dialogconfirm.interface";
+import DialogConfirm from "../dialog/dialogconfirm";
 
 $(function(){
     $('#fInsertion').on('submit',(ev)=>{

@@ -1,4 +1,4 @@
-import { Constants } from "../constants/constants.js";
+import { Constants } from "../constants/constants";
 import SubsciberInterface from "./subscriber.interface";
 
 //This class contains data to pass when user subscribes

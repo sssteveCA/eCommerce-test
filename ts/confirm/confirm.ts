@@ -1,8 +1,8 @@
-import { Constants } from "../constants/constants.js";
+import { Constants } from "../constants/constants";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import { showDialogMessage } from "../functions/functions.js";
+import { showDialogMessage } from "../functions/functions";
 import ConfirmInterface from "./confirm.interface";
-import ConfirmRequest from "./confirm.request.js";
+import ConfirmRequest from "./confirm.request";
 
 $(()=>{
     $('#cart').on('submit',(ev)=>{

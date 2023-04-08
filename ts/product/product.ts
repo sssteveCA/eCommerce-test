@@ -1,11 +1,11 @@
 import ProductMailInterface from "./interfaces/productmail.interface";
-import ProductMail from "./requests/productmail.js";
+import ProductMail from "./requests/productmail";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import DialogMessage from "../dialog/dialogmessage.js";
+import DialogMessage from "../dialog/dialogmessage";
 import DeleteProductInterface from "./interfaces/deleteproduct.interface";
-import DeleteProduct from "./requests/deleteproduct.js";
-import { showDialogMessage } from "../functions/functions.js";
-import { Constants } from "../constants/constants.js";
+import DeleteProduct from "./requests/deleteproduct";
+import { showDialogMessage } from "../functions/functions";
+import { Constants } from "../constants/constants";
 
 $(()=>{
     let spinner: JQuery<HTMLDivElement> = $('#contacts-spinner');

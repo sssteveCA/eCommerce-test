@@ -1,19 +1,19 @@
-import DialogMessage from "../../dialog/dialogmessage.js";
+import DialogMessage from "../../dialog/dialogmessage";
 import DialogMessageInterface from "../../dialog/dialogmessage.interface";
 import AddToCartInterface from "../interfaces/addtocart.interface";
 import DeleteOrderInterface from "../interfaces/deleteorder.interface";
 import EditQuantityInterface from "../interfaces/editquantity.interface";
 import GetOrderInterface from "../interfaces/getorder.interface";
 import {TableEventsInterface, Operations} from "../interfaces/table_events.interface";
-import AddToCart from "../requests/addtocart.js";
-import DeleteOrder from "../requests/deleteorder.js";
-import EditQuantity from "../requests/editquantity.js";
-import GetOrder from "../requests/getorder.js";
+import AddToCart from "../requests/addtocart";
+import DeleteOrder from "../requests/deleteorder";
+import EditQuantity from "../requests/editquantity";
+import GetOrder from "../requests/getorder";
 import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
-import { Constants } from "../../constants/constants.js";
-import DialogConfirm from "../../dialog/dialogconfirm.js";
-import * as ordersMain from "../orders.js";
-import { showDialogMessage } from "../../functions/functions.js";
+import { Constants } from "../../constants/constants";
+import DialogConfirm from "../../dialog/dialogconfirm";
+import * as ordersMain from "../orders";
+import { showDialogMessage } from "../../functions/functions";
 
 //Set the events for the orders table
 export default class TableEvents{

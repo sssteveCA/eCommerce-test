@@ -1,7 +1,7 @@
-import { Constants } from "../../constants/constants.js";
+import { Constants } from "../../constants/constants";
 import CartOrderInterface from "../interfaces/cartorder.interface";
 import GetCartOrdersInterface from "../interfaces/getcartorders.interface";
-import CartOrder from "../models/cartorder.model.js";
+import CartOrder from "../models/cartorder.model";
 
 export default class GetCartOrders{
     private _operation: number; //command to sent at backend to get orders in backend

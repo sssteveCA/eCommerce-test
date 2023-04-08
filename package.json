@@ -14,7 +14,8 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack --mode=developen",
+    "dev": "webpack --mode=development",
     "serve": "webpack server"
   }
+  ,"type": "commonjs"
 }

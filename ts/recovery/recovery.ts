@@ -1,8 +1,8 @@
-import DialogMessage from "../dialog/dialogmessage.js";
+import DialogMessage from "../dialog/dialogmessage";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import RecoveryRequest from "./recovery.request.js";
+import RecoveryRequest from "./recovery.request";
 import RecoveryInterface from "./recovery.interface";
-import { Constants } from "../constants/constants.js";
+import { Constants } from "../constants/constants";
 
 $(()=>{
     $('#fRecupera').on('submit',(ev)=>{

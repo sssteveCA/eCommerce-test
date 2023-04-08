@@ -1,9 +1,8 @@
-import DialogMessage from "../dialog/dialogmessage.js";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import ResetRequest from "./reset.request.js";
+import ResetRequest from "./reset.request";
 import ResetInterface from "./reset.interface";
-import { showDialogMessage } from "../functions/functions.js";
-import { Constants } from "../constants/constants.js";
+import { showDialogMessage } from "../functions/functions";
+import { Constants } from "../constants/constants";
 
 $(()=>{
     $('#showPass').on('change',(e)=>{

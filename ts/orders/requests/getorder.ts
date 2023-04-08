@@ -1,6 +1,5 @@
-import { Constants } from "../../constants/constants.js";
+import { Constants } from "../../constants/constants";
 import GetOrderInterface from "../interfaces/getorder.interface";
-import OrderInterface from "../interfaces/order.interface";
 import Order from "../models/order.model";
 
 export default class GetOrder{

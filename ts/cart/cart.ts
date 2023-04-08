@@ -1,15 +1,15 @@
-import DialogMessage from "../dialog/dialogmessage.js";
+import DialogMessage from "../dialog/dialogmessage";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
 import DeleteCartOrderInterface from "./interfaces/deletecartorder.interface";
 import GetCartOrdersInterface from "./interfaces/getcartorders.interface";
 import {TableBuilderInterface} from "./interfaces/tablebuilder.interface";
 import { TableEventsInterface } from "./interfaces/tableevents.interface";
-import DeleteCartOrder from "./requests/deletecartorder.js";
-import GetCartOrders from "./requests/getcartorders.js";
-import TableBuilder from "./views/tablebuilder.js";
-import TableEvents from "./views/tableevents.js";
-import paypalCheckout from "./checkout/paypalcheckout.js";
-import { Constants } from "../constants/constants.js";
+import DeleteCartOrder from "./requests/deletecartorder";
+import GetCartOrders from "./requests/getcartorders";
+import TableBuilder from "./views/tablebuilder";
+import TableEvents from "./views/tableevents";
+import paypalCheckout from "./checkout/paypalcheckout";
+import { Constants } from "../constants/constants";
 
 $(()=>{
     let gco_data: GetCartOrdersInterface = {

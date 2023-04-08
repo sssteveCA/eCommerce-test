@@ -1,10 +1,9 @@
-import DialogMessageInterface from "../dialog/dialogmessage.interface.js";
-import DialogMessage from "../dialog/dialogmessage.js";
-import SubsciberInterface from "./subscriber.interface.js";
-import SubscriberRequest from "./subscriber.request.js";
-import Subscriber from "./subscriber.model.js";
-import { showDialogMessage } from "../functions/functions.js";
-import { Constants } from "../constants/constants.js";
+import DialogMessageInterface from "../dialog/dialogmessage.interface";
+import SubsciberInterface from "./subscriber.interface";
+import SubscriberRequest from "./subscriber.request";
+import Subscriber from "./subscriber.model";
+import { showDialogMessage } from "../functions/functions";
+import { Constants } from "../constants/constants";
 
 $(function(){
     $('#show').on('change',function(){

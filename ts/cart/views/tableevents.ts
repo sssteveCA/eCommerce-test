@@ -3,9 +3,9 @@ import { TableEventsInterface, Operations, FormClasses, ButtonClasses, TeConfirm
  import DeleteCartOrderInterface from "../interfaces/deletecartorder.interface";
  import DeleteCartOrder from "../requests/deletecartorder";
  import DialogConfirmInterface from "../../dialog/dialogconfirm.interface";
- import DialogConfirm from "../../dialog/dialogconfirm.js";
- import { Constants } from "../../constants/constants.js";
- import { deleteOrderFromCart,cartCheckout } from "../cart.js";
+ import DialogConfirm from "../../dialog/dialogconfirm";
+ import { Constants } from "../../constants/constants";
+ import { deleteOrderFromCart,cartCheckout } from "../cart";
 
 export default class TableEvents{
 

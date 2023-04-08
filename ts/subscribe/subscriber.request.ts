@@ -1,4 +1,4 @@
-import Subscriber from "./subscriber.model.js";
+import Subscriber from "./subscriber.model";
 
 //Do the HTTP request passing Subscriber object
 export default class SubscriberRequest{

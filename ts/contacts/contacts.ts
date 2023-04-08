@@ -1,5 +1,5 @@
-import Contact from './contact.model.js';
-import ContactRequest from './contact.request.js'
+import Contact from './contact.model';
+import ContactRequest from './contact.request'
 
 $(function () {
     $('#fContatti').on('submit', function (ev) {

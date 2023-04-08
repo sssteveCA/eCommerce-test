@@ -1,9 +1,9 @@
 import GetOrdersInterface from "./interfaces/getorders.interface";
 import TableBuilderInterface from "./interfaces/table_builder.interface";
 import { Operations, TableEventsInterface } from "./interfaces/table_events.interface";
-import GetOrders from "./requests/getorders.js";
-import TableBuilder from "./views/table_builder.js";
-import TableEvents from "./views/table_events.js";
+import GetOrders from "./requests/getorders";
+import TableBuilder from "./views/table_builder";
+import TableEvents from "./views/table_events";
 
 $(function(){
     getOrders();

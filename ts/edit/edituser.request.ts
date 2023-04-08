@@ -1,7 +1,6 @@
-import EditUser from "./edituser.model.js";
-import DialogMessage from "../dialog/dialogmessage.js";
-import { showDialogMessage } from "../functions/functions.js";
-import DialogMessageInterface from "../dialog/dialogmessage.interface.js";
+import EditUser from "./edituser.model";
+import { showDialogMessage } from "../functions/functions";
+import DialogMessageInterface from "../dialog/dialogmessage.interface";
 
 export default class EditUserRequest{
     //constants

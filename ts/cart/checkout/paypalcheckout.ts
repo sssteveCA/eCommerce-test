@@ -1,5 +1,5 @@
 
-import * as hr from './handleresponse.js';
+import * as hr from './handleresponse';
 
 declare var paypal:any;
 /**

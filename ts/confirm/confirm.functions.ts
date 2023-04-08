@@ -1,6 +1,6 @@
-import { Constants } from "../constants/constants.js";
+import { Constants } from "../constants/constants";
 import DialogMessageInterface from "../dialog/dialogmessage.interface";
-import { showDialogMessage } from "../functions/functions.js";
+import { showDialogMessage } from "../functions/functions";
 
 function afterPaymentGet(data: any, actions: any){
     console.log("afterPaymentGet");
