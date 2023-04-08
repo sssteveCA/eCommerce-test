@@ -1,0 +1,7 @@
+@use '../modules/globals.scss';
+@import './variables';
+@import './mixins';
+
+@include globals.single-selectors-loop($single-selectors);
+@include globals.compound-selectors-loop($compound-selectors);
+@include extended-selectors();

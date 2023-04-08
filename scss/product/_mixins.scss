@@ -1,0 +1,16 @@
+
+@mixin extended-selectors(){
+    #formMail{
+        @extend %width100;
+        @extend %flex-center;
+        flex-direction: column;
+        >div{
+            @extend %width100;
+            @extend %flex-center;
+        }
+    }
+    img{
+        @extend %width100;
+        height: 100%;
+    }
+}

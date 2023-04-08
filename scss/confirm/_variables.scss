@@ -1,0 +1,32 @@
+@use "sass:list";
+@use "../modules/globals";
+
+$single-selectors: (
+    'classes': (
+    ),
+    'ids': (
+        '#divButtons': (
+            display: flex
+        ),
+        '#f1': (
+            margin-top: 70px,
+            margin-left: 10px,
+            text-align: center
+        ),
+        '#paypalArea': (
+            margin-top: 50px,
+            text-align: center
+        )
+    ),
+    'tags': (
+        'form': (
+            margin: 10px
+        )
+    )
+);
+
+$compound-selectors: (
+    'form input': (
+        padding: 10px
+    )
+);

@@ -1,0 +1,45 @@
+
+$single-selectors: (
+    'classes': (
+        '.iQuantita': (
+            width: 75px,
+            position: relative,
+            top: -5px
+        ),
+        '.bQuantita': (
+            position: relative,
+            top: 5px,
+            width: 83px
+        )
+    ),
+    'ids': (
+        '#ordiniT':(
+            margin-top: 20px,
+            top: 70px,
+            left: 10px,
+            overflow: auto,
+            width: 100%,
+            min-width: 500px,
+            display: flex,
+            justify-content: center 
+        )
+    ),
+    'tags': (
+        'table': (
+            border-collapse: collapse
+        )
+    )
+);
+
+$compound-selectors: (
+    'td, th': (
+        padding-left: 5px,
+        padding-right: 5px,
+        padding-top: 10px,
+        padding-bottom: 10px,
+        text-align: center
+    ),
+    'td.tQuantita *': (
+        display: block
+    )
+);

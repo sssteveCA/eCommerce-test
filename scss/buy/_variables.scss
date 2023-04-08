@@ -1,0 +1,23 @@
+
+$single-selectors: (
+    'classes': (),
+    'ids': (
+        '#buttons': (
+            display: flex,
+            justify-content: space-evenly
+        ),
+        '#conferma': (
+            margin: 10px
+        )
+    ),
+    'tags': ()
+);
+
+$compound-selectors: (
+    '#buttons input': (
+        padding: 10px
+    ),
+    '#conferma div': (
+        margin: 10px
+    )
+);
