@@ -1,5 +1,0 @@
-@use '../modules/globals';
-@import 'variables';
-
-@include globals.single-selectors-loop($single-selectors);
-@include globals.compound-selectors-loop($compound-selectors);

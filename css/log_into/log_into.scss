@@ -1,7 +1,0 @@
-@use '../modules/globals';
-@import './variables';
-@import '../partials/global';
-
-@include move-appareance-animation($container-class, $initial-container-top);
-@include globals.single-selectors-loop($single-selectors);
-@include globals.compound-selectors-loop($compound-selectors);
