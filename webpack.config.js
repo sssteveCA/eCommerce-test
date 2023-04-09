@@ -1,32 +1,33 @@
 
 const {join,resolve} = require('path')
 
-const tsSrc = join(__dirname,'ts')
+const srcPath = join(__dirname,'src')
 
 module.exports = {
     entry: {
-        'advanced/advanced': join(tsSrc,'advanced/advanced.ts'),
-        'buy/buy': join(tsSrc,'buy/buy.ts'),
-        'cart/cart': join(tsSrc,'cart/cart.ts'),
-        'confirm/confirm': join(tsSrc,'confirm/confirm.ts'),
-        'constants/constants': join(tsSrc,'constants/constants.ts'),
-        'contacts/contacts': join(tsSrc,'contacts/contacts.ts'),
-        'create/insertion': join(tsSrc,'create/insertion.ts'),
-        'edit/edit': join(tsSrc,'edit/edit.ts'),
-        'footer/footer': join(tsSrc,'footer/footer.ts'),
-        'info/info': join(tsSrc,'info/info.ts'),
-        'insertions/insertions': join(tsSrc,'insertions/insertions.ts'),
-        'log_into/log_into': join(tsSrc,'log_into/log_into.ts'),
-        'logout/logout': join(tsSrc,'logout/logout.ts'),
-        'orders/orders': join(tsSrc,'orders/orders.ts'),
-        'product/product': join(tsSrc,'product/product.ts'),
-        'recovery/recovery': join(tsSrc,'recovery/recovery.ts'),
-        'reset/reset': join(tsSrc,'reset/reset.ts'),
-        'subscribe/subscribe': join(tsSrc,'subscribe/subscribe.ts'),
-        'welcome/welcome': join(tsSrc,'welcome/welcome.ts'),
+        'js/advanced/advanced': join(srcPath,'ts/advanced/advanced.ts'),
+        'js/buy/buy': join(srcPath,'ts/buy/buy.ts'),
+        'js/cart/cart': join(srcPath,'ts/cart/cart.ts'),
+        'js/confirm/confirm': join(srcPath,'ts/confirm/confirm.ts'),
+        'js/constants/constants': join(srcPath,'ts/constants/constants.ts'),
+        'js/contacts/contacts': join(srcPath,'ts/contacts/contacts.ts'),
+        'js/create/insertion': join(srcPath,'ts/create/insertion.ts'),
+        'js/edit/edit': join(srcPath,'ts/edit/edit.ts'),
+        'js/footer/footer': join(srcPath,'ts/footer/footer.ts'),
+        'js/info/info': join(srcPath,'ts/info/info.ts'),
+        'js/insertions/insertions': join(srcPath,'ts/insertions/insertions.ts'),
+        'js/log_into/log_into': join(srcPath,'ts/log_into/log_into.ts'),
+        'js/logout/logout': join(srcPath,'ts/logout/logout.ts'),
+        'js/orders/orders': join(srcPath,'ts/orders/orders.ts'),
+        'js/product/product': join(srcPath,'ts/product/product.ts'),
+        'js/recovery/recovery': join(srcPath,'ts/recovery/recovery.ts'),
+        'js/reset/reset': join(srcPath,'ts/reset/reset.ts'),
+        'js/subscribe/subscribe': join(srcPath,'ts/subscribe/subscribe.ts'),
+        'js/welcome/welcome': join(srcPath,'ts/welcome/welcome.ts'),
+        
     },
     output: {
-        path: resolve(__dirname,'js'),
+        path: resolve(__dirname,'dist'),
         filename: '[name].js'
     },
     module: {
