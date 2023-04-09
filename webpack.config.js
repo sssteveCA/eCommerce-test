@@ -24,6 +24,7 @@ module.exports = {
         'js/reset/reset': join(srcPath,'ts/reset/reset.ts'),
         'js/subscribe/subscribe': join(srcPath,'ts/subscribe/subscribe.ts'),
         'js/welcome/welcome': join(srcPath,'ts/welcome/welcome.ts'),
+        'css/advanced/advanced': join(srcPath,'scss/advanced/advanced.scss')
         
     },
     output: {
@@ -38,8 +39,8 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.s[ac]ss$/,
-                use: 'sass-loader',
+                test: /\.(css|s[ac]ss)$/,
+                use: ['style-loader','css-loader','sass-loader'],
                 exclude: /node_modules/
             }
         ]
