@@ -27,7 +27,25 @@ module.exports = {
         'js/reset/reset': join(srcPath,'ts/reset/reset.ts'),
         'js/subscribe/subscribe': join(srcPath,'ts/subscribe/subscribe.ts'),
         'js/welcome/welcome': join(srcPath,'ts/welcome/welcome.ts'),
-        'css/advanced/advanced': join(srcPath,'scss/advanced/advanced.scss')
+        'css/advanced/advanced': join(srcPath,'scss/advanced/advanced.scss'),
+        'css/buy/buy': join(srcPath,'scss/buy/buy.scss'),
+        'css/cart/cart': join(srcPath,'scss/cart/cart.scss'),
+        'css/confirm/confirm': join(srcPath,'scss/confirm/confirm.scss'),
+        'css/contacts/contacts': join(srcPath,'scss/contacts/contacts.scss'),
+        'css/create/create': join(srcPath,'scss/create/create.scss'),
+        'css/edit/edit': join(srcPath,'scss/edit/edit.scss'),
+        'css/footer/footer': join(srcPath,'scss/footer/footer.scss'),
+        'css/info/info': join(srcPath,'scss/info/info.scss'),
+        'css/insertions/insertions': join(srcPath,'scss/insertions/insertions.scss'),
+        'css/log_into/log_into': join(srcPath,'scss/log_into/log_into.scss'),
+        'css/orders/orders': join(srcPath,'scss/orders/orders.scss'),
+        'css/product/product': join(srcPath,'scss/product/product.scss'),
+        'css/recovery/recovery': join(srcPath,'scss/recovery/recovery.scss'),
+        'css/search/search': join(srcPath,'scss/search/search.scss'),
+        'css/subscribe/subscribe': join(srcPath,'scss/subscribe/subscribe.scss'),
+        'css/welcome/welcome': join(srcPath,'scss/welcome/welcome.scss'),
+        'css/recovery/recovery': join(srcPath,'scss/recovery/recovery.scss'),
+        
         
     },
     output: {
