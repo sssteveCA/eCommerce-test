@@ -4,6 +4,7 @@ const {join,resolve} = require('path')
 const srcPath = join(__dirname,'src')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 
 module.exports = {
     entry: {
@@ -47,7 +48,9 @@ module.exports = {
             }
         ]
     },
-    plugins: [new MiniCssExtractPlugin({
+    plugins: [
+        new FixStyleOnlyEntriesPlugin(),
+        new MiniCssExtractPlugin({
         filename: '[name].css'
     })],
     resolve: {
@@ -58,5 +61,4 @@ module.exports = {
         open: true,
         static: resolve(__dirname)
     },
-    mode: 'development'
 }
