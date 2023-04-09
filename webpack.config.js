@@ -3,6 +3,8 @@ const {join,resolve} = require('path')
 
 const srcPath = join(__dirname,'src')
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 module.exports = {
     entry: {
         'js/advanced/advanced': join(srcPath,'ts/advanced/advanced.ts'),
@@ -40,12 +42,14 @@ module.exports = {
             },
             {
                 test: /\.(css|s[ac]ss)$/,
-                use: ['style-loader','css-loader','sass-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader','sass-loader'],
                 exclude: /node_modules/
             }
         ]
     },
-    plugins: [],
+    plugins: [new MiniCssExtractPlugin({
+        filename: '[name].css'
+    })],
     resolve: {
       extensions: ['.tsx','.ts','.js']  
     },
