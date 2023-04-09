@@ -12,7 +12,7 @@ module.exports = {
         'js/buy/buy': join(srcPath,'ts/buy/buy.ts'),
         'js/cart/cart': join(srcPath,'ts/cart/cart.ts'),
         'js/confirm/confirm': join(srcPath,'ts/confirm/confirm.ts'),
-        'js/constants/constants': join(srcPath,'ts/constants/constants.ts'),
+        /* 'js/constants/constants': join(srcPath,'ts/constants/constants.ts'), */
         'js/contacts/contacts': join(srcPath,'ts/contacts/contacts.ts'),
         'js/create/insertion': join(srcPath,'ts/create/insertion.ts'),
         'js/edit/edit': join(srcPath,'ts/edit/edit.ts'),

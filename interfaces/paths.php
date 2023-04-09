@@ -40,8 +40,8 @@ interface Paths{
     const REL_FOOTER_JS = Paths::REL_DIST."js/footer/footer.js";
     const REL_INFO_CSS = Paths::REL_DIST."css/info/info.css";
     const REL_INFO_JS = Paths::REL_DIST."js/info/info.js";
-    const REL_INSERTIONS_CSS = Paths::REL_DIST+"css/insertions/insertions.css";
-    const REL_INSERTIONS_JS = Paths::REL_DIST+"js/insertions/insertions.js";
+    const REL_INSERTIONS_CSS = Paths::REL_DIST."css/insertions/insertions.css";
+    const REL_INSERTIONS_JS = Paths::REL_DIST."js/insertions/insertions.js";
     const REL_JQUERY_JS = "node_modules/jquery/dist/jquery.min.js";
     const REL_JQUERY_CSS = "node_modules/jquery-ui-dist/jquery-ui.min.css";
     const REL_JQUERYTHEME_CSS = "node_modules/jquery-ui-dist/jquery-ui.theme.min.css";

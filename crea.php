@@ -46,8 +46,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <!-- <script type="module" src="<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
         <script type="module" src="<?php //echo P::REL_DIALOG_CONFIRM_JS; ?>"></script> -->
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_CREATE_MODEL_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_CREATE_REQUEST_JS; ?>"></script>
         <script type="module" src=<?php echo P::REL_CREATE_JS; ?>></script>
         <?php 
             if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
