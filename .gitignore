@@ -16,4 +16,3 @@ objects/privacy/termsandconditions.php
 dist/**/*.css
 dist/**/*.map
 dist/**/*.js
-!dist/js/dialog/dialog.js

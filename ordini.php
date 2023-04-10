@@ -32,7 +32,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
         <script type="module" src=<?php echo P::REL_DIALOG_MESSAGE_JS; ?>></script>
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
-        <!-- <script src="js/dialog/dialog.js"></script> -->
+        <!-- <script src="dist/js/dialog/dialog.js"></script> -->
         <script type="module" src=<?php echo P::REL_ORDERS_JS; ?>></script>
         <?php 
             if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){

@@ -50,7 +50,8 @@ module.exports = {
     },
     output: {
         path: resolve(__dirname,'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        clean: true
     },
     module: {
         rules: [
@@ -77,6 +78,6 @@ module.exports = {
     devServer: {
         port: 5000,
         open: true,
-        static: resolve(__dirname)
+        static: resolve(__dirname),
     },
 }
