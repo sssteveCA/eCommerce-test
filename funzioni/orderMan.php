@@ -10,6 +10,7 @@ use EcommerceTest\Interfaces\Constants as C;
 
 session_start();
 
+require_once("../interfaces/orderErrors.php");
 require_once('../vendor/autoload.php');
 
 $response = array(
