@@ -3,11 +3,80 @@
 namespace EcommerceTest\Traits;
 
 use EcommerceTest\Interfaces\UserErrors as Ue;
+use EcommerceTest\Objects\Utente;
 
 /**
  * Trait used by Utente class for constructor logic
  */
 trait UtenteConstructorTrait{
+
+    /**
+     * If subscribe logic
+     */
+    private function ifSubscribed(array $ingresso){
+        if(!isset($ingresso['campo']))$ingresso['campo'] = Utente::$campi[0];
+        //$this->{ingresso['campo']} è il campo che verrà usato per verificare che i dati inseriti siano corretti
+        if(in_array($ingresso['campo'],Utente::$campi) && isset($this->{$ingresso['campo']})){
+            //espressione regolare codice di recupero
+            //$regex = '/^[a-z0-9]{64}$/i';
+            //password dimenticata(recupera.php)
+            if(isset($ingresso['dimenticata']) && $ingresso['dimenticata']){
+                if(isset($this->cambioPwd,$this->dataCambioPwd)){
+                    $this->recupera($ingresso);
+                }
+                //se non esiste già il codice di recupero password, viene creato e poi in una mail il link per il ripristino
+                else{
+                    $this->cambioPwd = $this->codAutGen('1');
+                    $this->dataCambioPwd = time();
+                }
+            }//if(isset($ingresso['dimenticata']) && $ingresso['dimenticata']){
+            //l'utente deve completare la registrazione attivando l'account (attiva.php)
+            else if(isset($ingresso['codAut']) && preg_match(Utente::$regex['codAut'],$ingresso['codAut'])){
+                $this->setCodAut($ingresso['codAut']);
+                if($this->attiva()){
+                    $this->setCodAut(null);
+                }
+            }
+            //tentativo di login dell'utente
+            else{
+                $dati = array();
+                //$regex = '/^[a-zA-Z-_0-9]{4,20}@([a-z]{3,15}\.){1,6}[a-z]{2,10}$/';
+                //l'utente vuole accedere alla sua area personale
+                if(isset($ingresso[$ingresso['campo']]) && preg_match(Utente::$regex[$ingresso['campo']],$ingresso[$ingresso['campo']])){
+                    $dati[$ingresso['campo']] = $ingresso[$ingresso['campo']];
+                    $user = $this->getUserData($dati);
+                    //la mail esiste nel database
+                    if($user !== FALSE){
+                        //inserisco i valori ottenuti dalla riga MySql nell'oggetto
+                        $this->pSetValues($user);
+                        //se la password è corretta
+                        if(isset($ingresso['password']) && password_verify($ingresso['password'],$user['password'])){
+                            $codiceAut = $this->getCodAut();
+                            //se l'account è già stato attivato
+                            if(is_null($codiceAut) || empty($codiceAut)){
+                                $this->login = true;
+                            }
+                            //l'account non è ancora stato attivato
+                            else $this->numError = Ue::ACTIVEYOURACCOUNT; //l'utente deve prima attivare l'account
+                        }
+                        else{
+                            $this->numError = Ue::INCORRECTLOGINDATA; //email o password non corretti
+                        }
+                    }//if($user !== FALSE){ 
+                    else{
+                        $this->numError = Ue::INCORRECTLOGINDATA; //email o password non corretti
+                    }
+                }//if(isset($ingresso[$ingresso['campo']]) && preg_match(Utente::$regex[$ingresso['campo']],$ingresso[$ingresso['campo']])){
+                else{
+                    $this->numError = Ue::DATANOTSET; //uno o più dati richiesti non sono stati settati
+                }
+            }
+        }//if(in_array($ingresso['campo'],Utente::$campi) && isset($this->{$ingresso['campo']})){
+        //errore, uno o più campi richiesti non sono stati impostati
+        else {
+            $this->numError = Ue::INVALIDFIELD; //non è stato specificato un campo per fare la selezione dei dati oppure non è un campo valido
+        }
+    }
 
     /**Set the inital values of Utente's class properties */
     private function setProperties(array $ingresso){
