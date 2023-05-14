@@ -202,18 +202,13 @@ SQL;
      * Validate the input data before the insertion
      */
     public function valida($ingresso){
-        //echo var_export($ingresso,true)."\r\n";
         $ok = true;
         $classname = __CLASS__;
         $this->errno = 0;
         if(!preg_match($classname::$regex['email'],$this->email))$ok = false;
-        //file_put_contents("log.txt","utente.php ok email => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(isset($ingresso['paypalMail']) && $ingresso['paypalMail'] != "" && !preg_match($classname::$regex['paypalMail'],$ingresso['paypalMail']))$ok = false;
-        //file_put_contents("log.txt","utente.php ok paypal => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(isset($ingresso['clientId']) && $ingresso['clientId'] != "" && !preg_match($classname::$regex['clientId'],$ingresso['clientId']))$ok = false;
-        //file_put_contents("log.txt","utente.php ok client => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(!preg_match($classname::$regex['username'],$this->username))$ok = false;
-        //file_put_contents("log.txt","utente.php ok username => ".var_export($ok,true)."\r\n",FILE_APPEND);
         if(!$ok)$this->errno = Ue::INVALIDDATAFORMAT;
         return $ok;
     }

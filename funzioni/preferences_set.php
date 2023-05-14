@@ -1,6 +1,6 @@
 <?php
 
-require_once("../interfaces/constants.php");
+require_once("../vendor/autoload.php");
 
 use EcommerceTest\Interfaces\Constants as C;
 

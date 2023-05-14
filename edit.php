@@ -5,30 +5,13 @@ use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
 
-require_once('config.php');
-require_once('interfaces/paths.php');
-require_once('partials/navbar.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/utente.php');
-require_once("funzioni/const.php");
-require('partials/footer.php');
-@include_once('partials/privacy.php');
+require_once("vendor/autoload.php");
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
     $oUtente = unserialize($_SESSION['utente']);
-    //file_put_contents("log.txt","edit.php oUtente => ".var_export($oUtente,true)."\r\n",FILE_APPEND);
     //informazioni complete sull'utente $_SESSION['user']
     $utente = array();
     $utente['nome'] = $oUtente->getNome();
@@ -42,7 +25,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $utente['username'] = $oUtente->getUsername();
     $utente['paypalMail'] = $oUtente->getPaypalMail();
     $utente['clientId'] = $oUtente->getClientId();
-    file_put_contents("log.txt",var_export($utente,true)."\r\n",FILE_APPEND);
     //se le informazioni sono state ottenute senza problemi
 ?>
 <!DOCTYPE html>

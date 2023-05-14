@@ -4,19 +4,8 @@
 use Dotenv\Dotenv;
 
 session_start();
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/ordine.trait.php');
-require_once('traits/prodotto.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/utente.php');
-require_once('objects/prodotto.php');
-require_once('objects/ordine.php');
-require_once('funzioni/config.php');
+
+require_once("vendor/autoload.php");
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     //se esiste l'id univoco dell'ordine
@@ -89,15 +78,11 @@ SQL;
                 if($mysqli->query($query) !== FALSE){
                     echo 'Pagamento effettuato con successo<br>';
                 }
-                else{
-                    //echo 'Query errata<br>';
-                }
                 $mysqli->close();
             }
         }
         // azione in caso di risposta negativa da parte di PayPal
         else if(strcasecmp($res,"INVALID") == 0){
-            //echo 'Si è verificato un errore durante il pagamento<br>';
         }
         fclose($file);
     }

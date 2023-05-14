@@ -88,7 +88,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
 
     //vuole un'array come risultato
     public function __serialize() {
-        //echo 'serialize<br>';
         return [
             'id' => $this->id,
             'idU' => $this->idU,
@@ -118,8 +117,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
         $this->citta = $data['citta'];
         $this->data = $data['data'];
         $this->descrizione = $data['descrizione'];
-        //var_dump($data);
-        //echo 'unserialize<br>';
         $this->connesso=false;
     }
 

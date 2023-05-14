@@ -303,7 +303,6 @@ SQL;
                     $this->totale = $ordine['totale'];
                     $this->pagato = $ordine['pagato'];
                     $this->carrello = $ordine['carrello'];
-                    //var_dump($this->carrello);
                 }
                 else $this->numError = Oe::INFONOTGETTED; //Impossibile ottenere le informazioni sull'ordine dal database MySql
                 $r->free();

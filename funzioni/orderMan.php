@@ -10,30 +10,7 @@ use EcommerceTest\Interfaces\Constants as C;
 
 session_start();
 
-require_once('../config.php');
-require_once('../interfaces/constants.php');
-require_once('../interfaces/messages.php');
-require_once('../interfaces/orderErrors.php');
-require_once('../interfaces/productErrors.php');
-require_once('../interfaces/productsVals.php');
-require_once('../interfaces/userErrors.php');
-require_once('../interfaces/emailmanagerErrors.php');
-require_once('../exceptions/notsetted.php');
-//require_once('../interfaces/mysqlVals.php');
-require_once('config.php');
 require_once('../vendor/autoload.php');
-require_once('../traits/error.php');
-require_once('../traits/emailmanager.trait.php');
-require_once('../traits/sql.trait.php');
-require_once('../traits/ordine.trait.php');
-require_once('../traits/prodotto.trait.php');
-require_once('../traits/utente.trait.php');
-require_once('../objects/emailmanager.php');
-require_once('functions.php');
-require_once('../objects/utente.php');
-require_once('../objects/prodotto.php');
-require_once('../objects/ordine.php');
-require_once('const.php');
 
 $response = array(
     C::KEY_DONE => false,
@@ -105,7 +82,6 @@ function getOrders(array &$response){
         foreach($ordiniCliente as $v){
             try{
                 $ordine = new Ordine(array('id' => $v));
-                //var_dump($ordine->isCarrello());
                 if($ordine->getNumError() == 0){
                     $datiOrdine = array(
                         'id' => $ordine->getId(),
@@ -203,7 +179,6 @@ function getOrder(array &$response){
 //User wants delete an order
 function deleteOrder(array &$response,Utente $utente){
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
-        //echo 'esiste ordini';
         try{
             $ordine = new Ordine(array('id' => $_GET['idOrd']));
             $ok = $ordine->cancOrdine($utente->getUsername());
@@ -230,7 +205,6 @@ function deleteOrder(array &$response,Utente $utente){
 //User wants edit order quantity
 function editOrderQuantity(array &$response){
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
-        file_put_contents('log.txt',var_export($_GET,true)."\r\n",FILE_APPEND);
         $quantita = $_GET['quantita'];
         if(is_numeric($quantita) && $quantita > 0){
             try{

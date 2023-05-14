@@ -5,31 +5,10 @@ use EcommerceTest\Objects\Ordine;
 
 session_start();
 
-require_once('config.php');
-require_once('interfaces/constants.php');
-require_once('interfaces/orderErrors.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/ordine.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/ordine.php');
-require_once('funzioni/config.php');
-require_once('objects/utente.php');
-require_once('funzioni/const.php');
-@include_once('partials/privacy.php');
-require_once('partials/navbar.php');
-require_once('partials/footer.php');
+require_once("vendor/autoload.php");
 
 use EcommerceTest\Interfaces\Constants as C;
 
-//file_put_contents("log.txt","success.php => ".var_export($_POST,true)."\r\n",FILE_APPEND);
 
 $ajax = (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == '1');
 $response = [
@@ -40,12 +19,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
-    /*echo '<pre>';
-    echo 'post<br>';
-    var_dump($_POST);
-    echo 'get<br>';
-    var_dump($_GET);
-    echo '</pre>';*/
     if($_POST["payer_status"] == 'VERIFIED'){
         if(isset($_SESSION['ido'])){
             $dati = array();
@@ -108,7 +81,6 @@ if(!$ajax){
 else{
     echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 }
-//file_put_contents("log.txt","success.php risposta => ".var_export($response,true)."\r\n");
 
 /**
  * HTML page to show for non ajax requests

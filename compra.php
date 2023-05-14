@@ -5,37 +5,14 @@ use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
 
-require_once('config.php');
-require_once('interfaces/paths.php');
-require_once('partials/navbar.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/productErrors.php');
-require_once('interfaces/productsVals.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/prodotto.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/utente.php');
-require_once('objects/prodotto.php');
-require_once('funzioni/config.php');
-require_once("funzioni/const.php");
-require_once('partials/footer.php');
-@include_once('partials/privacy.php');
+require_once("vendor/autoload.php");
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
-    //echo "Collegato<br>";
     if(isset($_SESSION['prodotto'],$_SESSION['venditore'],$_POST['qt']) && is_numeric($_POST['qt'])){
         $cliente = unserialize($_SESSION['utente']);
-        //var_dump($_SESSION['prodotto']);
         $prodotto=unserializeProduct($_SESSION['prodotto']);
         $qt = $_POST['qt'];
         $totale = $qt*($prodotto->getPrezzo()+$prodotto->getSpedizione());

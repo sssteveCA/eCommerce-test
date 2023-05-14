@@ -6,7 +6,6 @@ use EcommerceTest\Exceptions\NotSettedException;
 use EcommerceTest\Traits\EmailManagerTrait;
 use EcommerceTest\Traits\Error;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use EcommerceTest\Interfaces\EmailManagerErrors as Eme;
 use Exception;
 
@@ -71,8 +70,6 @@ class EmailManager extends PHPMailer implements Eme{
             $this->send();
         }catch(Exception $e){
             $this->errno = Eme::ERR_EMAIL_SEND;
-            /* echo "EmailManager sendMessage exception => ".$e->getMessage()."\r\n";
-            echo "Errore invio mail ".$this->ErrorInfo."\r\n"; */
         }
     }
 

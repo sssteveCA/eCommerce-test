@@ -6,23 +6,7 @@ use EcommerceTest\Interfaces\Paths as P;
 
 ob_start();
 
-require_once('config.php');
-require_once('interfaces/paths.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('funzioni/functions.php');
-require_once('objects/utente.php');
-require_once('funzioni/config.php');
-require_once('partials/footer.php');
-@include_once('partials/privacy.php');
+require_once("vendor/autoload.php");
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +23,6 @@ require_once('partials/footer.php');
         <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
         <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
         <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
-        <!-- <script type="module" src=<?php //echo P::REL_DIALOG_MESSAGE_JS; ?>></script> -->
         <script type="module" src=<?php echo P::REL_RESET_JS; ?>></script>
         <?php 
             if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){

@@ -1,15 +1,8 @@
 <?php
 session_start();
 
-require_once('../config.php');
-require_once('../interfaces/constants.php');
-require_once('../interfaces/messages.php');
-//require_once('../interfaces/mysqlVals.php');
-require_once('../interfaces/productErrors.php');
-require_once('../interfaces/productsVals.php');
-require_once('../traits/sql.trait.php');
 require_once('../vendor/autoload.php');
-require_once('../objects/prodotto.php');
+
 
 use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Messages as M;

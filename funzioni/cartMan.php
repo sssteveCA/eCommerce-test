@@ -1,30 +1,7 @@
 <?php
 session_start();
-require_once('../config.php');
-require_once('../interfaces/constants.php');
-require_once('../interfaces/messages.php');
-require_once('../interfaces/orderErrors.php');
-require_once('../interfaces/productErrors.php');
-require_once('../interfaces/productsVals.php');
-require_once('../interfaces/userErrors.php');
-require_once('../interfaces/emailmanagerErrors.php');
-require_once('../exceptions/notsetted.php');
-//require_once('../interfaces/mysqlVals.php');
+
 require_once("../vendor/autoload.php");
-require_once('../traits/error.php');
-require_once('../traits/emailmanager.trait.php');
-require_once('../traits/sql.trait.php');
-require_once('../traits/ordine.trait.php');
-require_once('../traits/prodotto.trait.php');
-require_once('../traits/utente.trait.php');
-require_once('../objects/emailmanager.php');
-require_once('../objects/utente.php');
-require_once('../objects/prodotto.php');
-require_once('../objects/ordine.php');
-require_once('../objects/carrello.php');
-require_once('paypalConfig.php');
-require_once('config.php');
-require_once('const.php');
 
 use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\UserErrors as Ue;
@@ -44,8 +21,6 @@ $response = [
     'sbn_code' => SBN_CODE,
     'post' => $post
 ];
-
-//var_dump($response);
 
 $ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == '1');
 
@@ -123,9 +98,6 @@ function addItemToCart(array &$response, Prodotto $product,Ordine $order){
     if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
         $oArray['clientId'] = $seller->getClientId();
     }//if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
-    else{
-        file_put_contents("log.txt",$seller->getStrError()."\r\n",FILE_APPEND);
-    }
     $oArray['idv'] = $seller->getId();
     $oArray['nome'] = $product->getNome();
     $oArray['immagine'] = $product->getImmagine();
