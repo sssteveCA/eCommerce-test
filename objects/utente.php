@@ -7,6 +7,7 @@ use EcommerceTest\Interfaces\UserErrors as Ue;
 //use EcommerceTest\Interfaces\MySqlVals as Mv;
 use EcommerceTest\Config as Cf;
 use EcommerceTest\Traits\SqlTrait;
+use EcommerceTest\Traits\UtenteConstructorTrait;
 use EcommerceTest\Traits\UtenteTrait;
 
 define("UTENTEERR_INCORRECTLOGINDATA", "1");
@@ -35,7 +36,7 @@ if (! function_exists("array_key_last")) {
 
 class Utente implements Ue/* ,Mv */{
 
-    use SqlTrait,UtenteTrait;
+    use SqlTrait,UtenteTrait,UtenteConstructorTrait;
 
     private $h; //handle connessione MySQL
     private $mysqlHost;
@@ -78,37 +79,8 @@ class Utente implements Ue/* ,Mv */{
         'cambioPwd' => '/^[a-z0-9]{64}$/i'
     );
     public function __construct($ingresso){
-        $this->connesso = false;
-        $this->querySql = null;
-        $this->queries = array();
-        $this->numError = 0;
-        $this->strError = null;
-        $this->login = false;
-        $this->mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
-        $this->mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
-        $this->mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
-        $this->h = new \mysqli($this->mysqlHost,$this->mysqlUser,$this->mysqlPass);
-        if($this->h->connect_errno != 0){
-            throw new \Exception(Ue::EXC_MYSQLCONN);
-        }
-        $this->connesso = true;
-        $this->h->set_charset("utf8mb4");
-        $this->mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];
-        $this->createDb($this->mysqlDb); //crea il database se non esiste
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:$_ENV['TABACC'];
-        if($this->createTab() === false){ //crea la tabella se non esiste
-            throw new \Exception(Ue::EXC_TABLECREATION);
-        }
-        $this->id=isset($ingresso['id'])? $ingresso['id']:null;
-        $this->email=isset($ingresso['email'])? $ingresso['email']:null;
-        $this->username=isset($ingresso['username'])? $ingresso['username']:null;
-        $this->password=isset($ingresso['password'])? password_hash($ingresso['password'],PASSWORD_DEFAULT):'';
-        $this->paypalMail=isset($ingresso['paypalMail'])? $ingresso['paypalMail']:null;
-        $this->clientId=isset($ingresso['clientId'])? $ingresso['clientId']:null;
-        $this->codAut=isset($ingresso['codAut'])? $ingresso['codAut']:null;
-        $this->cambioPwd=isset($ingresso['cambioPwd'])? $ingresso['cambioPwd']: null;
-        $this->dataCambioPwd=isset($ingresso['dataCambioPwd'])? $ingresso['dataCambioPwd']:null;
-        $this->registrato=isset($ingresso['registrato'])? $ingresso['registrato']: false;
+        
+        $this->setProperties($ingresso);
 
         if($this->registrato){
             if(!isset($ingresso['campo']))$ingresso['campo'] = Utente::$campi[0];
