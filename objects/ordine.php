@@ -53,30 +53,10 @@ class Ordine implements Oe/* ,Mv */{
     private $mysqlError;
     private static $idList = array();
     public function __construct($ingresso){
-        $mysqlHost=isset($ingresso['mysqlHost'])? $ingresso['mysqlHost']:$_ENV['MYSQL_HOSTNAME'];
-        $mysqlUser=isset($ingresso['mysqlUser'])? $ingresso['mysqlUser']:$_ENV['MYSQL_USERNAME'];
-        $mysqlPass=isset($ingresso['mysqlPass'])? $ingresso['mysqlPass']:$_ENV['MYSQL_PASSWORD'];
-        $mysqlDb=isset($ingresso['mysqlDb'])? $ingresso['mysqlDb']:$_ENV['MYSQL_DATABASE'];   
-        $this->mysqlTable=isset($ingresso['mysqlTable'])? $ingresso['mysqlTable']:$_ENV['TABORD'];
-        $this->mysqlTableAcc=isset($ingresso['mysqlTableAcc'])? $ingresso['mysqlTableAcc']:$_ENV['TABACC'];
-        $this->h = new \mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
-        if($this->h->connect_errno !== 0){
-            throw new \Exception("Connessione a MySql fallita: ".$this->h->connect_error);
-        }
-        $this->h->set_charset("utf8mb4");
-        $this->connesso = true;
-        $this->createDb($mysqlDb);
-        if($this->createTab() === false){
-            throw new \Exception(Oe::EXC_TABLECREATION);
-        }
-        $this->querySql = '';
-        $this->queries = array();
-        $this->numError = 0;
-        $this->strError = null;
-        $this->id=isset($ingresso['id'])? $ingresso['id']:null;
+        $this->setProperties($ingresso);
         //se l'ordine esiste già ottengo i dati
         if(isset($this->id)){
-            $ok = $this->getOrdine();
+            $this->getOrdine();
         }
         else{
             if($this->valida($ingresso)){

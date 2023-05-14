@@ -115,7 +115,9 @@ trait UtenteConstructorTrait{
         }
     }
 
-    /**Set the inital values of Utente's class properties */
+    /**
+     * Set the inital values of Utente's class properties
+     *  */
     private function setProperties(array $ingresso){
         $this->connesso = false;
         $this->querySql = null;
