@@ -6,6 +6,9 @@
     "autoload": {
         "classmap": [
             "exceptions/","interfaces/","objects/","traits/"
+        ],
+        "files": [
+            "config.php", "funzioni/config.php", "funzioni/const.php"
         ]
     }
 }
