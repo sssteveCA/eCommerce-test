@@ -47,10 +47,8 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                 //$uBusiness['password'] = '123456';
                 $uBusiness['id'] = $prodotto->getIdu(); //ID dell'utente che ha caricato l'annuncio
                 $uVenditore = new Utente($uBusiness);
-                //var_dump($uVenditore);
                 if($uVenditore->getNumError() == 0 || $uVenditore->getNumError() == 1){
                     $pOrdinato = false; //true se esiste già un ordine del cliente dello stesso prodotto
-                    //var_dump($prodotto);
                     $idOrdini = Ordine::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$_ENV['TABORD'],$_ENV['TABACC'],$utente->getUsername());
                     if($idOrdini != null){
                         foreach($idOrdini as $idOrdine){
@@ -107,7 +105,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     $notify_url = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']).'/ipn.php';
                     //echo '<script>console.log("'.$return_url.'");</script>';
                     try{
-                        //var_dump($dati);
                         $ordine = new Ordine($dati);
                         if($ordine->getNumError() === 0){
                             $dati['idc'] = $ordine->getIdc();

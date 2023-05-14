@@ -11,10 +11,8 @@ require_once("vendor/autoload.php");
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
-    //echo "Collegato<br>";
     if(isset($_SESSION['prodotto'],$_SESSION['venditore'],$_POST['qt']) && is_numeric($_POST['qt'])){
         $cliente = unserialize($_SESSION['utente']);
-        //var_dump($_SESSION['prodotto']);
         $prodotto=unserializeProduct($_SESSION['prodotto']);
         $qt = $_POST['qt'];
         $totale = $qt*($prodotto->getPrezzo()+$prodotto->getSpedizione());

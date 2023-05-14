@@ -19,12 +19,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
     $utente = unserialize($_SESSION['utente']);
-    /*echo '<pre>';
-    echo 'post<br>';
-    var_dump($_POST);
-    echo 'get<br>';
-    var_dump($_GET);
-    echo '</pre>';*/
     if($_POST["payer_status"] == 'VERIFIED'){
         if(isset($_SESSION['ido'])){
             $dati = array();

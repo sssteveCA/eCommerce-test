@@ -118,8 +118,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
         $this->citta = $data['citta'];
         $this->data = $data['data'];
         $this->descrizione = $data['descrizione'];
-        //var_dump($data);
-        //echo 'unserialize<br>';
         $this->connesso=false;
     }
 

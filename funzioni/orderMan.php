@@ -82,7 +82,6 @@ function getOrders(array &$response){
         foreach($ordiniCliente as $v){
             try{
                 $ordine = new Ordine(array('id' => $v));
-                //var_dump($ordine->isCarrello());
                 if($ordine->getNumError() == 0){
                     $datiOrdine = array(
                         'id' => $ordine->getId(),
