@@ -1,8 +1,7 @@
 <?php
 session_start();
-require_once('interfaces/constants.php');
-require_once('funzioni/const.php');
-@include_once('partials/privacy.php');
+
+require_once("vendor/autoload.php");
 
 use EcommerceTest\Interfaces\Constants as C;
 

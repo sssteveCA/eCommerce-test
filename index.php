@@ -2,9 +2,7 @@
 
 use EcommerceTest\Interfaces\Paths as P;
 
-require_once('interfaces/paths.php');
-@include_once('partials/privacy.php');
-require('partials/footer.php');
+require_once("vendor/autoload.php");
 
 session_start();
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

@@ -8,23 +8,7 @@ use EcommerceTest\Interfaces\Constants as C;
 
 session_start();
 
-require_once('config.php');
-require_once('../config.php');
-require_once('../interfaces/constants.php');
-require_once('../interfaces/messages.php');
-require_once('../interfaces/userErrors.php');
-require_once('../interfaces/emailmanagerErrors.php');
-require_once('../exceptions/notsetted.php');
-//require_once('../interfaces/mysqlVals.php');
 require_once('../vendor/autoload.php');
-require_once('../traits/error.php');
-require_once('../traits/emailmanager.trait.php');
-require_once('../traits/sql.trait.php');
-require_once('../traits/utente.trait.php');
-require_once('functions.php');
-require_once('../objects/emailmanager.php');
-require_once('../objects/utente.php');
-require('const.php');
 
 $risultato = array();
 $ajax = (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == 'true');

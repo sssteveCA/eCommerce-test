@@ -3,19 +3,7 @@
 use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 
-require_once('config.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
 require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/utente.php');
-@include_once('partials/privacy.php');
 
 ?>
 <!DOCTYPE html>

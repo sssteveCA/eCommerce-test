@@ -5,23 +5,7 @@ use EcommerceTest\Interfaces\Paths as P;
 
 session_start();
 
-require_once('config.php');
-require_once('interfaces/paths.php');
-require_once('partials/navbar.php');
-//require_once('interfaces/mysqlVals.php');
-require_once('interfaces/userErrors.php');
-require_once('interfaces/emailmanagerErrors.php');
-require_once('exceptions/notsetted.php');
-require_once('vendor/autoload.php');
-require_once('traits/error.php');
-require_once('traits/emailmanager.trait.php');
-require_once('traits/sql.trait.php');
-require_once('traits/utente.trait.php');
-require_once('objects/emailmanager.php');
-require_once('objects/utente.php');
-require_once("funzioni/const.php");
-require('partials/footer.php');
-@include_once('partials/privacy.php');
+require_once("vendor/autoload.php");
 
 //se un'utente ha effettuato il login
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){

@@ -5,11 +5,7 @@ session_start();
 use EcommerceTest\Objects\Privacy\CookiePolicy;
 use EcommerceTest\Interfaces\Paths as P;
 
-require_once("interfaces/paths.php");
-require_once("partials/privacy.php");
-require_once("partials/navbar.php");
-require_once("objects/privacy/cookiepolicy.php");
-require_once("partials/footer.php");
+require_once("vendor/autoload.php");
 
 $bsCss = P::REL_BOOTSTRAP_CSS;
 $jQueryCss = P::REL_JQUERY_CSS;
