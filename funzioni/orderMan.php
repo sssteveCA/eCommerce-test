@@ -179,7 +179,6 @@ function getOrder(array &$response){
 //User wants delete an order
 function deleteOrder(array &$response,Utente $utente){
     if(isset($_SESSION['ordini'][$_GET['idOrd']])){
-        //echo 'esiste ordini';
         try{
             $ordine = new Ordine(array('id' => $_GET['idOrd']));
             $ok = $ordine->cancOrdine($utente->getUsername());

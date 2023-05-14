@@ -5,10 +5,15 @@
     },
     "autoload": {
         "classmap": [
-            "exceptions/","interfaces/","objects/","traits/"
+            "exceptions/","interfaces/","objects/", "traits/"
         ],
         "files": [
-            "config.php", "funzioni/config.php", "funzioni/const.php"
+            "config.php", 
+            "funzioni/config.php", 
+            "funzioni/const.php",
+            "partials/footer.php",
+            "partials/navbar.php",
+            "partials/privacy.php"
         ]
     }
 }

@@ -88,7 +88,6 @@ class Prodotto implements Pe,Pv/* ,Mv */{
 
     //vuole un'array come risultato
     public function __serialize() {
-        //echo 'serialize<br>';
         return [
             'id' => $this->id,
             'idU' => $this->idU,

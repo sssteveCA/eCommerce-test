@@ -103,7 +103,6 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                     /*URL del listener IPN(Instant Payment Notification), l'applicazione che riceverà e gestirà
                     le informazioni dal sito di Paypal */
                     $notify_url = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']).'/ipn.php';
-                    //echo '<script>console.log("'.$return_url.'");</script>';
                     try{
                         $ordine = new Ordine($dati);
                         if($ordine->getNumError() === 0){

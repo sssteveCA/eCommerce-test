@@ -17,18 +17,6 @@ else{
     $mysqlDb = '';
 }
 
-//paypal
-
-
-/*//apro la connessione al server MySQL
-$h = new mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb);
-//errore
-if($h->connect_errno){
-    //echo 'Connessione a MySQL fallita: '.$h->connect_error;
-    $result['errore'] = 'Connessione a MySQL fallita: '.$h->connect_error;
-} 
-$h->set_charset("utf8mb4");*/
-
 function unserializeProduct($p) {
     $prodotto = unserialize($p);
     $prodotto->connesso=false;

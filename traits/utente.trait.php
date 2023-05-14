@@ -202,7 +202,6 @@ SQL;
      * Validate the input data before the insertion
      */
     public function valida($ingresso){
-        //echo var_export($ingresso,true)."\r\n";
         $ok = true;
         $classname = __CLASS__;
         $this->errno = 0;

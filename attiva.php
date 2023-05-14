@@ -62,7 +62,6 @@ require_once('vendor/autoload.php');
             //account non attivato
             else{
                 echo 'Impossibile attivare l\'account<br>';
-                //echo "Errore n. {$error}";
             }
         }
         catch(Exception $e){

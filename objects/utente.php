@@ -395,9 +395,7 @@ SQL;
         $query .= ";";
         $this->querySql = $query;
         $this->queries[] = $this->querySql;
-        //echo "{$query}<br>";
         $r = $this->h->query($this->querySql);
-        //echo $h->error.'<br>';
         if($r){
             if($r->num_rows == 1){
                 //L'utente è stato trovato nel DB

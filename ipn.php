@@ -78,15 +78,11 @@ SQL;
                 if($mysqli->query($query) !== FALSE){
                     echo 'Pagamento effettuato con successo<br>';
                 }
-                else{
-                    //echo 'Query errata<br>';
-                }
                 $mysqli->close();
             }
         }
         // azione in caso di risposta negativa da parte di PayPal
         else if(strcasecmp($res,"INVALID") == 0){
-            //echo 'Si è verificato un errore durante il pagamento<br>';
         }
         fclose($file);
     }

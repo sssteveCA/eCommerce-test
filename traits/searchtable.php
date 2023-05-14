@@ -13,7 +13,6 @@ use EcommerceTest\Interfaces\Messages as M;
 trait SearchTable{
 
     private function table(){
-        //echo "\r\n{$this->sqlQuery}\r\n";
         $table = "";
         $idProductsList = Prodotto::getIdList($_ENV['MYSQL_HOSTNAME'],$_ENV['MYSQL_USERNAME'],$_ENV['MYSQL_PASSWORD'],$_ENV['MYSQL_DATABASE'],$this->sqlQuery);
         if($idProductsList != null){
