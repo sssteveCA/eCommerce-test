@@ -11,7 +11,44 @@ use EcommerceTest\Objects\Utente;
 trait UtenteConstructorTrait{
 
     /**
-     * If subscribe logic
+     * If user is not subscribed
+     */
+    private function ifGuest(array $ingresso){
+        //utente che si registra
+        if(isset($ingresso['email'],$ingresso['username'])){
+            /*Verifica se esistono la mail paypal e l'ID del cliente e controlla che siano
+            valori validi */
+            if($this->valida($ingresso)){
+                $where = "`email` = '{$ingresso['email']}'";
+                $mailexists = $this->Exists($where);
+                //controllo che il nome utente non esista già
+                $where = "`username` = '{$ingresso['username']}'";
+                $userexists = $this->Exists($where);
+                if($mailexists == 0 && $userexists == 0){
+                    //l'indirizzo email e lo username inserito è disponibile
+                    $this->setCodAut($this->codAutGen('0'));
+                    $ingresso['codAut'] = $this->getCodAut();
+                    //$ingresso['registrato'] non deve essere inserito nel database
+                    unset($ingresso['registrato']);
+                    //se i dati sono stati inseriti nel database
+                    if($this->insertData($ingresso)){
+                        $this->pSetValues($ingresso);
+                    }
+                }//if($mailexists == 0 && $userexists == 0){
+                //(registrazione) lo username o la mail inserita esistono già
+                else $this->numError = Ue::USERNAMEMAILEXIST;
+            }//if($this->valida($ingresso)){
+            //Uno o più parametri non sono nel formato corretto
+            else $this->numError = Ue::INVALIDDATAFORMAT;
+        }//if(isset($ingresso['email'],$ingresso['username'])){
+        //non esegue nessuna operazione dopo aver istanziato l'oggetto
+        else{
+            $this->numError = Ue::DATANOTSET; //uno o più dati richiesti non sono stati settati
+        }
+    }
+
+    /**
+     * If subscribe user is subscribed
      */
     private function ifSubscribed(array $ingresso){
         if(!isset($ingresso['campo']))$ingresso['campo'] = Utente::$campi[0];
