@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once("../interfaces/orderErrors.php");
+require_once("paypalConfig.php");
 require_once("../vendor/autoload.php");
 
 use Dotenv\Dotenv;

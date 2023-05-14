@@ -15,7 +15,7 @@ $ajax =  (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 //$emailBusiness = 'sb-svkih5058080@business.example.com';
 //pagina di Paypal a cui verranno inviati i dati del form
 $paypalPage = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$shopping_url = Config::HOME_URL.'/ricerca.php?ricerca=';
+//$shopping_url = Config::HOME_URL.'/ricerca.php?ricerca=';
 /*metodo di ritorno, ovvero come i dati verranno inviati da paypal alla pagina di ritorno scelta
 0 = metodo GET per tutte le transazioni
 1 = il metodo GET viene usato per il redirect del browser verso la pagina di ritornom senza inviare i dati della transazione
