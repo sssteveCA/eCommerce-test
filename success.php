@@ -9,7 +9,6 @@ require_once("vendor/autoload.php");
 
 use EcommerceTest\Interfaces\Constants as C;
 
-//file_put_contents("log.txt","success.php => ".var_export($_POST,true)."\r\n",FILE_APPEND);
 
 $ajax = (isset($_POST[C::KEY_AJAX]) && $_POST[C::KEY_AJAX] == '1');
 $response = [
@@ -88,7 +87,6 @@ if(!$ajax){
 else{
     echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 }
-//file_put_contents("log.txt","success.php risposta => ".var_export($response,true)."\r\n");
 
 /**
  * HTML page to show for non ajax requests

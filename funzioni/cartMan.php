@@ -100,9 +100,6 @@ function addItemToCart(array &$response, Prodotto $product,Ordine $order){
     if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
         $oArray['clientId'] = $seller->getClientId();
     }//if($seller->getNumError() == 0 || $seller->getNumError() == Ue::INCORRECTLOGINDATA){
-    else{
-        file_put_contents("log.txt",$seller->getStrError()."\r\n",FILE_APPEND);
-    }
     $oArray['idv'] = $seller->getId();
     $oArray['nome'] = $product->getNome();
     $oArray['immagine'] = $product->getImmagine();

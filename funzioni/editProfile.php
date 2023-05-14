@@ -127,8 +127,6 @@ function updatePassword(array &$response){
             $where['username'] = $utente->getUsername();
             $response[C::KEY_MESSAGE] = Msg::ERR_FORMINVALIDVALUE;  
             $passwordC = $utente->getPassword();
-            /* file_put_contents("log.txt","PasswordC => ".var_export($passwordC,true)."\r\n",FILE_APPEND);
-            file_put_contents("log.txt","POST => ".var_export($_POST,true)."\r\n",FILE_APPEND); */
             //se la password da sostituire è uguale a quella attuale
                 if(password_verify($post["oPwd"],$passwordC)){
                     //se la nuova password è uguale a quella confermata
