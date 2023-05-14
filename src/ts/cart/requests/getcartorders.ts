@@ -10,7 +10,7 @@ export default class GetCartOrders{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETCARTORDERS_URL:string = 'funzioni/cartMan.php';
+    private static GETCARTORDERS_URL:string = '/funzioni/cartMan.php';
 
     //Error numbers
     public static ERR_FETCH:number = 1;

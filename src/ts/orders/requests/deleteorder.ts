@@ -7,7 +7,7 @@ export default class DeleteOrder{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static DELETEORDER_URL:string = 'funzioni/orderMan.php';
+    private static DELETEORDER_URL:string = '/funzioni/orderMan.php';
 
     //Error numbers
     private static ERR_FETCH:number = 1;

@@ -7,7 +7,7 @@ export default class AddToCart{
     private _errno: number = 0;
     private _error: string|null = null;
    
-    private static ADDTOCART_URL:string = 'funzioni/orderMan.php';
+    private static ADDTOCART_URL:string = '/funzioni/orderMan.php';
 
     //Error numbers
     private static ERR_FETCH:number = 1;

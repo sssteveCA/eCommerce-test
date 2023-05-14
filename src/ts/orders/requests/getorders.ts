@@ -12,7 +12,7 @@ export default class GetOrders{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETORDERS_URL:string = 'funzioni/orderMan.php';
+    private static GETORDERS_URL:string = '/funzioni/orderMan.php';
 
     //Error numbers
     public static ERR_FETCH:number = 1;

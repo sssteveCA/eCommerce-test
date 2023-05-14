@@ -6,7 +6,7 @@ export default class Recovery{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static RECOVERY_URL: string = "funzioni/mail.php";
+    private static RECOVERY_URL: string = "/funzioni/mail.php";
 
     public static ERR_REQUEST:number = 1;
 

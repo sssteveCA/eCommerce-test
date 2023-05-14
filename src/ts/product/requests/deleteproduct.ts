@@ -5,7 +5,7 @@ export default class DeleteProduct{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static DELETE_PRODUCT_URL: string = "funzioni/elimina.php";
+    private static DELETE_PRODUCT_URL: string = "/funzioni/elimina.php";
 
     public static ERR_REQUEST:number = 1;
 

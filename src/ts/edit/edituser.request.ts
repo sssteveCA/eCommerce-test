@@ -4,7 +4,7 @@ import DialogMessageInterface from "../dialog/dialogmessage.interface";
 
 export default class EditUserRequest{
     //constants
-    private static EDITPROFILE_URL = 'funzioni/editProfile.php';
+    private static EDITPROFILE_URL = '/funzioni/editProfile.php';
 
     //errors
     private static ERR_NOEDITUSEROBJECT = 1;

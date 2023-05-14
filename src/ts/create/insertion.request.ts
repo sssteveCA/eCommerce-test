@@ -7,7 +7,7 @@ import { Constants } from "../constants/constants";
 export default class InsertionRequest{
 
     //constants
-    private static INSERTION_URL = 'funzioni/upload.php';
+    private static INSERTION_URL = '/funzioni/upload.php';
 
     //errors
     private static ERR_INVALIDDATA = 1; //Data from form are invalid

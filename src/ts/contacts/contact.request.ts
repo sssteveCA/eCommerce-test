@@ -7,7 +7,7 @@ import { showDialogMessage } from '../functions/functions';
 export default class ContactRequest{
 
     //constants
-    private static CONTACT_URL = 'funzioni/mail.php';
+    private static CONTACT_URL = '/funzioni/mail.php';
 
     //errors
     public static ERR_NOCONTACTOBJECT = 1; //Contact object is null

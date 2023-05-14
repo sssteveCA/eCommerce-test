@@ -14,7 +14,7 @@ export default class DeleteCartOrder{
     //Error messages
     private static ERR_FETCH_MSG:string = "Errore durante l'esecuzione dell'operazione";
 
-    private static DELETCARTORDER_URL:string = 'funzioni/cartMan.php';
+    private static DELETCARTORDER_URL:string = '/funzioni/cartMan.php';
 
     constructor(data: DeleteCartOrderInterface){
         this._operation = data.operation;

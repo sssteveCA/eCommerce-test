@@ -8,7 +8,7 @@ export default class EditQuantity{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static EDITQUANTITY_URL:string = 'funzioni/orderMan.php';
+    private static EDITQUANTITY_URL:string = '/funzioni/orderMan.php';
 
     //Error numbers
     public static ERR_FETCH:number = 1;

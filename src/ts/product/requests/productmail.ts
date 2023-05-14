@@ -7,7 +7,7 @@ export default class ProductMail{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static SENDMAIL_URL: string = "funzioni/mail.php";
+    private static SENDMAIL_URL: string = "/funzioni/mail.php";
 
     public static ERR_REQUEST:number = 1;
 
