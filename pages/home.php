@@ -3,6 +3,8 @@
 namespace EcommerceTest\Pages;
 
 use EcommerceTest\Pages\Partials\Footer;
+use EcommerceTest\Interfaces\Paths as P;
+
 class HomePage{
 
     public static function content(array $params): string{
@@ -13,15 +15,14 @@ class HomePage{
     <head>
         <title>Accedi</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_LOGINTO_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
-        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?> >
-        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
-        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
-        <script src=<?php echo P::REL_LOGINTO_JS; ?>></script>
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_LOGINTO_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}">
+        <script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_LOGINTO_JS']}"></script>
 HTML; 
             if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
                 $html .= call_user_func('cookieBanner');
