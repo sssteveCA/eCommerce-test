@@ -1,6 +1,8 @@
 <?php
 
 namespace EcommerceTest\Pages;
+
+use EcommerceTest\Pages\Partials\Footer;
 class HomePage{
 
     public static function content(array $params): string{
@@ -59,7 +61,7 @@ HTML;
             </div>
         </div>
 HTML;
-        echo footer(); 
+    $html .= Footer::content();
     $html .= <<<HTML
     </body>
 </html>        
