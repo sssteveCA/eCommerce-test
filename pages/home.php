@@ -58,7 +58,7 @@ HTML;
                 Non hai ancora un account? <a class="ps-1" href="/register">Registrati</a>
             </div>
             <div class="after-form">
-                Hai dimenticato la password? <a class="ps-1" href="recupera.php">Clicca qui</a>
+                Hai dimenticato la password? <a class="ps-1" href="/recovery">Clicca qui</a>
             </div>
         </div>
 HTML;
