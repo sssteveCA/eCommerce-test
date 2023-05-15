@@ -5,7 +5,7 @@
     },
     "autoload": {
         "classmap": [
-            "exceptions/","interfaces/","objects/", "pages/", "traits/"
+            "exceptions/","interfaces/","objects/", "pages/", "response/", "traits/"
         ],
         "files": [
             "config.php", 

@@ -3,16 +3,18 @@
 use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Pages\HomePage;
 use EcommerceTest\Interfaces\Paths as P;
+use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
+use EcommerceTest\Response\Login;
 
 session_start();
 
 require_once('vendor/autoload.php');
 
-echo '<pre>';
+/* echo '<pre>';
 var_dump($_SERVER);
-echo '</pre>';
+echo '</pre>'; */
 
 $logged = (isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true);
 $uri = $_SERVER['REQUEST_URI'];
@@ -48,6 +50,11 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($logged) header("Location: /");
         else{
             ob_start();
+            $params = ['post' => $post];
+            $response = Login::content($params);
+            if($response['redirect']['do']) header($response['redirect']['url']);
+            echo $response[C::KEY_MESSAGE];
+            echo '';
         }
     }
 }
