@@ -16,17 +16,17 @@ class RegisterGet{
     <head>
         <title>Registrati</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="<?php echo P::REL_SUBSCRIBE_CSS; ?>">
-        <link rel="stylesheet" href="<?php echo P::REL_BOOTSTRAP_CSS; ?>">
-        <link rel="stylesheet" href="<?php echo P::REL_FOOTER_CSS; ?>">
-        <link rel="stylesheet" href="<?php echo P::REL_JQUERY_CSS; ?>" >
-        <link rel="stylesheet" href="<?php echo P::REL_JQUERYTHEME_CSS; ?>" >
-        <script src="<?php echo P::REL_JQUERY_JS; ?>"></script>
-        <script src="<?php echo P::REL_JQUERYUI_JS; ?>"></script>
-        <script src="<?php echo P::REL_BOOTSTRAP_JS; ?>"></script>
-        <script src="<?php echo P::REL_FOOTER_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_SUBSCRIBE_JS; ?>"></script>
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_SUBSCRIBE_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}" >
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}" >
+        <script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_DIALOG_MESSAGE_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_SUBSCRIBE_JS']}"></script>
 HTML;
         if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
             $html .= call_user_func('cookieBanner');
@@ -39,10 +39,10 @@ HTML;
                 <h1 class="w-100 text-center">Registrati</h1>
             </div>
             <div id="indietro">
-                <a href="index.php"><img src="img/altre/indietro.png" alt="indietro" title="indietro"></a>
-                <a href="index.php">Indietro</a>
+                <a href="/"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
+                <a href="/">Indietro</a>
             </div>
-            <form id="formReg" method="post" action="funzioni/nuovoAccount.php">
+            <form id="formReg" method="post" action="/funzioni/nuovoAccount.php">
                 <div>
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" id="nome" class="form-control" name="nome" required>

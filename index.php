@@ -23,10 +23,11 @@ else{
         $params = [
             'paths' => [
                 'css' => [
-                    'REL_LOGINTO_CSS' => P::REL_LOGINTO_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS
+                    'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS, 'REL_LOGINTO_CSS' => P::REL_LOGINTO_CSS, 
                 ],
                 'js' => [
-                    'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_LOGINTO_JS' => P::REL_LOGINTO_JS
+                    'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_JQUERY_JS' => P::REL_JQUERY_JS, 
+                    'REL_LOGINTO_JS' => P::REL_LOGINTO_JS
                 ],
             ]
         ];
@@ -36,10 +37,10 @@ else{
         $params = [
             'paths' => [
                 'css' => [
-                    'REL_LOGINTO_CSS' => P::REL_LOGINTO_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS
+                    'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS, 'REL_JQUERYTHEME_CSS' => P::REL_JQUERYTHEME_CSS, 'REL_LOGINTO_CSS' => P::REL_LOGINTO_CSS, 'REL_SUBSCRIBE_CSS' => P::REL_SUBSCRIBE_CSS
                 ],
                 'js' => [
-                    'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_LOGINTO_JS' => P::REL_LOGINTO_JS
+                    'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_DIALOG_MESSAGE_JS' => P::REL_DIALOG_MESSAGE_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_JQUERYUI_JS' => P::REL_JQUERYUI_JS, 'REL_LOGINTO_JS' => P::REL_LOGINTO_JS, 'REL_SUBSCRIBE_JS' => P::REL_SUBSCRIBE_JS
                 ],
             ]
         ];
