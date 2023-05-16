@@ -29,7 +29,7 @@ class HomeLogged{
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script src=<?php echo P::REL_WELCOME_JS; ?>></script>
 HTML;
-    if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+    if(file_exists('../partials/privacy.php') && is_file('../partials/privacy.php')){
         $html .= call_user_func('cookieBanner');
     }
     $html .= <<<HTML
