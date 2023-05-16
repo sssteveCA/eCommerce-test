@@ -2,12 +2,12 @@
 
 namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
-
+use EcommerceTest\Pages\Partials\Navbar;
 
 /**
  * Home page for logged users
  */
-class HomeLogged{
+class HomePageLogged{
     public static function content(array $params): string{
         $html = <<<HTML
 <!DOCTYPE html>
@@ -15,19 +15,19 @@ class HomeLogged{
     <head>
         <title>Benvenuto</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href=<?php echo P::REL_WELCOME_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_BOOTSTRAP_CSS; ?>>
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERY_CSS; ?> >
-        <link rel="stylesheet" href=<?php echo P::REL_JQUERYTHEME_CSS; ?> >
-        <link rel="stylesheet" href=<?php echo P::REL_FOOTER_CSS; ?>>
-        <script src=<?php echo P::REL_JQUERY_JS; ?>></script>
-        <script src=<?php echo P::REL_JQUERYUI_JS; ?>></script>
-        <script src=<?php echo P::REL_POPPER_JS; ?>></script>
-        <script src=<?php echo P::REL_BOOTSTRAP_JS; ?>></script>
-        <script src=<?php echo P::REL_FOOTER_JS; ?>></script>
-        <script type="module" src="<?php echo P::REL_DIALOG_MESSAGE_JS; ?>"></script>
-        <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
-        <script src=<?php echo P::REL_WELCOME_JS; ?>></script>
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_WELCOME_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}" >
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}" >
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
+        <script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_DIALOG_MESSAGE_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_LOGOUT_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_WELCOME_JS']}"></script>
 HTML;
     if(file_exists('../partials/privacy.php') && is_file('../partials/privacy.php')){
         $html .= call_user_func('cookieBanner');
@@ -36,6 +36,7 @@ HTML;
     </head>
     <body>
 HTML;
+    $html .= Navbar::content($params);
     $html .= <<<HTML
         <div id="search" class="d-flex flex-column flex-sm-row flex-grow-1">
                 <form id="fSearch" class="flex-fill d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start align-items-center" method="get" action="ricerca.php">

@@ -4,6 +4,8 @@ use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Pages\HomePage;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Pages\HomeLogged;
+use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\Login;
@@ -24,7 +26,11 @@ $uri = $_SERVER['REQUEST_URI'];
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if($uri == '/'){
-        if($logged){}
+        if($logged){
+            $params = PageResources::HOME_GET_LOGGED;
+            $params['menu']['welcome'] = $_SESSION['welcome'];
+            echo HomePageLogged::content($params);
+        }
         else{
             echo HomePage::content(PageResources::HOME_GET_GUEST);
         } 

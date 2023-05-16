@@ -11,7 +11,7 @@ export default class SubscriberRequest{
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
     private static ERR_MSG_REQUEST = "Errore durante l'esecuzione della richeista";
 
-    private static SUBSCRIBE_URL = '/funzioni/newAccount.php';
+    private static SUBSCRIBE_URL = '/register';
 
     private static ERR_MSG_SUBSCRIBEERROR = "Errore durante la richiesta d'iscrizione. Riprovare più tardi e se il problema persiste contattare l'amministratore del sito";
 
