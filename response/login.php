@@ -30,36 +30,31 @@ class Login{
                     $_SESSION['utente'] = serialize($utente);
                     $_SESSION['logged'] = true;
                     return [
-                        C::KEY_DONE => true, C::KEY_MESSAGE => "", 'redirect' => ['do' => true, 'url' => '/']];
+                        C::KEY_CODE => 200,C::KEY_DONE => true, C::KEY_MESSAGE => "", 'redirect' => ['do' => true, 'url' => '/']];
                 }
                 else if($err == 1){
-                    http_response_code(401);
-                    echo Msg::ERR_USERPWDWRONG.'<br>';
                     return [
-                        C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_USERPWDWRONG.'<br>', 
+                        C::KEY_CODE => 401, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_USERPWDWRONG.'<br>', 
                         'redirect' => ['do' => true, 'url' => 'refresh:7;url=/']
                         ];
                 }
                 else if($err == 2){
-                    http_response_code(401);
                     return [
-                        C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_ACTIVEACCOUNT.'<br>', 
+                        C::KEY_CODE => 401, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_ACTIVEACCOUNT.'<br>', 
                         'redirect' => ['do' => true, 'url' => 'refresh:10;url=/']
                         ];
                 }
-                else{
-                    http_response_code(500);
-                    echo Msg::ERR_UNKNOWN.'<br>';
-                    return [
-                        C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNKNOWN.'<br>', 'redirect' => ['do' => false, 'url' => '']];
-                }
-            }catch(Exception $e){
-                http_response_code(500);
                 return [
-                    C::KEY_DONE => false, C::KEY_MESSAGE => $e->getMessage(), 'redirect' => ['do' => false, 'url' => '']];
+                    C::KEY_CODE => 500, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNKNOWN.'<br>', 'redirect' => ['do' => false, 'url' => '']];
+                
+            }catch(Exception $e){
+                return [
+                    C::KEY_CODE => 500,C::KEY_DONE => false, C::KEY_MESSAGE => $e->getMessage(), 'redirect' => ['do' => false, 'url' => '']];
             }
         }//if(isset($post['email'],$post['password']) && $post['email'] != '' && $post['password'] != ''){
-        
+        return [
+            C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_REQUIREDFIELDSNOTFILLED, 'redirect' => ['do' => false, 'url' => '']
+        ];
     }
 }
 ?>
