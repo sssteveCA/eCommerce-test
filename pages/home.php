@@ -35,7 +35,7 @@ HTML;
             <div class="header d-flex align-items-center py-2">
                 <h1 class="w-100 text-center">Accedi</h1>
             </div>
-            <form id="formLogin" method="post" action="funzioni/login.php">
+            <form id="formLogin" method="post" action="/login">
                 <div class="mb-1">
                     <label for="nome" class="form-label">Email</label>
                     <input type="email" id="email" class="form-control" name="email">

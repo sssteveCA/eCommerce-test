@@ -16,7 +16,7 @@ class Login{
         if(isset($post['email'],$post['password']) && $post['email'] != '' && $post['password'] != ''){
             try{
                 $dotenv = Dotenv::createImmutable(__DIR__."/../");
-                $dotenv->safeLoad();
+                $dotenv->load();
                 $dati = [
                     'campo' => 'email', 'email' => $post['email'],'password' => $post['password'], 'registrato' => '1'
                 ];

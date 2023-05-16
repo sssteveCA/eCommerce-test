@@ -16,6 +16,7 @@ require_once('vendor/autoload.php');
 var_dump($_SERVER);
 echo '</pre>'; */
 
+$ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == true);
 $logged = (isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true);
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -56,6 +57,9 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             echo $response[C::KEY_MESSAGE];
             echo '';
         }
+    }//if($uri == '/login'){
+    else if($uri == '/register'){
+        if($logged) header("Location: /");
     }
 }
 
