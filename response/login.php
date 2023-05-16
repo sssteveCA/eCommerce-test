@@ -30,7 +30,7 @@ class Login{
                     $_SESSION['utente'] = serialize($utente);
                     $_SESSION['logged'] = true;
                     return [
-                        C::KEY_CODE => 200,C::KEY_DONE => true, C::KEY_MESSAGE => "", 'redirect' => ['do' => true, 'url' => '/']];
+                        C::KEY_CODE => 200,C::KEY_DONE => true, C::KEY_MESSAGE => "", 'redirect' => ['do' => true, 'url' => 'Location: /']];
                 }
                 else if($err == 1){
                     return [

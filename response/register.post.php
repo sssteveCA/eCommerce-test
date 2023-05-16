@@ -33,8 +33,8 @@ class RegisterPost{
                                     $params = [
                                         'codAut' => $utente->getCodAut(),
                                         'indAtt' => dirname($url,2).'/attiva.php',
-                                        'indAttCod' => $params['indAtt'].'?codAut='.$params['codAut']
                                     ];
+                                    $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
                                     $headers = msg_headers();
                                     $message = msg_body($params);
                                     $from = "noreply@{$_ENV['HOSTNAME']}.lan";

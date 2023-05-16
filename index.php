@@ -52,8 +52,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 }
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $data = file_get_contents("php://input");
-    $post = json_decode($data,true);
+    if($_SERVER['CONTENT_TYPE'] == "application/x-www-form-urlencoded"){
+        $post = $_POST;
+    }
+    else{
+        $data = file_get_contents("php://input");
+        $post = json_decode($data,true);
+    }
     if($uri == '/login'){
         if($logged) header("Location: /");
         else{
