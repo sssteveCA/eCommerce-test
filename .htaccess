@@ -1,15 +1,15 @@
 Options -Indexes
 
-RedirectMatch 403 "/exceptions/.*"
-RedirectMatch 403 "/interfaces/.*"
-RedirectMatch 403 "/objects/.*"
-RedirectMatch 403 "/partials/.*"
-RedirectMatch 403 "/traits/.*"
-RedirectMatch 403 "/vendor/.*"
+#RedirectMatch 403 "/exceptions/.*"
+#RedirectMatch 403 "/interfaces/.*"
+#RedirectMatch 403 "/objects/.*"
+#RedirectMatch 403 "/partials/.*"
+#RedirectMatch 403 "/traits/.*"
+#RedirectMatch 403 "/vendor/.*"
 
 <FilesMatch "^\.">
-    Order deny,allow
-    Deny from all
+    #Order deny,allow
+    #Deny from all
 </FilesMatch>
 
 #deny access to .scss, .scss and .ts Typescript files

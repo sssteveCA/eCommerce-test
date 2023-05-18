@@ -6,11 +6,11 @@ use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarGuest;
 
 /**
- * The contacts for support page
+ * The contacts support page for guest users
  */
 class ContactsGuest{
 
-    public static function content(array $params){
+    public static function content(array $params): string{
         $html = <<<HTML
 <!DOCTYPE html>
 <html lang="it">
@@ -45,7 +45,11 @@ HTML;
                 <div>
                     Contattaci per avere maggiori informazioni o segnalarci un problema
                 </div>
-                <form id="fContatti" method="post" action="funzioni/mail.php">
+                <form id="fContatti" method="post" action="/contacts">
+                    <div>
+                        <label class="form-label" for="email">Email </label>
+                        <input type="email" id="email" class="form-control" name="email">
+                    </div>
                     <div>
                         <label class="form-label" for="oggetto">Oggetto </label>
                         <input type="text" id="oggetto" class="form-control" name="oggetto">

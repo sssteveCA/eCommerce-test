@@ -7,7 +7,7 @@ import { showDialogMessage } from '../functions/functions';
 export default class ContactRequest{
 
     //constants
-    private static CONTACT_URL = '/funzioni/mail.php';
+    private static CONTACT_URL = '/contacts';
 
     //errors
     public static ERR_NOCONTACTOBJECT = 1; //Contact object is null
@@ -17,9 +17,9 @@ export default class ContactRequest{
     private static ERR_MSG_DATAMISSED = "Una o più proprietà richieste non esistono";
     private static ERR_MSG_MAILNOTSENT = "Errore durante l'invio della mail. Riprovare più tardi e se il problema persiste contattare l'amministratore del sito";
 
-    _contact: Contact;
-    _errno: number;
-    _error: string | null;
+    private _contact: Contact;
+    private _errno: number;
+    private _error: string | null;
 
     constructor(contact: Contact){
         this._contact = contact;
@@ -90,10 +90,12 @@ export default class ContactRequest{
 
     //send support email Promise
     private async sendEmailPromise(): Promise<string>{
+        let body: string = `oggetto=${this._contact.subject}&messaggio=${this._contact.message}&ajax=${this._contact.ajax}`;
+        if(this._contact.email) body = `email=${this._contact.email}&${body}`;
         return await new Promise((resolve,reject) => {
             let param = {
                 method: 'POST',
-                body: `oggetto=${this.contact.subject}&messaggio=${this.contact.message}&ajax=${this.contact.ajax}`,
+                body: body,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

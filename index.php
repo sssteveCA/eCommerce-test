@@ -3,12 +3,14 @@
 use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
+use EcommerceTest\Response\ContactsPost;
 use EcommerceTest\Response\Login;
 use EcommerceTest\Response\RegisterPost;
 
@@ -36,14 +38,15 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo HomePageGuest::content(PageResources::HOME_GET_GUEST);
         } 
     }
-    else if($uri == '/contacts'){
+    else if($uri == '/contacts_1'){
         if($logged){
             $params = PageResources::CONTACTS_GET_LOGGED;
             $params['menu']['welcome'] = $_SESSION['welcome'];
             echo ContactsLogged::content($params);
         }
         else{
-            
+            $params = PageResources::CONTACTS_GET_GUEST;
+            echo ContactsGuest::content($params);
         }
     }
     else if($uri == '/recovery'){
@@ -70,7 +73,13 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $data = file_get_contents("php://input");
         $post = json_decode($data,true);
     }
-    if($uri == '/login'){
+    if($uri == '/contacts'){
+        $params = ['post' => $post, 'session' => $_SESSION];
+        $response = ContactsPost::content($params);
+        http_response_code($response[C::KEY_CODE]);
+        echo $response[C::KEY_MESSAGE];
+    }//if($uri == '/contacts'){
+    else if($uri == '/login'){
         if($logged) header("Location: /");
         else{
             ob_start();
@@ -80,7 +89,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($response['redirect']['do']) header($response['redirect']['url']);
             echo $response[C::KEY_MESSAGE];
         }
-    }//if($uri == '/login'){
+    }//else if($uri == '/login'){
     else if($uri == '/register'){
         if($logged) header("Location: /");
         else{

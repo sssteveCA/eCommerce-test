@@ -40,7 +40,7 @@ class NavbarLogged{
                     </ul>
                 </li>
                 <li id="contatti" class="nav-item flex-fill text-center">
-                    <a class="nav-link" href="/contatti.php">Contatti</a>
+                    <a class="nav-link" href="/contacts_1">Contatti</a>
                 </li>
 HTML;
         $exist = (file_exists(__DIR__."/../../privacy_policy.php") && file_exists(__DIR__."/../../cookie_policy.php") && file_exists(__DIR__."/../../terms.php"));
