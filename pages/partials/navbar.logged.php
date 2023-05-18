@@ -8,7 +8,7 @@ class NavbarLogged{
         $html = <<<HTML
 <nav id="container" class="navbar navbar-expand-md navbar-light bg-light">
     <div id="menu" class="container-fluid">
-        <a class="navbar-brand" href="#">{$params['menu']['welcome']}</a>
+        <a class="navbar-brand" href="#">{$params['session']['welcome']}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,7 +20,7 @@ class NavbarLogged{
                 <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-profile" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-profile">
-                        <li><a class="dropdown-item" href="/info.php">Informazioni</a></li>
+                        <li><a class="dropdown-item" href="/info">Informazioni</a></li>
                         <li><a class="dropdown-item" href="/edit.php">Modifica</a></li>
                     </ul>
                 </li>

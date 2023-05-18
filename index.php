@@ -8,6 +8,7 @@ use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
+use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
@@ -31,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if($uri == '/'){
         if($logged){
             $params = PageResources::HOME_GET_LOGGED;
-            $params['menu']['welcome'] = $_SESSION['welcome'];
+            $params['session'] = $_SESSION;
             echo HomePageLogged::content($params);
         }
         else{
@@ -41,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     else if($uri == '/contacts_1'){
         if($logged){
             $params = PageResources::CONTACTS_GET_LOGGED;
-            $params['menu']['welcome'] = $_SESSION['welcome'];
+            $params['session'] = $_SESSION;
             echo ContactsLogged::content($params);
         }
         else{
@@ -49,6 +50,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo ContactsGuest::content($params);
         }
     }
+    else if($uri == '/info'){
+        if($logged){
+            $params = PageResources::INFO_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo Info::content($params);
+        }
+        else echo ACCEDI1;   
+    }//else if($uri == '/info'){
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
         else{
