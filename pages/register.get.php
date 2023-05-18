@@ -3,6 +3,7 @@
 namespace EcommerceTest\Pages;
 
 use EcommerceTest\Pages\Partials\Footer;
+use EcommerceTest\Pages\Partials\NavbarGuest;
 
 /**
  * HTML register form class
@@ -34,6 +35,9 @@ HTML;
         $html .= <<<HTML
     </head>
     <body>
+HTML;
+        $html .= NavbarGuest::content();
+        $html .= <<<HTML
         <div class="my-container">
             <div class="header d-flex align-items-center py-2">
                 <h1 class="w-100 text-center">Registrati</h1>

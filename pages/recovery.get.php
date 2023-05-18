@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
+use EcommerceTest\Pages\Partials\NavbarGuest;
 
 /**
  * Password recovery form
@@ -33,6 +34,9 @@ HTML;
         $html .= <<<HTML
     </head>
     <body>
+HTML;
+        $html .= NavbarGuest::content();
+        $html .= <<<HTML
         <div id="indietro">
                 <a href="/"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
                 <a href="/">Indietro</a>
