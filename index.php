@@ -13,6 +13,7 @@ use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
+use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
 use EcommerceTest\Response\RegisterPost;
 
@@ -65,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $params['session'] = $_SESSION;
             echo Info::content($params);
         }
-        else echo ACCEDI1;   
+        else header("Location: /");
     }//else if($uri == '/info'){
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
@@ -98,6 +99,16 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
         else echo $response[C::KEY_MESSAGE];
     }//if($uri == '/contacts'){
+    else if($uri == '/edit/username'){
+        if($logged){
+            $params = ['post' => $post, 'session' => $_SESSION];
+            $response = EditUsername::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            else echo $response[C::KEY_MESSAGE];
+        }
+        else header("Location: /");
+    }//else if($uri == '/edit/username'){
     else if($uri == '/login'){
         if($logged) header("Location: /");
         else{
