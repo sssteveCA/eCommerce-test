@@ -21,7 +21,7 @@ class NavbarLogged{
                     <a id="navbar-profile" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-profile">
                         <li><a class="dropdown-item" href="/info">Informazioni</a></li>
-                        <li><a class="dropdown-item" href="/edit.php">Modifica</a></li>
+                        <li><a class="dropdown-item" href="/edit">Modifica</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown flex-fill text-center">
