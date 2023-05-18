@@ -1,10 +1,10 @@
 <?php
 
 use EcommerceTest\Interfaces\PageResources;
-use EcommerceTest\Pages\HomePage;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Pages\HomeLogged;
+use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo HomePageLogged::content($params);
         }
         else{
-            echo HomePage::content(PageResources::HOME_GET_GUEST);
+            echo HomePageGuest::content(PageResources::HOME_GET_GUEST);
         } 
     }
     else if($uri == '/recovery'){

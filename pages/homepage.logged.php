@@ -2,7 +2,7 @@
 
 namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
-use EcommerceTest\Pages\Partials\Navbar;
+use EcommerceTest\Pages\Partials\NavbarLogged;
 
 /**
  * Home page for logged users
@@ -36,7 +36,7 @@ HTML;
     </head>
     <body>
 HTML;
-    $html .= Navbar::content($params);
+    $html .= NavbarLogged::content($params);
     $html .= <<<HTML
         <div id="search" class="d-flex flex-column flex-sm-row flex-grow-1">
                 <form id="fSearch" class="flex-fill d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start align-items-center" method="get" action="ricerca.php">

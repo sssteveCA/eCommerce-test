@@ -5,7 +5,7 @@ namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Interfaces\Paths as P;
 
-class HomePage{
+class HomePageGuest{
 
     public static function content(array $params): string{
 
