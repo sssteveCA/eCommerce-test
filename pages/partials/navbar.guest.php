@@ -4,7 +4,7 @@ namespace EcommerceTest\Pages\Partials;
 
 class NavbarGuest{
 
-    public static function content(array $params): string{
+    public static function content(array $params = []): string{
         $html = <<<HTML
 <nav id="container" class="navbar navbar-expand-md navbar-light bg-light">
     <div id="menu" class="container-fluid">
