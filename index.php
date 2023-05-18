@@ -95,7 +95,8 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $params = ['post' => $post, 'session' => $_SESSION];
         $response = ContactsPost::content($params);
         http_response_code($response[C::KEY_CODE]);
-        echo $response[C::KEY_MESSAGE];
+        if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        else echo $response[C::KEY_MESSAGE];
     }//if($uri == '/contacts'){
     else if($uri == '/login'){
         if($logged) header("Location: /");
@@ -104,8 +105,11 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $params = ['post' => $post];
             $response = Login::content($params);
             http_response_code($response[C::KEY_CODE]);
-            if($response['redirect']['do']) header($response['redirect']['url']);
-            echo $response[C::KEY_MESSAGE];
+            if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            else{
+                if($response['redirect']['do']) header($response['redirect']['url']);
+                echo $response[C::KEY_MESSAGE];
+            } 
         }
     }//else if($uri == '/login'){
     else if($uri == '/register'){
