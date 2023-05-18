@@ -26,7 +26,6 @@ class RegisterGet{
         <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
         <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
         <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
-        <script type="module" src="{$params['paths']['js']['REL_DIALOG_MESSAGE_JS']}"></script>
         <script type="module" src="{$params['paths']['js']['REL_SUBSCRIBE_JS']}"></script>
 HTML;
         if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){

@@ -25,7 +25,6 @@ class HomePageLogged{
         <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
         <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
         <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
-        <script type="module" src="{$params['paths']['js']['REL_DIALOG_MESSAGE_JS']}"></script>
         <script type="module" src="{$params['paths']['js']['REL_LOGOUT_JS']}"></script>
         <script src="{$params['paths']['js']['REL_WELCOME_JS']}"></script>
 HTML;
