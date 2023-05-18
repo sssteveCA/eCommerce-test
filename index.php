@@ -3,6 +3,7 @@
 use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
@@ -34,6 +35,16 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         else{
             echo HomePageGuest::content(PageResources::HOME_GET_GUEST);
         } 
+    }
+    else if($uri == '/contacts'){
+        if($logged){
+            $params = PageResources::CONTACTS_GET_LOGGED;
+            $params['menu']['welcome'] = $_SESSION['welcome'];
+            echo ContactsLogged::content($params);
+        }
+        else{
+            
+        }
     }
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
