@@ -5,6 +5,8 @@ import DialogMessageInterface from "../dialog/dialogmessage.interface";
 export default class EditUserRequest{
     //constants
     private static EDITPROFILE_URL = '/funzioni/editProfile.php';
+    private static EDITUSERNAME_URL = '/edit/username';
+    private static EDITPASSWORD_URL = '/edit/password';
 
     //errors
     private static ERR_NOEDITUSEROBJECT = 1;
@@ -106,7 +108,7 @@ export default class EditUserRequest{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(EditUserRequest.EDITPROFILE_URL,params);
+            const response = fetch(EditUserRequest.EDITUSERNAME_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {
@@ -158,7 +160,7 @@ export default class EditUserRequest{
                     Accept: 'application/json'
                 }
             };
-            const response = fetch(EditUserRequest.EDITPROFILE_URL,params);
+            const response = fetch(EditUserRequest.EDITPASSWORD_URL,params);
             response.then(res => {
                 resolve(res.text());
             }).catch(err => {

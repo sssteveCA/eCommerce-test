@@ -13,6 +13,7 @@ use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
+use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
 use EcommerceTest\Response\RegisterPost;
@@ -99,6 +100,16 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
         else echo $response[C::KEY_MESSAGE];
     }//if($uri == '/contacts'){
+    else if($uri == '/edit/password'){
+        if($logged){
+            $params = ['post' => $post, 'session' => $_SESSION];
+            $response = EditPassword::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            else echo $response[C::KEY_MESSAGE];
+        }
+        else header("Location: /");
+    }//else if($uri == '/edit/password'){
     else if($uri == '/edit/username'){
         if($logged){
             $params = ['post' => $post, 'session' => $_SESSION];

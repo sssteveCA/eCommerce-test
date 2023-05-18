@@ -23,11 +23,7 @@ class EditPassword{
                         $dotenv = Dotenv::createImmutable(__DIR__."/../");
                         $dotenv->load();
                         $user = unserialize($params['session']['utente']);
-                        $data = [
-                            'campo' => 'username',
-                            'username' => $user->getUsername(),
-                            'registrato' => true,  
-                        ];
+                        $data = [ 'campo' => 'username', 'username' => $user->getUsername(), 'registrato' => true ];
                         $user = new Utente($data);
                         $errno = $user->getNumError();
                         if($errno == 0 || $errno == Ue::INCORRECTLOGINDATA){
