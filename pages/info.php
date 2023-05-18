@@ -5,6 +5,7 @@ use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarLogged;
+use Exception;
 
 /**
  * The logged account details
@@ -12,8 +13,76 @@ use EcommerceTest\Pages\Partials\NavbarLogged;
 class Info{
 
     public static function content(array $params): string{
+        try{
+                $dotenv = Dotenv::createImmutable(__DIR__);
+                $dotenv->load();
+                $user = unserialize($params['session']['utente']);
+                $data = [
+                    'nome'=> $user->getNome(), 'cognome'=> $user->getCognome(), 'nascita'=> $user->getNascita(), 'sesso'=> $user->getSesso(),
+                    'indirizzo'=> $user->getIndirizzo(), 'numero'=> $user->getNumero(), 'citta'=> $user->getCitta(), 'cap'=> $user->getCap(),
+                    'email'=> $user->getEmail(),
+                ];
+                $data['paypalMail'] = ($user->getPaypalMail() !== null)? $user->getPaypalMail() : '(Account non associato a nessuna mail business)';
+                $cId = $user->getClientId();
+                $clientId = "";
+                if($cId != null && preg_match(Utente::$regex['clientId'],$cId)){
+                    $clientId = <<<HTML
+<tr>
+    <th scope="row">ID Venditore</th>
+    <td>{$cId}</td>
+</tr>
+HTML;
+                }
+                $output = <<<HTML
+<div id="dati">
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th scope="row">Nome</th>
+                <td>{$data['nascita']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Cognome</th>
+                <td>{$data['cognome']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nascita</th>
+                <td>{$data['nascita']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Sesso</th>
+                <td>{$data['numero']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Indirizzo</th>
+                <td>{$data['indirizzo']}, {$data['numero']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Città</th>
+                <td>{$data['citta']}</td>
+            </tr>
+            <tr>
+                <th scope="row">CAP</th>
+                <td>{$data['cap']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Indirizzo email</th>
+                <td>{$data['email']}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email business</th>
+                <td>{$data['paypalMail']}</td>
+            </tr>
+            {$clientId}
+        </tbody>
+    </table>
+</div>
+HTML;
+        }catch(Exception $e){
+          $output = "";  
+        }
         $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->safeLoad();
+        $dotenv->load();
         $user = unserialize($params['session']['utente']);
         $data = [
             'nome'=> $user->getNome(), 'cognome'=> $user->getCognome(), 'nascita'=> $user->getNascita(), 'sesso'=> $user->getSesso(),
