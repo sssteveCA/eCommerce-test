@@ -18,22 +18,24 @@ use EcommerceTest\Response\ContactsPost;
 use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
+use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RegisterPost;
 
 session_start();
 
+require_once('interfaces/orderErrors.php');
 require_once('vendor/autoload.php');
 
 /* echo '<pre>';
 var_dump($_SERVER);
 echo '</pre>'; */
 
-$ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == true);
 $logged = (isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true);
 $uri = $_SERVER['REQUEST_URI'];
 
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    $ajax = (isset($_GET[C::KEY_AJAX]) && $_GET[C::KEY_AJAX] == true);
     if($uri == '/'){
         if($logged){
             $params = PageResources::HOME_GET_LOGGED;
@@ -79,6 +81,21 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
+    else if($uri = '/orders/all'){
+        if($logged){
+            $params = ['session' => $_SESSION];
+            $response = OrdersAll::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        }
+    }
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
         else{
@@ -103,6 +120,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $data = file_get_contents("php://input");
         $post = json_decode($data,true);
     }
+    $ajax = (isset($post[C::KEY_AJAX]) && $post[C::KEY_AJAX] == true);
     if($uri == '/contacts'){
         $params = ['post' => $post, 'session' => $_SESSION];
         $response = ContactsPost::content($params);
