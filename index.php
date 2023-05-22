@@ -4,6 +4,7 @@ use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\Edit;
@@ -46,6 +47,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         else{
             echo HomePageGuest::content(PageResources::HOME_GET_GUEST);
         } 
+    }
+    else if($uri == '/cart'){
+       if($logged){
+            $params = PageResources::CART_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo Cart::content($params);
+       }
+       else header("Location: /"); 
     }
     else if($uri == '/contacts_1'){
         if($logged){

@@ -28,7 +28,7 @@ class NavbarLogged{
                     <a id="navbar-orders" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordini</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-orders">
                         <li><a class="dropdown-item" href="/orders">I miei ordini</a></li>
-                        <li><a class="dropdown-item" href="/carrello.php">Carrello</a></li>
+                        <li><a class="dropdown-item" href="/cart">Carrello</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown flex-fill text-center">
