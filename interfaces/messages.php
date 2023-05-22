@@ -36,6 +36,7 @@ interface Messages{
     const ERR_EMAILSENDING2 = 'C\'è stato un errore durante l\'invio della mail. Riprova più tardi';
     const ERR_FORMINVALIDVALUE = 'Nessun valore valido inserito nel form';
     const ERR_GENDERINVALID = 'Il genere inserito non è valido';
+    const ERR_GUESTREQUIRED = 'Per poter eseguire questa operazione non devi aver fatto l\' accesso con un account';
     const ERR_INSERTIONFILENOTUPLOADED = 'Il file non è stato caricato';
     const ERR_INSERTIONNOTIMAGE = 'Il file caricato non è un\' immagine JPEG';
     const ERR_INSERTIONLIST = 'Errore durante il caricamento delle inserzioni dell\'utente';
@@ -65,6 +66,7 @@ interface Messages{
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
     const ERR_PWDWRONG = 'Password errata';
     const ERR_REQUIREDFIELDSNOTFILLED = 'Uno o più campi obbligatori non sono stati compilati';
+    const ERR_UNAUTHORIZED = 'Non disponi delle autorizzazioni necessarie per effettuare questa operazione';
     const ERR_UNKNOWN = 'Errore sconosciuto';
     const ERR_USERNOTUPDATED = 'ERRORE: Username non aggiornato';
     const ERR_USERPWDWRONG = 'Email o password non corretti';

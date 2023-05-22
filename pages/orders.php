@@ -4,6 +4,9 @@ namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarLogged;
 
+/**
+ * Ordered products page
+ */
 class Orders{
 
     public static function content(array $params): string{

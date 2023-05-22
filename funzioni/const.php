@@ -1,6 +1,6 @@
 <?php
 
-const ACCEDI1 = '<a href="index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+const ACCEDI1 = '<a href="/">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 const ACCEDI2 = '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 
 //MySQL

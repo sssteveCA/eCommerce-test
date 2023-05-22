@@ -3,6 +3,7 @@
 use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\Edit;
@@ -117,7 +118,13 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             else echo $response[C::KEY_MESSAGE];
         }
-        else header("Location: /");
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        }
     }//else if($uri == '/edit/password'){
     else if($uri == '/edit/username'){
         if($logged){
@@ -127,10 +134,22 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             else echo $response[C::KEY_MESSAGE];
         }
-        else header("Location: /");
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        }
     }//else if($uri == '/edit/username'){
     else if($uri == '/login'){
-        if($logged) header("Location: /");
+        if($logged){
+            if($ajax){
+                http_response_code(403);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_GUESTREQUIRED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            }
+            else header("Location: /");
+        } 
         else{
             ob_start();
             $params = ['post' => $post];
@@ -144,7 +163,13 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     }//else if($uri == '/login'){
     else if($uri == '/register'){
-        if($logged) header("Location: /");
+        if($logged){
+            if($ajax){
+                http_response_code(403);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_GUESTREQUIRED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            }
+            else header("Location: /");
+        }
         else{
             ob_start();
             $params = [ 'post' => $post ];
