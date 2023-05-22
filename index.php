@@ -18,6 +18,7 @@ use EcommerceTest\Response\ContactsPost;
 use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
+use EcommerceTest\Response\Order;
 use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RegisterPost;
 
@@ -81,6 +82,24 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
+    else if(preg_match('/^orders\/(\d+)$/',$uri,$matches)){
+        if($logged){
+            $params = [
+                'get' => [ 'idOrd' => $matches[1] ],
+                'session' => $_SESSION
+            ];
+            $response = Order::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        }
+    }//else if(preg_match('/^orders\/\\d+$/',$uri)){
     else if($uri = '/orders/all'){
         if($logged){
             $params = ['session' => $_SESSION];
