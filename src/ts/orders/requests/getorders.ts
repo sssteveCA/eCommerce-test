@@ -12,7 +12,7 @@ export default class GetOrders{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETORDERS_URL:string = '/funzioni/orderMan.php';
+    private static GETORDERS_URL:string = '/orders/all';
 
     //Error numbers
     public static ERR_FETCH:number = 1;
@@ -63,7 +63,7 @@ export default class GetOrders{
 
     private async getOrdersPromise(): Promise<string>{
         let response = await new Promise<string>((resolve,reject)=>{
-            fetch(GetOrders.GETORDERS_URL+'?oper='+this._operation).then(res => {
+            fetch(GetOrders.GETORDERS_URL+'?ajax=1').then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);
