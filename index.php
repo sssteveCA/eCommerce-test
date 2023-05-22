@@ -10,6 +10,7 @@ use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\Info;
+use EcommerceTest\Pages\Orders;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
@@ -69,6 +70,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }//else if($uri == '/info'){
+    else if($uri == '/orders'){
+        if($logged){
+            $params = PageResources::ORDERS_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo Orders::content($params);
+        }
+        else header("Location: /");
+    }
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
         else{
