@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
-    else if(preg_match('/^orders\/(\d+)$/',$uri,$matches)){
+    else if(preg_match('/^\/orders\/(\d+)/',$uri,$matches)){
         if($logged){
             $params = [
                 'get' => [ 'idOrd' => $matches[1] ],

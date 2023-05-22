@@ -141,6 +141,9 @@ trait UtenteConstructorTrait{
             throw new \Exception(Ue::EXC_TABLECREATION);
         }
         $this->id=isset($ingresso['id'])? $ingresso['id']:null;
+        $this->nome=isset($ingresso['nome'])? $ingresso['nome']:null;
+        $this->cognome=isset($ingresso['cognome'])? $ingresso['cognome']:null;
+        $this->nascita=isset($ingresso['nascita'])? $ingresso['nascita']:null;
         $this->email=isset($ingresso['email'])? $ingresso['email']:null;
         $this->username=isset($ingresso['username'])? $ingresso['username']:null;
         $this->password=isset($ingresso['password'])? password_hash($ingresso['password'],PASSWORD_DEFAULT):'';

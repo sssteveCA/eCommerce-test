@@ -22,12 +22,13 @@ class Order{
             $dotenv->load();
             $idOrd = $params['get']['idOrd'];
             if(isset($params['session']['ordini'][$idOrd])){
-                $order = new Ordine(['id' => $idOrd['id']]);
+                $user = unserialize($params['session']['utente']);
+                $order = new Ordine(['id' => $idOrd]);
                 if($order->getNumError() == 0){
                     $product = new Prodotto(['id' => $order->getIdp()]);
                     if($product->getNumError() == 0){
                         $seller_args = [
-                            'id' => $product->getId(),
+                            'id' => $product->getIdU(),
                             'registrato' => '1',
                         ];
                         $seller = new Utente($seller_args);

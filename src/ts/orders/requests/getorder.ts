@@ -9,7 +9,7 @@ export default class GetOrder{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static GETORDER_URL:string = '/funzioni/orderMan.php';
+    private static GETORDER_URL:string = '/orders';
 
     //Error numbers
     private static ERR_FETCH:number = 1;
@@ -42,7 +42,7 @@ export default class GetOrder{
         this._errno = 0;
         try{
             await this.getOrderPromise().then(res =>{
-                //console.log(res);
+                console.log(res);
                 let json: object = JSON.parse(res);
                 //console.log(json);
                 if(json[Constants.KEY_DONE] == true){
@@ -63,8 +63,8 @@ export default class GetOrder{
 
     private async getOrderPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject)=>{
-            let body_params:string = `?idOrd=${this._id_order}&oper=${this._operation}`;
-            fetch(GetOrder.GETORDER_URL+body_params).then(res => {
+            let body_params:string = `?ajax=1`;
+            fetch(`${GetOrder.GETORDER_URL}/${this._id_order}${body_params}`).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);
