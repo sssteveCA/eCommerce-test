@@ -15,6 +15,7 @@ use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\Orders;
+use EcommerceTest\Pages\PrivacyPolicyGuest;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
@@ -64,10 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $params['session'] = $_SESSION;
             echo ContactsLogged::content($params);
         }
-        else{
-            $params = PageResources::CONTACTS_GET_GUEST;
-            echo ContactsGuest::content($params);
-        }
+        else echo ContactsGuest::content(PageResources::CONTACTS_GET_GUEST);
     }
     else if($uri == '/cookie_policy'){
         if($logged){
@@ -75,10 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $params['session'] = $_SESSION;
             echo CookiePolicyLogged::content($params);
         }
-        else{
-            $params = PageResources::COOKIE_POLICY_GET_GUEST;
-            echo CookiePolicyGuest::content($params);
-        }
+        else echo CookiePolicyGuest::content(PageResources::COOKIE_POLICY_GET_GUEST);
     }
     else if($uri == '/edit'){
         if($logged){
@@ -136,6 +131,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             } 
             else header("Location: /");
         }
+    }
+    else if($uri == '/privacy_policy'){
+        if($logged){
+
+        }
+        else echo PrivacyPolicyGuest::content(PageResources::PRIVACY_POLICY_GET_GUEST);
     }
     else if($uri == '/recovery'){
         if($logged) header("Location: /");
