@@ -28,7 +28,7 @@ HTML;
             <li class="nav-item dropdown flex-fill text-center">
                 <a id="navbar-orders" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Informativa</a>
                 <ul class="dropdown-menu" aria-labelledby="navbar-orders">
-                    <li><a class="dropdown-item" href="/privacy_policy.php">Privacy Policy</a></li>
+                    <li><a class="dropdown-item" href="/privacy_policy">Privacy Policy</a></li>
                     <li><a class="dropdown-item" href="/cookie_policy">Cookie Policy</a></li>
                     <li><a class="dropdown-item" href="/terms.php">Termini del servizio</a></li>
                 </ul>

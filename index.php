@@ -16,6 +16,7 @@ use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\Orders;
 use EcommerceTest\Pages\PrivacyPolicyGuest;
+use EcommerceTest\Pages\PrivacyPolicyLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Response\ContactsPost;
@@ -117,7 +118,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             else header("Location: /");
         }
     }//else if(preg_match('/^orders\/\\d+$/',$uri)){
-    else if($uri = '/orders/all'){
+    else if($uri == '/orders/all'){
         if($logged){
             $params = ['session' => $_SESSION];
             $response = OrdersAll::content($params);
@@ -134,7 +135,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
     else if($uri == '/privacy_policy'){
         if($logged){
-
+            $params = PageResources::PRIVACY_POLICY_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo PrivacyPolicyLogged::content($params);
         }
         else echo PrivacyPolicyGuest::content(PageResources::PRIVACY_POLICY_GET_GUEST);
     }
