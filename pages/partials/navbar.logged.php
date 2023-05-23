@@ -52,7 +52,7 @@ HTML;
                 <ul class="dropdown-menu" aria-labelledby="navbar-orders">
                     <li><a class="dropdown-item" href="/privacy_policy">Privacy Policy</a></li>
                     <li><a class="dropdown-item" href="/cookie_policy">Cookie Policy</a></li>
-                    <li><a class="dropdown-item" href="/terms.php">Termini del servizio</a></li>
+                    <li><a class="dropdown-item" href="/terms">Termini del servizio</a></li>
                 </ul>
             </li>
         HTML;
