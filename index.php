@@ -20,6 +20,7 @@ use EcommerceTest\Pages\PrivacyPolicyLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Pages\TermsGuest;
+use EcommerceTest\Pages\TermsLogged;
 use EcommerceTest\Response\ContactsPost;
 use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
@@ -152,7 +153,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         
     }
     else if($uri == '/terms'){
-        if($logged){}
+        if($logged){
+            $params = PageResources::TERMS_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo TermsLogged::content($params);
+        }
         else echo TermsGuest::content(PageResources::TERMS_GET_GUEST);
     }
     else{

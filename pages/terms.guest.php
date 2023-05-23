@@ -20,15 +20,15 @@ class TermsGuest{
     <head>
         <title>Termini e condizioni</title>
         <meta charset="utf-8">
-	<link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
-	<link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
+	    <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
+	    <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
         <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}">
-	<link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}">
-	<script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
-        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
-	<script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
+	    <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}">
+	    <script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
         <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
         <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
 HTML;
         $html .= cookieBanner();
         $html .= <<<HTML

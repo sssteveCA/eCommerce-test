@@ -22,11 +22,11 @@ class PrivacyPolicyGuest{
 	<link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
         <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}">
 	<link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}">
-	<script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
-        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
 	<script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
         <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
         <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
 HTML;
         $html .= cookieBanner();
         $html .= <<<HTML
