@@ -7,6 +7,7 @@ use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
+use EcommerceTest\Pages\CookiePolicyGuest;
 use EcommerceTest\Pages\Edit;
 use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
@@ -65,6 +66,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         else{
             $params = PageResources::CONTACTS_GET_GUEST;
             echo ContactsGuest::content($params);
+        }
+    }
+    else if($uri == '/cookie_policy'){
+        if($logged){
+        }
+        else{
+            $params = PageResources::COOKIE_POLICY_GET_GUEST;
+            echo CookiePolicyGuest::content($params);
         }
     }
     else if($uri == '/edit'){
