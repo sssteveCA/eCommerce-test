@@ -8,6 +8,7 @@ use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\CookiePolicyGuest;
+use EcommerceTest\Pages\CookiePolicyLogged;
 use EcommerceTest\Pages\Edit;
 use EcommerceTest\Pages\HomeLogged;
 use EcommerceTest\Pages\HomePageGuest;
@@ -70,6 +71,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
     else if($uri == '/cookie_policy'){
         if($logged){
+            $params = PageResources::COOKIE_POLICY_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo CookiePolicyLogged::content($params);
         }
         else{
             $params = PageResources::COOKIE_POLICY_GET_GUEST;

@@ -1,16 +1,15 @@
 <?php
 
 namespace EcommerceTest\Pages;
-
 use EcommerceTest\Objects\Privacy\CookiePolicy;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarGuest;
 use EcommerceTest\Pages\Partials\NavbarLogged;
 
 /**
- * Cookie policy page for guest users
+ * Cookie policy page for logged users
  */
-class CookiePolicyGuest{
+class CookiePolicyLogged{
 
     public static function content(array $params): string{
         $html = <<<HTML
@@ -28,13 +27,14 @@ class CookiePolicyGuest{
 	<script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
         <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
         <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_LOGOUT_JS']}"></script>
 HTML;
         $html .= cookieBanner();
         $html .= <<<HTML
 	</head>
 	<body>
 HTML;
-        $html .= NavbarGuest::content();
+        $html .= NavbarLogged::content($params);
         $html .= CookiePolicy::getDocument();
         $html .= Footer::content();
         $html .= <<<HTML
