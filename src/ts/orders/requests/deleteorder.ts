@@ -7,7 +7,7 @@ export default class DeleteOrder{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static DELETEORDER_URL:string = '/funzioni/orderMan.php';
+    private static DELETEORDER_URL:string = '/orders';
 
     //Error numbers
     private static ERR_FETCH:number = 1;
@@ -49,8 +49,9 @@ export default class DeleteOrder{
 
     private async deleteOrderPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject)=>{
-            let body_params:string = `?idOrd=${this._id_order}&oper=${this._operation}`;
-            fetch(DeleteOrder.DELETEORDER_URL+body_params).then(res => {
+            fetch(`${DeleteOrder.DELETEORDER_URL}/${this._id_order}`,{
+                method: 'DELETE'
+            }).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);
