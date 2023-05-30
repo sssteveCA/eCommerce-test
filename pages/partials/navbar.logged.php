@@ -35,7 +35,7 @@ class NavbarLogged{
                     <a id="navbar-product" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prodotto</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-product">
                         <li><a class="dropdown-item" href="/">Cerca</a></li>
-                        <li><a class="dropdown-item" href="/crea.php">Crea inserzione</a></li>
+                        <li><a class="dropdown-item" href="/insertion">Crea inserzione</a></li>
                         <li><a class="dropdown-item" href="/inserzioni.php">Le mie inserzioni</a></li>
                     </ul>
                 </li>
