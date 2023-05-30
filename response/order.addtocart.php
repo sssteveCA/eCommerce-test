@@ -11,13 +11,12 @@ use Exception;
 class OrderAddToCart{
 
     public static function content(array $params): array{
-        $id = $params['get']['id'];
-        if(isset($params['session']['ordini'][$id])){
+        if(isset($params['put']['id']) && $params['put']['id'] != ''){
             try{
                 $dotenv = Dotenv::createImmutable(__DIR__."/../");
                 $dotenv->load();
                 $user = unserialize($params['session']['utente']);
-                $order = new Ordine(array('id' => $id));
+                $order = new Ordine(array('id' => $params['put']['id']));
                 if($order->getNumError() == 0){
                     if(!$order->isCarrello()){
                         $add = $order->addToCart($user->getUsername());
@@ -38,7 +37,7 @@ class OrderAddToCart{
                     C::KEY_CODE => 500, C::KEY_DONE => false, C::KEY_MESSAGE => M::ERR_ORDERADDTOCART,
                 ];
             }
-        }//if(isset($params['session']['ordini'][$id])){
+        }//if(isset($params['put']['id']) && $params['put']['id'] != ''){
         return [
             C::KEY_CODE => 404, C::KEY_DONE => false, C::KEY_MESSAGE => M::ERR_ORDERINVALID
         ];

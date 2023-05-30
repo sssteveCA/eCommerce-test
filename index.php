@@ -28,6 +28,7 @@ use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
 use EcommerceTest\Response\Order;
+use EcommerceTest\Response\OrderAddToCart;
 use EcommerceTest\Response\OrderDelete;
 use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RegisterPost;
@@ -43,7 +44,6 @@ echo '</pre>'; */
 
 $logged = (isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true);
 $uri = $_SERVER['REQUEST_URI'];
-
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $ajax = (isset($_GET[C::KEY_AJAX]) && $_GET[C::KEY_AJAX] == true);
@@ -273,11 +273,32 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 
-else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+else if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+    $data = file_get_contents("php://input");
+    $put = json_decode($data,true);
+    $ajax = (isset($put[C::KEY_AJAX]) && $put[C::KEY_AJAX] == true);
+    if($uri == '/orders/addtocart'){
+        if($logged){
+            $params = ['put' => $put, 'session' => $_SESSION];
+            $response = OrderAddToCart::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        } 
+    }//if($uri == '/orders/addtocart'){
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
     $ajax = (isset($_GET[C::KEY_AJAX]) && $_GET[C::KEY_AJAX] == true);
     if(preg_match('/^\/orders\/(\d+)/',$uri,$matches)){
         if($logged){
-            $params = [ 'get' => ['id' => $matches[1]], 'session' => $_SESSION ];
+            $params = [ 'delete' => ['id' => $matches[1]], 'session' => $_SESSION ];
             $response = OrderDelete::content($params);
             http_response_code($response[C::KEY_CODE]);
             if($response[C::KEY_DONE]) unset($_SESSION['ordini']);
@@ -290,9 +311,8 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
             } 
             else header("Location: /");
         } 
-    }//else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
+    }//else if(preg_match('/^\/orders\/(\d)/',$uri,$matches)){
 }
-
 
 
 ?>

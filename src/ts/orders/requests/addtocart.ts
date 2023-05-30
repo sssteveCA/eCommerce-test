@@ -7,7 +7,7 @@ export default class AddToCart{
     private _errno: number = 0;
     private _error: string|null = null;
    
-    private static ADDTOCART_URL:string = '/funzioni/orderMan.php';
+    private static ADDTOCART_URL:string = '/orders/addtocart';
 
     //Error numbers
     private static ERR_FETCH:number = 1;
@@ -61,8 +61,10 @@ export default class AddToCart{
 
     private async AddToCartPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject)=>{
-            let body_params:string = `?idOrd=${this._id_order}&oper=${this._operation}`;
-            fetch(AddToCart.ADDTOCART_URL+body_params).then(res => {
+            fetch(AddToCart.ADDTOCART_URL,{
+                method: 'PUT',
+                body: JSON.stringify({id: this._id_order})
+            }).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);
