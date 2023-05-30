@@ -4,6 +4,7 @@ namespace EcommerceTest\Pages;
 use Dotenv\Dotenv;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarLogged;
+use EcommerceTest\Interfaces\Messages as M;
 use Exception;
 
 /**
@@ -40,8 +41,8 @@ HTML;
 HTML;
         $html .= NavbarLogged::content($params);
         try{
-            $dotenv = Dotenv::createImmutable(__DIR__);
-            $dotenv->safeLoad();
+            $dotenv = Dotenv::createImmutable(__DIR__."/../");
+            $dotenv->load();
             $user = unserialize($params['session']['utente']);
             if($user->getPaypalMail() !== null && $user->getPaypalMail() != ''){
                 $html .= <<<HTML
@@ -144,15 +145,14 @@ HTML;
 HTML;
             }//if($user->getPaypalMail() !== null && $user->getPaypalMail() != ''){
             else $html .= <<<HTML
-        <div class="error-message">Per caricare un\' inserzione, collega il tuo account ad una mail Paypal</div>
+        <p class="error">Per caricare un' inserzione, collega il tuo account ad una mail Paypal</p>
 HTML;
         }catch(Exception $e){
+            $message = M::ERR_PAGERROR;
             $html .= <<<HTML
-        <div class="error-message">Si è verificato un errore durante il caricamento della pagina</div>
+        <p class="error">{$message}</p>
 HTML;
         }
-        $html .= <<<HTML
-HTML;
         $html .= Footer::content();
         $html .= <<<HTML
     </body>

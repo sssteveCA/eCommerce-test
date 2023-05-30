@@ -56,6 +56,7 @@ interface Messages{
     const ERR_ORDERINVALID = 'Ordine non valido';
     const ERR_ORDERINVALIDAMOUNT = 'Quantità non valida';
     const ERR_ORDERINVALIDDATA = 'Impossibile aggiungere l\' ordine al carrello perché uno o più dati passati non sono validi';
+    const ERR_PAGERROR = 'Si è verificato un errore durante il caricamento della pagina';
     const ERR_PERSONALDATANOTUPDATED = 'ERRORE: Dati personali non aggiornati';
     const ERR_PRODINVALID = 'Nessun prodotto valido specificato';
     const ERR_PRODNOTDELETED = 'Prodotto non cancellato';
