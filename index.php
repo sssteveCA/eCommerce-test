@@ -121,20 +121,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
-    else if(preg_match('/^\/orders\/delete\/(\d+)/',$uri,$matches)){
-        if($logged){
-            $params = [ 'get' => ['id' => $matches[1]], 'session' => $_SESSION ];
-            $response = OrderDelete::content($params);
-            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-        }
-        else{
-            if($ajax){
-                http_response_code(401);
-                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
-            } 
-            else header("Location: /");
-        } 
-    }//else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
     else if(preg_match('/^\/orders\/(\d+)/',$uri,$matches)){
         if($logged){
             $params = [
@@ -288,9 +274,23 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-    if($uri == '/delete'){
-        echo 'delete';
-    }
+    $ajax = (isset($_GET[C::KEY_AJAX]) && $_GET[C::KEY_AJAX] == true);
+    if(preg_match('/^\/orders\/(\d+)/',$uri,$matches)){
+        if($logged){
+            $params = [ 'get' => ['id' => $matches[1]], 'session' => $_SESSION ];
+            $response = OrderDelete::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            if($response[C::KEY_DONE]) unset($_SESSION['ordini']);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        } 
+    }//else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
 }
 
 
