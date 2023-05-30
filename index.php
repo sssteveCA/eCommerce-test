@@ -121,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
-    else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
+    else if(preg_match('/^\/orders\/delete\/(\d+)/',$uri,$matches)){
         if($logged){
             $params = [ 'get' => ['id' => $matches[1]], 'session' => $_SESSION ];
             $response = OrderDelete::content($params);
