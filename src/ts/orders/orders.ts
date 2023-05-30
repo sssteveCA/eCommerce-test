@@ -1,3 +1,4 @@
+import { error } from "../functions/functions";
 import GetOrdersInterface from "./interfaces/getorders.interface";
 import TableBuilderInterface from "./interfaces/table_builder.interface";
 import { Operations, TableEventsInterface } from "./interfaces/table_events.interface";
@@ -25,6 +26,7 @@ export function getOrders(){
                 table(tb_data);
                 break;
             case GetOrders.ERR_FETCH:
+                error('ordiniT','Errore durante il caricamento degli ordini')
                 break;
         }
     });
