@@ -28,6 +28,7 @@ use EcommerceTest\Response\EditPassword;
 use EcommerceTest\Response\EditUsername;
 use EcommerceTest\Response\Login;
 use EcommerceTest\Response\Order;
+use EcommerceTest\Response\OrderDelete;
 use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RegisterPost;
 
@@ -112,18 +113,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }//else if($uri == '/insertions'){
-    else if(preg_match('/^\/insertions\/delete\/(\d)/',$uri,$matches)){
-        if($logged){
-            
-        }
-        else{
-            if($ajax){
-                http_response_code(401);
-                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
-            } 
-            else header("Location: /");
-        } 
-    }
     else if($uri == '/orders'){
         if($logged){
             $params = PageResources::ORDERS_GET_LOGGED;
@@ -132,6 +121,20 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }
+    else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
+        if($logged){
+            $params = [ 'get' => ['id' => $matches[1]], 'session' => $_SESSION ];
+            $response = OrderDelete::content($params);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        } 
+    }//else if(preg_match('/^\/orders\/delete\/(\d)/',$uri,$matches)){
     else if(preg_match('/^\/orders\/(\d+)/',$uri,$matches)){
         if($logged){
             $params = [

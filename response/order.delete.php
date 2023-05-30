@@ -14,7 +14,7 @@ class OrderDelete{
             $dotenv = Dotenv::createImmutable(__DIR__."/../");
             $dotenv->load();
             $user = unserialize($params['session']['utente']);
-            $order = new Ordine(array('id' => $_GET['idOrd']));
+            $order = new Ordine(array('id' => $params['get']['idOrd']));
             $ok = $order->cancOrdine($user->getUsername());
             if($ok)
                 return [
