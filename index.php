@@ -15,6 +15,7 @@ use EcommerceTest\Pages\HomePageGuest;
 use EcommerceTest\Pages\HomePageLogged;
 use EcommerceTest\Pages\Info;
 use EcommerceTest\Pages\Insertion;
+use EcommerceTest\Pages\Insertions;
 use EcommerceTest\Pages\Orders;
 use EcommerceTest\Pages\PrivacyPolicyGuest;
 use EcommerceTest\Pages\PrivacyPolicyLogged;
@@ -103,6 +104,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }//else if($uri == '/insertion'){
+    else if($uri == '/insertions'){
+        if($logged){
+            $params = PageResources::INSERTIONS_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo Insertions::content($params);
+        }
+        else header("Location: /");
+    }//else if($uri == '/insertions'){
     else if($uri == '/orders'){
         if($logged){
             $params = PageResources::ORDERS_GET_LOGGED;

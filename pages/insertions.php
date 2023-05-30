@@ -22,19 +22,18 @@ class Insertions{
     <head>
     <title>Le mie inserzioni</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="{$data['insertions_css']}">
-        <link rel="stylesheet" href="{$data['bootstrap_css']}">
-        <link rel="stylesheet" href="{$data['jquery_css']}">
-        <link rel="stylesheet" href="{$data['jquerytheme_css']}" >
-        <link rel="stylesheet" href="{$data['footer_css']}" >
-        <script src="{$data['jquery_js']}"></script>
-        <script src="{$data['jqueryUi_js']}"></script>
-        <script src="{$data['popper_js']}"></script>
-        <script src="{$data['bootstrap_js']}"></script>
-        <script src="{$data['footer_js']}"></script>
-        <script type="module" src="{$data['dialog_message_js']}"></script>
-        <script type="module" src="{$data['logout_js']}"></script>
-        <script src="{$data['insertions_js']}"></script>
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_INSERTIONS_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERY_CSS']}">
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_JQUERYTHEME_CSS']}" >
+        <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}" >
+        <script src="{$params['paths']['js']['REL_JQUERY_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_JQUERYUI_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_POPPER_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_FOOTER_JS']}"></script>
+        <script type="module" src="{$params['paths']['js']['REL_LOGOUT_JS']}"></script>
+        <script src="{$params['paths']['js']['REL_INSERTIONS_JS']}"></script>
 HTML;
     if(file_exists('../partials/privacy.php') && is_file('../partials/privacy.php')){
         $html .= call_user_func('cookieBanner');
@@ -95,7 +94,7 @@ SQL;
                 <button type="submit" class="btn btn-info">DETTAGLI</button>
             </form>
         </td>
-        HTML;
+HTML;
                     $productsHtml .= '</tr>';
                     }//foreach($idList as $id){
                     $result =<<<HTML
@@ -113,9 +112,12 @@ SQL;
                 {$productsHtml}
             </tbody>
         </table>
-        HTML;
+HTML;
                 }catch(Exception $e){
-                    $result = '<p class="error">'.$e->getMessage().'</p>';
+                    $message = M::ERR_PAGERROR;
+                    $result = <<<HTML
+                <p class="error">{$message}</p>
+HTML;
                 }
             }//if(!empty($idList)){  
             else
