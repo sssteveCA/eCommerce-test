@@ -50,6 +50,8 @@ interface Messages{
     const ERR_NOINSERTIONUPLOADED = 'Non hai caricato alcun annuncio';
     const ERR_NOOPERATION = 'Nessuna operazione selezionata';
     const ERR_NOTLOGGED = 'Non sei collegato';
+
+    const ERR_ORDERADDTOCART = 'Impossibile aggiungere l\' ordine al carrello';
     const ERR_ORDERALREALDYCART = 'Ordine già presente nel carrello';
     const ERR_ORDERAMOUNTNOTPDATED = 'Errore durante l\' aggiornamento della quantità';
     const ERR_ORDERDELETE = 'Errore durante la cancellazione dell\' ordine';
