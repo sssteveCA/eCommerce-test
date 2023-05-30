@@ -33,3 +33,11 @@ $initial-container-top: 30px;
     }
     
 }
+
+@mixin p-message-style($p-class,$p-props){
+    p.#{$p-class}{
+        @each $prop, $val in $p-props{
+            #{$prop}: #{$val}
+        }
+    }
+}

@@ -1,5 +1,7 @@
 @use '../modules/globals';
+@import '../partials/global';
 @import './variables';
 
 @include globals.single-selectors-loop($single-selectors);
 @include globals.compound-selectors-loop($compound-selectors);
+@include p-message-style('error',$par-message);

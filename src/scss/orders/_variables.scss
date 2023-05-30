@@ -43,3 +43,11 @@ $compound-selectors: (
         display: block
     )
 );
+
+$par-message: (
+    color: red,
+    font-size: 1.2rem,
+    font-weight: bolder,
+    margin: 15px 0px,
+    text-align: center
+);
