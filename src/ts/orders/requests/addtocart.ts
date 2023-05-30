@@ -63,6 +63,9 @@ export default class AddToCart{
         return await new Promise<string>((resolve,reject)=>{
             fetch(AddToCart.ADDTOCART_URL,{
                 method: 'PUT',
+                headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({id: this._id_order})
             }).then(res => {
                 resolve(res.text());

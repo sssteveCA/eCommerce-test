@@ -8,7 +8,7 @@ export default class EditQuantity{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static EDITQUANTITY_URL:string = '/funzioni/orderMan.php';
+    private static EDITQUANTITY_URL:string = '/orders/editquantity';
 
     //Error numbers
     public static ERR_FETCH:number = 1;
@@ -64,8 +64,15 @@ export default class EditQuantity{
 
     public async editQuantityPromise(): Promise<string>{
         return await new Promise<string>((resolve,reject) => {
-            let body_params: string = `?idOrd=${this._id_order}&oper=${this._operation}&quantita=${this._quantity}`;
-            fetch(EditQuantity.EDITQUANTITY_URL+body_params).then(res => {
+            fetch(EditQuantity.EDITQUANTITY_URL,{
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: this._id_order, quantity: this._quantity
+                })
+            }).then(res => {
                 resolve(res.text());
             }).catch(err => {
                 reject(err);

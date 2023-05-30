@@ -30,6 +30,7 @@ use EcommerceTest\Response\Login;
 use EcommerceTest\Response\Order;
 use EcommerceTest\Response\OrderAddToCart;
 use EcommerceTest\Response\OrderDelete;
+use EcommerceTest\Response\OrderEditQuantity;
 use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RegisterPost;
 
@@ -292,6 +293,21 @@ else if($_SERVER['REQUEST_METHOD'] == 'PUT'){
             else header("Location: /");
         } 
     }//if($uri == '/orders/addtocart'){
+    else if($uri == '/orders/editquantity'){
+        if($logged){
+            $params = ['put' => $put, 'session' => $_SESSION];
+            $response = OrderEditQuantity::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        }
+    }//else if($uri == '/orders/editquantity'){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
