@@ -112,6 +112,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }//else if($uri == '/insertions'){
+    else if(preg_match('/^\/insertions\/delete\/(\d)/',$uri,$matches)){
+        if($logged){
+            
+        }
+        else{
+            if($ajax){
+                http_response_code(401);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_UNAUTHORIZED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); 
+            } 
+            else header("Location: /");
+        } 
+    }
     else if($uri == '/orders'){
         if($logged){
             $params = PageResources::ORDERS_GET_LOGGED;
@@ -269,6 +281,12 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 echo $response[C::KEY_MESSAGE];
             }
         }
+    }
+}
+
+else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+    if($uri == '/delete'){
+        echo 'delete';
     }
 }
 

@@ -52,6 +52,7 @@ interface Messages{
     const ERR_NOTLOGGED = 'Non sei collegato';
     const ERR_ORDERALREALDYCART = 'Ordine già presente nel carrello';
     const ERR_ORDERAMOUNTNOTPDATED = 'Errore durante l\' aggiornamento della quantità';
+    const ERR_ORDERDELETE = 'Errore durante la cancellazione dell\' ordine';
     const ERR_ORDERDELETEINVALIDID = 'Impossibile eliminare l\' ordine dal carrello perché l\'id non è valido';
     const ERR_ORDERINVALID = 'Ordine non valido';
     const ERR_ORDERINVALIDAMOUNT = 'Quantità non valida';
