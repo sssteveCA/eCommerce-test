@@ -7,6 +7,7 @@ use EcommerceTest\Objects\Utente;
 use EcommerceTest\Pages\Partials\NavbarGuest;
 use Exception;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Pages\Partials\Footer;
 
 /**
  * HTML reset form class
@@ -49,14 +50,65 @@ HTML;
                 $time = time()-C::GENERATED_LINK_TIME;
                 $user = new Utente([]);
                 $exists = $user->Exists("`cambioPwd` = '$codReset' AND `dataCambioPwd` >= '$time'");
-                if($exists == 1){
-
-                }
+                if($exists == 1)
+                    $html .= static::getPasswordRecoveryForm($codReset);
+                else $html .= "Codice non valido";
             }catch(Exception $e){
-
+                $html .= "Errore sconosciuto";
             }
         }
-        return "";
+        else $html .= 'Formato codice non corretto';
+        $html .= Footer::content();
+        return $html;
+    }
+
+    /**
+     * Get the password recovery form HTML
+     * @param string $codReset
+     * @return string
+     */
+    private static function getPasswordRecoveryForm(string $codReset): string{
+        return <<<HTML
+<fieldset id="f1">
+    <legend>Recupero password</legend>
+    <h2>Inserisci la nuova password</h2>
+    <form action="funzioni/pRecovery.php" method="post" id="fRecupera">
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-12 col-md-5 col-lg-3">
+                    <label for="nuova" class="form-label">Nuova password</label>
+                </div>
+                <div class="col-12 col-md-7 col-lg-9 mt-2 mt-md-0">
+                    <input type="password" id="nuova" class="form-control" name="nuova">
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12 col-md-5 col-lg-3">
+                    <label for="confNuova" class="form-label">Conferma nuova password</label>
+                </div>
+                <div class="col-12 col-md-7 col-lg-9 mt-2 mt-md-0">
+                    <input type="password" id="confNuova" class="form-control" name="confNuova">
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12">
+                    <input type="checkbox" id="showPass" class="form-check-input">
+                    <label for="showPass" class="ms-2">Mostra password</label>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <button type="submit" id="conferma" class="btn btn-primary">CONFERMA</button>
+                    <div id="spinner" class="spinner-border ms-2 invisible" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="chiave" name="chiave" value="{$codReset}">
+    </form>
+</fieldset>
+HTML;
     }
 }
 ?>
