@@ -45,6 +45,56 @@ HEADER;
         }//if(isset($post['email']) && $post['email'] != ''){
         return [];
     }
+
+    private static function getMailParts(array $env,$resetAddrCode): array{
+        return [
+            'headers' => <<<HEADER
+From: Admin <noreply@{$env['HOSTNAME']}.lan>
+Reply-to: noreply@{$env['HOSTNAME']}.lan
+Content-type: text/html
+MIME-Version: 1.0
+HEADER,
+            'body' => <<<HTML
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title>Recupera password</title>
+        <meta charset="utf-8">
+        <style>
+            body{
+                display: flex;
+                justify-content: center;
+            }
+            div#pagina{
+                background-color: cyan;
+                padding: 40px;
+            }
+            div#account{
+                background-color: lime;
+                padding: 20px;
+            }
+            p{
+                margin: 10px;
+            }
+            p#messaggio{
+                font-size: 20px;
+                font-weight: bold;
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="pagina">
+            <p id="messaggio">Gentile utente, fai click sul link sottostante per reimpostare la password</p>
+            <div id="account">
+                    <p id="link"><a href="{$resetAddrCode}">{$resetAddrCode}</a></p>                   
+            </div>
+        </div>
+    </body>
+</html>
+HTML
+        ];
+    }
 }
 
 ?>
