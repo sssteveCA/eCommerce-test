@@ -6,6 +6,7 @@ interface Constants{
 
     //Cookie
     const COOKIE_PREFERENCE_TIME = 3600;
+    const GENERATED_LINK_TIME = 3600;
 
     //Keys
     const KEY_AJAX = 'ajax';
