@@ -21,6 +21,7 @@ use EcommerceTest\Pages\PrivacyPolicyGuest;
 use EcommerceTest\Pages\PrivacyPolicyLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
+use EcommerceTest\Pages\ResetGet;
 use EcommerceTest\Pages\TermsGuest;
 use EcommerceTest\Pages\TermsLogged;
 use EcommerceTest\Response\ContactsPost;
@@ -176,6 +177,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if($logged) header("Location: /");
         else echo RegisterGet::content(PageResources::REGISTER_GET_GUEST);
         
+    }
+    else if(preg_match('/^\/reset\/[a-z0-9]{50,150}$/i',$uri)){
+        if($logged) header("Location: /");
+        else echo ResetGet::content(PageResources::RESET_GET_GUEST);
     }
     else if($uri == '/terms'){
         if($logged){
