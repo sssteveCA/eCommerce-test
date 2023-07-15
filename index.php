@@ -32,6 +32,7 @@ use EcommerceTest\Response\OrderAddToCart;
 use EcommerceTest\Response\OrderDelete;
 use EcommerceTest\Response\OrderEditQuantity;
 use EcommerceTest\Response\OrdersAll;
+use EcommerceTest\Response\RecoveryPost;
 use EcommerceTest\Response\RegisterPost;
 
 session_start();
@@ -256,6 +257,22 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             } 
         }
     }//else if($uri == '/login'){
+    else if($uri = '/recovery'){
+        if($logged){
+           if($ajax){
+             http_response_code(403);
+             echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_GUESTREQUIRED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+           }
+           else header("Location: /");
+        }
+        else{
+            $params = ['post' => $post];
+            $response = RecoveryPost::content($params);
+            http_response_code($response[C::KEY_CODE]);
+            if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            else echo RecoveryPost::nonAjaxRequest($response[C::KEY_MESSAGE]);
+        }
+    }//else if($uri = '/recovery'){
     else if($uri == '/register'){
         if($logged){
             if($ajax){

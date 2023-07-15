@@ -5,6 +5,8 @@ namespace EcommerceTest\Response;
 use Dotenv\Dotenv;
 use EcommerceTest\Objects\Utente;
 use Exception;
+use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Interfaces\Messages as Msg;
 
 class RecoveryPost{
 
@@ -31,22 +33,37 @@ class RecoveryPost{
                 if($user->update($values,$where)){
                     $resetAddr = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset.php';
                     $resetAddrCode = $resetAddr.'?codReset='.$user->getCambioPwd();
-                    $headers = <<<HEADER
-From: Admin <noreply@{$_ENV['HOSTNAME']}.lan>
-Reply-to: noreply@{$_ENV['HOSTNAME']}.lan
-Content-type: text/html
-MIME-Version: 1.0
-HEADER;
+                    $mailParts = static::getMailParts($_ENV,$resetAddrCode);
+                    $send = $user->sendMail($user->getEmail(),'Recupero password',$mailParts['body'],$mailParts['headers'],"noreply@{$_ENV['HOSTNAME']}.lan");
+                    if($send){
+                        return [
+                            C::KEY_CODE => 200,
+                            C::KEY_MESSAGE => Msg::EMAILRECOVERY
+                        ];
+                    }
+                    throw new Exception(Msg::ERR_EMAILSENDING1);
                 }
+                throw new Exception($user->getStrError());
             }catch(Exception $e){
-
-            }
-            
+                return [
+                    C::KEY_CODE => 500,
+                    C::KEY_MESSAGE => $e->getMessage()
+                ];
+            } 
         }//if(isset($post['email']) && $post['email'] != ''){
-        return [];
+        return [
+            C::KEY_CODE => 400,
+            C::KEY_MESSAGE => Msg::ERR_EMAILINSERT
+        ];
     }
 
-    private static function getMailParts(array $env,$resetAddrCode): array{
+    /**
+     * Get the recovery mail header and body
+     * @param array $env
+     * @param string $resetAddrCode
+     * @return array
+     */
+    private static function getMailParts(array $env,string $resetAddrCode): array{
         return [
             'headers' => <<<HEADER
 From: Admin <noreply@{$env['HOSTNAME']}.lan>
@@ -94,6 +111,26 @@ HEADER,
 </html>
 HTML
         ];
+    }
+
+    /**
+     * HTML response for non AJAX requests
+     * @param string $message
+     * @return string
+     */
+    public static function nonAjaxRequest(string $message): string{
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title>Mail</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+{$message}
+    </body>
+</html>
+HTML;
     }
 }
 
