@@ -59,7 +59,7 @@ HTML;
         }//if($exist && $areFiles){
         $html .= <<<HTML
             <li id="logout" class="nav-item flex-fill text-center">
-                <a class="nav-link" href="/funzioni/logout.php">Esci</a>
+                <a class="nav-link" href="/logout">Esci</a>
             </li>
         </ul>
     </div>

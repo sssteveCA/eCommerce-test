@@ -114,7 +114,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else header("Location: /");
     }//else if($uri == '/insertions'){
-    else if($uri == '/orders'){
+    else if($uri == '/logout'){
+        unset($_SESSION['logged'],$_SESSION['welcome'],$_SESSION['utente']);
+        session_destroy();
+        header('location: /');
+    }else if($uri == '/orders'){
         if($logged){
             $params = PageResources::ORDERS_GET_LOGGED;
             $params['session'] = $_SESSION;
