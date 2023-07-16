@@ -2,6 +2,7 @@
 
 namespace EcommerceTest\Response;
 
+use Dotenv\Dotenv;
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Interfaces\PageResources;
@@ -21,6 +22,8 @@ class ResetPost{
         if(isset($post['chiave']) && preg_match($regex,$post['chiave'])){
             if(isset($post['nuova'],$post['confNuova']) && $post['nuova'] != '' && $post['confNuova'] != ''){
                 try{
+                    $dotenv = Dotenv::createImmutable(__DIR__."/../");
+                    $dotenv->load();
                     if($post['nuova'] == $post['confNuova']){
                         $data = [
                             'campo' => 'cambioPwd',

@@ -267,7 +267,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             } 
         }
     }//else if($uri == '/login'){
-    else if($uri = '/recovery'){
+    else if($uri == '/recovery'){
         if($logged){
            if($ajax){
              http_response_code(403);
@@ -314,7 +314,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         else{
             $params = ['post' => $post ];
             $response = ResetPost::content($params);
-            http_response_code(C::KEY_CODE);
+            http_response_code($response[C::KEY_CODE]);
             if($ajax)echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             else echo $response[C::KEY_HTML];
         }
