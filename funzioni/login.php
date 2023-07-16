@@ -30,7 +30,7 @@ if(isset($_POST['email'],$_POST['password']) && $_POST['email'] != '' && $_POST[
             else $_SESSION['welcome'] = $utente->getUsername();
             $_SESSION['utente'] = serialize($utente);
             $_SESSION['logged'] = true;
-            header('location: ../benvenuto.php');
+            header('location: ../');
         }
         else if($err == 1){
             http_response_code(401);

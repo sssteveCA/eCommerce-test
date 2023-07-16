@@ -7,7 +7,7 @@ use EcommerceTest\Interfaces\Constants as C;
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
     $response['title'] = 'Pagamento cancellato';
-    $response[C::KEY_MESSAGE] = 'La tua transazione Paypal è stata cancellata<br><a href="benvenuto.php">Torna alla pagina principale</a>;'
+    $response[C::KEY_MESSAGE] = 'La tua transazione Paypal è stata cancellata<br><a href="/">Torna alla pagina principale</a>;'
 ?>
 <?php
 }

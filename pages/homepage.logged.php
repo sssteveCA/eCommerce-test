@@ -38,7 +38,7 @@ HTML;
     $html .= NavbarLogged::content($params);
     $html .= <<<HTML
         <div id="search" class="d-flex flex-column flex-sm-row flex-grow-1">
-                <form id="fSearch" class="flex-fill d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start align-items-center" method="get" action="ricerca.php">
+                <form id="fSearch" class="flex-fill d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start align-items-center" method="get" action="/search">
                     <input type="text" id="ricerca" name="ricerca">
                     <input type="submit" id="submit" class="btn btn-primary" value="RICERCA">
                 </form>

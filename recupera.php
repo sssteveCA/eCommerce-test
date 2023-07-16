@@ -7,7 +7,7 @@ session_start();
 require_once("vendor/autoload.php");
 
 if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
-    header('location: benvenuto.php');
+    header('location: /');
 }
 //per il recupero della password non ci devono essere sessioni aperte
 else{

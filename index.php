@@ -22,6 +22,7 @@ use EcommerceTest\Pages\PrivacyPolicyLogged;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Pages\ResetGet;
+use EcommerceTest\Pages\SearchGet;
 use EcommerceTest\Pages\TermsGuest;
 use EcommerceTest\Pages\TermsLogged;
 use EcommerceTest\Response\ContactsPost;
@@ -48,6 +49,7 @@ echo '</pre>'; */
 
 $logged = (isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true);
 $uri = $_SERVER['REQUEST_URI'];
+$path = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : null;
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $ajax = (isset($_GET[C::KEY_AJAX]) && $_GET[C::KEY_AJAX] == true);
@@ -187,6 +189,17 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
            echo ResetGet::content($params); 
         } 
     }
+    else if($path != null && $path == '/search'){
+        if($logged){
+            $params = PageResources::SEARCH_GET_LOGGED;
+            $params['get'] = $_GET;
+            $params['session'] = $_SESSION;
+            $search = SearchGet::content($params);
+            http_response_code($search[C::KEY_CODE]);
+            echo $search[C::KEY_HTML];
+        }
+        else header("Location: /");
+    }//else if($uri == '/search'){
     else if($uri == '/terms'){
         if($logged){
             $params = PageResources::TERMS_GET_LOGGED;

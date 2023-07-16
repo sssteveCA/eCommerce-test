@@ -13,7 +13,7 @@ function menu($welcome){
         <div id="navbar-content" class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
                 <li id="home" class="nav-item flex-fill text-center">
-                    <a class="nav-link" href="benvenuto.php">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-profile" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
@@ -32,7 +32,7 @@ function menu($welcome){
                 <li class="nav-item dropdown flex-fill text-center">
                     <a id="navbar-product" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Prodotto</a>
                     <ul class="dropdown-menu" aria-labelledby="navbar-product">
-                        <li><a class="dropdown-item" href="benvenuto.php">Cerca</a></li>
+                        <li><a class="dropdown-item" href="/">Cerca</a></li>
                         <li><a class="dropdown-item" href="crea.php">Crea inserzione</a></li>
                         <li><a class="dropdown-item" href="inserzioni.php">Le mie inserzioni</a></li>
                     </ul>
@@ -90,7 +90,7 @@ function oldMenu($welcome){
             <div id="prodotto">
                 Prodotto
                 <div>
-                    <a href="benvenuto.php">Cerca</a>
+                    <a href="/">Cerca</a>
                     <a href="crea.php">Crea inserzione</a>
                     <a href="inserzioni.php">Le mie inserzioni</a>
                 </div>
