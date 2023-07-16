@@ -179,9 +179,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         else echo RegisterGet::content(PageResources::REGISTER_GET_GUEST);
         
     }
-    else if(preg_match('/^\/reset\/[a-z0-9]{50,150}$/i',$uri)){
+    else if(preg_match('/^\/reset\/([a-z0-9]{50,150})$/i',$uri,$matches)){
         if($logged) header("Location: /");
-        else echo ResetGet::content(PageResources::RESET_GET_GUEST);
+        else{
+           $params = PageResources::RESET_GET_GUEST;
+           $params['request'] = ['codReset' => $matches[1]];
+           echo ResetGet::content($params); 
+        } 
     }
     else if($uri == '/terms'){
         if($logged){
@@ -196,7 +200,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 }
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if($_SERVER['CONTENT_TYPE'] == "application/x-www-form-urlencoded"){
+    if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == "application/x-www-form-urlencoded"){
         $post = $_POST;
     }
     else{
