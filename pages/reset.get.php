@@ -72,7 +72,7 @@ HTML;
 <fieldset id="f1">
     <legend>Recupero password</legend>
     <h2>Inserisci la nuova password</h2>
-    <form action="funzioni/pRecovery.php" method="post" id="fRecupera">
+    <form action="/reset" method="post" id="fRecupera">
         <div class="container">
             <div class="row my-5">
                 <div class="col-12 col-md-5 col-lg-3">

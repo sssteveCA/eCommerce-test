@@ -35,6 +35,7 @@ use EcommerceTest\Response\OrderEditQuantity;
 use EcommerceTest\Response\OrdersAll;
 use EcommerceTest\Response\RecoveryPost;
 use EcommerceTest\Response\RegisterPost;
+use EcommerceTest\Response\ResetPost;
 
 session_start();
 
@@ -291,11 +292,27 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $params = [ 'post' => $post ];
             $response = RegisterPost::content($params);
             http_response_code($response[C::KEY_CODE]);
-            if($ajax) echo json_encode($response);
+            if($ajax) echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             else {
                 if($response['redirect']['do']) header($response['redirect']['url']);
                 echo $response[C::KEY_MESSAGE];
             }
+        }
+    }//else if($uri == '/register'){
+    else if($uri == '/reset'){
+        if($logged){
+            if($ajax){
+                http_response_code(403);
+                echo json_encode([C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_GUESTREQUIRED],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            }
+            else header("Location: /");
+        }
+        else{
+            $params = ['post' => $post ];
+            $response = ResetPost::content($params);
+            http_response_code(C::KEY_CODE);
+            if($ajax)echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            else echo $response[C::KEY_HTML];
         }
     }
 }

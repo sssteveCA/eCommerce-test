@@ -7,7 +7,7 @@ export default class ResetRequest{
     private _errno: number = 0;
     private _error: string|null = null;
 
-    private static RESET_URL:string = "/funzioni/pRecovery.php";
+    private static RESET_URL:string = "/reset";
 
     public static ERR_REQUEST:number = 1;
 
