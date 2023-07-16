@@ -4,7 +4,10 @@ namespace EcommerceTest\Response;
 
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Objects\Utente;
+use EcommerceTest\Pages\Partials\Footer;
+use EcommerceTest\Pages\Partials\NavbarGuest;
 use Exception;
 
 /**
@@ -67,18 +70,32 @@ class ResetPost{
      * @return string
      */
     private static function nonAjaxRequest(string $message): string{
-        return <<<HTML
+        $resources = PageResources::RESET_POST_GUEST;
+        $navbar = NavbarGuest::content();
+        $footer = Footer::content();
+        $html = <<<HTML
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <title>Recupero password</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="{$resources['paths']['css']['REL_BOOTSTRAP_CSS']}">
+        <link rel="stylesheet" href="{$resources['paths']['css']['REL_FOOTER_CSS']}">
+        <link rel="stylesheet" href="{$resources['paths']['css']['REL_JQUERY_CSS']}">
+        <link rel="stylesheet" href="{$resources['paths']['css']['REL_JQUERYTHEME_CSS']}">
+        <script src="{$resources['paths']['js']['REL_BOOTSTRAP_JS']}"></script>
+        <script src="{$resources['paths']['js']['REL_FOOTER_JS']}"></script>
+        <script src="{$resources['paths']['js']['REL_JQUERY_JS']}"></script>
+        <script src="{$resources['paths']['js']['REL_JQUERYUI_JS']}"></script>
     </head>
     <body>
+    {$navbar}
     {$message}
+    {$footer}
     </body>
 </html>
 HTML;
+        return $html;
     }
 }
 
