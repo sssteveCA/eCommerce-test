@@ -51,7 +51,7 @@ HTML;
                 $user = new Utente([]);
                 $exists = $user->Exists("`cambioPwd` = '$codReset' AND `dataCambioPwd` >= '$time'");
                 if($exists == 1)
-                    $html .= static::getPasswordRecoveryForm($codReset);
+                    $html .= self::getPasswordRecoveryForm($codReset);
                 else $html .= "Codice non valido";
             }catch(Exception $e){
                 $html .= "Errore sconosciuto";

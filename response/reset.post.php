@@ -29,40 +29,56 @@ class ResetPost{
                         ];
                         $user = new Utente($data);
                         if($user->getNumError() == 0){
-                            return [
-                                C::KEY_CODE => 200,
-                                C::KEY_DONE => true,
-                                C::KEY_MESSAGE => 'Password modificata'
-                            ];
+                            if($post[C::KEY_AJAX])
+                                return [ C::KEY_CODE => 200, C::KEY_DONE => true, C::KEY_MESSAGE => 'Password modificata' ];
+                            else
+                                return [ C::KEY_CODE => 200, C::KEY_DONE => true, C::KEY_HTML => self::nonAjaxRequest('Password modificata') ];
                         }
-                        return [
-                            C::KEY_CODE => 200,
-                            C::KEY_DONE => false,
-                            C::KEY_MESSAGE => $user->getStrError()
-                        ];
+                        if($post[C::KEY_AJAX])
+                            return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => $user->getStrError() ];
+                        else
+                            return [ C::KEY_CODE => 200, C::KEY_DONE => false, C::KEY_HTML => self::nonAjaxRequest($user->getStrError()) ];
                     }//if($post['nuova'] == $post['confNuova']){
-                    return [
-                        C::KEY_CODE => 400,
-                        C::KEY_DONE => false,
-                        C::KEY_MESSAGE => Msg::ERR_PWDNOTEQUAL
-                    ];
+                    if($post[C::KEY_AJAX])
+                        return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_PWDNOTEQUAL];
+                    else
+                        return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_HTML => self::nonAjaxRequest(Msg::ERR_PWDNOTEQUAL) ];
                 }catch(Exception $e){
-                    return [
-                        C::KEY_CODE => 500,
-                        C::KEY_DONE => false,
-                        C::KEY_MESSAGE => Msg::ERR_PWDRESET
-                    ];
+                    if($post[C::KEY_AJAX])
+                        return [ C::KEY_CODE => 500, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_PWDRESET ];
+                    else
+                        return [ C::KEY_CODE => 500, C::KEY_DONE => false, C::KEY_HTML => self::nonAjaxRequest(Msg::ERR_PWDRESET) ];
                 }
             }//if(isset($post['nuova'],$post['confNuova']) && $post['nuova'] != '' && $post['confNuova'] != ''){
-            return [
-                C::KEY_CODE => 400,
-                C::KEY_DONE => false,
-                C::KEY_MESSAGE => Msg::ERR_PWDNOTSETTED
-            ];
+            if($post[C::KEY_AJAX])
+                return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_PWDNOTSETTED ];
+            else
+                return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_HTML => self::nonAjaxRequest(Msg::ERR_PWDNOTSETTED) ];
         }//if(isset($post['chiave']) && preg_match($regex,$post['chiave'])){
-        return [
-            C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_CODEINVALD
-        ];
+        if($post[C::KEY_AJAX])
+            return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_MESSAGE => Msg::ERR_CODEINVALD ];
+        else
+            return [ C::KEY_CODE => 400, C::KEY_DONE => false, C::KEY_HTML => self::nonAjaxRequest(Msg::ERR_CODEINVALD) ];
+    }
+
+    /**
+     * HTML response for non AJAX requests
+     * @param string $message
+     * @return string
+     */
+    private static function nonAjaxRequest(string $message): string{
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title>Recupero password</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    {$message}
+    </body>
+</html>
+HTML;
     }
 }
 

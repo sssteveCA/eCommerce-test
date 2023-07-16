@@ -14,6 +14,7 @@ interface Constants{
     const KEY_CODE = 'code';
     const KEY_DONE = 'done';
     const KEY_EMPTY = 'empty';
+    const KEY_HTML = 'html';
     const KEY_MESSAGE = 'msg';
 }
 ?>

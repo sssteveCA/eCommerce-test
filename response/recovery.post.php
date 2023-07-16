@@ -33,7 +33,7 @@ class RecoveryPost{
                 if($user->update($values,$where)){
                     $resetAddr = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset';
                     $resetAddrCode = $resetAddr.'?codReset='.$user->getCambioPwd();
-                    $mailParts = static::getMailParts($_ENV,$resetAddrCode);
+                    $mailParts = self::getMailParts($_ENV,$resetAddrCode);
                     $send = $user->sendMail($user->getEmail(),'Recupero password',$mailParts['body'],$mailParts['headers'],"noreply@{$_ENV['HOSTNAME']}.lan");
                     if($send){
                         return [
