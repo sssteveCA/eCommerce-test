@@ -95,7 +95,7 @@ else{
             REQUEST_SCHEME = protocollo utilizzato
             SERVER_NAME = nome del sito da cui lo script è eseguito
             SCRIPT_NAME = percorso dello script in esecuzione  */
-            $indReset = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset.php';
+            $indReset = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset';
             //URL con il codice per reimpostare la password
             $indResetCod = $indReset.'?codReset='.$utente->getCambioPwd();
             //inserisce $codReset in 'cambioPwd nel campo 'email' che ha $email

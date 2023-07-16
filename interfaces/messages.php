@@ -68,6 +68,7 @@ interface Messages{
     const ERR_PWDNOTEQUAL = 'Le due password non coincidono';
     const ERR_PWDNOTSETTED = 'Nessuna password impostata';
     const ERR_PWDNOTUPDATED = 'ERRORE: password non aggiornata';
+    const ERR_PWDRESET = 'Errore durante la modifica della password';
     const ERR_PWDWRONG = 'Password errata';
     const ERR_REQUIREDFIELDSNOTFILLED = 'Uno o più campi obbligatori non sono stati compilati';
     const ERR_UNAUTHORIZED = 'Non disponi delle autorizzazioni necessarie per effettuare questa operazione';
