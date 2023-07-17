@@ -75,30 +75,7 @@ HTML;
                 $html .= self::buyForm($product,$price,$shipping);
             }//if($user->getId() != $product->getIdu()){
             else{
-                $html .= <<<HTML
-                <form id="elimina" method="post" action="funzioni/elimina.php">
-                    <div id="tipo" class="info">
-                        <!-- Categoria del prodotto -->
-                        Tipo: {$product->getTipo()} 
-                    </div>
-                    <div id="condizione">
-                        <!-- Condizione prodotto: nuovo,usato o non specificato -->
-                        Condizione : {$product->getCondizione()} 
-                    </div>
-                    <div id="prezzo" class="info">
-                        <!-- Prezzo in euro -->
-                        Prezzo: {$price}
-                    </div>
-                    <div id="spedizione" class="info">
-                        <!-- Spese di spedizione in euro -->
-                        Spese di spedizione: {$shipping} 
-                    </div>
-                    <div id="dCompra" class="info">
-                        <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
-                        <button type="submit" id="bElimina" class="btn btn-danger">ELIMINA</button>
-                    </div>
-                </form>
-HTML;
+                $html .= self::deleteForm($product,$price,$shipping);
             }
             $descriptionBr = nl2br($product->getDescrizione());
             $html .= <<<HTML
@@ -132,33 +109,7 @@ HTML;
     </div>
 HTML;
             if($user->getId() != $product->getIdu()){
-                $html .= <<<HTML
-        <div id="email" class="container">
-            <fieldset id="fEmail">
-                <legend>Contatta il venditore</legend>
-                <form id="formMail" method="post" action="funzioni/mail.php">
-                    <div>
-                        <label for="oggetto" class="form-label me-2">Oggetto </label>
-                        <input type="text" id="oggetto" class="form-control" name="pOggetto">
-                    </div>
-                    <div>
-                        <label for="messaggio" class="form-label me-2">Messaggio</label>
-                        <textarea id="messaggio" class="form-control" name="pMessaggio"></textarea>
-                    </div>
-                    <!--Indica il blocco di istruzioni che dovrà eseguire lo script php -->
-                    <input type="hidden" name="oper" value="<?php echo '3'; ?>">
-                    <!-- Destinatario mail -->
-                    <input type="hidden" id="emailTo" name="emailTo" value="<?php echo $seller->getEmail(); ?>">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-primary">CONTATTA</button>
-                        <div id="contacts-spinner" class="spinner-border ms-2 invisible" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </form>
-            </fieldset>
-        </div>
-HTML;
+                $html .= self::sellerEmail($seller);
             }//if($user->getId() != $product->getIdu()){
             $html .= Footer::content();
         $html .= <<<HTML
@@ -176,33 +127,90 @@ HTML;
 
     private static function buyForm(Prodotto $product, string $price, string $shipping): string{
         return <<<HTML
-        <form id="compra" method="post" action="compra.php">
-            <div id="tipo" class="info">
-                <!-- Categoria del prodotto -->
-                Tipo: {$product->getTipo()} 
+<form id="compra" method="post" action="compra.php">
+    <div id="tipo" class="info">
+        <!-- Categoria del prodotto -->
+        Tipo: {$product->getTipo()} 
+    </div>
+    <div id="condizione">
+        <!-- Condizione prodotto: nuovo,usato o non specificato -->
+        Condizione : {$product->getCondizione()} 
+    </div>
+    <div id="qt" class="info">
+        <!-- numero di prodotti che l'utente vuole comprare -->
+        <label for="iQt" class="form-label me-2">Quantità</label>
+        <input type="number" id="iQt" class="form-control" name="qt" value="1">
+    </div>
+    <div id="prezzo" class="info">
+        <!-- Prezzo in euro -->
+        Prezzo: {$price}
+    </div>
+    <div id="spedizione" class="info">
+        <!-- Spese di spedizione in euro -->
+        Spese di spedizione: {$shipping} 
+    </div>
+    <div id="dCompra" class="info">
+        <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
+        <button type="submit" id="bCompra" class="btn btn-primary">COMPRA</button>
+        </div>
+</form>
+HTML;
+    }
+
+    private static function deleteForm(Prodotto $product, string $price, string $shipping): string{
+        return <<<HTML
+<form id="elimina" method="post" action="funzioni/elimina.php">
+    <div id="tipo" class="info">
+        <!-- Categoria del prodotto -->
+        Tipo: {$product->getTipo()} 
+    </div>
+    <div id="condizione">
+        <!-- Condizione prodotto: nuovo,usato o non specificato -->
+        Condizione : {$product->getCondizione()} 
+    </div>
+    <div id="prezzo" class="info">
+        <!-- Prezzo in euro -->
+        Prezzo: {$price}
+    </div>
+    <div id="spedizione" class="info">
+        <!-- Spese di spedizione in euro -->
+        Spese di spedizione: {$shipping} 
+    </div>
+    <div id="dCompra" class="info">
+        <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
+        <button type="submit" id="bElimina" class="btn btn-danger">ELIMINA</button>
+    </div>
+</form>
+HTML;
+    }
+
+    private static function sellerEmail(Utente $seller){
+        return <<<HTML
+<div id="email" class="container">
+    <fieldset id="fEmail">
+        <legend>Contatta il venditore</legend>
+        <form id="formMail" method="post" action="funzioni/mail.php">
+            <div>
+                <label for="oggetto" class="form-label me-2">Oggetto </label>
+                <input type="text" id="oggetto" class="form-control" name="pOggetto">
             </div>
-            <div id="condizione">
-                <!-- Condizione prodotto: nuovo,usato o non specificato -->
-                Condizione : {$product->getCondizione()} 
+            <div>
+                <label for="messaggio" class="form-label me-2">Messaggio</label>
+                <textarea id="messaggio" class="form-control" name="pMessaggio"></textarea>
             </div>
-            <div id="qt" class="info">
-                <!-- numero di prodotti che l'utente vuole comprare -->
-                <label for="iQt" class="form-label me-2">Quantità</label>
-                <input type="number" id="iQt" class="form-control" name="qt" value="1">
-            </div>
-            <div id="prezzo" class="info">
-                <!-- Prezzo in euro -->
-                Prezzo: {$price}
-            </div>
-            <div id="spedizione" class="info">
-                <!-- Spese di spedizione in euro -->
-                Spese di spedizione: {$shipping} 
-            </div>
-            <div id="dCompra" class="info">
-                <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
-                <button type="submit" id="bCompra" class="btn btn-primary">COMPRA</button>
+            <!--Indica il blocco di istruzioni che dovrà eseguire lo script php -->
+            <input type="hidden" name="oper" value="3">
+            <!-- Destinatario mail -->
+            <input type="hidden" id="emailTo" name="emailTo" value="{$seller->getEmail()}">
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-primary">CONTATTA</button>
+                <div id="contacts-spinner" class="spinner-border ms-2 invisible" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
+            </div>
         </form>
+    </fieldset>
+</div>
 HTML;
     }
 }
