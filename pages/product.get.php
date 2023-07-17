@@ -72,35 +72,7 @@ HTML;
             $shipping = sprintf("%.2f EUR",$product->getSpedizione()); 
             //User can buy the product if is not the same that has uploaded it
             if($user->getId() != $product->getIdu()){
-                $html .= <<<HTML
-                    <form id="compra" method="post" action="compra.php">
-                        <div id="tipo" class="info">
-                            <!-- Categoria del prodotto -->
-                            Tipo: {$product->getTipo()} 
-                        </div>
-                        <div id="condizione">
-                            <!-- Condizione prodotto: nuovo,usato o non specificato -->
-                            Condizione : {$product->getCondizione()} 
-                        </div>
-                        <div id="qt" class="info">
-                            <!-- numero di prodotti che l'utente vuole comprare -->
-                            <label for="iQt" class="form-label me-2">Quantità</label>
-                            <input type="number" id="iQt" class="form-control" name="qt" value="1">
-                        </div>
-                        <div id="prezzo" class="info">
-                            <!-- Prezzo in euro -->
-                            Prezzo: {$price}
-                        </div>
-                        <div id="spedizione" class="info">
-                            <!-- Spese di spedizione in euro -->
-                            Spese di spedizione: {$shipping} 
-                        </div>
-                        <div id="dCompra" class="info">
-                            <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
-                            <button type="submit" id="bCompra" class="btn btn-primary">COMPRA</button>
-                            </div>
-                    </form>
-HTML;
+                $html .= self::buyForm($product,$price,$shipping);
             }//if($user->getId() != $product->getIdu()){
             else{
                 $html .= <<<HTML
@@ -200,6 +172,38 @@ HTML;
 }//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
 
         return $html;
+    }
+
+    private static function buyForm(Prodotto $product, string $price, string $shipping): string{
+        return <<<HTML
+        <form id="compra" method="post" action="compra.php">
+            <div id="tipo" class="info">
+                <!-- Categoria del prodotto -->
+                Tipo: {$product->getTipo()} 
+            </div>
+            <div id="condizione">
+                <!-- Condizione prodotto: nuovo,usato o non specificato -->
+                Condizione : {$product->getCondizione()} 
+            </div>
+            <div id="qt" class="info">
+                <!-- numero di prodotti che l'utente vuole comprare -->
+                <label for="iQt" class="form-label me-2">Quantità</label>
+                <input type="number" id="iQt" class="form-control" name="qt" value="1">
+            </div>
+            <div id="prezzo" class="info">
+                <!-- Prezzo in euro -->
+                Prezzo: {$price}
+            </div>
+            <div id="spedizione" class="info">
+                <!-- Spese di spedizione in euro -->
+                Spese di spedizione: {$shipping} 
+            </div>
+            <div id="dCompra" class="info">
+                <input type="hidden" id="idp" name ="idp" value="{$product->getId()}">
+                <button type="submit" id="bCompra" class="btn btn-primary">COMPRA</button>
+                </div>
+        </form>
+HTML;
     }
 }
 ?>
