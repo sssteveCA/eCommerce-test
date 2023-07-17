@@ -19,6 +19,7 @@ use EcommerceTest\Pages\Insertions;
 use EcommerceTest\Pages\Orders;
 use EcommerceTest\Pages\PrivacyPolicyGuest;
 use EcommerceTest\Pages\PrivacyPolicyLogged;
+use EcommerceTest\Pages\ProductGet;
 use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Pages\ResetGet;
@@ -171,6 +172,15 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo PrivacyPolicyLogged::content($params);
         }
         else echo PrivacyPolicyGuest::content(PageResources::PRIVACY_POLICY_GET_GUEST);
+    }
+    else if(preg_match('/product/([0-9]+)$/',$uri,$matches)){
+        if($logged){
+            $params = [];
+            $params['get'] = ['id' => $matches[1]];
+            $params['session'] = $_SESSION;
+            echo ProductGet::content($params);
+        }
+        else header("Location: /");
     }
     else if($uri == '/recovery'){
         if($logged) header("Location: /");

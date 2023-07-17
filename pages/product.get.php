@@ -12,26 +12,26 @@ use Exception;
 /**
  * Product details page
  */
-class Productet{
+class ProductGet{
 
     public static function content(array $params): string{
         $session = $params['session'];
         $html = <<<HTML
 HTML;
-if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-    try{
-        $dotenv = Dotenv::createImmutable(__DIR__."/../");
-        $dotenv->load();
-        $user = unserialize($session['utente']);
-        $get = $params['get'];
-        if(isset($get['id']) && is_numeric($get['id'])){
-            $productData = [ 'id' => $get['id'] ];
-            $product = new Prodotto($productData);
-            $_SESSION['prodotto'] = serialize($product);
-            $sellerData = [ 'id' => $product->getIdu(), 'registrato' => '1', 'password' => '123456' ];
-            $seller = new Utente($sellerData);
-            $_SESSION['venditore'] = serialize($seller);
-            $html .= <<<HTML
+        if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
+            try{
+                $dotenv = Dotenv::createImmutable(__DIR__."/../");
+                $dotenv->load();
+                $user = unserialize($session['utente']);
+                $get = $params['get'];
+                if(isset($get['id']) && is_numeric($get['id'])){
+                    $productData = [ 'id' => $get['id'] ];
+                    $product = new Prodotto($productData);
+                    $_SESSION['prodotto'] = serialize($product);
+                    $sellerData = [ 'id' => $product->getIdu(), 'registrato' => '1', 'password' => '123456' ];
+                    $seller = new Utente($sellerData);
+                    $_SESSION['venditore'] = serialize($seller);
+                    $html .= <<<HTML
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -51,15 +51,15 @@ if(isset($session['logged'],$session['utente'],$session['welcome']) && $session[
         <script type="module" src="<?php echo P::REL_LOGOUT_JS; ?>"></script>
         <script type="module" src=<?php echo P::REL_PRODUCT_JS; ?>></script>
 HTML;
-            if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
-                $html .= call_user_func('cookieBanner');
-            }
-            $html .= <<<HTML
+                    if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                        $html .= call_user_func('cookieBanner');
+                    }
+                    $html .= <<<HTML
     </head>
     <body>
 HTML;
-            $html .= NavbarLogged::content($params);
-            $html .= <<<HTML
+                    $html .= NavbarLogged::content($params);
+                    $html .= <<<HTML
         <div id="container1" class="container">
             <!-- immagine del prodotto -->
             <div id="immagine"><img src="{$product->getImmagine()}"></div>
@@ -68,17 +68,17 @@ HTML;
                 <fieldset id="info1"><b>{$product->getNome()}</b></fieldset>
                 <fieldset id="info2">
 HTML;
-            $price = sprintf("%.2f EUR",$product->getPrezzo());
-            $shipping = sprintf("%.2f EUR",$product->getSpedizione()); 
-            //User can buy the product if is not the same that has uploaded it
-            if($user->getId() != $product->getIdu()){
-                $html .= self::buyForm($product,$price,$shipping);
-            }//if($user->getId() != $product->getIdu()){
-            else{
-                $html .= self::deleteForm($product,$price,$shipping);
-            }
-            $descriptionBr = nl2br($product->getDescrizione());
-            $html .= <<<HTML
+                    $price = sprintf("%.2f EUR",$product->getPrezzo());
+                    $shipping = sprintf("%.2f EUR",$product->getSpedizione()); 
+                    //User can buy the product if is not the same that has uploaded it
+                    if($user->getId() != $product->getIdu()){
+                        $html .= self::buyForm($product,$price,$shipping);
+                    }//if($user->getId() != $product->getIdu()){
+                    else{
+                        $html .= self::deleteForm($product,$price,$shipping);
+                    }
+                    $descriptionBr = nl2br($product->getDescrizione());
+                    $html .= <<<HTML
             </fieldset>
         </div>
     </div>
@@ -108,20 +108,20 @@ HTML;
         </div>
     </div>
 HTML;
-            if($user->getId() != $product->getIdu()){
-                $html .= self::sellerEmail($seller);
-            }//if($user->getId() != $product->getIdu()){
-            $html .= Footer::content();
-        $html .= <<<HTML
+                    if($user->getId() != $product->getIdu()){
+                        $html .= self::sellerEmail($seller);
+                    }//if($user->getId() != $product->getIdu()){
+                    $html .= Footer::content();
+                    $html .= <<<HTML
     </body>
 </html>        
 HTML;
-        }//if(isset($get['id']) && is_numeric($get['id'])){
-    }catch(Exception $e){
-        
-    }
-}//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-
+                }//if(isset($get['id']) && is_numeric($get['id'])){
+            }catch(Exception $e){
+                $html = $e->getMessage();
+            }
+        }//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
+        else $html = ACCEDI1;
         return $html;
     }
 
