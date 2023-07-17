@@ -173,9 +173,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
         else echo PrivacyPolicyGuest::content(PageResources::PRIVACY_POLICY_GET_GUEST);
     }
-    else if(preg_match('/product/([0-9]+)$/',$uri,$matches)){
+    else if(preg_match('/^\/product\/([0-9]+)$/',$uri,$matches)){
         if($logged){
-            $params = [];
+            $params = PageResources::PRODUCT_GET_LOGGED;;
             $params['get'] = ['id' => $matches[1]];
             $params['session'] = $_SESSION;
             echo ProductGet::content($params);
