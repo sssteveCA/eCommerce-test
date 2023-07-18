@@ -71,7 +71,7 @@ HTML;
     <td class="tipo">{$type}</td>
     <td class="prezzo">{$price}€</td>
     <td class="dettagli">
-        <form method="get" action="prodotto.php"><input type="hidden" name="id" value="{$idP}">
+        <form method="get" action="/product/{$idP}"><input type="hidden" name="id" value="{$idP}">
             <button type="submit" class="btn btn-success">DETTAGLI</button>
         </form>    
     </td>

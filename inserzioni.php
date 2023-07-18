@@ -102,8 +102,7 @@ SQL;
                     $productsHtml .= '<td class="price">'.$product->getPrezzo().'</td>';
                     $productsHtml .= <<<HTML
     <td class="details">
-        <form method="get" action="prodotto.php">
-            <input type="hidden" name="id" value="{$id}">
+        <form method="get" action="/product/{$id}">
             <button type="submit" class="btn btn-info">DETTAGLI</button>
         </form>
     </td>
