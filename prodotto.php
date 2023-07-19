@@ -71,7 +71,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
     //l'utente può comprare il prodotto se non è lo stesso che lo ha caricato
     if($utente->getId() != $prodotto->getIdu()){
         $formHTML = <<<HTML
-<form id="compra" method="post" action="compra.php">
+<form id="compra" method="post" action="/product/buy">
     <div id="tipo" class="info">
         <!-- Categoria del prodotto -->
         Tipo: {$prodotto->getTipo()} 

@@ -127,7 +127,7 @@ HTML;
 
     private static function buyForm(Prodotto $product, string $price, string $shipping): string{
         return <<<HTML
-<form id="compra" method="post" action="compra.php">
+<form id="compra" method="post" action="/product/buyp">
     <div id="tipo" class="info">
         <!-- Categoria del prodotto -->
         Tipo: {$product->getTipo()} 

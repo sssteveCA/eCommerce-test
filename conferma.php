@@ -172,7 +172,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
                         <div class="col-12 col-sm-4 col-lg-3">
                             <?php
                             $goBackFormData = [
-                                'backAction' => 'compra.php', 'idp' => $dati['idp'], 'qt' => $dati['quantita']
+                                'backAction' => '/product/buy', 'idp' => $dati['idp'], 'qt' => $dati['quantita']
                             ];
                             echo ConfirmTemplates::goBackForm($goBackFormData);
                             ?>
