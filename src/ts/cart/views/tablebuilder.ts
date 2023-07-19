@@ -56,10 +56,7 @@ export default class TableBuilder{
     //Form of order details
     private detailsForm(idp: number,i: string): string{
         let df: string = `
-<form class="fDett" method="get" action="/product/${idp}">
-    <input type="hidden" name="id" value="${idp}">
-    <button type="submit" class="btn btn-primary iDett" id="bDett${i}">DETTAGLI</button>
-</form>
+<a id="bDett${i}" class="btn btn-primary iDett" href="/product/${idp}" role="button">DETTAGLI</a>
         `;
         return df;
     }

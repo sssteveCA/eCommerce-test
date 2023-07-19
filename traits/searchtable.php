@@ -71,9 +71,7 @@ HTML;
     <td class="tipo">{$type}</td>
     <td class="prezzo">{$price}€</td>
     <td class="dettagli">
-        <form method="get" action="/product/{$idP}">
-            <button type="submit" class="btn btn-success">DETTAGLI</button>
-        </form>    
+        <a class="btn btn-primary" href="/product/{$idP}" role="button">DETTAGLI</a>   
     </td>
 </tr>
 HTML;
