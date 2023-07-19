@@ -20,7 +20,7 @@ class BuyPost{
                 try{
                     $dotenv = Dotenv::createImmutable(__DIR__.'/../');
                     $dotenv->load();
-                    $customer = unserialize($session['prodotto']);
+                    $customer = unserialize($session['utente']);
                     $product = unserializeProduct($session['prodotto']);
                     $total = $post['qt']*($product->getPrezzo()+$product->getSpedizione());
                     $seller = unserialize($session['venditore']);

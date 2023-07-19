@@ -294,7 +294,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     else if($uri == '/product/buy'){
         if($logged){
             $params = PageResources::BUY_POST_LOGGED;
-            $params = ['post' => $post, 'session' => $_SESSION];
+            $params = array_merge($params,['post' => $post, 'session' => $_SESSION]);
             echo BuyPost::content($params);
         }
         else header("Location: /");
