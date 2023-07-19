@@ -4,6 +4,7 @@ use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Pages\BuyPost;
 use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
@@ -290,6 +291,13 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             } 
         }
     }//else if($uri == '/login'){
+    else if($uri == '/product/buy'){
+        if($logged){
+            $params = ['post' => $post, 'session' => $_SESSION];
+            echo BuyPost::content($params);
+        }
+        else header("Location: /");
+    }//else if($uri == '/product/buy'){
     else if($uri == '/recovery'){
         if($logged){
            if($ajax){

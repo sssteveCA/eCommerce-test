@@ -95,12 +95,13 @@ HTML;
 </html>        
 HTML;
                 }catch(Exception $e){
-
+                    $html = 'Si è verificato un errore durante il caricamento della pagina';
                 }
                 
             }//if(isset($session['prodotto'],$session['venditore'],$post['qt']) && is_numeric($post['qt'])){
+            else $html = 'Seleziona il prodotto che vuoi acquistare per visualizzare questa pagina';
         }//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-        
+        else $html = ACCEDI1;
         return $html;
     }
 
