@@ -16,5 +16,15 @@ interface Constants{
     const KEY_EMPTY = 'empty';
     const KEY_HTML = 'html';
     const KEY_MESSAGE = 'msg';
+
+    //Paypal
+   const PAYPAL_PAGE = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+    //const SHOPPING_URL = Config::HOME_URL.'/ricerca.php?ricerca=';
+    const PAYPAL_RM = '2';
+    const PAYPAL_CURRENCY = 'EUR';
+    const PAYPAL_LC = 'IT';
+    const PAYPAL_STATE = 'Italia';
+    const PAYPAL_CMD = '_xclick';
+    const PAYPAL_SHIPPING = '10.00';
 }
 ?>
