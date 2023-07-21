@@ -6,6 +6,7 @@ use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Pages\BuyPost;
 use EcommerceTest\Pages\Cart;
+use EcommerceTest\Pages\ConfirmPost;
 use EcommerceTest\Pages\ContactsGuest;
 use EcommerceTest\Pages\ContactsLogged;
 use EcommerceTest\Pages\CookiePolicyGuest;
@@ -303,6 +304,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($logged){
             $params = PageResources::CONFIRM_POST_LOGGED;
             $params = array_merge($params,['post' => $post, 'session' => $_SESSION]);
+            echo ConfirmPost::content($params)[C::KEY_HTML];
         }
         else header("Location: /");
     }//else if($uri == '/product/buy/confirm'){

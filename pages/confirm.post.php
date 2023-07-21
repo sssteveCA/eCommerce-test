@@ -26,7 +26,7 @@ HTML;
         $session = $params['session'];
         $post = $params['post'];
         try{
-            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../');
             $dotenv->load();
             $dataOk = false;
             if(isset($post['nP']) && is_numeric($post['nP'])){
@@ -68,9 +68,9 @@ HTML;
                         }//if($idOrders != null){      
                     }
                     if(isset($post['ord']) && $post['ord'] == '1')
-                        $data = ['id' => $post['idO']];
+                        $dataO = ['id' => $post['idO']];
                     else if($alreadyOrdered && isset($idOrd))
-                        $data = ['id' => $idOrd];
+                        $dataO = ['id' => $idOrd];
                     else if(!$alreadyOrdered){
                         $dataO = [
                             'idc' => $post['idC'],

@@ -53,7 +53,7 @@ HTML;
                 $shippingPrice = sprintf("%.2f€",$product->getSpedizione()*$post['qt']);
                 $totalStr = sprintf("%.2f€",$total);
                 $html .= <<<HTML
-        <form id="conferma" method="post" action="conferma.php">
+        <form id="conferma" method="post" action="/product/buy/confirm">
             <div id="divConf">
                 <fieldset id="f1">
                     <legend>Dati Acquirente</legend>
