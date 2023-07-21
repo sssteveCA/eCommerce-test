@@ -301,7 +301,8 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }//else if($uri == '/product/buy'){
     else if($uri == '/product/buy/confirm'){
         if($logged){
-
+            $params = PageResources::CONFIRM_POST_LOGGED;
+            $params = array_merge($params,['post' => $post, 'session' => $_SESSION]);
         }
         else header("Location: /");
     }//else if($uri == '/product/buy/confirm'){

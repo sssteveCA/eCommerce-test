@@ -33,6 +33,20 @@ interface PageResources{
         ]
     ];
 
+
+
+    const CONFIRM_POST_LOGGED = [
+        'paths' => [
+            'css' => [
+                'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_CONFIRM_CSS' => P::REL_CONFIRM_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS, 'REL_JQUERYTHEME_CSS' => P::REL_JQUERYTHEME_CSS
+            ],
+            'js' => [
+                'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_CONFIRM_JS' => P::REL_CONFIRM_JS,  'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_JQUERYUI_JS' => P::REL_JQUERYUI_JS,
+                'REL_LOGOUT_JS' => P::REL_LOGOUT_JS, 'REL_POPPER_JS' => P::REL_POPPER_JS
+            ],
+        ]
+    ];
+
     const CONTACTS_GET_GUEST = [
         'paths' => [
             'css' => [
