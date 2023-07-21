@@ -45,36 +45,29 @@ HTML;
 HTML;
         $html .= NavbarLogged::content($params);
         $session = $params['session'];
-        if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-            try{
-                $dotenv = Dotenv::createImmutable(__DIR__.'/../');
-                $dotenv->load();
-                $user = unserialize($session['utente']);
-                $asData = [ 'user' => $user ];
-                $asData = array_merge($asData,$params['get']);
-                $advancedSearch = new AdvancedSearch($asData);
-                $html .= $advancedSearch->getHtmlTable();
-            }catch(InvalidFileException $e){
-                $code = 400;
-                $done = false;
-                $message = $e->getMessage();
-                $html .= <<<HTML
-<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
-HTML;
-            }catch(Exception $e){
-                $code = 500;
-                $done = false;
-                $message = Msg::ERR_ADVANCEDSEARCH;
-                $html .= <<<HTML
-<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
-HTML;
-            }
-        }//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-        else{
-            $code = 401;
+        try{
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../');
+            $dotenv->load();
+            $user = unserialize($session['utente']);
+            $asData = [ 'user' => $user ];
+            $asData = array_merge($asData,$params['get']);
+            $advancedSearch = new AdvancedSearch($asData);
+            $html .= $advancedSearch->getHtmlTable();
+        }catch(InvalidFileException $e){
+            $code = 400;
             $done = false;
-            $html .= ACCEDI1;
-        } 
+            $message = $e->getMessage();
+            $html .= <<<HTML
+<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
+HTML;
+        }catch(Exception $e){
+            $code = 500;
+            $done = false;
+            $message = Msg::ERR_ADVANCEDSEARCH;
+            $html .= <<<HTML
+<div id="null" class="alert alert-danger text-center my-5" role="alert">{$message}</div>
+HTML;
+         }
         $html .= Footer::content();
         $html .= <<<HTML
     </body>

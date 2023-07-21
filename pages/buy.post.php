@@ -14,17 +14,16 @@ class BuyPost{
     public static function content(array $params): string{
         $html = '';
         $session = $params['session'];
-        if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-            $post = $params['post'];
-            if(isset($session['prodotto'],$session['venditore'],$post['qt']) && is_numeric($post['qt'])){
-                try{
-                    $dotenv = Dotenv::createImmutable(__DIR__.'/../');
-                    $dotenv->load();
-                    $customer = unserialize($session['utente']);
-                    $product = unserializeProduct($session['prodotto']);
-                    $total = $post['qt']*($product->getPrezzo()+$product->getSpedizione());
-                    $seller = unserialize($session['venditore']);
-                    $html .= <<<HTML
+        $post = $params['post'];
+        if(isset($session['prodotto'],$session['venditore'],$post['qt']) && is_numeric($post['qt'])){
+            try{
+                $dotenv = Dotenv::createImmutable(__DIR__.'/../');
+                $dotenv->load();
+                $customer = unserialize($session['utente']);
+                $product = unserializeProduct($session['prodotto']);
+                $total = $post['qt']*($product->getPrezzo()+$product->getSpedizione());
+                $seller = unserialize($session['venditore']);
+                $html .= <<<HTML
 <html lang="it">
     <head>
         <title>Acquista prodotto</title>
@@ -42,18 +41,18 @@ class BuyPost{
         <script type="module" src="../../{$params['paths']['js']['REL_LOGOUT_JS']}"></script>
         <script src="../../{$params['paths']['js']['REL_BUY_JS']}"></script>     
 HTML;
-        if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
-            $html .= call_user_func('cookieBanner');
-        }
-        $html .= <<<HTML
+                if(file_exists('partials/privacy.php') && is_file('partials/privacy.php')){
+                    $html .= call_user_func('cookieBanner');
+                }
+                $html .= <<<HTML
     </head>
     <body>
 HTML;
-        $html .= NavbarLogged::content($params);
-        $price = sprintf("%.2f€",$product->getPrezzo()*$post['qt']);
-        $shippingPrice = sprintf("%.2f€",$product->getSpedizione()*$post['qt']);
-        $totalStr = sprintf("%.2f€",$total);
-        $html .= <<<HTML
+                $html .= NavbarLogged::content($params);
+                $price = sprintf("%.2f€",$product->getPrezzo()*$post['qt']);
+                $shippingPrice = sprintf("%.2f€",$product->getSpedizione()*$post['qt']);
+                $totalStr = sprintf("%.2f€",$total);
+                $html .= <<<HTML
         <form id="conferma" method="post" action="conferma.php">
             <div id="divConf">
                 <fieldset id="f1">
@@ -93,14 +92,12 @@ HTML;
     </body>
 </html>        
 HTML;
-                }catch(Exception $e){
-                    $html = 'Si è verificato un errore durante il caricamento della pagina';
-                }
-                
-            }//if(isset($session['prodotto'],$session['venditore'],$post['qt']) && is_numeric($post['qt'])){
-            else $html = 'Seleziona il prodotto che vuoi acquistare per visualizzare questa pagina';
-        }//if(isset($session['logged'],$session['utente'],$session['welcome']) && $session['welcome'] != '' && $session['logged'] === true){
-        else $html = ACCEDI1;
+            }catch(Exception $e){
+                $html = 'Si è verificato un errore durante il caricamento della pagina';
+            }
+            
+        }//if(isset($session['prodotto'],$session['venditore'],$post['qt']) && is_numeric($post['qt'])){
+        else $html = 'Seleziona il prodotto che vuoi acquistare per visualizzare questa pagina';
         return $html;
     }
 

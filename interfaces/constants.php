@@ -25,6 +25,7 @@ interface Constants{
     const PAYPAL_LC = 'IT';
     const PAYPAL_STATE = 'Italia';
     const PAYPAL_CMD = '_xclick';
+    const PAYPAL_SBN_CODE = 'PP-DemoPortal-PPCredit-JSV4-php-REST';
     const PAYPAL_SHIPPING = '10.00';
 }
 ?>
