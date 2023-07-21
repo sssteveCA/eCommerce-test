@@ -299,6 +299,12 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         else header("Location: /");
     }//else if($uri == '/product/buy'){
+    else if($uri == '/product/buy/confirm'){
+        if($logged){
+
+        }
+        else header("Location: /");
+    }//else if($uri == '/product/buy/confirm'){
     else if($uri == '/recovery'){
         if($logged){
            if($ajax){
