@@ -42,7 +42,7 @@ HTML;
         $regex = '/^[a-z0-9]{64}$/i';
         if(isset($params['codAut']) && preg_match($regex,$params['codAut'])){
             try{
-                $dotenv = Dotenv::createImmutable(__DIR__);
+                $dotenv = Dotenv::createImmutable(__DIR__.'/../');
                 $dotenv->safeLoad();
                 $data = [
                     'campo' => 'codAut',

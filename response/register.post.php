@@ -29,21 +29,21 @@ class RegisterPost{
                                 $dotenv->load();
                                 $utente = new Utente($data);
                                 if($utente->getNumError() == 0){
-                                    $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
+                                    $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'];
                                     $params = [
                                         'codAut' => $utente->getCodAut(),
-                                        'indAtt' => dirname($url,2).'/activate',
+                                        'indAtt' => $url.'/activate',
                                     ];
-                                    $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
-                                    $headers = msg_headers();
-                                    $message = msg_body($params);
-                                    $from = "noreply@{$_ENV['HOSTNAME']}.lan";
+                                    $params['indAttCod'] = $params['indAtt'].'/'.$params['codAut'];
+                                    $headers = self::msg_headers();
+                                    $message = self::msg_body($params);
+                                    $from = "noreply@{$_ENV['HOSTNAME']}";
                                     $send = $utente->sendMail($utente->getEmail(),'Attivazione account',$message,$headers);
                                     if($send){
                                         return [
                                             C::KEY_CODE => 200, C::KEY_DONE => true, C::KEY_MESSAGE => Msg::SUBSCRIBECOMPLETED,
                                             'redirect' => [
-                                                'do' => true, 'url' => 'referesh:10;url=../index.php'
+                                                'do' => true, 'url' => 'referesh:10;url=../'
                                             ]
                                         ];
                                     }//if($send){      
@@ -57,7 +57,7 @@ class RegisterPost{
                                 return [
                                     C::KEY_CODE => 400, C::KEY_DONE => true, C::KEY_MESSAGE => $utente->getStrError(),
                                     'redirect' => [
-                                        'do' => true, 'url' => 'referesh:10;url=../index.php'
+                                        'do' => true, 'url' => 'referesh:10;url=../'
                                     ]
                                 ];
                             }catch(Exception $e){
