@@ -7,7 +7,29 @@ use EcommerceTest\Interfaces\Paths as P;
 /**
  * CSS and JS loaded by HTML pages
  */
-interface PageResources{  
+interface PageResources{ 
+
+    const ACTIVATE_CODE_GET = [
+        'paths' => [
+            'css' => [
+                'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS, 'REL_JQUERYTHEME_CSS' => P::REL_JQUERYTHEME_CSS
+            ],
+            'js' => [
+                'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_JQUERYUI_JS' => P::REL_JQUERYUI_JS, 'REL_POPPER_JS' => P::REL_POPPER_JS
+            ],
+        ]
+    ];
+
+    const ACTIVATE_FORM_GET = [
+        'paths' => [
+            'css' => [
+                'REL_ACTIVATE_FORM_CSS' => P::REL_ACTIVATE_FORM_CSS, 'REL_BOOTSTRAP_CSS' => P::REL_BOOTSTRAP_CSS, 'REL_FOOTER_CSS' => P::REL_FOOTER_CSS, 'REL_JQUERY_CSS' => P::REL_JQUERY_CSS, 'REL_JQUERYTHEME_CSS' => P::REL_JQUERYTHEME_CSS
+            ],
+            'js' => [
+                'REL_ACTIVATE_FORM_JS' => P::REL_ACTIVATE_FORM_JS, 'REL_BOOTSTRAP_JS' => P::REL_BOOTSTRAP_JS, 'REL_FOOTER_JS' =>  P::REL_FOOTER_JS, 'REL_JQUERY_JS' => P::REL_JQUERY_JS, 'REL_JQUERYUI_JS' => P::REL_JQUERYUI_JS, 'REL_POPPER_JS' => P::REL_POPPER_JS
+            ],
+        ]
+    ];
 
     const BUY_POST_LOGGED = [
         'paths' => [

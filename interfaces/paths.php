@@ -11,6 +11,8 @@ interface Paths{
 
     const REL_DIST = "dist/";
     //relative file paths
+    const REL_ACTIVATE_FORM_CSS = Paths::REL_DIST."css/activate.form/activate.form.css";
+    const REL_ACTIVATE_FORM_JS = Paths::REL_DIST."js/activate.form/activate.form.js";
     const REL_ADVSEARCH_CSS = Paths::REL_DIST."css/advanced/advanced.css";
     //const REL_ADVSEARCH_JS = "js/avanzata.js";
     const REL_ADVSEARCH_JS = Paths::REL_DIST."js/advanced/advanced.js";
