@@ -5,7 +5,7 @@ $single-selectors: (
         '#activate': (
             padding: 5px
         ),
-        '#actCode': (
+        '#codAut': (
             width: 300px
         ),
         "#error-message": (
@@ -22,8 +22,11 @@ $single-selectors: (
 );
 
 $compound-selectors: (
+    'fieldset > *': (
+        text-align: center
+    ), 
     'fieldset div': (
-        margin: 10px
+        margin: 40px
     ),
     'fieldset div:first-child': (
         display: flex,

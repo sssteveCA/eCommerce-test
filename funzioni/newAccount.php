@@ -37,8 +37,8 @@ if(isset($post['name'],$post['surname'],$post['birth'],$post['sex'],$post['addre
                             $params = array();
                             $params['codAut'] = $utente->getCodAut();
                             $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
-                            $params['indAtt'] = dirname($url,2).'/attiva.php';
-                            $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
+                            $params['indAtt'] = dirname($url,2).'/activate';
+                            $params['indAttCod'] = $params['indAtt'].'/'.$params['codAut'];
                             $headers = msg_headers();
                             $message = msg_body($params);
                             $from = "noreply@{$_ENV['HOSTNAME']}.lan";

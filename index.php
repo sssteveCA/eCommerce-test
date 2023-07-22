@@ -4,6 +4,8 @@ use EcommerceTest\Interfaces\PageResources;
 use EcommerceTest\Interfaces\Paths as P;
 use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Objects\ActivateFormGet;
+use EcommerceTest\Pages\ActivateGet;
 use EcommerceTest\Pages\BuyPost;
 use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ConfirmPost;
@@ -66,6 +68,21 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo HomePageGuest::content(PageResources::HOME_GET_GUEST);
         } 
     }
+    else if($uri == '/activate'){
+        if($logged) header("Location: /");
+        else{
+            $params = PageResources::ACTIVATE_FORM_GET;
+            echo ActivateFormGet::content($params);
+        }
+    }
+    else if(preg_match('/^\/activate\/([a-z0-9]{64})$/i',$uri,$matches)){
+        if($logged) header("Location: /");
+        else{
+            $params = PageResources::ACTIVATE_CODE_GET;
+            $params = array_merge($params,['codAut' => $matches[1]]);
+            echo ActivateGet::content($params);
+        }
+    }//else if(preg_match('//',$uri,$matches)){
     else if($uri == '/cart'){
        if($logged){
             $params = PageResources::CART_GET_LOGGED;

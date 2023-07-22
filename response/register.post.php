@@ -32,7 +32,7 @@ class RegisterPost{
                                     $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
                                     $params = [
                                         'codAut' => $utente->getCodAut(),
-                                        'indAtt' => dirname($url,2).'/attiva.php',
+                                        'indAtt' => dirname($url,2).'/activate',
                                     ];
                                     $params['indAttCod'] = $params['indAtt'].'?codAut='.$params['codAut'];
                                     $headers = msg_headers();

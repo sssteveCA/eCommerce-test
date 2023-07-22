@@ -43,8 +43,8 @@ HTML;
             <h2>Inserisci il codice di attivazione</h2>
             <form>
                 <div>
-                    <label class="form-label" for="actCode">Codice</label>
-                    <input type="text" id="actCode" class="form-control" name="actCode">
+                    <label class="form-label" for="codAut">Codice</label>
+                    <input type="text" id="codAut" class="form-control" name="codAut">
                 </div>
                 <div>
                     <button id="activate" type="click" class="btn btn-primary">ATTIVA</button>
