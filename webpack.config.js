@@ -29,6 +29,7 @@ module.exports = {
         'js/reset/reset': join(srcPath,'ts/reset/reset.ts'),
         'js/subscribe/subscribe': join(srcPath,'ts/subscribe/subscribe.ts'),
         'js/welcome/welcome': join(srcPath,'ts/welcome/welcome.ts'),
+        'css/activate.form/activate.form': join(srcPath,'scss/activate.form/activate.form.scss'),
         'css/advanced/advanced': join(srcPath,'scss/advanced/advanced.scss'),
         'css/buy/buy': join(srcPath,'scss/buy/buy.scss'),
         'css/cart/cart': join(srcPath,'scss/cart/cart.scss'),
