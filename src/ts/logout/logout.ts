@@ -18,7 +18,7 @@ $(function(){
             //console.log("Sì");
             dcDialog.dialog('destroy');
             dcDialog.remove();
-            window.location.href = '/funzioni/logout.php';
+            window.location.href = '/logout';
 
         });
         dc.btNo.on('click',() =>{
