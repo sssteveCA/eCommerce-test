@@ -11,8 +11,6 @@
             "config.php", 
             "funzioni/config.php", 
             "funzioni/const.php",
-            "partials/footer.php",
-            "partials/navbar.php",
             "partials/privacy.php"
         ]
     }
