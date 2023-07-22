@@ -51,6 +51,17 @@ class General{
 </html>
 HTML;
     }
+
+    /**
+     * Print a simple message in a page
+     * @param string $message the mesage to print
+     * @return string the HTML content
+     */
+    public static function simpleMessage(string $message): string{
+        return <<<HTML
+<div class="text-center fs-3 fw-bold lh-lg h3">{$message}</div>
+HTML;
+    }
 }
 
 ?>
