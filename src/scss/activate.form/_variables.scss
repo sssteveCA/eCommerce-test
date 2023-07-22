@@ -2,11 +2,20 @@
 $single-selectors: (
     'classes': (),
     'ids': (
-        '#attiva': (
+        '#activate': (
             padding: 5px
         ),
-        '#codAut': (
+        '#actCode': (
             width: 300px
+        ),
+        "#error-message": (
+            margin-top: 20px,
+            text-align: center,
+            font-size: 22px,
+            font-weight: bold
+        ),
+        '#f1': (
+            margin-top: 20px
         )
     ),
     'tags': ()
@@ -15,6 +24,10 @@ $single-selectors: (
 $compound-selectors: (
     'fieldset div': (
         margin: 10px
+    ),
+    'fieldset div:first-child': (
+        display: flex,
+        justify-content: space-between
     ),
     'fieldset div:last-child': (
         display: flex,

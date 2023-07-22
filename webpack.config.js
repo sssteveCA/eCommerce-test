@@ -8,6 +8,7 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 
 module.exports = {
     entry: {
+        'js/activate.form/activate.form': join(srcPath,'ts/activate.form/activate.form.ts'),
         'js/advanced/advanced': join(srcPath,'ts/advanced/advanced.ts'),
         'js/buy/buy': join(srcPath,'ts/buy/buy.ts'),
         'js/cart/cart': join(srcPath,'ts/cart/cart.ts'),
