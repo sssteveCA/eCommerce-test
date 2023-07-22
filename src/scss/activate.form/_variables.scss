@@ -1,0 +1,26 @@
+
+$single-selectors: (
+    'classes': (),
+    'ids': (
+        '#attiva': (
+            padding: 5px
+        ),
+        '#codAut': (
+            width: 300px
+        )
+    ),
+    'tags': ()
+);
+
+$compound-selectors: (
+    'fieldset div': (
+        margin: 10px
+    ),
+    'fieldset div:last-child': (
+        display: flex,
+        justify-content: center
+    ),
+    'fieldset div > *': (
+        margin-right: 5px
+    )
+);
