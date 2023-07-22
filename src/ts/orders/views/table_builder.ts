@@ -127,7 +127,7 @@ export default class TableBuilder{
         if(order.cart === true)btnPay = true;
         if(btnPay == true){
             payForm += `
-<form id="pagaForm" method="post" action="conferma.php">
+<form id="pagaForm" method="post" action="/product/buy/confirm">
     <input type="hidden" id="idO" name="idO" value="${order.id}">
     <input type="hidden" id="idC" name="idC" value="${order.idc}">
     <input type="hidden" id="idP" name="idP" value="${order.idp}">
