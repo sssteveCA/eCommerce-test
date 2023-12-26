@@ -14,12 +14,10 @@ use EcommerceTest\Interfaces\Messages as Msg;
 class AdvancedSearchGet{
     
     public static function content(array $params): string{
-        $code = 200;
-        $done = true;
         $html = <<<HTML
 <html lang="it">
     <head>
-        <title>Ricerca</title>
+        <title>Ricerca avanzata</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{$params['paths']['css']['REL_ADVSEARCH_CSS']}">
         <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
