@@ -8,7 +8,8 @@ use EcommerceTest\Objects\SuccessParent;
 
 class SuccessLogged extends SuccessParent{
 
-    public static function content($params): string{
+    public static function content(array $params): string{
+        $successResponse = static::successResponse($params);
         $html = <<<HTML
  <head>
         <title>Pagamento completato</title>
@@ -33,7 +34,7 @@ HTML;
 HTML;
         $html .= NavbarLogged::content($params);
         $html .= <<<HTML
-        <div class="mt-5 text-center fw-bold">Pagamento completato</div>
+        <div class="mt-5 text-center fw-bold">{$successResponse['message']}</div>
 HTML;
         $html .= Footer::content();
         $html .= <<<HTML

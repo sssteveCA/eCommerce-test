@@ -95,7 +95,7 @@ function handleResponse(result: any) {
     dati['payer_status'] = status;
     dati['txn_id'] = transactionID;
     $.ajax({
-        url : 'success.php',
+        url : '/success_payment',
         method : 'post',
         data : dati,
         success : function(risposta, stato, xhr){
