@@ -30,6 +30,7 @@ use EcommerceTest\Pages\RecoveryGet;
 use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Pages\ResetGet;
 use EcommerceTest\Pages\SearchGet;
+use EcommerceTest\Pages\SuccessLogged;
 use EcommerceTest\Pages\TermsGuest;
 use EcommerceTest\Pages\TermsLogged;
 use EcommerceTest\Response\ContactsPost;
@@ -394,6 +395,15 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($ajax)echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
             else echo $response[C::KEY_HTML];
         }
+    }
+    else if($uri == '/success_payment'){
+        if($logged){
+            $params = PageResources::SUCCESS_POST_LOGGED;
+            $params['post'] = $post;
+            $params['session'] = $_SESSION;
+            echo SuccessLogged::content($params);
+        }
+        else header("Location: /");
     }
 }
 
