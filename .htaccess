@@ -7,16 +7,16 @@ Options -Indexes
 #RedirectMatch 403 "/traits/.*"
 #RedirectMatch 403 "/vendor/.*"
 
-<FilesMatch "^\.">
+#<FilesMatch "^\.">
     #Order deny,allow
     #Deny from all
-</FilesMatch>
+#</FilesMatch>
 
 #deny access to .scss, .scss and .ts Typescript files
-<Files ~ "(.scss|.ts|.txt|.json|.md)$">
-    Order deny,allow
-    Deny from all
-</Files>
+#<Files ~ "(.scss|.ts|.txt|.json|.md)$">
+    #Order deny,allow
+    #Deny from all
+#</Files>
 
 Options +SymLinksIfOwnerMatch
 RewriteEngine On
