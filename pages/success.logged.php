@@ -4,16 +4,14 @@ namespace EcommerceTest\Pages;
 
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarLogged;
+use EcommerceTest\Objects\SuccessParent;
 
-/**
- * Landing page when user cancel a payment
- */
-class CancelLogged{
+class SuccessLogged extends SuccessParent{
 
-    public static function content(array $params): string{
+    public static function content($params): string{
         $html = <<<HTML
  <head>
-        <title>Pagamento cancellato</title>
+        <title>Pagamento completato</title>
         <meta charset="utf-8">
 	    <link rel="stylesheet" href="{$params['paths']['css']['REL_BOOTSTRAP_CSS']}">
 	    <link rel="stylesheet" href="{$params['paths']['css']['REL_FOOTER_CSS']}">
@@ -35,11 +33,7 @@ HTML;
 HTML;
         $html .= NavbarLogged::content($params);
         $html .= <<<HTML
-
-<div class="mt-5 text-center">La tua transazione Paypal è stata cancellata</div>
-<div cancel="mt-5 text-center">
-    <a href="/">Torna alla pagina principale</a>
-</div>
+        <div class="mt-5 text-center fw-bold">Pagamento completato</div>
 HTML;
         $html .= Footer::content();
         $html .= <<<HTML
@@ -48,7 +42,6 @@ HTML;
 HTML;
         return $html;
     }
-
 }
 
 ?>
