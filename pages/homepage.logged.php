@@ -42,7 +42,7 @@ HTML;
                     <input type="text" id="ricerca" name="ricerca">
                     <input type="submit" id="submit" class="btn btn-primary" value="RICERCA">
                 </form>
-                <p id="rAvanzata" class="flex-fill d-flex justify-content-center"><a href="/avanzata.php">Ricerca avanzata</a></p>
+                <p id="rAvanzata" class="flex-fill d-flex justify-content-center"><a href="/advancedsearch">Ricerca avanzata</a></p>
             </div>
             <div class="carousel-container">
                 <div id="homepage-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">

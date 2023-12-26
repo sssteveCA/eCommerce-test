@@ -6,6 +6,7 @@ use EcommerceTest\Interfaces\Constants as C;
 use EcommerceTest\Interfaces\Messages as Msg;
 use EcommerceTest\Objects\ActivateFormGet;
 use EcommerceTest\Pages\ActivateGet;
+use EcommerceTest\Pages\AdvancedSearchGet;
 use EcommerceTest\Pages\BuyPost;
 use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ConfirmPost;
@@ -83,6 +84,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             echo ActivateGet::content($params);
         }
     }//else if(preg_match('//',$uri,$matches)){
+    else if($uri == '/advancedsearch'){
+        if($logged){
+            $params = PageResources::ADVANCED_SEARCH_GET;
+            $params['session'] = $_SESSION;
+            echo AdvancedSearchGet::content($params);
+        }
+        else header("Location: /");
+    }
     else if($uri == '/cart'){
        if($logged){
             $params = PageResources::CART_GET_LOGGED;
