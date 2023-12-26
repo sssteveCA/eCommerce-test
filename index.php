@@ -8,6 +8,7 @@ use EcommerceTest\Objects\ActivateFormGet;
 use EcommerceTest\Pages\ActivateGet;
 use EcommerceTest\Pages\AdvancedSearchGet;
 use EcommerceTest\Pages\BuyPost;
+use EcommerceTest\Pages\CancelLogged;
 use EcommerceTest\Pages\Cart;
 use EcommerceTest\Pages\ConfirmPost;
 use EcommerceTest\Pages\ContactsGuest;
@@ -89,6 +90,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $params = PageResources::ADVANCED_SEARCH_GET;
             $params['session'] = $_SESSION;
             echo AdvancedSearchGet::content($params);
+        }
+        else header("Location: /");
+    }
+    else if($uri == '/cancel_payment'){
+        if($logged){
+            $params = PageResources::CANCEL_GET_LOGGED;
+            $params['session'] = $_SESSION;
+            echo CancelLogged::content($params);
         }
         else header("Location: /");
     }
