@@ -36,7 +36,7 @@ HTML;
         $html .= NavbarLogged::content($params);
         $html .= <<<HTML
 
-<div style="text-align: center;">La tua transazione Paypal è stata cancellata</div>
+<div style="text-align: center; margin-top: 100px;">La tua transazione Paypal è stata cancellata</div>
 <div style="text-align: center; margin-top: 50px;">
     <a href="/">Torna alla pagina principale</a>
 </div>

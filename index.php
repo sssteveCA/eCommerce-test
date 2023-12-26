@@ -94,6 +94,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         else header("Location: /");
     }
     else if($uri == '/cancel_payment'){
+        $logged = true;
         if($logged){
             $params = PageResources::CANCEL_GET_LOGGED;
             $params['session'] = $_SESSION;

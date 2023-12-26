@@ -82,7 +82,7 @@ HTML;
                     }
                     $return_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/success.php';
                     $return_url2 = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/success2.php';
-                    $cancel_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/cancel.php';
+                    $cancel_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/cancel_payment';
                     $cancel_url2 = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/cancel2.php';
                     $notify_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/ipn.php';
                     $order = new Ordine($dataO);
