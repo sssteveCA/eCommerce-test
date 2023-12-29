@@ -45,7 +45,7 @@ HTML;
                 <a href="/"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
                 <a href="/">Indietro</a>
             </div>
-            <form id="formReg" method="post" action="/funzioni/nuovoAccount.php">
+            <form id="formReg" method="post" action="/register">
                 <div>
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" id="nome" class="form-control" name="nome" required>

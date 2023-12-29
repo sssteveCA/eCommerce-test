@@ -63,7 +63,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 }//if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESSION['welcome'] != '' && $_SESSION['logged'] === true){
 else{
     http_response_code(401);
-    echo '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    echo '<a href="/">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 
 //Update username field

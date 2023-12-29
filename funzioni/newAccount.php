@@ -93,7 +93,7 @@ else{
     http_response_code(400);
     if($ajax)$response[C::KEY_MESSAGE] = Msg::ERR_REQUIREDFIELDSNOTFILLED;
     else{
-        $response[C::KEY_MESSAGE] = 'Compila correttamente il form alla pagina <a href="../registrati.php">form</a> per eseguire questo script';
+        $response[C::KEY_MESSAGE] = 'Compila correttamente il form alla pagina <a href="/register">form</a> per eseguire questo script';
     }
 }
 

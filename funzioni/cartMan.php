@@ -201,8 +201,8 @@ function printHtml(array $response): string {
     </head>
     <body>
         <div id="indietro">
-            <a href="../carrello.php"><img src="../img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="../carrello.php">Indietro</a>
+            <a href="/cart"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
+            <a href="/cart">Indietro</a>
         </div>
          <div>
             {$response[C::KEY_MESSAGE]}

@@ -87,8 +87,8 @@ function htmlResponse(string $message): string{
     </head>
     <body>
         <div id="indietro">
-            <a href="../inserzioni.php"><img src="../img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="../inserzioni.php">Indietro</a>
+            <a href="/insertions"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
+            <a href="/insertions">Indietro</a>
         </div>
         {$message}
     </body>

@@ -81,7 +81,7 @@ if(isset($_SESSION['logged'],$_SESSION['utente'],$_SESSION['welcome']) && $_SESS
 }
 else{
     http_response_code(401);
-    $response[C::KEY_MESSAGE] = '<a href="../accedi.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    $response[C::KEY_MESSAGE] = '<a href="/">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
 }
 if($ajax){}
 else{
@@ -103,8 +103,8 @@ else{
     </head>
     <body>
         <div id="indietro">
-            <a href="../carrello.php"><img src="../img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="../carrello.php">Indietro</a>
+            <a href="/cart"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
+            <a href="/cart">Indietro</a>
         </div>
          <div>
             <?php echo $response[C::KEY_MESSAGE]; ?>

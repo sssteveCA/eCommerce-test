@@ -43,8 +43,8 @@ interface Messages{
     const ERR_INVALIDDATA = 'Dati incompleti o non validi';
     const ERR_INVALIDOPERATION1 = 'Operazione specificata non valida';
     const ERR_INVALIDOPERATION2 = 'Non è stata scelta alcuna operazione valida';
-    const ERR_LOGIN1 = '<a href="index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
-    const ERR_LOGIN2 = '<a href="../index.php">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    const ERR_LOGIN1 = '<a href="/">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
+    const ERR_LOGIN2 = '<a href="/">Accedi</a> per poter vedere il contenuto di questa pagina<br>';
     const ERR_MYSQLCONN = 'Errore durante la connessione a MySql';
     const ERR_MYSQLQUERY = 'Query errata';
     const ERR_NOINSERTIONUPLOADED = 'Non hai caricato alcun annuncio';
