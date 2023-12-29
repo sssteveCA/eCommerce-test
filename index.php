@@ -31,6 +31,7 @@ use EcommerceTest\Pages\RegisterGet;
 use EcommerceTest\Pages\ResetGet;
 use EcommerceTest\Pages\SearchGet;
 use EcommerceTest\Pages\SuccessLogged;
+use EcommerceTest\Response\SuccessLogged as SuccessLoggedAjax;
 use EcommerceTest\Pages\TermsGuest;
 use EcommerceTest\Pages\TermsLogged;
 use EcommerceTest\Response\ContactsPost;
@@ -398,10 +399,18 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     else if($uri == '/success_payment'){
         if($logged){
-            $params = PageResources::SUCCESS_POST_LOGGED;
-            $params['post'] = $post;
-            $params['session'] = $_SESSION;
-            echo SuccessLogged::content($params);
+            if($ajax){
+                $params = [ 'post' => $post, 'session' => $_SESSION ];
+                $response = SuccessLoggedAjax::content($params);
+                http_response_code($response[C::KEY_CODE]);
+                echo json_encode($response,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                $params = PageResources::SUCCESS_POST_LOGGED;
+                $params['post'] = $post;
+                $params['session'] = $_SESSION;
+                echo SuccessLogged::content($params);
+            }
         }
         else header("Location: /");
     }

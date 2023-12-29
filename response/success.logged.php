@@ -45,24 +45,30 @@ class SuccessPost extends SuccessParent{
                                 ];
                             }
                             else{
+                                $response[C::KEY_CODE] = 500;
                                 $response[C::KEY_MESSAGE] = $ordine->getStrError();
                             }
                         }
                         else{
+                            $response[C::KEY_CODE] = 500;
                             $response[C::KEY_MESSAGE] = $ordine->getStrError();
                         }
                     }
                     else{
+                        $response[C::KEY_CODE] = 400;
                         $response[C::KEY_MESSAGE] = 'Aggiungi al carrello il prodotto e riprova';
                     }
                 }
                 else{
+                    $response[C::KEY_CODE] = 404;
                     $response[C::KEY_MESSAGE] = 'Id ordine inesistente';
                 }
             }
         }catch(Exception $e){
+            $response[C::KEY_CODE] = 500;
             $response[C::KEY_MESSAGE] = $e->getMessage();
         }
+        return $response;
     }
 
 }
