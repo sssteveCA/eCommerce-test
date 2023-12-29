@@ -7,6 +7,18 @@ namespace EcommerceTest\Objects;
  */
 class General{
 
+    /**
+     * custom HTML back link
+     */
+    public static function backLink(string $link, string $image, string $message): array{
+        return <<<HTML
+<div id="indietro">
+    <a href="{$link}"><img src="{$image}" alt="indietro" title="indietro"></a>
+    <a href="{}$link">{$message}</a>
+</div>
+HTML;
+    }
+
         /**
      * Create an HTML page
      * @param string $title page title
