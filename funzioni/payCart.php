@@ -102,10 +102,9 @@ else{
         </style>
     </head>
     <body>
-        <div id="indietro">
-            <a href="/cart"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="/cart">Indietro</a>
-        </div>
+<?php 
+    echo General::backLink("/cart","/img/altre/indietro.png","Indietro");
+?>
          <div>
             <?php echo $response[C::KEY_MESSAGE]; ?>
          </div>

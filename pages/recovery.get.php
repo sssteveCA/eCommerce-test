@@ -3,6 +3,7 @@
 namespace EcommerceTest\Pages;
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarGuest;
+use EcommerceTest\Objects\General;
 
 /**
  * Password recovery form
@@ -35,11 +36,8 @@ HTML;
     <body>
 HTML;
         $html .= NavbarGuest::content();
+        $html .= General::backLink("/","/img/altre/indietro.png","Indietro");
         $html .= <<<HTML
-        <div id="indietro">
-                <a href="/"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
-                <a href="/">Indietro</a>
-            </div>
         <div class="my-container">
             <fieldset id="dRecupera">
                 <legend class="text-center pb-4">Recupera il tuo account</legend>

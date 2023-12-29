@@ -3,6 +3,7 @@
 use Dotenv\Dotenv;
 use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Interfaces\Messages as Msg;
+use EcommerceTest\Objects\General;
 
 session_start();
 
@@ -86,10 +87,9 @@ function htmlResponse(string $message): string{
         </style>
     </head>
     <body>
-        <div id="indietro">
-            <a href="/insertions"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="/insertions">Indietro</a>
-        </div>
+HTML;
+    $html .= General::backLink("/insertions","/img/altre/indietro.png","Indietro");
+    $html .= <<<HTML
         {$message}
     </body>
 </html>

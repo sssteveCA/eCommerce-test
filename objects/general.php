@@ -10,11 +10,11 @@ class General{
     /**
      * custom HTML back link
      */
-    public static function backLink(string $link, string $image, string $message): array{
+    public static function backLink(string $link, string $image, string $message): string{
         return <<<HTML
 <div id="indietro">
     <a href="{$link}"><img src="{$image}" alt="indietro" title="indietro"></a>
-    <a href="{}$link">{$message}</a>
+    <a href="{$link}">{$message}</a>
 </div>
 HTML;
     }

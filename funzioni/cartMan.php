@@ -13,6 +13,7 @@ use EcommerceTest\Objects\Prodotto;
 use EcommerceTest\Objects\Utente;
 use EcommerceTest\Objects\Carrello;
 use EcommerceTest\Interfaces\Constants as C;
+use EcommerceTest\Objects\General;
 
 $input = file_get_contents("php://input");
 $post = json_decode($input,true);
@@ -200,10 +201,9 @@ function printHtml(array $response): string {
         </style>
     </head>
     <body>
-        <div id="indietro">
-            <a href="/cart"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
-            <a href="/cart">Indietro</a>
-        </div>
+HTML;
+    $html .= General::backLink("/cart","/img/altre/indietro.png","Indietro");
+    $html .=  <<<HTML
          <div>
             {$response[C::KEY_MESSAGE]}
          </div>

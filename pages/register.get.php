@@ -4,6 +4,7 @@ namespace EcommerceTest\Pages;
 
 use EcommerceTest\Pages\Partials\Footer;
 use EcommerceTest\Pages\Partials\NavbarGuest;
+use EcommerceTest\Objects\General;
 
 /**
  * HTML register form class
@@ -41,10 +42,9 @@ HTML;
             <div class="header d-flex align-items-center py-2">
                 <h1 class="w-100 text-center">Registrati</h1>
             </div>
-            <div id="indietro">
-                <a href="/"><img src="/img/altre/indietro.png" alt="indietro" title="indietro"></a>
-                <a href="/">Indietro</a>
-            </div>
+HTML;
+        $html .= General::backLink("/","/img/altre/indietro.png","Indietro");
+        $html .= <<<HTML
             <form id="formReg" method="post" action="/register">
                 <div>
                     <label for="nome" class="form-label">Nome</label>
